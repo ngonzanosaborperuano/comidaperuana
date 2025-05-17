@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "615495880468",
+    "project_id": "recetas-6a516",
+    "storage_bucket": "recetas-6a516.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615495880468:android:8b8e1ab4ff1668b5123c01",
+        "android_client_info": {
+          "package_name": "com.ngonzano.comidaperuana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ngonzano.comidaperuana",
+            "certificate_hash": "5fb01ec5af1202d7fc932dd172b2ee1111fd1d97"
+          }
+        },
+        {
+          "client_id": "615495880468-gem0v2q5go252a17s8r6mr3j8cdqt7uh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNayOOzzxC_RGCI5uMG30yepUoEVF9fx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615495880468-gem0v2q5go252a17s8r6mr3j8cdqt7uh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
