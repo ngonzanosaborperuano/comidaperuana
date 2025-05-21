@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/config.dart';
 import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
-import 'package:go_router/go_router.dart';
 
 class ModalView extends StatelessWidget {
   const ModalView({
@@ -64,11 +64,7 @@ class ModalView extends StatelessWidget {
             ],
             if (child != null) ...[child!, AppVerticalSpace.md],
             if (onSaved != null) ...[
-              AppButton(
-                showIcon: false,
-                text: saveText,
-                onPressed: () => onSaved!(context),
-              ),
+              AppButton(showIcon: false, text: saveText, onPressed: () => onSaved!(context)),
               AppVerticalSpace.md,
             ],
             if (showCancelButton) ...[
@@ -88,18 +84,12 @@ class ModalView extends StatelessWidget {
             if (onSaved != null)
               CupertinoActionSheetAction(
                 onPressed: () => onSaved!(context),
-                child: Text(
-                  saveText,
-                  style: TextStyle(color: CupertinoColors.activeBlue),
-                ),
+                child: Text(saveText, style: TextStyle(color: CupertinoColors.activeBlue)),
               ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: context.pop,
-            child: Text(
-              cancelText,
-              style: TextStyle(color: CupertinoColors.destructiveRed),
-            ),
+            child: Text(cancelText, style: TextStyle(color: CupertinoColors.destructiveRed)),
           ),
         )
         : content;

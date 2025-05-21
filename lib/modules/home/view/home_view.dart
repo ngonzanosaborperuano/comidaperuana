@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:lottie/lottie.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/widget/widget.dart' show CardTask;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/text_widget.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.con});
@@ -36,6 +37,40 @@ class HomeView extends StatelessWidget {
                           width: size.width,
                           height: size.height * 0.3,
                         ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final theme = Theme.of(context);
+                            final uri =
+                                'https://sandbox.mercadopago.com.pe/checkout/v1/redirect?pref_id=1258945087-382ec2c2-f085-4f54-9ab7-dc60a86e9126';
+                            try {
+                              await launchUrl(
+                                Uri.parse(uri),
+                                prefersDeepLink: true,
+                                customTabsOptions: CustomTabsOptions(
+                                  colorSchemes: CustomTabsColorSchemes.defaults(
+                                    toolbarColor: theme.colorScheme.surface,
+                                  ),
+                                  urlBarHidingEnabled: true,
+                                  showTitle: false,
+                                  closeButton: CustomTabsCloseButton(
+                                    icon: CustomTabsCloseButtonIcons.back,
+                                  ),
+                                  shareState: CustomTabsShareState.browserDefault,
+                                ),
+                                safariVCOptions: SafariViewControllerOptions(
+                                  preferredBarTintColor: Colors.amber,
+                                  preferredControlTintColor: Colors.white,
+                                  barCollapsingEnabled: false,
+                                  dismissButtonStyle: SafariViewControllerDismissButtonStyle.cancel,
+                                ),
+                              );
+                            } catch (e) {
+                              debugPrint(e.toString());
+                            }
+                          },
+                          child: Text('data'),
+                        ),
+                        ElevatedButton(onPressed: () {}, child: Text('data')),
                         const SizedBox(height: 20),
                         Center(child: AppText(text: context.loc.noNote)),
                       ],

@@ -5,7 +5,7 @@ enum Routes {
   register._('/register'),
   home._('/home'),
   setting._('/home/setting', 'setting'),
-  dashboard._('/home/dashboard','dashboard');
+  dashboard._('/home/dashboard', 'dashboard');
 
   const Routes._(this.description, [this.endpoint = '']);
 

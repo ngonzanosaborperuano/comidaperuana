@@ -1,27 +1,29 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/network/dio_client.dart';
 import 'package:recetasperuanas/core/network/models/api_response.dart';
-import 'package:logging/logging.dart';
 
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 
 class ApiService {
   // final Dio _dio = DioClient().dio;
-  final _dio = DioClient(baseUrl: dotenv.env['API']!).dio;
+  final _api = dotenv.env['API']!;
   final _logger = Logger('ApiService');
 
   Future<ApiResponse<List<T>>> getList<T>({
     required String endpoint,
     required FromJson<T> fromJson,
     Map<String, dynamic>? queryParameters,
+    String? authorization,
   }) async {
     try {
-      final response = await _dio.get<List<dynamic>>(
-        endpoint,
-        queryParameters: queryParameters,
-      );
+      final response = await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.get<List<dynamic>>(endpoint, queryParameters: queryParameters);
       final data = response.data;
 
       if (data == null) {
@@ -44,13 +46,14 @@ class ApiService {
     required String endpoint,
     required FromJson<T> fromJson,
     Map<String, dynamic>? queryParameters,
+    String? authorization,
   }) async {
     assert(T is! List, 'Use `getList` for list responses');
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
-        endpoint,
-        queryParameters: queryParameters,
-      );
+      final response = await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.get<Map<String, dynamic>>(endpoint, queryParameters: queryParameters);
       final data = response.data?['data'] ?? {};
       return ApiResponse.success(data: data == null ? null : fromJson(data));
     } catch (error, stackTrace) {
@@ -58,13 +61,19 @@ class ApiService {
     }
   }
 
-  Future<ApiResponse<dynamic>> post({
+  Future<ApiResponse<T?>> post<T>({
     required String endpoint,
-    Map<String, dynamic>? data,
+    Map<String, dynamic>? body,
+    String? authorization,
+    required FromJson<T> fromJson,
   }) async {
     try {
-      final result = await _dio.post<dynamic>(endpoint, data: data);
-      return ApiResponse(data: result);
+      final result = await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.post<Map<String, dynamic>>(endpoint, data: body);
+      final data = result.data?['data'] ?? {};
+      return ApiResponse.success(data: data == null ? null : fromJson(data));
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
     }
@@ -73,9 +82,13 @@ class ApiService {
   Future<ApiResponse<dynamic>> put({
     required String endpoint,
     Map<String, dynamic>? data,
+    String? authorization,
   }) async {
     try {
-      await _dio.put<dynamic>(endpoint, data: data);
+      await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.put<dynamic>(endpoint, data: data);
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -85,9 +98,13 @@ class ApiService {
   Future<ApiResponse<dynamic>> putList({
     required String endpoint,
     required List<Map<String, dynamic>> data,
+    String? authorization,
   }) async {
     try {
-      await _dio.put<dynamic>(endpoint, data: data);
+      await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.put<dynamic>(endpoint, data: data);
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -97,9 +114,13 @@ class ApiService {
   Future<ApiResponse<dynamic>> delete({
     required String endpoint,
     Map<String, dynamic>? data,
+    String? authorization,
   }) async {
     try {
-      await _dio.delete<dynamic>(endpoint, data: data);
+      await DioClient(
+        baseUrl: _api,
+        authorization: authorization,
+      ).dio.delete<dynamic>(endpoint, data: data);
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -136,11 +157,7 @@ class ApiService {
               .join('\n');
         }
       } catch (e, stackTrace) {
-        _logger.severe(
-          'Error al mapear el mensaje de error: $data',
-          e,
-          stackTrace,
-        );
+        _logger.severe('Error al mapear el mensaje de error: $data', e, stackTrace);
       }
     }
     return 'Error desconocido en la respuesta';

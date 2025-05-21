@@ -131,12 +131,6 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get email;
 
-  /// No description provided for @enterEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter an email'**
-  String get enterEmail;
-
   /// No description provided for @password.
   ///
   /// In en, this message translates to:
@@ -232,6 +226,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register Now'**
   String get registerNow;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an email'**
+  String get enterEmail;
 
   /// No description provided for @repeatPassword.
   ///
@@ -329,11 +329,11 @@ abstract class AppLocalizations {
   /// **'Title'**
   String get title;
 
-  /// No description provided for @addTask.
+  /// No description provided for @searchRecipe.
   ///
   /// In en, this message translates to:
-  /// **'Add task'**
-  String get addTask;
+  /// **'search recipe'**
+  String get searchRecipe;
 
   /// No description provided for @searchTitle.
   ///
@@ -430,6 +430,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'or'**
   String get or;
+
+  /// No description provided for @userPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Username and password'**
+  String get userPass;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @enterFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter fullname'**
+  String get enterFullName;
+
+  /// No description provided for @onboardingTitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Fresh and Delicious Meals'**
+  String get onboardingTitle1;
+
+  /// No description provided for @onboardingSubtitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover healthy and tasty recipes every day.'**
+  String get onboardingSubtitle1;
+
+  /// No description provided for @onboardingTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Cook at Home'**
+  String get onboardingTitle2;
+
+  /// No description provided for @onboardingSubtitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Find recipes to cook yourself.'**
+  String get onboardingSubtitle2;
+
+  /// No description provided for @onboardingTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Chef Recipes & Traditional Dishes'**
+  String get onboardingTitle3;
+
+  /// No description provided for @onboardingSubtitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore chef-created recipes and traditional flavors from around the world.'**
+  String get onboardingSubtitle3;
+
+  /// No description provided for @onboardingTitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Cocinando!'**
+  String get onboardingTitle4;
+
+  /// No description provided for @onboardingSubtitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Use AI to discover what to cook with the ingredients you already have at home.'**
+  String get onboardingSubtitle4;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

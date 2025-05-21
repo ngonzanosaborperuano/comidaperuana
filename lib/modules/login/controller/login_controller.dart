@@ -1,15 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
-
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
-import 'package:logging/logging.dart';
-
 class LoginController extends BaseController {
-  LoginController({required UserRepository userRepository})
-    : _userRepository = userRepository {
+  LoginController({required UserRepository userRepository}) : _userRepository = userRepository {
     _logger.info('LoginController initialized');
   }
 
@@ -23,16 +20,11 @@ class LoginController extends BaseController {
   TextEditingController passwordController = TextEditingController();
   ISecureStorageService secureStorageService = SecurityStorageService();
 
-  Future<bool?> login(AuthUser user) async {
+  Future<bool?> login({required AuthUser user, required int type}) async {
     try {
-      // final userData = await secureStorageService.loadCredentials();
-      // if (userData?.id == null) {
-      //   return false;
-      // }
-      final result = await _userRepository.login(user);
+      final result = await _userRepository.login(user: user, type: type);
       _logger.info('Resultado de inicio de sesión: $result');
       if (result == null || result == false) {
-        _logger.info('Error al iniciar sesión');
         return false;
       }
       passwordController.clear();

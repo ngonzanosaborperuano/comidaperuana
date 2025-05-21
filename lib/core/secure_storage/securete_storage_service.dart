@@ -1,9 +1,8 @@
 import 'package:encrypt/encrypt.dart';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:logging/logging.dart';
+import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 
 final secretKey = dotenv.env['SECRET_KEY']!;
 
@@ -14,8 +13,7 @@ class SecurityStorageService implements ISecureStorageService {
 
   SecurityStorageService._internal();
   final storage = const FlutterSecureStorage();
-  static final SecurityStorageService _instance =
-      SecurityStorageService._internal();
+  static final SecurityStorageService _instance = SecurityStorageService._internal();
 
   final _logger = Logger('SecurityStorageService');
   final key = Key.fromUtf8(secretKey);
@@ -48,35 +46,29 @@ class SecurityStorageService implements ISecureStorageService {
 
   @override
   Future<void> saveCredentials(AuthUser credentials) async {
-    if (credentials.id != null) {
-      await storage.write(key: 'id', value: credentials.id.toString());
-    }
-
+    await storage.write(key: 'id', value: credentials.id.toString());
+    await storage.write(key: 'nombreCompleto', value: credentials.nombreCompleto);
     await storage.write(key: 'email', value: credentials.email);
+    await storage.write(key: 'foto', value: credentials.foto);
 
-    // Encriptar y guardar contraseña
-    final encryptedPassword = encrypt(credentials.password);
+    final encryptedPassword = encrypt(credentials.contrasena!);
     await storage.write(key: 'password', value: encryptedPassword);
 
-    // Encriptar y guardar token
-    final encryptedToken = encrypt(credentials.token!);
-    await storage.write(key: 'token', value: encryptedToken);
+    final encryptedToken = encrypt(credentials.sessionToken!);
+    await storage.write(key: 'sessionToken', value: encryptedToken);
   }
 
   @override
   Future<AuthUser?> loadCredentials() async {
     final id = await storage.read(key: 'id');
+    final nombreCompleto = await storage.read(key: 'nombreCompleto');
+    final foto = await storage.read(key: 'foto');
     final email = await storage.read(key: 'email');
     final encryptedPassword = await storage.read(key: 'password');
-    final encryptedToken = await storage.read(key: 'token');
+    final encryptedToken = await storage.read(key: 'sessionToken');
 
-    // Desencriptar la contraseña
-    final String? password =
-        encryptedPassword != null ? decrypt(encryptedPassword) : null;
-
-    // Desencriptar el token
-    final String? token =
-        encryptedToken != null ? decrypt(encryptedToken) : null;
+    final String? password = encryptedPassword != null ? decrypt(encryptedPassword) : null;
+    final String? sessionToken = encryptedToken != null ? decrypt(encryptedToken) : null;
 
     if (encryptedToken == null) {
       return AuthUser.empty();
@@ -85,17 +77,22 @@ class SecurityStorageService implements ISecureStorageService {
     return AuthUser(
       id: int.tryParse(id!),
       email: email!,
-      password: password!,
-      token: token,
+      contrasena: password!,
+      sessionToken: sessionToken,
+      nombreCompleto: nombreCompleto,
+      foto: foto,
     );
   }
 
   @override
   Future<void> deleteCredentials() async {
     // await storage.delete(key: 'id');
-    await storage.delete(key: 'email');
-    await storage.delete(key: 'password');
-    await storage.delete(key: 'token');
+    // await storage.delete(key: 'email');
+    // await storage.delete(key: 'password');
+    // await storage.delete(key: 'token');
+    // await storage.delete(key: 'nombreCompleto');
+    // await storage.delete(key: 'foto');
+    await storage.deleteAll();
   }
 }
 

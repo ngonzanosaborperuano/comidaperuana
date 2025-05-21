@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId = "com.ngonzano.comidaperuana"
-        minSdk = 21 // o flutter.minSdkVersion
+        minSdk = 23 // o flutter.minSdkVersion
         targetSdk = 35 // o flutter.targetSdkVersion
-        versionCode = 1 // o flutter.versionCode
-        versionName = "1.0" // o flutter.versionName
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     compileOptions {

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
 
 class AppButton extends StatelessWidget {
@@ -36,14 +35,10 @@ class AppButton extends StatelessWidget {
       colorSecondary = AppColorScheme.of(context).primary;
     } else {
       colorPrimary =
-          isCancel
-              ? AppColorScheme.of(context).secondary
-              : AppColorScheme.of(context).primary;
+          isCancel ? AppColorScheme.of(context).secondary : AppColorScheme.of(context).primary;
 
       colorSecondary =
-          isCancel
-              ? AppColorScheme.of(context).primary
-              : AppColorScheme.of(context).secondary;
+          isCancel ? AppColorScheme.of(context).primary : AppColorScheme.of(context).secondary;
     }
 
     return Theme.of(context).platform == TargetPlatform.iOS
@@ -51,24 +46,17 @@ class AppButton extends StatelessWidget {
         : _buildMaterialButton(context, colorPrimary, colorSecondary);
   }
 
-  Widget _buildMaterialButton(
-    BuildContext context,
-    Color colorPrimary,
-    Color colorSecundary,
-  ) {
+  Widget _buildMaterialButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
     return ElevatedButton(
       onPressed: enabledButton ? onPressed : null,
       style: ButtonStyle(
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-          EdgeInsets.all(15),
-        ),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(15)),
         backgroundColor: WidgetStateProperty.all(colorSecundary),
         foregroundColor: WidgetStateProperty.all(colorSecundary),
         overlayColor: WidgetStateProperty.all(colorSecundary),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius:
-                rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+            borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
             side: BorderSide(color: context.color.secondary),
           ),
         ),
@@ -78,11 +66,7 @@ class AppButton extends StatelessWidget {
     );
   }
 
-  Widget _buildCupertinoButton(
-    BuildContext context,
-    Color colorPrimary,
-    Color colorSecundary,
-  ) {
+  Widget _buildCupertinoButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
     return CupertinoButton(
       onPressed: enabledButton ? onPressed : null,
       color: colorSecundary,
@@ -103,11 +87,7 @@ class AppButton extends StatelessWidget {
         ],
         Text(
           text,
-          style: TextStyle(
-            color: colorSecundary,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: colorSecundary, fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ],
     );

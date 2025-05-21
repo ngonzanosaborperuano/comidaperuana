@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/modules/welcome/view/welcome_view.dart';
-
 import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -13,10 +12,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferencesHelper.instance.setBool(
-      CacheConstants.welcome,
-      value: true,
-    );
-    return AppScaffold(body: WelcomeView());
+    SharedPreferencesHelper.instance.setBool(CacheConstants.welcome, value: true);
+    return AppScaffold(body: WelcomeView(), showAppBar: false);
   }
 }

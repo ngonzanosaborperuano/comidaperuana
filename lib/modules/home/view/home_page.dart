@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/color/app_colors.dart';
@@ -13,13 +15,9 @@ import 'package:recetasperuanas/shared/utils/util.dart';
 import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
 import 'package:recetasperuanas/shared/widget/app_modal.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
-import 'package:recetasperuanas/shared/widget/app_switch.dart';
 import 'package:recetasperuanas/shared/widget/app_textfield.dart';
 import 'package:recetasperuanas/shared/widget/app_textfield_search.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
-import 'package:recetasperuanas/shared/widget/text_widget.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,10 +25,7 @@ class HomePage extends StatefulWidget {
     return HomePage(key: const Key('home_page'));
   }
   Future<bool?> show(BuildContext context) async {
-    return showAdaptiveDialog<bool>(
-      context: context,
-      builder: (context) => this,
-    );
+    return showAdaptiveDialog<bool>(context: context, builder: (context) => this);
   }
 
   @override
@@ -52,11 +47,8 @@ class _HomePageState extends State<HomePage> {
       create: (BuildContext context) {
         return HomeController(
           userRepository: context.read<UserRepository>(),
-          taskRepository: TaskRepository(
-            DatabaseHelper.instance,
-            apiService: ApiService(),
-          ),
-        )..allTask();
+          taskRepository: TaskRepository(DatabaseHelper.instance, apiService: ApiService()),
+        )..allRecipes();
       },
       child: Consumer<HomeController>(
         builder: (_, HomeController con, __) {
@@ -66,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               textController: searchController,
               onPressed: () {
                 searchController.clear();
-                con.allTask();
+                con.allRecipes();
               },
               onChanged: (value) {
                 con.searchTask(value);
@@ -75,30 +67,27 @@ class _HomePageState extends State<HomePage> {
             showFloatingButton: true,
             body: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppText(text: context.loc.listPending),
-                      ValueListenableBuilder(
-                        valueListenable: con.isPending,
-                        builder: (_, isPending, __) {
-                          return AppSwitch(
-                            value: isPending ?? false,
-                            onChanged: (value) {
-                              con.isPending.value = value;
-                              con.searchCompleted();
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       AppText(text: context.loc.listPending),
+                //       ValueListenableBuilder(
+                //         valueListenable: con.isPending,
+                //         builder: (_, isPending, __) {
+                //           return AppSwitch(
+                //             value: isPending ?? false,
+                //             onChanged: (value) {
+                //               con.isPending.value = value;
+                //               con.searchCompleted();
+                //             },
+                //           );
+                //         },
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Expanded(child: HomeView(con: con)),
               ],
             ),

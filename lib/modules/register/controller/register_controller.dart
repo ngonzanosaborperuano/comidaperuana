@@ -1,12 +1,11 @@
 import 'package:flutter/widgets.dart';
+import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:logging/logging.dart';
 
 class RegisterController extends BaseController {
-  RegisterController({required UserRepository userRepository})
-    : _userRepository = userRepository;
+  RegisterController({required UserRepository userRepository}) : _userRepository = userRepository;
   @override
   String get name => 'RegisterController';
 
@@ -16,6 +15,7 @@ class RegisterController extends BaseController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
 
   Future<bool?> register(AuthUser user) async {
     try {

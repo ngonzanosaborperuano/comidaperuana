@@ -1,20 +1,30 @@
 import 'package:dio/dio.dart';
-
 import 'package:logging/logging.dart';
 
 final _logger = Logger('DioClient');
 
 class DioClient {
-  factory DioClient({required String baseUrl}) =>
-      _instances.putIfAbsent(baseUrl, () => DioClient._internal(baseUrl));
+  factory DioClient({required String baseUrl, String? authorization}) => _instances.putIfAbsent(
+    baseUrl,
+    () => DioClient._internal(baseUrl, authorization: authorization),
+  );
 
-  DioClient._internal(String baseUrl) {
+  DioClient._internal(String baseUrl, {String? authorization}) {
+    var headers = <String, String>{};
+    if (authorization == null) {
+      headers = <String, String>{'Content-Type': 'application/json'};
+    } else {
+      headers = <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': authorization,
+      };
+    }
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
-        headers: {'Content-Type': 'application/json'},
+        headers: headers,
       ),
     );
 

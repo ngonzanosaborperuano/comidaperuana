@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/config.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/spacing/app_spacer.dart';
 import 'package:recetasperuanas/shared/widget/text_widget.dart';
-import 'package:go_router/go_router.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -19,6 +19,7 @@ class AppScaffold extends StatelessWidget {
     super.key,
     this.toolbarHeight = 70,
     this.onPressed,
+    this.showAppBar = true,
   });
 
   final Widget? title;
@@ -30,6 +31,7 @@ class AppScaffold extends StatelessWidget {
   final bool showFloatingButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final void Function()? onPressed;
+  final bool showAppBar;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +39,7 @@ class AppScaffold extends StatelessWidget {
 
     return SafeArea(
       bottom: false,
-      child:
-          isIOS
-              ? _buildCupertinoScaffold(context)
-              : _buildMaterialScaffold(context),
+      child: isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context),
     );
   }
 
@@ -54,12 +53,7 @@ class AppScaffold extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
-                    left: 10,
-                    right: 10,
-                  ),
+                  padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -83,10 +77,7 @@ class AppScaffold extends StatelessWidget {
                               context: context,
                               builder:
                                   (_) => CupertinoActionSheet(
-                                    title: const Text(
-                                      'Menú',
-                                      style: AppStyles.h2TextBlack,
-                                    ),
+                                    title: const Text('Menú', style: AppStyles.h2TextBlack),
                                     actions: [customDrawer!],
                                     cancelButton: CupertinoActionSheetAction(
                                       isDefaultAction: false,
@@ -137,13 +128,10 @@ class AppScaffold extends StatelessWidget {
                     onPressed: onPressed,
                     child: Row(
                       children: [
-                        Icon(
-                          CupertinoIcons.add,
-                          color: AppColorScheme.of(context).textPrimary,
-                        ),
+                        Icon(CupertinoIcons.search, color: AppColorScheme.of(context).textPrimary),
                         AppHorizontalSpace.sm,
                         AppText(
-                          text: context.loc.addTask,
+                          text: context.loc.searchRecipe,
                           color: AppColorScheme.of(context).textPrimary,
                         ),
                       ],
@@ -160,30 +148,33 @@ class AppScaffold extends StatelessWidget {
   Widget _buildMaterialScaffold(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        centerTitle: true,
-        forceMaterialTransparency: true,
-        elevation: 0,
-        leadingWidth: 36,
-        title: title,
-        toolbarHeight: toolbarHeight,
-        leading:
-            onBackPressed != null
-                ? IconButton(
-                  onPressed: onBackPressed,
-                  padding: EdgeInsets.zero,
-                  icon: const Icon(Icons.arrow_back),
-                )
-                : (customDrawer != null
-                    ? Builder(
-                      builder:
-                          (context) => IconButton(
-                            onPressed: () => Scaffold.of(context).openDrawer(),
-                            icon: const Icon(Icons.menu),
-                          ),
-                    )
-                    : null),
-      ),
+      appBar:
+          showAppBar
+              ? AppBar(
+                centerTitle: true,
+                forceMaterialTransparency: true,
+                elevation: 0,
+                leadingWidth: 36,
+                title: title,
+                toolbarHeight: toolbarHeight,
+                leading:
+                    onBackPressed != null
+                        ? IconButton(
+                          onPressed: onBackPressed,
+                          padding: EdgeInsets.zero,
+                          icon: const Icon(Icons.arrow_back),
+                        )
+                        : (customDrawer != null
+                            ? Builder(
+                              builder:
+                                  (context) => IconButton(
+                                    onPressed: () => Scaffold.of(context).openDrawer(),
+                                    icon: const Icon(Icons.menu),
+                                  ),
+                            )
+                            : null),
+              )
+              : null,
       drawer: customDrawer != null ? Drawer(child: customDrawer) : null,
       body: body,
       floatingActionButton:
@@ -193,13 +184,10 @@ class AppScaffold extends StatelessWidget {
                 onPressed: onPressed,
                 label: Row(
                   children: [
-                    Icon(
-                      Icons.add,
-                      color: AppColorScheme.of(context).textPrimary,
-                    ),
+                    Icon(Icons.search, color: AppColorScheme.of(context).textPrimary),
                     AppHorizontalSpace.sm,
                     AppText(
-                      text: context.loc.addTask,
+                      text: context.loc.searchRecipe,
                       color: AppColorScheme.of(context).textPrimary,
                     ),
                   ],

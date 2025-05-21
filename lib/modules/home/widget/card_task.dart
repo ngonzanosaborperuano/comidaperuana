@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/color/app_colors.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
@@ -11,7 +12,6 @@ import 'package:recetasperuanas/shared/widget/app_textfield.dart';
 import 'package:recetasperuanas/shared/widget/spacing/app_spacer.dart';
 import 'package:recetasperuanas/shared/widget/spacing/app_spacing.dart';
 import 'package:recetasperuanas/shared/widget/text_widget.dart';
-import 'package:go_router/go_router.dart';
 
 class CardTask extends StatelessWidget {
   const CardTask({super.key, required this.itemTask, required this.con});
@@ -34,10 +34,7 @@ class CardTask extends StatelessWidget {
             AppColorScheme.of(context).warnnig,
           ],
         ),
-        border: Border.all(
-          width: 1,
-          color: AppColorScheme.of(context).textSecundary,
-        ),
+        border: Border.all(width: 1, color: AppColorScheme.of(context).textSecundary),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
@@ -77,10 +74,7 @@ class CardTask extends StatelessWidget {
           onPressed: () async {
             await onPressedUpdate(context, con, itemTask);
           },
-          icon: Icon(
-            Icons.mode_edit_outlined,
-            color: AppColorScheme.of(context).success,
-          ),
+          icon: Icon(Icons.mode_edit_outlined, color: AppColorScheme.of(context).success),
         ),
         IconButton(
           onPressed: () async {
@@ -89,18 +83,11 @@ class CardTask extends StatelessWidget {
             showCustomSnackBar(
               context: context,
               message: '${context.loc.messageDeleteNote} ${itemTask.id}',
-              backgroundColor:
-                  result
-                      ? AppColors.success
-                      : AppColorScheme.of(context).errorPrimary,
+              backgroundColor: result ? AppColors.success : AppColorScheme.of(context).errorPrimary,
               foregroundColor: AppColors.white,
             );
           },
-          icon: Icon(
-            Icons.delete_outline,
-            size: 30,
-            color: AppColors.secondaryRedDark,
-          ),
+          icon: Icon(Icons.delete_outline, size: 30, color: AppColors.secondaryRedDark),
         ),
       ],
     );

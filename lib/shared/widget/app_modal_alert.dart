@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/config.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
-import 'package:go_router/go_router.dart';
 
 class AppModalAlert extends StatelessWidget {
   const AppModalAlert({
@@ -44,11 +44,7 @@ class AppModalAlert extends StatelessWidget {
         );
   }
 
-  Widget _buildMaterialDialog(
-    BuildContext context,
-    Color dialogColor,
-    Color textColor,
-  ) {
+  Widget _buildMaterialDialog(BuildContext context, Color dialogColor, Color textColor) {
     return Dialog(
       surfaceTintColor: dialogColor,
       shape: RoundedRectangleBorder(
@@ -65,11 +61,7 @@ class AppModalAlert extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    icon,
-                    size: 24,
-                    color: AppColorScheme.of(context).errorPrimary,
-                  ),
+                  Icon(icon, size: 24, color: AppColorScheme.of(context).errorPrimary),
                   AppHorizontalSpace.sm,
                   Expanded(
                     child: Text(
@@ -103,11 +95,7 @@ class AppModalAlert extends StatelessWidget {
     );
   }
 
-  Widget _buildCupertinoDialog(
-    BuildContext context,
-    Color dialogColor,
-    Color textColor,
-  ) {
+  Widget _buildCupertinoDialog(BuildContext context, Color dialogColor, Color textColor) {
     return CupertinoAlertDialog(
       title:
           title != null
@@ -132,10 +120,7 @@ class AppModalAlert extends StatelessWidget {
       actions: [
         CupertinoDialogAction(
           onPressed: onPressed ?? () => context.pop(),
-          child: Text(
-            labelButton ?? context.loc.accept,
-            style: TextStyle(color: AppColors.error),
-          ),
+          child: Text(labelButton ?? context.loc.accept, style: TextStyle(color: AppColors.error)),
         ),
       ],
     );

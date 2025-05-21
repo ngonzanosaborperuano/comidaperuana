@@ -8,28 +8,45 @@ class AuthUser extends Equatable {
   const AuthUser({
     this.id,
     required this.email,
-    required this.password,
-    this.token,
+    this.nombreCompleto,
+    this.contrasena,
+    this.sessionToken,
+    this.foto,
   });
 
-  factory AuthUser.fromJson(Map<String, dynamic> json) =>
-      _$AuthUserFromJson(json);
+  factory AuthUser.fromJson(Map<String, dynamic> json) => _$AuthUserFromJson(json);
 
   final int? id;
+  final String? nombreCompleto;
   final String email;
-  final String password;
-  final String? token;
+  final String? contrasena;
+  final String? sessionToken;
+  final String? foto;
 
   Map<String, dynamic> toJson() => _$AuthUserToJson(this);
 
   AuthUser toModel() {
-    return AuthUser(id: id, email: email, password: password, token: token);
+    return AuthUser(
+      id: id,
+      email: email,
+      contrasena: contrasena,
+      nombreCompleto: nombreCompleto,
+      sessionToken: sessionToken,
+      foto: foto,
+    );
   }
 
   static AuthUser empty() {
-    return const AuthUser(id: 0, email: '', password: '', token: '');
+    return const AuthUser(
+      id: 0,
+      email: '',
+      foto: '',
+      contrasena: '',
+      sessionToken: '',
+      nombreCompleto: '',
+    );
   }
 
   @override
-  List<Object?> get props => [id, email, password, token];
+  List<Object?> get props => [id, email, contrasena, sessionToken, nombreCompleto, foto];
 }

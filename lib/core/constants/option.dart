@@ -1,10 +1,10 @@
-enum BaseUrl {
-  reqRel._(reqReslUrl),
-  jsonPlaceHolder._(jsonPlaceHolderUrl);
+enum LoginWith {
+  google._(withGoogle),
+  userPassword._(withUserPassword);
 
-  const BaseUrl._(this.key);
+  const LoginWith._(this.key);
   final int key;
 
-  static const reqReslUrl = 0;
-  static const jsonPlaceHolderUrl = 1;
+  static const withGoogle = 0;
+  static const withUserPassword = 1;
 }

@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/l10n/app_localizations.dart';
 import 'package:recetasperuanas/shared/helpers/modal_view.dart';
 import 'package:recetasperuanas/shared/widget/app_modal_alert.dart';
-import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
-import 'package:meta/meta.dart';
 
 part 'notifications.dart';
 
@@ -73,9 +73,9 @@ class BaseController extends ChangeNotifier with _NotificationsNotifier {
       errors.add(context.loc.anyNumber);
     }
 
-    if (!RegExp(r'^(?=.*[@$!%*?&])').hasMatch(value)) {
-      errors.add(context.loc.specialCharacter);
-    }
+    // if (!RegExp(r'^(?=.*[@$!%*?&])').hasMatch(value)) {
+    //   errors.add(context.loc.specialCharacter);
+    // }
 
     if (errors.isEmpty) {
       return null;
@@ -104,7 +104,7 @@ class BaseController extends ChangeNotifier with _NotificationsNotifier {
 extension LocalizationExtensionColor on BuildContext {
   AppColorScheme get color => AppColorScheme.of(this);
 }
+
 extension LocalizationExtension on BuildContext {
   AppLocalizations get loc => AppLocalizations.of(this)!;
 }
-

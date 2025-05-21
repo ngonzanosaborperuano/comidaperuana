@@ -27,9 +27,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email';
 
   @override
-  String get enterEmail => 'Enter an email';
-
-  @override
   String get password => 'Password';
 
   @override
@@ -76,6 +73,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerNow => 'Register Now';
+
+  @override
+  String get enterEmail => 'Enter an email';
 
   @override
   String get repeatPassword => 'Repeat password';
@@ -126,7 +126,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get title => 'Title';
 
   @override
-  String get addTask => 'Add task';
+  String get searchRecipe => 'search recipe';
 
   @override
   String get searchTitle => 'Search by title';
@@ -175,4 +175,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get or => 'or';
+
+  @override
+  String get userPass => 'Username and password';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get enterFullName => 'Enter fullname';
+
+  @override
+  String get onboardingTitle1 => 'Fresh and Delicious Meals';
+
+  @override
+  String get onboardingSubtitle1 => 'Discover healthy and tasty recipes every day.';
+
+  @override
+  String get onboardingTitle2 => 'Cook at Home';
+
+  @override
+  String get onboardingSubtitle2 => 'Find recipes to cook yourself.';
+
+  @override
+  String get onboardingTitle3 => 'Chef Recipes & Traditional Dishes';
+
+  @override
+  String get onboardingSubtitle3 => 'Explore chef-created recipes and traditional flavors from around the world.';
+
+  @override
+  String get onboardingTitle4 => 'Welcome to Cocinando!';
+
+  @override
+  String get onboardingSubtitle4 => 'Use AI to discover what to cook with the ingredients you already have at home.';
 }

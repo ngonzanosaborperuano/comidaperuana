@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "615495880468-anvvckm3725v8gv74cvpu188m5q2btqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ngonzano.comidaperuana",
+            "certificate_hash": "ba7e0556080e54b926fb5e8aaf535447ab588892"
+          }
+        },
+        {
           "client_id": "615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +45,13 @@
             {
               "client_id": "615495880468-gem0v2q5go252a17s8r6mr3j8cdqt7uh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ngonzano.comidaperuana"
+              }
             }
           ]
         }
