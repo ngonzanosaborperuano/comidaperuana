@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/widget/widget.dart' show ItemMenu;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:go_router/go_router.dart';
 
 class DrawerContent extends StatelessWidget {
   const DrawerContent({super.key, required this.con});
@@ -21,10 +21,7 @@ class DrawerContent extends StatelessWidget {
           ItemMenu(
             title: 'Dashboard',
             onTap: () {
-              context.go(
-                Routes.dashboard.description,
-                extra: con.listTaskDashboard,
-              );
+              context.go(Routes.dashboard.description, extra: con.listTaskDashboard);
             },
           ),
           ItemMenu(
@@ -39,25 +36,17 @@ class DrawerContent extends StatelessWidget {
       return ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: AppColorScheme.of(context).primary,
-            ),
+            decoration: BoxDecoration(color: AppColorScheme.of(context).primary),
             child: Text(
               'Menú',
-              style: TextStyle(
-                color: AppColorScheme.of(context).secondary,
-                fontSize: 24,
-              ),
+              style: TextStyle(color: AppColorScheme.of(context).secondary, fontSize: 24),
             ),
           ),
 
           ItemMenu(
             title: 'Dashboard',
             onTap: () {
-              context.go(
-                Routes.dashboard.description,
-                extra: con.listTaskDashboard,
-              );
+              context.go(Routes.dashboard.description, extra: con.listTaskDashboard);
             },
           ),
           ItemMenu(

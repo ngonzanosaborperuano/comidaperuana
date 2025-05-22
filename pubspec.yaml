@@ -64,3 +64,4 @@ flutter:
     - lib/l10n/
     - assets/img/
     - assets/json/
+    - assets/svg/

@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/database/database_helper.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
@@ -9,13 +11,8 @@ import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
 import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/core/router/app_router.dart';
-import 'package:recetasperuanas/core/sync/sync_service.dart';
 import 'package:recetasperuanas/firebase_options.dart';
-
 import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
-import 'package:recetasperuanas/shared/repository/task_repository.dart';
-import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
 import 'shared/widget/build_widget.dart';
 
@@ -51,12 +48,10 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await SharedPreferencesHelper.init();
   await DatabaseHelper.init();
-  final db = DatabaseHelper.instance;
-  final taskRepo = TaskRepository(db, apiService: ApiService());
-
-  final syncService = SyncService(db: db, taskRepository: taskRepo);
-
-  syncService.startSyncObserver();
+  // final db = DatabaseHelper.instance;
+  // final taskRepo = TaskRepository(db, apiService: ApiService());
+  // final syncService = SyncService(db: db, taskRepository: taskRepo);
+  // syncService.startSyncObserver();
 
   runApp(const MyApp());
 }
@@ -68,19 +63,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<UserRepository>(
-          create: (_) => UserRepository(apiService: ApiService()),
-        ),
+        Provider<UserRepository>(create: (_) => UserRepository(apiService: ApiService())),
         ChangeNotifierProvider(
           create:
-              (_) => LoginController(
-                userRepository: UserRepository(apiService: ApiService()),
-              )..init(context),
+              (_) =>
+                  LoginController(userRepository: UserRepository(apiService: ApiService()))
+                    ..init(context),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LocaleProvider(),
-          child: const MyApp(),
-        ),
+        ChangeNotifierProvider(create: (_) => LocaleProvider(), child: const MyApp()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child:

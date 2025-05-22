@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
-import 'package:lottie/lottie.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/widget/widget.dart' show CardTask;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -21,8 +19,8 @@ class HomeView extends StatelessWidget {
                 width: 500,
                 height: 500,
                 child: Card(
-                  shadowColor: AppColorScheme.of(context).textPrimary,
-                  color: AppColorScheme.of(context).textSecundary,
+                  shadowColor: context.color.textPrimary,
+                  color: context.color.textSecundary,
                   elevation: 5,
                   margin: const EdgeInsets.all(20.0),
                   shape: const RoundedRectangleBorder(
@@ -32,11 +30,11 @@ class HomeView extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        LottieBuilder.asset(
-                          'assets/json/note.json',
-                          width: size.width,
-                          height: size.height * 0.3,
-                        ),
+                        // LottieBuilder.asset(
+                        //   'assets/json/note.json',
+                        //   width: size.width,
+                        //   height: size.height * 0.3,
+                        // ),
                         ElevatedButton(
                           onPressed: () async {
                             final theme = Theme.of(context);
@@ -70,7 +68,7 @@ class HomeView extends StatelessWidget {
                           },
                           child: Text('data'),
                         ),
-                        ElevatedButton(onPressed: () {}, child: Text('data')),
+
                         const SizedBox(height: 20),
                         Center(child: AppText(text: context.loc.noNote)),
                       ],

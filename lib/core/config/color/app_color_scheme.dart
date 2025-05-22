@@ -13,67 +13,53 @@ class AppColorScheme extends InheritedWidget {
   });
 
   static AppColorScheme of(BuildContext context) {
-    final inherited =
-        context.dependOnInheritedWidgetOfExactType<AppColorScheme>();
-    final brightness =
-        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final inherited = context.dependOnInheritedWidgetOfExactType<AppColorScheme>();
+    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
     final platform = Theme.of(context).platform;
 
     return inherited ??
-        AppColorScheme(
-          brightness: brightness,
-          platform: platform,
-          child: const SizedBox.shrink(),
-        );
+        AppColorScheme(brightness: brightness, platform: platform, child: const SizedBox.shrink());
   }
 
   Color get primary {
-    return brightness == Brightness.dark
-        ? AppColors.primaryCopper
-        : AppColors.white;
+    return brightness == Brightness.dark ? AppColors.primaryCopper : AppColors.white;
+  }
+
+  Color get menuActive {
+    return brightness == Brightness.dark ? AppColors.white : AppColors.secondaryLead;
+  }
+
+  Color get menuIsNotActive {
+    return brightness == Brightness.dark ? AppColors.warningBackground : AppColors.primaryCopper;
   }
 
   Color get secondary {
-    return brightness != Brightness.dark
-        ? AppColors.primaryCopper
-        : AppColors.white;
+    return brightness != Brightness.dark ? AppColors.primaryCopper : AppColors.white;
   }
 
   Color get success {
-    return brightness == Brightness.dark
-        ? AppColors.secondary
-        : AppColors.success;
+    return brightness == Brightness.dark ? AppColors.secondary : AppColors.success;
   }
 
   Color get errorPrimary {
-    return brightness != Brightness.dark
-        ? AppColors.secondaryRed
-        : AppColors.white;
+    return brightness != Brightness.dark ? AppColors.secondaryRed : AppColors.white;
   }
 
   Color get errorSecundary {
-    return brightness == Brightness.dark
-        ? AppColors.secondaryRed
-        : AppColors.white;
+    return brightness == Brightness.dark ? AppColors.secondaryRed : AppColors.white;
   }
 
   Color get textPrimary {
-    return brightness == Brightness.dark
-        ? AppColors.white
-        : AppColors.blackColor;
+    return brightness == Brightness.dark ? AppColors.white : AppColors.blackColor;
   }
 
   Color get textSecundary {
-    return brightness != Brightness.dark
-        ? AppColors.white
-        : AppColors.blackColor;
+    return brightness != Brightness.dark ? AppColors.white : AppColors.blackColor;
   }
 
   Color get warnnig {
-    return brightness != Brightness.dark
-        ? AppColors.warningBackground
-        : AppColors.warning;
+    return brightness != Brightness.dark ? AppColors.warningBackground : AppColors.warning;
   }
 
   @override

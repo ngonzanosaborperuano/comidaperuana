@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/config.dart';
-import 'package:recetasperuanas/modules/dashboard/widget/donutChartPainter.dart';
+import 'package:recetasperuanas/modules/dashboard/widget/donut_chart_painter.dart';
 import 'package:recetasperuanas/modules/home/models/task_model.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class DashboardView extends StatelessWidget {
-  const DashboardView({
-    super.key,
-    required this.percent,
-    required this.listTaskModel,
-  });
+  const DashboardView({super.key, required this.percent, required this.listTaskModel});
 
   final double percent;
   final List<TaskModel> listTaskModel;
@@ -32,10 +28,7 @@ class DashboardView extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor:
-                        todo.completed == 1
-                            ? AppColors.success
-                            : AppColors.error,
+                    backgroundColor: todo.completed == 1 ? AppColors.success : AppColors.error,
                     child: Icon(
                       todo.completed == 1 ? Icons.check : Icons.close,
                       color: AppColors.white,

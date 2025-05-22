@@ -8,7 +8,6 @@ import 'package:recetasperuanas/core/database/database_helper.dart';
 import 'package:recetasperuanas/core/network/network.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/view/home_view.dart';
-import 'package:recetasperuanas/modules/home/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
 import 'package:recetasperuanas/shared/utils/util.dart';
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         builder: (_, HomeController con, __) {
           return AppScaffold(
             title: AppTextFieldSearch(
-              placeholder: context.loc.searchTitle,
+              placeholder: context.loc.searchRecipe,
               textController: searchController,
               onPressed: () {
                 searchController.clear();
@@ -64,37 +63,12 @@ class _HomePageState extends State<HomePage> {
                 con.searchTask(value);
               },
             ),
-            showFloatingButton: true,
-            body: Column(
-              children: [
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       AppText(text: context.loc.listPending),
-                //       ValueListenableBuilder(
-                //         valueListenable: con.isPending,
-                //         builder: (_, isPending, __) {
-                //           return AppSwitch(
-                //             value: isPending ?? false,
-                //             onChanged: (value) {
-                //               con.isPending.value = value;
-                //               con.searchCompleted();
-                //             },
-                //           );
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Expanded(child: HomeView(con: con)),
-              ],
-            ),
-            customDrawer: DrawerContent(con: con),
+            body: Column(children: [Expanded(child: HomeView(con: con))]),
+            // customDrawer: DrawerContent(con: con),
             onPressed: () async {
               onPressedSave(context, con);
             },
+            showMenu: true,
           );
         },
       ),

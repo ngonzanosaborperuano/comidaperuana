@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppTextFieldSearch extends StatelessWidget {
   final String placeholder;
@@ -25,38 +25,30 @@ class AppTextFieldSearch extends StatelessWidget {
           placeholder: placeholder,
           placeholderStyle: const TextStyle(fontSize: 16),
           style: const TextStyle(fontSize: 18),
+          cursorColor: context.color.menuActive,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: AppColorScheme.of(context).textSecundary,
+            borderRadius: BorderRadius.circular(15),
+            color: context.color.textSecundary,
+            border: Border.all(width: 2.0, color: context.color.menuIsNotActive),
           ),
         )
         : SizedBox(
-          height: 65,
+          height: 50,
           child: TextField(
-            cursorWidth: 2,
             onChanged: onChanged,
             controller: textController,
             decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search),
-              suffix: IconButton(
-                onPressed: onPressed,
-                icon: const Icon(Icons.close, size: 18),
-              ),
+              prefixIcon: Icon(Icons.search, color: context.color.menuIsNotActive),
+              suffix: IconButton(onPressed: onPressed, icon: const Icon(Icons.close, size: 15)),
               hintText: placeholder,
               hintStyle: TextStyle(fontSize: 16),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
-                  width: 2.0,
-                  color: AppColorScheme.of(context).textSecundary,
-                ),
+                borderRadius: BorderRadius.circular(15.0),
+                borderSide: BorderSide(width: 2.0, color: context.color.menuIsNotActive),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
-                  width: 2.0,
-                  color: AppColorScheme.of(context).textSecundary,
-                ),
+                borderRadius: BorderRadius.circular(15.0),
+                borderSide: BorderSide(width: 2.0, color: context.color.menuIsNotActive),
               ),
             ),
             style: const TextStyle(fontSize: 16),

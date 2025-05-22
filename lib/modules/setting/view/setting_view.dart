@@ -85,6 +85,7 @@ class Language extends StatelessWidget {
               final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
               con.isSpanish.value = localeProvider.locale.languageCode == 'es';
               return Material(
+                color: context.color.textSecundary,
                 child: AppSwitch(
                   value: isSpanish,
                   onChanged: (bool value) {

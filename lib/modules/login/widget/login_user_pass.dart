@@ -64,15 +64,16 @@ class LoginUserPass extends StatelessWidget {
             AppButton(
               text: context.loc.login,
               onPressed: () async {
-                if (!_formKeyLogin.currentState!.validate()) return;
-
+                // if (!_formKeyLogin.currentState!.validate()) return;
                 await const LoadingDialog().show(
                   context,
                   future: () async {
                     final isSuccess = await con.login(
                       user: AuthUser(
-                        email: con.emailController.text,
-                        contrasena: con.passwordController.text,
+                        email: 'juan.perez@example.com', // con.emailController.text,
+                        contrasena: '123456', // con.passwordController.text,
+                        // email: con.emailController.text,
+                        // contrasena: con.passwordController.text,
                       ),
                       type: LoginWith.withUserPassword,
                     );
