@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
+import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
@@ -139,6 +140,9 @@ class MiPerfil extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
+          AppVerticalSpace.sl,
+          Text(context.loc.setting, style: AppStyles.headingPrimary),
+          AppVerticalSpace.xslg,
           AppShimmer(
             enabled: loading,
             child: Container(
