@@ -26,8 +26,8 @@ class CardTask extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          transform: GradientRotation(0.25),
-          stops: [0.75, 0.8, 0.85],
+          transform: const GradientRotation(0.25),
+          stops: const [0.75, 0.8, 0.85],
           colors: [
             AppColorScheme.of(context).warnnig,
             AppColorScheme.of(context).success,
@@ -87,7 +87,7 @@ class CardTask extends StatelessWidget {
               foregroundColor: AppColors.white,
             );
           },
-          icon: Icon(Icons.delete_outline, size: 30, color: AppColors.secondaryRedDark),
+          icon: const Icon(Icons.delete_outline, size: 30, color: AppColors.secondaryRedDark),
         ),
       ],
     );

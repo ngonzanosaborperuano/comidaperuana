@@ -20,7 +20,7 @@ class LoginWithGoogle extends StatelessWidget {
         await const LoadingDialog().show(
           context,
           future: () async {
-            final isSuccess = await con.login(
+            final (isSuccess, msg) = await con.login(
               user: AuthUser(
                 email: con.emailController.text,
                 contrasena: con.passwordController.text,
@@ -28,17 +28,32 @@ class LoginWithGoogle extends StatelessWidget {
               type: LoginWith.withGoogle,
             );
 
-            if (isSuccess ?? false) {
+            if (isSuccess) {
               if (!context.mounted) return;
               context.go(Routes.home.description);
             } else {
+              var mensageUser = '';
               if (!context.mounted) return;
-
+              if (msg == 'account-exists-with-different-credential') {
+                mensageUser = context.loc.accountExistsWithDifferentCredential;
+              } else if (msg == 'invalid-credential') {
+                mensageUser = context.loc.invalidCredential;
+              } else if (msg == 'operation-not-allowed') {
+                mensageUser = context.loc.operationNotAllowed;
+              } else if (msg == 'user-disabled') {
+                mensageUser = context.loc.userDisabled;
+              } else if (msg == 'user-not-found') {
+                mensageUser = context.loc.userNotFound;
+              } else if (msg == 'wrong-password') {
+                mensageUser = context.loc.wrongPassword;
+              } else {
+                mensageUser = context.loc.authError;
+              }
               await showAdaptiveDialog(
                 context: context,
                 builder: (context) {
                   return AppModalAlert(
-                    text: context.loc.textAccessDenied,
+                    text: mensageUser,
                     title: context.loc.titleAccessDenied,
                     maxHeight: 200,
                     icon: Icons.error,

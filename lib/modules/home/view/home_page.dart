@@ -11,17 +11,13 @@ import 'package:recetasperuanas/modules/home/view/home_view.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
 import 'package:recetasperuanas/shared/utils/util.dart';
-import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
-import 'package:recetasperuanas/shared/widget/app_modal.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
-import 'package:recetasperuanas/shared/widget/app_textfield.dart';
-import 'package:recetasperuanas/shared/widget/app_textfield_search.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   factory HomePage.routeBuilder(_, __) {
-    return HomePage(key: const Key('home_page'));
+    return const HomePage(key: Key('home_page'));
   }
   Future<bool?> show(BuildContext context) async {
     return showAdaptiveDialog<bool>(context: context, builder: (context) => this);

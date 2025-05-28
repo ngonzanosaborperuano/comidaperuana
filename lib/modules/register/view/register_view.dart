@@ -30,81 +30,142 @@ class _RegisterViewState extends State<RegisterView> {
       child: SingleChildScrollView(
         child: Consumer<RegisterController>(
           builder: (_, RegisterController con, __) {
-            return Column(
-              children: [
-                Hero(
-                  tag: 'logo',
-                  child: ClipOval(
-                    child: Image.asset('assets/img/logoOutName.png', width: 200, height: 200),
+            return SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      context.go(Routes.login.description);
+                    },
+                    icon: Icon(Icons.arrow_back_ios_new, color: context.color.primary),
                   ),
-                ),
-                AppVerticalSpace.md,
-                AppText(
-                  text: context.loc.registerNow,
-                  fontSize: AppSpacing.xmd,
-                  fontWeight: FontWeight.bold,
-                ),
 
-                AppText(
-                  text: context.loc.completeInformation,
-                  fontSize: AppSpacing.md,
-                  fontWeight: FontWeight.w400,
-                ),
-                Form(
-                  key: _formKeyRegister,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppVerticalSpace.xlg,
-                      AppText(text: context.loc.fullName),
-                      AppVerticalSpace.sm,
-                      AppTextField(
-                        hintText: context.loc.enterFullName,
-                        textEditingController: con.fullNameController,
-                        keyboardType: TextInputType.name,
-                        validator: (value) => con.validateEmpty(value ?? '', context),
+                  Hero(
+                    tag: 'logo',
+                    child: Center(
+                      child: ClipOval(
+                        child: Image.asset('assets/img/logoOutName.png', width: 200, height: 200),
                       ),
-                      AppVerticalSpace.xmd,
-                      AppText(text: context.loc.email),
-                      AppVerticalSpace.sm,
-                      AppTextField(
-                        hintText: context.loc.enterEmail,
-                        textEditingController: con.emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) => con.validateEmail(value ?? '', context),
-                      ),
-                      AppVerticalSpace.xmd,
-                      AppText(text: context.loc.password),
-                      AppVerticalSpace.sm,
-                      AppTextField(
-                        hintText: context.loc.enterPassword,
-                        textEditingController: con.passwordController,
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        validator: (value) => con.validatePassword(value ?? '', context),
-                      ),
-                      AppVerticalSpace.xmd,
-                      AppText(text: context.loc.repeatPassword),
-                      AppVerticalSpace.sm,
-                      AppTextField(
-                        hintText: context.loc.enterPassword,
-                        textEditingController: con.repeatController,
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        validator: (value) => con.validatePassword(value ?? '', context),
-                      ),
-                      AppVerticalSpace.xlg,
-                      AppButton(
-                        text: context.loc.register,
-                        onPressed: () => showAdaptiveDialoga(context: context, con: con),
-
-                        showIcon: false,
-                      ),
-                      AppVerticalSpace.xmd,
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                  AppVerticalSpace.md,
+                  Center(
+                    child: AppText(
+                      text: context.loc.registerNow,
+                      fontSize: AppSpacing.xmd,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  AppText(
+                    text: context.loc.completeInformation,
+                    fontSize: AppSpacing.md,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  Form(
+                    key: _formKeyRegister,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppVerticalSpace.xlg,
+                        AppText(text: context.loc.fullName),
+                        AppVerticalSpace.sm,
+                        AppTextField(
+                          hintText: context.loc.enterFullName,
+                          textEditingController: con.fullNameController,
+                          keyboardType: TextInputType.name,
+                          validator: (value) => con.validateEmpty(value ?? '', context),
+                        ),
+                        AppVerticalSpace.xmd,
+                        AppText(text: context.loc.email),
+                        AppVerticalSpace.sm,
+                        AppTextField(
+                          hintText: context.loc.enterEmail,
+                          textEditingController: con.emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) => con.validateEmail(value ?? '', context),
+                        ),
+                        AppVerticalSpace.xmd,
+                        AppText(text: context.loc.password),
+                        AppVerticalSpace.sm,
+                        ValueListenableBuilder(
+                          valueListenable: con.isObscureText,
+                          builder: (BuildContext context, value, Widget? child) {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: AppTextField(
+                                    hintText: context.loc.enterPassword,
+                                    textEditingController: con.passwordController,
+                                    obscureText: value,
+                                    obscuringCharacter: '*',
+                                    validator:
+                                        (value) => con.validatePassword(value ?? '', context),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    con.isObscureText.value = !con.isObscureText.value;
+                                  },
+                                  icon: Icon(
+                                    con.isObscureText.value
+                                        ? Icons.remove_red_eye_outlined
+                                        : Icons.remove_red_eye,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        AppVerticalSpace.xmd,
+                        AppText(text: context.loc.repeatPassword),
+                        AppVerticalSpace.sm,
+                        ValueListenableBuilder(
+                          valueListenable: con.isReObscureText,
+                          builder: (BuildContext context, value, Widget? child) {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: AppTextField(
+                                    hintText: context.loc.enterPassword,
+                                    textEditingController: con.repeatController,
+                                    obscureText: value,
+                                    obscuringCharacter: '*',
+                                    validator:
+                                        (value) => con.validatePassword(value ?? '', context),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    con.isObscureText.value = !con.isObscureText.value;
+                                  },
+                                  icon: Icon(
+                                    con.isObscureText.value
+                                        ? Icons.remove_red_eye_outlined
+                                        : Icons.remove_red_eye,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        AppVerticalSpace.xlg,
+                        AppButton(
+                          text: context.loc.register,
+                          onPressed: () => showAdaptiveDialoga(context: context, con: con),
+
+                          showIcon: false,
+                        ),
+
+                        AppVerticalSpace.xmd,
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

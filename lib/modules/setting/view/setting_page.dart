@@ -9,7 +9,7 @@ class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
   factory SettingPage.routeBuilder(_, __) {
-    return SettingPage(key: const Key('setting_page'));
+    return const SettingPage(key: Key('setting_page'));
   }
 
   @override
@@ -19,7 +19,7 @@ class SettingPage extends StatelessWidget {
           (_) =>
               SettingController(userRepository: UserRepository(apiService: ApiService()))
                 ..getUser(),
-      child: SettingView(),
+      child: const SettingView(),
     );
   }
 }

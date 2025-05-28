@@ -25,7 +25,7 @@ class SettingView extends StatelessWidget {
           children: [
             MiPerfil(loading: loading, con: con),
             AppVerticalSpace.sm,
-            Divider(height: 20, endIndent: 20, indent: 20),
+            const Divider(height: 20, endIndent: 20, indent: 20),
             Language(con: con),
             DarkMode(con: con),
             AppVerticalSpace.slg,
@@ -92,9 +92,9 @@ class Language extends StatelessWidget {
                   onChanged: (bool value) {
                     con.isSpanish.value = value;
                     if (value) {
-                      context.read<LocaleProvider>().setLocale(Locale('es'));
+                      context.read<LocaleProvider>().setLocale(const Locale('es'));
                     } else {
-                      context.read<LocaleProvider>().setLocale(Locale('en'));
+                      context.read<LocaleProvider>().setLocale(const Locale('en'));
                     }
                     SharedPreferencesHelper.instance.setBool(CacheConstants.spanish, value: !value);
                   },
@@ -146,7 +146,7 @@ class MiPerfil extends StatelessWidget {
           AppShimmer(
             enabled: loading,
             child: Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColorScheme.of(context).success, width: 3),

@@ -42,7 +42,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   }
 
   Widget _buildCupertinoScaffold(BuildContext context, int selectedIndex) {
-    final List<Widget> pagesIOS = [_PageHomeIOS(widget: widget), SettingPage()];
+    final List<Widget> pagesIOS = [_PageHomeIOS(widget: widget), const SettingPage()];
     return CupertinoPageScaffold(
       backgroundColor: context.color.textSecundary,
       child: Stack(
@@ -124,12 +124,12 @@ class _AppScaffoldState extends State<AppScaffold> {
                   blurRadius: 15,
                   spreadRadius: 0,
                   color: context.color.menuIsNotActive,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                 ),
               ],
             ),
             child: Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               height: widget.toolbarHeight,
               width: widget.toolbarHeight,
               child: CupertinoButton(
@@ -145,7 +145,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   }
 
   Widget _buildMaterialScaffold(BuildContext context, int selectedIndex) {
-    final List<Widget> pageHomeAndroid = [_PageHomeAndroid(widget: widget), SettingPage()];
+    final List<Widget> pageHomeAndroid = [_PageHomeAndroid(widget: widget), const SettingPage()];
     return Scaffold(
       backgroundColor: context.color.textSecundary,
       body: Stack(
@@ -216,7 +216,7 @@ class _AppScaffoldState extends State<AppScaffold> {
                   blurRadius: 15,
                   spreadRadius: 0,
                   color: context.color.menuIsNotActive,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                 ),
               ],
             ),
@@ -285,22 +285,23 @@ class _PageHomeAndroid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: widget.toolbarHeight,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                if (widget.onBackPressed != null)
-                  IconButton(
-                    onPressed: widget.onBackPressed,
-                    icon: Icon(Icons.arrow_back, color: context.color.menuIsNotActive),
-                  ),
-                Expanded(child: widget.title ?? SizedBox()),
-              ],
+        if (widget.onBackPressed != null || widget.title != null)
+          SizedBox(
+            height: widget.toolbarHeight,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
+              child: Row(
+                children: [
+                  if (widget.onBackPressed != null)
+                    IconButton(
+                      onPressed: widget.onBackPressed,
+                      icon: Icon(Icons.arrow_back, color: context.color.menuIsNotActive),
+                    ),
+                  if (widget.title != null) Expanded(child: widget.title ?? const SizedBox()),
+                ],
+              ),
             ),
           ),
-        ),
         Expanded(child: SizedBox(child: widget.body)),
       ],
     );

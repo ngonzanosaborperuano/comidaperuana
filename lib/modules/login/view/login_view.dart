@@ -31,7 +31,8 @@ class _LoginViewState extends State<LoginView> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                LogoWidget(),
+                AppVerticalSpace.xlg,
+                const LogoWidget(),
                 AppVerticalSpace.xxmd,
                 AppText(
                   text: context.loc.login,
@@ -41,14 +42,16 @@ class _LoginViewState extends State<LoginView> {
                 AppVerticalSpace.md,
                 LoginWithGoogle(con: con),
                 AppVerticalSpace.md,
-                DividerWidget(),
+                const DividerWidget(),
                 AppText(
                   text: context.loc.descriptionLogin,
                   fontSize: AppSpacing.md,
                   fontWeight: FontWeight.w400,
                 ),
                 AppVerticalSpace.md,
+                AppVerticalSpace.xlg,
                 LoginUserPass(formKeyLogin: _formKeyLogin, con: con),
+
                 AppVerticalSpace.xlg,
               ],
             ),

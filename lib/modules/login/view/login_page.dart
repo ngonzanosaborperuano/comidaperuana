@@ -6,11 +6,11 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   factory LoginPage.routeBuilder(_, __) {
-    return LoginPage(key: const Key('login_page'));
+    return const LoginPage(key: Key('login_page'));
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(body: LoginView());
+    return const AppScaffold(body: LoginView());
   }
 }

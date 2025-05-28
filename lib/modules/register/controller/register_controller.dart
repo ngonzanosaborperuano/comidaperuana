@@ -16,12 +16,15 @@ class RegisterController extends BaseController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
+  ValueNotifier<bool> isObscureText = ValueNotifier<bool>(true);
+
+  ValueNotifier<bool> isReObscureText = ValueNotifier<bool>(true);
 
   Future<bool?> register(AuthUser user) async {
     try {
       final result = await _userRepository.register(user);
       _logger.info('Resultado del registro: $result');
-      if (result == null || result == false) {
+      if (result == false) {
         _logger.info('Error al registrar');
         return false;
       }

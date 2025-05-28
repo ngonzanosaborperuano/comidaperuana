@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get enterPassword => 'Enter an password';
+  String get enterPassword => 'Enter a password';
 
   @override
   String get newUser => 'New User';
@@ -126,7 +126,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get title => 'Title';
 
   @override
-  String get searchRecipe => 'search recipe';
+  String get searchRecipe => 'Search recipe';
 
   @override
   String get searchTitle => 'Search by title';
@@ -138,7 +138,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get body => 'Body';
 
   @override
-  String get writeNote => 'write a note';
+  String get writeNote => 'Write a note';
 
   @override
   String get addNote => 'Add Note';
@@ -159,7 +159,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateTask => 'Update task';
 
   @override
-  String get messageUpdateNote => 'A note was update successfully.';
+  String get messageUpdateNote => 'A note was updated successfully.';
 
   @override
   String get noNote => 'There is no note';
@@ -183,7 +183,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fullName => 'Full Name';
 
   @override
-  String get enterFullName => 'Enter fullname';
+  String get enterFullName => 'Enter full name';
 
   @override
   String get onboardingTitle1 => 'Fresh and Delicious Meals';
@@ -208,4 +208,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSubtitle4 => 'Use AI to discover what to cook with the ingredients you already have at home.';
+
+  @override
+  String get unsupportedSignInMethod => 'Sign-in method not supported';
+
+  @override
+  String get signInError => 'Error during sign-in';
+
+  @override
+  String get googleSignInAborted => 'Google sign-in aborted by user';
+
+  @override
+  String get googleNoToken => 'Google sign-in failed: No access token or ID token received.';
+
+  @override
+  String get accountExistsWithDifferentCredential => 'The account already exists with a different credential.';
+
+  @override
+  String get invalidCredential => 'The credential received is invalid.';
+
+  @override
+  String get operationNotAllowed => 'Operation not allowed. Please enable Google sign-in in Firebase console.';
+
+  @override
+  String get userDisabled => 'User disabled. Please contact support.';
+
+  @override
+  String get userNotFound => 'No user found for that email.';
+
+  @override
+  String get wrongPassword => 'Wrong password provided for that user.';
+
+  @override
+  String get unknownGoogleSignInError => 'An unknown error occurred during Google sign-in:';
+
+  @override
+  String get googleSignInError => 'An error occurred during Google sign-in:';
+
+  @override
+  String get authSuccess => 'Login or registration successful';
+
+  @override
+  String get authError => 'Error during login or registration:';
+
+  @override
+  String get weakPassword => 'The password provided is too weak.';
+
+  @override
+  String get emailAlreadyInUse => 'The account already exists for that email.';
+
+  @override
+  String get unknownEmailLoginError => 'An unknown error occurred during email/password login:';
+
+  @override
+  String get emailLoginError => 'An error occurred during email/password login:';
+
+  @override
+  String get recoverEmail => 'Recover email';
+
+  @override
+  String get recoverAccountMessage => 'To recover your account, enter an email address and then accept. Check your email. If you don\'t see it, check your other emails or spam folders.';
+
+  @override
+  String get recoverPassword => 'Recover password.';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get errorUserNotFound => 'No user is registered with that email.';
+
+  @override
+  String get errorTooManyRequests => 'Too many requests. Please try again later.';
+
+  @override
+  String get errorNetwork => 'Network error. Check your internet connection.';
+
+  @override
+  String get errorDefault => 'Invalid email format.';
+
+  @override
+  String get errorInvalidEmail => 'The email format is not valid.';
 }

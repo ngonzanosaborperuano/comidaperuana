@@ -1,70 +1,379 @@
 {
   "@@locale": "en",
   "welcome": "Welcome to peruvian food",
+  "@welcome": {
+    "description": "Welcome message on the home screen"
+  },
   "descriptionWelcome": "The best of Peruvian gastronomy.",
+  "@descriptionWelcome": {
+    "description": "Subtitle under the welcome message"
+  },
   "getStarted": "Get Started",
+  "@getStarted": {
+    "description": "Button to start the app or onboarding"
+  },
   "login": "Login",
+  "@login": {
+    "description": "Login button label"
+  },
   "descriptionLogin": "Please enter your credentials.",
+  "@descriptionLogin": {
+    "description": "Prompt for user to enter login credentials"
+  },
   "email": "Email",
+  "@email": {
+    "description": "Label for email input field"
+  },
   "password": "Password",
-  "enterPassword": "Enter an password",
+  "@password": {
+    "description": "Label for password input field"
+  },
+  "enterPassword": "Enter a password",
+  "@enterPassword": {
+    "description": "Hint to enter password"
+  },
   "newUser": "New User",
+  "@newUser": {
+    "description": "Label for new user prompt"
+  },
   "titleAccessDenied": "Access denied",
+  "@titleAccessDenied": {
+    "description": "Title for access denied message"
+  },
   "textAccessDenied": "The data entered is incorrect or you do not have a registered user, please try again.",
+  "@textAccessDenied": {
+    "description": "Detailed message when access is denied"
+  },
   "validateEmpty": "This field is required.",
+  "@validateEmpty": {
+    "description": "Validation message for empty fields"
+  },
   "emptyPassword": "The password cannot be empty.",
+  "@emptyPassword": {
+    "description": "Validation message for empty password"
+  },
   "minEightCharacters": "* Must be at least 8 characters long.",
+  "@minEightCharacters": {
+    "description": "Password requirement: minimum length"
+  },
   "labelUpper": "* Must contain at least one capital letter",
+  "@labelUpper": {
+    "description": "Password requirement: uppercase letter"
+  },
   "labelLower": "* Must contain at least one lowercase letter",
+  "@labelLower": {
+    "description": "Password requirement: lowercase letter"
+  },
   "anyNumber": "* Must contain at least one number",
+  "@anyNumber": {
+    "description": "Password requirement: number"
+  },
   "specialCharacter": "* Must contain at least one special character.",
+  "@specialCharacter": {
+    "description": "Password requirement: special character"
+  },
   "invalidPassword": "The password is invalid",
+  "@invalidPassword": {
+    "description": "Validation message for an invalid password"
+  },
   "validateList": "This field is required.",
+  "@validateList": {
+    "description": "Generic validation message"
+  },
   "validateEmail": "Enter a valid email address",
+  "@validateEmail": {
+    "description": "Validation message for email format"
+  },
   "registerNow": "Register Now",
+  "@registerNow": {
+    "description": "Prompt for user to register"
+  },
   "enterEmail": "Enter an email",
+  "@enterEmail": {
+    "description": "Hint to enter email"
+  },
   "repeatPassword": "Repeat password",
+  "@repeatPassword": {
+    "description": "Label for repeat password field"
+  },
   "register": "Register",
+  "@register": {
+    "description": "Register button text"
+  },
   "validatePasswordText": "The passwords do not match, please try again.",
+  "@validatePasswordText": {
+    "description": "Validation message for mismatched passwords"
+  },
   "error": "Error",
+  "@error": {
+    "description": "Generic error title"
+  },
   "accept": "Accept",
+  "@accept": {
+    "description": "Accept button text"
+  },
   "setting": "Setting",
+  "@setting": {
+    "description": "Title for settings section"
+  },
   "logOut": "Log out",
+  "@logOut": {
+    "description": "Log out button text"
+  },
   "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
   "firstName": "First Name",
+  "@firstName": {
+    "description": "Label for first name field"
+  },
   "lastName": "Last Name",
+  "@lastName": {
+    "description": "Label for last name field"
+  },
   "changeLanguage": "Spanish",
+  "@changeLanguage": {
+    "description": "Option to change the app's language"
+  },
   "darkMode": "Dark mode",
+  "@darkMode": {
+    "description": "Toggle option for dark mode"
+  },
   "completed": "Completed",
+  "@completed": {
+    "description": "Status label for completed tasks"
+  },
   "pending": "Pending",
+  "@pending": {
+    "description": "Status label for pending tasks"
+  },
   "status": "Status",
+  "@status": {
+    "description": "Label for task status"
+  },
   "title": "Title",
-  "searchRecipe": "search recipe",
+  "@title": {
+    "description": "Label for title input"
+  },
+  "searchRecipe": "Search recipe",
+  "@searchRecipe": {
+    "description": "Label or placeholder for recipe search"
+  },
   "searchTitle": "Search by title",
+  "@searchTitle": {
+    "description": "Prompt to search by title"
+  },
   "insertTitle": "Enter a title",
+  "@insertTitle": {
+    "description": "Placeholder to enter a note title"
+  },
   "body": "Body",
-  "writeNote": "write a note",
+  "@body": {
+    "description": "Label for body or content of a note"
+  },
+  "writeNote": "Write a note",
+  "@writeNote": {
+    "description": "Prompt to write a note"
+  },
   "addNote": "Add Note",
+  "@addNote": {
+    "description": "Button to add a new note"
+  },
   "save": "Save",
+  "@save": {
+    "description": "Button to save content"
+  },
   "back": "Back",
+  "@back": {
+    "description": "Button to go back to previous screen"
+  },
   "messageAddNote": "A note was created successfully.",
+  "@messageAddNote": {
+    "description": "Success message when a note is added"
+  },
   "messageDeleteNote": "The note was deleted: ",
+  "@messageDeleteNote": {
+    "description": "Message shown when a note is deleted"
+  },
   "updateTask": "Update task",
-  "messageUpdateNote": "A note was update successfully.",
+  "@updateTask": {
+    "description": "Label or button to update a task"
+  },
+  "messageUpdateNote": "A note was updated successfully.",
+  "@messageUpdateNote": {
+    "description": "Success message when a note is updated"
+  },
   "noNote": "There is no note",
+  "@noNote": {
+    "description": "Message shown when no notes are found"
+  },
   "listPending": "List Pending",
+  "@listPending": {
+    "description": "Label for a list of pending items"
+  },
   "completeInformation": "Please complete the details and create an account",
+  "@completeInformation": {
+    "description": "Prompt for user to complete registration"
+  },
   "user": "User",
+  "@user": {
+    "description": "Label for user input"
+  },
   "or": "or",
+  "@or": {
+    "description": "Alternative option label (e.g., login or register)"
+  },
   "userPass": "Username and password",
+  "@userPass": {
+    "description": "Description for login with credentials"
+  },
   "fullName": "Full Name",
-  "enterFullName": "Enter fullname",
+  "@fullName": {
+    "description": "Label for full name input"
+  },
+  "enterFullName": "Enter full name",
+  "@enterFullName": {
+    "description": "Hint to enter full name"
+  },
   "onboardingTitle1": "Fresh and Delicious Meals",
+  "@onboardingTitle1": {
+    "description": "First onboarding screen title"
+  },
   "onboardingSubtitle1": "Discover healthy and tasty recipes every day.",
+  "@onboardingSubtitle1": {
+    "description": "First onboarding screen subtitle"
+  },
   "onboardingTitle2": "Cook at Home",
+  "@onboardingTitle2": {
+    "description": "Second onboarding screen title"
+  },
   "onboardingSubtitle2": "Find recipes to cook yourself.",
+  "@onboardingSubtitle2": {
+    "description": "Second onboarding screen subtitle"
+  },
   "onboardingTitle3": "Chef Recipes & Traditional Dishes",
+  "@onboardingTitle3": {
+    "description": "Third onboarding screen title"
+  },
   "onboardingSubtitle3": "Explore chef-created recipes and traditional flavors from around the world.",
+  "@onboardingSubtitle3": {
+    "description": "Third onboarding screen subtitle"
+  },
   "onboardingTitle4": "Welcome to Cocinando!",
-  "onboardingSubtitle4": "Use AI to discover what to cook with the ingredients you already have at home."
+  "@onboardingTitle4": {
+    "description": "Fourth onboarding screen title"
+  },
+  "onboardingSubtitle4": "Use AI to discover what to cook with the ingredients you already have at home.",
+  "@onboardingSubtitle4": {
+    "description": "Fourth onboarding screen subtitle"
+  },
+  "unsupportedSignInMethod": "Sign-in method not supported",
+  "@unsupportedSignInMethod": {
+    "description": "Error message when auth method isn't supported"
+  },
+  "signInError": "Error during sign-in",
+  "@signInError": {
+    "description": "Generic sign-in error message"
+  },
+  "googleSignInAborted": "Google sign-in aborted by user",
+  "@googleSignInAborted": {
+    "description": "Message when user cancels Google sign-in"
+  },
+  "googleNoToken": "Google sign-in failed: No access token or ID token received.",
+  "@googleNoToken": {
+    "description": "Message when Google sign-in returns no tokens"
+  },
+  "accountExistsWithDifferentCredential": "The account already exists with a different credential.",
+  "@accountExistsWithDifferentCredential": {
+    "description": "Message for existing account with another auth method"
+  },
+  "invalidCredential": "The credential received is invalid.",
+  "@invalidCredential": {
+    "description": "Message when auth credential is invalid"
+  },
+  "operationNotAllowed": "Operation not allowed. Please enable Google sign-in in Firebase console.",
+  "@operationNotAllowed": {
+    "description": "Message when operation is disabled in Firebase"
+  },
+  "userDisabled": "User disabled. Please contact support.",
+  "@userDisabled": {
+    "description": "Message for disabled user account"
+  },
+  "userNotFound": "No user found for that email.",
+  "@userNotFound": {
+    "description": "Message when user doesn't exist"
+  },
+  "wrongPassword": "Wrong password provided for that user.",
+  "@wrongPassword": {
+    "description": "Message for incorrect password"
+  },
+  "unknownGoogleSignInError": "An unknown error occurred during Google sign-in:",
+  "@unknownGoogleSignInError": {
+    "description": "Generic unknown error for Google sign-in"
+  },
+  "googleSignInError": "An error occurred during Google sign-in:",
+  "@googleSignInError": {
+    "description": "Error during Google sign-in"
+  },
+  "authSuccess": "Login or registration successful",
+  "@authSuccess": {
+    "description": "Message on successful login/registration"
+  },
+  "authError": "Error during login or registration:",
+  "@authError": {
+    "description": "Error during login or registration"
+  },
+  "weakPassword": "The password provided is too weak.",
+  "@weakPassword": {
+    "description": "Password does not meet strength requirements"
+  },
+  "emailAlreadyInUse": "The account already exists for that email.",
+  "@emailAlreadyInUse": {
+    "description": "Email already registered message"
+  },
+  "unknownEmailLoginError": "An unknown error occurred during email/password login:",
+  "@unknownEmailLoginError": {
+    "description": "Generic unknown error for email login"
+  },
+  "emailLoginError": "An error occurred during email/password login:",
+  "@emailLoginError": {
+    "description": "Error during email/password login"
+  },
+  "recoverEmail": "Recover email",
+  "@recoverEmail": {
+    "description": "It will be the title of an alert or modal."
+  },
+  "recoverAccountMessage": "To recover your account, enter an email address and then accept. Check your email. If you don't see it, check your other emails or spam folders.",
+  "@recoverAccountMessage": {
+    "description": "Instructions for account recovery using email."
+  },
+  "recoverPassword": "Recover password.",
+  "@recoverPassword": {
+    "description": "Title to recover password."
+  },
+  "send": "Send",
+  "@send": {
+    "description": "Send infomation"
+  },
+  "errorUserNotFound": "No user is registered with that email.",
+  "@errorUserNotFound": {
+    "description": "Message shown when no user is found for the given email."
+  },
+  "errorTooManyRequests": "Too many requests. Please try again later.",
+  "@errorTooManyRequests": {
+    "description": "Message shown when the user is sending too many requests."
+  },
+  "errorNetwork": "Network error. Check your internet connection.",
+  "@errorNetwork": {
+    "description": "Message shown when there's a network error."
+  },
+  "errorDefault": "Invalid email format.",
+  "@errorDefault": {
+    "description": "Generic message shown when an unknown error occurs."
+  },
+  "errorInvalidEmail": "The email format is not valid.",
+  "@errorInvalidEmail": {
+    "description": "Message shown when the email format is invalid."
+  }
 }

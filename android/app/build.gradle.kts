@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ngonzano.comidaperuana"
-        minSdk = 23 // o flutter.minSdkVersion
+        minSdk = 24 // o flutter.minSdkVersion
         targetSdk = 35 // o flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

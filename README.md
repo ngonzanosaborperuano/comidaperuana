@@ -46,9 +46,12 @@ dart pub global activate flutterfire_cli --overwrite
 Agrega Firebase a tu proyecto
 123654flutterfire configure
 
-//
+# //
 
-============================================
+# DeepLink probar en un emulador
+
+sirve para cuando estas en un emulador y quieres abrir el app desde un deeplink
+
 adb shell 'am start -a android.intent.action.VIEW \
  -c android.intent.category.BROWSABLE \
  -d "https://ricope-e01a994cf2ab.herokuapp.com/home"' \
@@ -56,10 +59,36 @@ adb shell 'am start -a android.intent.action.VIEW \
 
 //
 
+# Deeplink revisar
+
+https://flutterexperts.com/flutter-deep-links-a-unique-way/
+
+//
+
 ============================================
-Error al levantar en un emulador de android
+App Check
 ============================================
-flutter clean
-rm -rf ~/.dartServer/
-rm -rf ~/.pub-cache
-flutter pub get
+https://hasankarli.medium.com/flutter-firebase-app-check-21355c9ad349
+
+============================================
+Kafka
+============================================
+
+============================================
+limpiar warning
+============================================
+agregar en analysis_options.yaml
+
+# analysis_options.yaml
+
+include: package:flutter_lints/flutter.yaml
+
+linter:
+rules:
+prefer_const_constructors: true
+prefer_const_literals_to_create_immutables: true
+prefer_const_declarations: true
+
+luego: fvm dart fix --apply
+
+//

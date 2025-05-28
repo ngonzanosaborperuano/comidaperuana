@@ -13,14 +13,15 @@ class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   factory SplashView.routeBuilder(_, __) {
-    return SplashView(key: const Key('splash_page'));
+    return const SplashView(key: Key('splash_page'));
   }
 
   @override
   State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> with SingleTickerProviderStateMixin {
+class _SplashViewState extends State<SplashView>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
 
@@ -45,15 +46,24 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       final secureStorageService = SecurityStorageService();
       final user = await secureStorageService.loadCredentials();
 
-      final isDark = SharedPreferencesHelper.instance.getBool(CacheConstants.darkMode);
-      final isNotSpanish = SharedPreferencesHelper.instance.getBool(CacheConstants.spanish);
+      final isDark = SharedPreferencesHelper.instance.getBool(
+        CacheConstants.darkMode,
+      );
+      final isNotSpanish = SharedPreferencesHelper.instance.getBool(
+        CacheConstants.spanish,
+      );
 
       if (!context.mounted) return;
 
       context.read<ThemeProvider>().toggleTheme(isDark);
-      context.read<LocaleProvider>().setLocale(Locale(isNotSpanish ? 'en' : 'es'));
+      context.read<LocaleProvider>().setLocale(
+        Locale(isNotSpanish ? 'en' : 'es'),
+      );
 
-      final route = user != AuthUser.empty() ? Routes.home.description : Routes.login.description;
+      final route =
+          user != AuthUser.empty()
+              ? Routes.home.description
+              : Routes.login.description;
       _controller.reverse().whenComplete(() {
         context.go(route);
       });
@@ -75,10 +85,17 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.color.textSecundary,
-      body: Center(
-        child: RotationTransition(
-          turns: Tween(begin: 0.0, end: 0.025).animate(_animation),
-          child: Image.asset('assets/img/logoOutName.png', width: 300, height: 300),
+      body: Hero(
+        tag: 'logo',
+        child: Center(
+          child: RotationTransition(
+            turns: Tween(begin: 0.0, end: 0.025).animate(_animation),
+            child: Image.asset(
+              'assets/img/logoOutName.png',
+              width: 200,
+              height: 200,
+            ),
+          ),
         ),
       ),
     );

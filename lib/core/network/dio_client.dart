@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
+import 'package:recetasperuanas/core/network/app_check_interceptor.dart';
 
 final _logger = Logger('DioClient');
 
@@ -26,7 +27,7 @@ class DioClient {
         receiveTimeout: const Duration(seconds: 10),
         headers: headers,
       ),
-    );
+    )..interceptors.add(AppCheckInterceptor());
 
     _dio.interceptors.add(
       InterceptorsWrapper(

@@ -72,7 +72,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
         border: Border.all(width: 0.5, color: AppColors.greyscale200),
       ),
       placeholder: hintText,
-      style: TextStyle(height: 2),
+      style: const TextStyle(height: 2),
       validator: validator,
     );
   }

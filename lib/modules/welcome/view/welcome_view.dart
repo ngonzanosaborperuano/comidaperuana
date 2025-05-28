@@ -10,7 +10,7 @@ class WelcomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnboardingScreen();
+    return const OnboardingScreen();
 
     // Padding(
     //   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -155,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                     ],
-                    Spacer(),
+                    const Spacer(),
                   ],
                 );
               },

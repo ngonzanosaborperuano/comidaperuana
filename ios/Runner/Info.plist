@@ -69,5 +69,9 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
+		<key>NSCameraUsageDescription</key>
+		<string>Esta aplicación necesita acceso a la cámara para tomar fotos a los platos o ingredientes</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Esta aplicación necesita acceso a las fotos para obtener los platos o ingredientes de la biblioteca de fotos.</string>
 	</dict>
 </plist>

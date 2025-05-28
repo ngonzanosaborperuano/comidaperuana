@@ -19,22 +19,26 @@ class LoginController extends BaseController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   ISecureStorageService secureStorageService = SecurityStorageService();
+  ValueNotifier<bool> isObscureText = ValueNotifier<bool>(true);
 
-  Future<bool?> login({required AuthUser user, required int type}) async {
+  Future<(bool, String)> login({required AuthUser user, required int type}) async {
     try {
-      final result = await _userRepository.login(user: user, type: type);
+      final (result, msg) = await _userRepository.login(user: user, type: type);
       _logger.info('Resultado de inicio de sesión: $result');
-      if (result == null || result == false) {
-        return false;
+      if (result == false) {
+        return (false, msg);
       }
       passwordController.clear();
       emailController.clear();
-      return true;
+      return (true, msg);
     } catch (e, stackTrace) {
       _logger.severe('Error al iniciar sesión: $e', e, stackTrace);
-      addError(e, stackTrace);
-      return null;
+      return (false, 'Error al iniciar sesión: $e');
     }
+  }
+
+  Future<String?> recoverCredential(String email) async {
+    return await _userRepository.recoverCredential(email);
   }
 
   @override

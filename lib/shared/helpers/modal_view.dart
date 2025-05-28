@@ -46,7 +46,7 @@ class ModalView extends StatelessWidget {
       padding: EdgeInsets.only(bottom: media.viewInsets.bottom),
       child: Container(
         padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
@@ -84,12 +84,12 @@ class ModalView extends StatelessWidget {
             if (onSaved != null)
               CupertinoActionSheetAction(
                 onPressed: () => onSaved!(context),
-                child: Text(saveText, style: TextStyle(color: CupertinoColors.activeBlue)),
+                child: Text(saveText, style: const TextStyle(color: CupertinoColors.activeBlue)),
               ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: context.pop,
-            child: Text(cancelText, style: TextStyle(color: CupertinoColors.destructiveRed)),
+            child: Text(cancelText, style: const TextStyle(color: CupertinoColors.destructiveRed)),
           ),
         )
         : content;

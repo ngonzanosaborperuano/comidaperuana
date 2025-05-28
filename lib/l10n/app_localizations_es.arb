@@ -1,70 +1,379 @@
 {
   "@@locale": "es",
   "welcome": "Bienvenido a Comida peruana",
+  "@welcome": {
+    "description": "Título de bienvenida en la pantalla principal"
+  },
   "descriptionWelcome": "Lo mejor de la gastronomia peruana.",
+  "@descriptionWelcome": {
+    "description": "Subtítulo de bienvenida"
+  },
   "getStarted": "Empezar",
-  "login": "Iniciar session",
+  "@getStarted": {
+    "description": "Botón para comenzar la aplicación"
+  },
+  "login": "Iniciar sesión",
+  "@login": {
+    "description": "Texto del botón para iniciar sesión"
+  },
   "descriptionLogin": "Por favor ingrese sus credenciales.",
+  "@descriptionLogin": {
+    "description": "Texto de descripción en la pantalla de login"
+  },
   "email": "Correo",
+  "@email": {
+    "description": "Campo para ingresar el correo"
+  },
   "password": "Contraseña",
+  "@password": {
+    "description": "Campo para ingresar la contraseña"
+  },
   "enterPassword": "Ingrese una Contraseña",
+  "@enterPassword": {
+    "description": "Mensaje de ayuda para contraseña"
+  },
   "newUser": "Nuevo usuario",
+  "@newUser": {
+    "description": "Texto para usuarios nuevos"
+  },
   "titleAccessDenied": "Acceso denegado",
+  "@titleAccessDenied": {
+    "description": "Título de error por acceso denegado"
+  },
   "textAccessDenied": "Los datos ingresados son incorrectos o no tiene un usuario registrado, vuelva a intentarlo.",
+  "@textAccessDenied": {
+    "description": "Mensaje de error cuando el acceso falla"
+  },
   "validateEmpty": "Este campo es requerido.",
+  "@validateEmpty": {
+    "description": "Validación de campo vacío"
+  },
   "emptyPassword": "La contraseña no puede estar vacía.",
+  "@emptyPassword": {
+    "description": "Validación cuando la contraseña está vacía"
+  },
   "minEightCharacters": "* Debe tener al menos 8 caracteres.",
+  "@minEightCharacters": {
+    "description": "Requisito de longitud mínima de contraseña"
+  },
   "labelUpper": "* Debe contener al menos una letra mayúscula.",
+  "@labelUpper": {
+    "description": "Requisito de mayúscula en contraseña"
+  },
   "labelLower": "* Debe contener al menos una letra minúscula",
+  "@labelLower": {
+    "description": "Requisito de minúscula en contraseña"
+  },
   "anyNumber": "* Debe contener al menos un número.",
+  "@anyNumber": {
+    "description": "Requisito de número en contraseña"
+  },
   "specialCharacter": "* Debe contener al menos un carácter especial.",
+  "@specialCharacter": {
+    "description": "Requisito de carácter especial en contraseña"
+  },
   "invalidPassword": "La contraseña es inválida",
+  "@invalidPassword": {
+    "description": "Mensaje de contraseña inválida"
+  },
   "validateList": "Este campo es requerido.",
+  "@validateList": {
+    "description": "Validación para listas vacías"
+  },
   "validateEmail": "Introduce un correo electrónico válido",
+  "@validateEmail": {
+    "description": "Validación de correo electrónico"
+  },
   "registerNow": "Registrar ahora",
+  "@registerNow": {
+    "description": "Texto para registro rápido"
+  },
   "enterEmail": "Ingrese un correo",
+  "@enterEmail": {
+    "description": "Ayuda para ingresar correo"
+  },
   "repeatPassword": "Repetir contraseña",
+  "@repeatPassword": {
+    "description": "Campo para repetir contraseña"
+  },
   "register": "Registrarse",
+  "@register": {
+    "description": "Botón de registro"
+  },
   "validatePasswordText": "Las contraseñas no coinciden, vuelva a intentarlo.",
+  "@validatePasswordText": {
+    "description": "Mensaje de error al comparar contraseñas"
+  },
   "error": "Error",
+  "@error": {
+    "description": "Etiqueta para errores"
+  },
   "accept": "Aceptar",
-  "setting": "Configuracion",
-  "logOut": "Cerrar session",
+  "@accept": {
+    "description": "Botón de aceptar"
+  },
+  "setting": "Configuración",
+  "@setting": {
+    "description": "Título para ajustes"
+  },
+  "logOut": "Cerrar sesión",
+  "@logOut": {
+    "description": "Botón para cerrar sesión"
+  },
   "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Botón para cancelar"
+  },
   "firstName": "Apellido Paterno",
+  "@firstName": {
+    "description": "Campo para apellido paterno"
+  },
   "lastName": "Apellido Materno",
+  "@lastName": {
+    "description": "Campo para apellido materno"
+  },
   "changeLanguage": "Español",
+  "@changeLanguage": {
+    "description": "Botón para cambiar idioma"
+  },
   "darkMode": "Modo oscuro",
+  "@darkMode": {
+    "description": "Opción para modo oscuro"
+  },
   "completed": "Completado",
+  "@completed": {
+    "description": "Estado completado"
+  },
   "pending": "Pendiente",
+  "@pending": {
+    "description": "Estado pendiente"
+  },
   "status": "Estado",
-  "title": "Titulo",
+  "@status": {
+    "description": "Campo de estado"
+  },
+  "title": "Título",
+  "@title": {
+    "description": "Campo de título"
+  },
   "searchRecipe": "Buscar receta",
-  "searchTitle": "Buscar por titulo",
-  "insertTitle": "Escriba un titulo",
+  "@searchRecipe": {
+    "description": "Campo para buscar recetas"
+  },
+  "searchTitle": "Buscar por título",
+  "@searchTitle": {
+    "description": "Campo de búsqueda por título"
+  },
+  "insertTitle": "Escriba un título",
+  "@insertTitle": {
+    "description": "Ayuda para escribir un título"
+  },
   "body": "Mensaje",
+  "@body": {
+    "description": "Campo para cuerpo del mensaje"
+  },
   "writeNote": "Escriba una nota",
+  "@writeNote": {
+    "description": "Campo para escribir notas"
+  },
   "addNote": "Crea una nota",
+  "@addNote": {
+    "description": "Botón para agregar nota"
+  },
   "save": "Guardar",
+  "@save": {
+    "description": "Botón para guardar"
+  },
   "back": "Volver",
-  "messageAddNote": "Se creo una nota exitosamente.",
-  "messageDeleteNote": "Se elimino la nota: ",
-  "updateTask": "Update task",
-  "messageUpdateNote": "Se actualizo nota exitosamente.",
+  "@back": {
+    "description": "Botón para volver"
+  },
+  "messageAddNote": "Se creó una nota exitosamente.",
+  "@messageAddNote": {
+    "description": "Mensaje de éxito al crear nota"
+  },
+  "messageDeleteNote": "Se eliminó la nota: ",
+  "@messageDeleteNote": {
+    "description": "Mensaje al eliminar una nota"
+  },
+  "updateTask": "Actualizar tarea",
+  "@updateTask": {
+    "description": "Botón para actualizar tarea"
+  },
+  "messageUpdateNote": "Se actualizó nota exitosamente.",
+  "@messageUpdateNote": {
+    "description": "Mensaje de éxito al actualizar nota"
+  },
   "noNote": "No se encontraron notas.",
+  "@noNote": {
+    "description": "Mensaje cuando no hay notas"
+  },
   "listPending": "Lista de pendientes",
+  "@listPending": {
+    "description": "Título para la lista de tareas pendientes"
+  },
   "completeInformation": "Por favor complete los detalles y cree una cuenta",
+  "@completeInformation": {
+    "description": "Mensaje al registrar usuario"
+  },
   "user": "Usuario",
+  "@user": {
+    "description": "Campo para nombre de usuario"
+  },
   "or": "o",
+  "@or": {
+    "description": "Separador entre opciones"
+  },
   "userPass": "Usuario y contraseña",
+  "@userPass": {
+    "description": "Texto que indica credenciales"
+  },
   "fullName": "Nombre Completo",
+  "@fullName": {
+    "description": "Campo para nombre completo"
+  },
   "enterFullName": "Ingrese nombre completo",
+  "@enterFullName": {
+    "description": "Texto de ayuda para nombre"
+  },
   "onboardingTitle1": "Comida fresca y deliciosa",
+  "@onboardingTitle1": {
+    "description": "Título de la primera pantalla de onboarding"
+  },
   "onboardingSubtitle1": "Descubre recetas saludables y sabrosas todos los días.",
+  "@onboardingSubtitle1": {
+    "description": "Subtítulo de la primera pantalla de onboarding"
+  },
   "onboardingTitle2": "Cocina en casa",
+  "@onboardingTitle2": {
+    "description": "Título de la segunda pantalla de onboarding"
+  },
   "onboardingSubtitle2": "Encuentra recetas para cocinar tú mismo.",
+  "@onboardingSubtitle2": {
+    "description": "Subtítulo de la segunda pantalla de onboarding"
+  },
   "onboardingTitle3": "Recetas de chefs y platos típicos",
+  "@onboardingTitle3": {
+    "description": "Título de la tercera pantalla de onboarding"
+  },
   "onboardingSubtitle3": "Explora recetas creadas por chefs y sabores tradicionales de todo el mundo.",
+  "@onboardingSubtitle3": {
+    "description": "Subtítulo de la tercera pantalla de onboarding"
+  },
   "onboardingTitle4": "¡Bienvenido a Cocinando!",
-  "onboardingSubtitle4": "Usa inteligencia artificial para descubrir qué cocinar con los ingredientes que ya tienes en casa."
+  "@onboardingTitle4": {
+    "description": "Título de la cuarta pantalla de onboarding"
+  },
+  "onboardingSubtitle4": "Usa inteligencia artificial para descubrir qué cocinar con los ingredientes que ya tienes en casa.",
+  "@onboardingSubtitle4": {
+    "description": "Subtítulo de la cuarta pantalla de onboarding"
+  },
+  "unsupportedSignInMethod": "Tipo de inicio de sesión no soportado",
+  "@unsupportedSignInMethod": {
+    "description": "Mensaje de error cuando se usa un método de login no permitido"
+  },
+  "signInError": "Error al iniciar sesión",
+  "@signInError": {
+    "description": "Mensaje de error genérico de login"
+  },
+  "googleSignInAborted": "Inicio de sesión con Google cancelado por el usuario",
+  "@googleSignInAborted": {
+    "description": "Mensaje cuando el usuario cancela el login con Google"
+  },
+  "googleNoToken": "Fallo en el inicio de sesión con Google: No se recibió token de acceso ni token de ID.",
+  "@googleNoToken": {
+    "description": "Error cuando no se reciben tokens de autenticación"
+  },
+  "accountExistsWithDifferentCredential": "La cuenta ya existe con una credencial diferente.",
+  "@accountExistsWithDifferentCredential": {
+    "description": "Mensaje cuando un usuario intenta iniciar sesión con otra cuenta ya vinculada"
+  },
+  "invalidCredential": "La credencial recibida no es válida.",
+  "@invalidCredential": {
+    "description": "Mensaje cuando la credencial no es válida"
+  },
+  "operationNotAllowed": "Operación no permitida. Habilita el inicio de sesión con Google en la consola de Firebase.",
+  "@operationNotAllowed": {
+    "description": "Error cuando la opción de login no está activada en Firebase"
+  },
+  "userDisabled": "Usuario deshabilitado. Por favor, contacta con soporte.",
+  "@userDisabled": {
+    "description": "Mensaje cuando el usuario está bloqueado"
+  },
+  "userNotFound": "No se encontró un usuario con ese correo electrónico.",
+  "@userNotFound": {
+    "description": "Mensaje cuando el correo no está registrado"
+  },
+  "wrongPassword": "Contraseña incorrecta proporcionada para ese usuario.",
+  "@wrongPassword": {
+    "description": "Mensaje cuando la contraseña es incorrecta"
+  },
+  "unknownGoogleSignInError": "Ocurrió un error desconocido durante el inicio de sesión con Google:",
+  "@unknownGoogleSignInError": {
+    "description": "Mensaje de error inesperado con login Google"
+  },
+  "googleSignInError": "Ocurrió un error durante el inicio de sesión con Google:",
+  "@googleSignInError": {
+    "description": "Mensaje genérico de error al iniciar sesión con Google"
+  },
+  "authSuccess": "Inicio de sesión o registro exitoso",
+  "@authSuccess": {
+    "description": "Mensaje de éxito al registrarse o iniciar sesión"
+  },
+  "authError": "Error al iniciar sesión o registrar:",
+  "@authError": {
+    "description": "Mensaje de error general de autenticación"
+  },
+  "weakPassword": "La contraseña proporcionada es demasiado débil.",
+  "@weakPassword": {
+    "description": "Mensaje cuando la contraseña es muy débil"
+  },
+  "emailAlreadyInUse": "La cuenta ya existe para ese correo electrónico.",
+  "@emailAlreadyInUse": {
+    "description": "Mensaje cuando se registra un correo ya en uso"
+  },
+  "unknownEmailLoginError": "Ocurrió un error desconocido durante el inicio de sesión con correo/contraseña:",
+  "@unknownEmailLoginError": {
+    "description": "Mensaje de error inesperado con correo y contraseña"
+  },
+  "emailLoginError": "Ocurrió un error durante el inicio de sesión con correo/contraseña:",
+  "@emailLoginError": {
+    "description": "Mensaje de error general en login con correo/contraseña"
+  },
+  "recoverEmail": "Recuperar correo",
+  "@recoverEmail": {
+    "description": "Sera el titulo de un alert o modal."
+  },
+  "recoverAccountMessage": "Para recuperar tu cuenta, ingresa una dirección de correo electrónico y luego acepta. Revisa tu correo. Si no lo ves, revisa otros correos o la carpeta de spam.",
+  "@recoverAccountMessage": {
+    "description": "Instrucciones para recuperación de cuenta por correo electrónico."
+  },
+  "recoverPassword": "Recuperar contraseña",
+  "@recoverPassword": {
+    "description": "Titulo para recuperar contraseña."
+  },
+  "send": "Enviar",
+  "@send": {
+    "description": "Enviar informacion"
+  },
+  "errorUserNotFound": "No hay ningún usuario registrado con ese correo.",
+  "@errorUserNotFound": {
+    "description": "Mensaje mostrado cuando no se encuentra un usuario con ese correo."
+  },
+  "errorTooManyRequests": "Demasiadas solicitudes. Inténtalo más tarde.",
+  "@errorTooManyRequests": {
+    "description": "Mensaje mostrado cuando se detectan demasiadas solicitudes en poco tiempo."
+  },
+  "errorNetwork": "Error de red. Revisa tu conexión a internet.",
+  "@errorNetwork": {
+    "description": "Mensaje mostrado cuando hay un error de conexión a internet."
+  },
+  "errorDefault": "Formato del correo no válido.",
+  "@errorDefault": {
+    "description": "Mensaje genérico mostrado cuando ocurre un error no identificado al enviar el email."
+  },
+  "errorInvalidEmail": "El correo no tiene un formato válido.",
+  "@errorInvalidEmail": {
+    "description": "Mensaje mostrado cuando el formato del correo electrónico es inválido."
+  }
 }

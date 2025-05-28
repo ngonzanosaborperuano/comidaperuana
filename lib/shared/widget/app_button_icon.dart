@@ -50,7 +50,7 @@ class AppButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: enabledButton ? onPressed : null,
       style: ButtonStyle(
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(15)),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.all(15)),
         backgroundColor: WidgetStateProperty.all(colorSecundary),
         foregroundColor: WidgetStateProperty.all(colorSecundary),
         overlayColor: WidgetStateProperty.all(colorSecundary),

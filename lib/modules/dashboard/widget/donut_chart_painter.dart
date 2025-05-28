@@ -48,7 +48,7 @@ class DonutChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final strokeWidth = 20.0;
+    const strokeWidth = 20.0;
     final radius = (size.width / 2) - strokeWidth;
 
     final center = Offset(size.width / 2, size.height / 2);

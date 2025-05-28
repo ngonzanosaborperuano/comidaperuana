@@ -103,7 +103,7 @@ class AppModalAlert extends StatelessWidget {
                 children: [
                   Icon(icon, color: AppColors.error, size: 24),
                   const SizedBox(width: 8),
-                  Text(title!, style: TextStyle(color: AppColors.error)),
+                  Text(title!, style: const TextStyle(color: AppColors.error)),
                 ],
               )
               : null,
@@ -120,7 +120,7 @@ class AppModalAlert extends StatelessWidget {
       actions: [
         CupertinoDialogAction(
           onPressed: onPressed ?? () => context.pop(),
-          child: Text(labelButton ?? context.loc.accept, style: TextStyle(color: AppColors.error)),
+          child: Text(labelButton ?? context.loc.accept, style: const TextStyle(color: AppColors.error)),
         ),
       ],
     );

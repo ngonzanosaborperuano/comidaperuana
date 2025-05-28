@@ -41,7 +41,7 @@ class AppTextFieldSearch extends StatelessWidget {
               prefixIcon: Icon(Icons.search, color: context.color.menuIsNotActive),
               suffix: IconButton(onPressed: onPressed, icon: const Icon(Icons.close, size: 15)),
               hintText: placeholder,
-              hintStyle: TextStyle(fontSize: 16),
+              hintStyle: const TextStyle(fontSize: 16),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 borderSide: BorderSide(width: 2.0, color: context.color.menuIsNotActive),

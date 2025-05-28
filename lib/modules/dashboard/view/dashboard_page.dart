@@ -20,7 +20,7 @@ class DashboardPage extends StatelessWidget {
     final percent = listTaskModel.isEmpty ? 0.0 : completed / listTaskModel.length;
 
     return AppScaffold(
-      title: Text('Dashboard'),
+      title: const Text('Dashboard'),
       onBackPressed: context.pop,
       body: DashboardView(percent: percent, listTaskModel: listTaskModel),
     );
