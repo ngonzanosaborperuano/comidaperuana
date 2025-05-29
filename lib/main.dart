@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -57,8 +55,10 @@ void main() async {
     appleProvider:
         kDebugMode ? AppleProvider.debug : AppleProvider.appAttestWithDeviceCheckFallback,
   );
-  String? token = await FirebaseAppCheck.instance.getToken();
-  log('Token: $token');
+
+  // String? token = await FirebaseAppCheck.instance.getToken();
+  // log('Token: $token');
+
   await dotenv.load(fileName: ".env");
   await SharedPreferencesHelper.init();
   await DatabaseHelper.init();

@@ -28,30 +28,17 @@ class AppItemRow extends StatelessWidget {
             if (icon != null) ...[Icon(icon, size: 18), AppHorizontalSpace.sm],
             SizedBox(
               width: maxWidth,
-              child: Text(
-                '$title :',
-                maxLines: 2,
-                style: AppStyles.bodyTextBold,
-              ),
+              child: Text(title, maxLines: 2, style: AppStyles.bodyTextBold),
             ),
             Flexible(
               child: AppShimmer(
                 enabled: subTitle == '' || subTitle == 'null',
-                child: Text(
-                  subTitle,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: maxLines,
-                ),
+                child: Text(subTitle, overflow: TextOverflow.ellipsis, maxLines: maxLines),
               ),
             ),
           ],
         ),
-        if (isDivider) ...[
-          const Padding(
-            padding: EdgeInsets.all(8),
-            child: Divider(height: 0.5),
-          ),
-        ],
+        if (isDivider) ...[const Padding(padding: EdgeInsets.all(8), child: Divider(height: 0.5))],
       ],
     );
   }

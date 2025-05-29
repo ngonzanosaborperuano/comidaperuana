@@ -1,22 +1,23 @@
 import 'dart:io';
 
 import 'package:firebase_ai/firebase_ai.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:recetasperuanas/core/services/gemini_ai_service.dart';
+import 'package:recetasperuanas/core/services/remote_config_service.dart';
 
-class VoiceToTextButton extends StatefulWidget {
+class AppGeminiVoiceToTextButton extends StatefulWidget {
   final void Function(String text)? onResult;
 
-  const VoiceToTextButton({super.key, this.onResult});
+  const AppGeminiVoiceToTextButton({super.key, this.onResult});
 
   @override
-  State<VoiceToTextButton> createState() => _VoiceToTextButtonState();
+  State<AppGeminiVoiceToTextButton> createState() => _AppGeminiVoiceToTextButtonState();
 }
 
-class _VoiceToTextButtonState extends State<VoiceToTextButton> {
+class _AppGeminiVoiceToTextButtonState extends State<AppGeminiVoiceToTextButton> {
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   bool _isRecording = false;
   late final String _filePath;
@@ -42,6 +43,25 @@ class _VoiceToTextButtonState extends State<VoiceToTextButton> {
     setState(() => _isRecording = true);
   }
 
+  // Stream<String> runFeatureFlagFlow({required InlineDataPart audioPart}) async* {
+  //   final configService = RemoteConfigService();
+  //   await configService.initialize();
+
+  //   final aiService = GeminiAIService(configService);
+
+  //   await for (final textChunk in aiService.generateAudioTextStream(audioPart: audioPart)) {
+  //     yield textChunk;
+  //   }
+  // }
+  Future<String> runFeatureFlagFlow({required InlineDataPart audioPart}) async {
+    final configService = RemoteConfigService();
+    await configService.initialize();
+
+    final aiService = GeminiAIService(configService);
+
+    return aiService.generateAudioText(audioPart: audioPart);
+  }
+
   Future<void> _stopAndSend() async {
     await _recorder.stopRecorder();
     setState(() => _isRecording = false);
@@ -54,28 +74,16 @@ class _VoiceToTextButtonState extends State<VoiceToTextButton> {
       return;
     }
 
-    final model = FirebaseAI.googleAI(
-      appCheck: FirebaseAppCheck.instance,
-    ).generativeModel(model: 'gemini-2.0-flash');
-
-    final prompt = TextPart(
-      "transcribe lo que escuchas y responde el audio en español. ten en cuenta que se preguntara sobre comidas, bebidas y recetas del peru y la respuesta debe ser detallada.",
-    );
     final audioPart = InlineDataPart('audio/aac', audioBytes);
+    final response = await runFeatureFlagFlow(audioPart: audioPart);
+    widget.onResult!(response);
 
-    final response = model.generateContentStream([
-      Content.multi([prompt, audioPart]),
-    ]);
-    await for (final chunk in response) {
-      widget.onResult!(chunk.text!);
-    }
-
-    // final resultText = response.text ?? 'Sin respuesta';
-
-    // if (widget.onResult != null) {
-    //   widget.onResult!(resultText);
+    // final stream = runFeatureFlagFlow(audioPart: audioPart);
+    // await for (final chunk in stream) {
+    //   widget.onResult!(chunk);
     // }
-    audioFile.delete();
+
+    await audioFile.delete();
   }
 
   @override

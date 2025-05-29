@@ -29,6 +29,14 @@ class HomeController extends BaseController {
 
   final isPending = ValueNotifier<bool?>(null);
 
+  // Future<void> runFeatureFlagFlow(String prompt) async {
+  //   final configService = RemoteConfigService();
+  //   await configService.initialize();
+
+  //   final aiService = GeminiAIService(configService);
+  //   await aiService.generateAudioText(prompt: prompt);
+  // }
+
   Future<void> allRecipes() async {
     listTask = await _taskRepository.getListTask();
     listTaskDashboard = listTask;
