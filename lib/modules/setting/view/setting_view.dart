@@ -6,6 +6,7 @@ import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
+import 'package:recetasperuanas/core/provider/pages_provider.dart';
 import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/modules/setting/controller/setting_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -29,7 +30,7 @@ class SettingView extends StatelessWidget {
             Language(con: con),
             DarkMode(con: con),
             AppVerticalSpace.slg,
-            LogOut(con: con),
+            LogOutButton(con: con),
           ],
         );
       },
@@ -108,8 +109,8 @@ class Language extends StatelessWidget {
   }
 }
 
-class LogOut extends StatelessWidget {
-  const LogOut({super.key, required this.con});
+class LogOutButton extends StatelessWidget {
+  const LogOutButton({super.key, required this.con});
   final SettingController con;
   @override
   Widget build(BuildContext context) {
@@ -121,7 +122,7 @@ class LogOut extends StatelessWidget {
         showIcon: false,
         onPressed: () {
           con.logout();
-          context.go(Routes.login.description);
+          context.go(Routes.splash.description);
         },
       ),
     );

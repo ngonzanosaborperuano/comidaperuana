@@ -240,16 +240,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wrongPassword => 'Contraseña incorrecta proporcionada para ese usuario.';
 
   @override
-  String get unknownGoogleSignInError => 'Ocurrió un error desconocido durante el inicio de sesión con Google:';
+  String get unknownGoogleSignInError => 'Ocurrió un error desconocido durante el inicio de sesión con Google';
 
   @override
-  String get googleSignInError => 'Ocurrió un error durante el inicio de sesión con Google:';
+  String get googleSignInError => 'Ocurrió un error durante el inicio de sesión con Google';
 
   @override
   String get authSuccess => 'Inicio de sesión o registro exitoso';
 
   @override
-  String get authError => 'Error al iniciar sesión o registrar:';
+  String get authError => 'Error al iniciar sesión o registrar';
 
   @override
   String get weakPassword => 'La contraseña proporcionada es demasiado débil.';
@@ -258,10 +258,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get emailAlreadyInUse => 'La cuenta ya existe para ese correo electrónico.';
 
   @override
-  String get unknownEmailLoginError => 'Ocurrió un error desconocido durante el inicio de sesión con correo/contraseña:';
+  String get unknownEmailLoginError => 'Ocurrió un error desconocido durante el inicio de sesión con correo/contraseña';
 
   @override
-  String get emailLoginError => 'Ocurrió un error durante el inicio de sesión con correo/contraseña:';
+  String get emailLoginError => 'Ocurrió un error durante el inicio de sesión con correo/contraseña';
 
   @override
   String get recoverEmail => 'Recuperar correo';

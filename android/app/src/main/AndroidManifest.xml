@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https" android:host="ricope-e01a994cf2ab.herokuapp.com" android:pathPrefix="/home"/>
+                <data android:scheme="https" android:host="cocinando.shop" android:pathPrefix="/home"/>
             </intent-filter>
 
 

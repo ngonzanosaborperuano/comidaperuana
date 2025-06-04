@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/modules/dashboard/view/dashboard_view.dart';
 import 'package:recetasperuanas/modules/home/models/task_model.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
+import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key, required this.listTaskModel});

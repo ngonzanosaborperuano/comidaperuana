@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/modules/welcome/view/welcome_view.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
+import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

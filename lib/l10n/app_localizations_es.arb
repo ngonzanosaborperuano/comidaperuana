@@ -308,11 +308,11 @@
   "@wrongPassword": {
     "description": "Mensaje cuando la contraseña es incorrecta"
   },
-  "unknownGoogleSignInError": "Ocurrió un error desconocido durante el inicio de sesión con Google:",
+  "unknownGoogleSignInError": "Ocurrió un error desconocido durante el inicio de sesión con Google",
   "@unknownGoogleSignInError": {
     "description": "Mensaje de error inesperado con login Google"
   },
-  "googleSignInError": "Ocurrió un error durante el inicio de sesión con Google:",
+  "googleSignInError": "Ocurrió un error durante el inicio de sesión con Google",
   "@googleSignInError": {
     "description": "Mensaje genérico de error al iniciar sesión con Google"
   },
@@ -320,7 +320,7 @@
   "@authSuccess": {
     "description": "Mensaje de éxito al registrarse o iniciar sesión"
   },
-  "authError": "Error al iniciar sesión o registrar:",
+  "authError": "Error al iniciar sesión o registrar",
   "@authError": {
     "description": "Mensaje de error general de autenticación"
   },
@@ -332,11 +332,11 @@
   "@emailAlreadyInUse": {
     "description": "Mensaje cuando se registra un correo ya en uso"
   },
-  "unknownEmailLoginError": "Ocurrió un error desconocido durante el inicio de sesión con correo/contraseña:",
+  "unknownEmailLoginError": "Ocurrió un error desconocido durante el inicio de sesión con correo/contraseña",
   "@unknownEmailLoginError": {
     "description": "Mensaje de error inesperado con correo y contraseña"
   },
-  "emailLoginError": "Ocurrió un error durante el inicio de sesión con correo/contraseña:",
+  "emailLoginError": "Ocurrió un error durante el inicio de sesión con correo/contraseña",
   "@emailLoginError": {
     "description": "Mensaje de error general en login con correo/contraseña"
   },

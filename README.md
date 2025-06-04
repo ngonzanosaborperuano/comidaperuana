@@ -49,7 +49,7 @@ Agrega Firebase a tu proyecto
 # //
 
 # DeepLink probar en un emulador
-
+https://docs.flutter.dev/cookbook/navigation/set-up-app-links
 sirve para cuando estas en un emulador y quieres abrir el app desde un deeplink
 
 adb shell 'am start -a android.intent.action.VIEW \
@@ -79,7 +79,6 @@ limpiar warning
 ============================================
 agregar en analysis_options.yaml
 
-# analysis_options.yaml
 
 include: package:flutter_lints/flutter.yaml
 
@@ -92,3 +91,7 @@ prefer_const_declarations: true
 luego: fvm dart fix --apply
 
 //
+============================================
+DISEÑO de la app
+============================================
+https://gj4vf7-5173.csb.app/

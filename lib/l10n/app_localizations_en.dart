@@ -240,16 +240,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wrongPassword => 'Wrong password provided for that user.';
 
   @override
-  String get unknownGoogleSignInError => 'An unknown error occurred during Google sign-in:';
+  String get unknownGoogleSignInError => 'An unknown error occurred during Google sign-in';
 
   @override
-  String get googleSignInError => 'An error occurred during Google sign-in:';
+  String get googleSignInError => 'An error occurred during Google sign-in';
 
   @override
   String get authSuccess => 'Login or registration successful';
 
   @override
-  String get authError => 'Error during login or registration:';
+  String get authError => 'Error during login or registration';
 
   @override
   String get weakPassword => 'The password provided is too weak.';
@@ -258,10 +258,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailAlreadyInUse => 'The account already exists for that email.';
 
   @override
-  String get unknownEmailLoginError => 'An unknown error occurred during email/password login:';
+  String get unknownEmailLoginError => 'An unknown error occurred during email/password login';
 
   @override
-  String get emailLoginError => 'An error occurred during email/password login:';
+  String get emailLoginError => 'An error occurred during email/password login';
 
   @override
   String get recoverEmail => 'Recover email';

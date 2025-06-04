@@ -308,11 +308,11 @@
   "@wrongPassword": {
     "description": "Message for incorrect password"
   },
-  "unknownGoogleSignInError": "An unknown error occurred during Google sign-in:",
+  "unknownGoogleSignInError": "An unknown error occurred during Google sign-in",
   "@unknownGoogleSignInError": {
     "description": "Generic unknown error for Google sign-in"
   },
-  "googleSignInError": "An error occurred during Google sign-in:",
+  "googleSignInError": "An error occurred during Google sign-in",
   "@googleSignInError": {
     "description": "Error during Google sign-in"
   },
@@ -320,7 +320,7 @@
   "@authSuccess": {
     "description": "Message on successful login/registration"
   },
-  "authError": "Error during login or registration:",
+  "authError": "Error during login or registration",
   "@authError": {
     "description": "Error during login or registration"
   },
@@ -332,11 +332,11 @@
   "@emailAlreadyInUse": {
     "description": "Email already registered message"
   },
-  "unknownEmailLoginError": "An unknown error occurred during email/password login:",
+  "unknownEmailLoginError": "An unknown error occurred during email/password login",
   "@unknownEmailLoginError": {
     "description": "Generic unknown error for email login"
   },
-  "emailLoginError": "An error occurred during email/password login:",
+  "emailLoginError": "An error occurred during email/password login",
   "@emailLoginError": {
     "description": "Error during email/password login"
   },

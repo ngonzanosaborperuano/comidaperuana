@@ -4,7 +4,7 @@ import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/modules/register/view/register_view.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold.dart';
+import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

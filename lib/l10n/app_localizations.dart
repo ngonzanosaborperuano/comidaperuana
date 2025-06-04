@@ -560,13 +560,13 @@ abstract class AppLocalizations {
   /// Generic unknown error for Google sign-in
   ///
   /// In en, this message translates to:
-  /// **'An unknown error occurred during Google sign-in:'**
+  /// **'An unknown error occurred during Google sign-in'**
   String get unknownGoogleSignInError;
 
   /// Error during Google sign-in
   ///
   /// In en, this message translates to:
-  /// **'An error occurred during Google sign-in:'**
+  /// **'An error occurred during Google sign-in'**
   String get googleSignInError;
 
   /// Message on successful login/registration
@@ -578,7 +578,7 @@ abstract class AppLocalizations {
   /// Error during login or registration
   ///
   /// In en, this message translates to:
-  /// **'Error during login or registration:'**
+  /// **'Error during login or registration'**
   String get authError;
 
   /// Password does not meet strength requirements
@@ -596,13 +596,13 @@ abstract class AppLocalizations {
   /// Generic unknown error for email login
   ///
   /// In en, this message translates to:
-  /// **'An unknown error occurred during email/password login:'**
+  /// **'An unknown error occurred during email/password login'**
   String get unknownEmailLoginError;
 
   /// Error during email/password login
   ///
   /// In en, this message translates to:
-  /// **'An error occurred during email/password login:'**
+  /// **'An error occurred during email/password login'**
   String get emailLoginError;
 
   /// It will be the title of an alert or modal.

@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         return HomeController(
           userRepository: context.read<UserRepository>(),
           taskRepository: TaskRepository(DatabaseHelper.instance, apiService: ApiService()),
-        )..allRecipes();
+        );//..allRecipes();
       },
       child: Consumer<HomeController>(
         builder: (_, HomeController con, __) {

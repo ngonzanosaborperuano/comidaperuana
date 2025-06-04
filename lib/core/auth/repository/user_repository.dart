@@ -199,6 +199,15 @@ class UserRepository extends BaseRepository {
 
   Future<void> logout() async {
     try {
+      final data = (await secureStorageService.loadCredentials())!;
+      final result = await _apiService.post(
+        endpoint: '$path/logout',
+        authorization: data.sessionToken,
+        body: {"id": data.id},
+        fromJson: (p0) => p0,
+      );
+      if (!result.success) return;
+
       await secureStorageService.deleteCredentials();
       await FirebaseAuth.instance.signOut();
     } catch (e, stackTrace) {
