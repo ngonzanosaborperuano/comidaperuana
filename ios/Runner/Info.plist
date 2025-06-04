@@ -22,6 +22,14 @@
 		<string>$(FLUTTER_BUILD_NAME)</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
+		<key>CFBundleVersion</key>
+		<string>$(FLUTTER_BUILD_NUMBER)</string>
+		<key>FLTEnableImpeller</key>
+		<false/>
+		<key>FlutterDeepLinkingEnabled</key>
+		<true/>
+
+		<!-- URL Schemes (Google Sign-In, etc.) -->
 		<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
@@ -32,11 +40,19 @@
 					<string>ricope</string>
 				</array>
 			</dict>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string></string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
+				</array>
+			</dict>
 		</array>
-		<key>CFBundleVersion</key>
-		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>FlutterDeepLinkingEnabled</key>
-		<true/>
+
+		<!-- Google Sign-In -->
 		<key>GIDClientID</key>
 		<string>615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com</string>
 		<key>GoogleSignIn</key>
@@ -46,16 +62,42 @@
 			<key>ReversedClientID</key>
 			<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
 		</dict>
-		<key>LSRequiresIPhoneOS</key>
-		<true/>
+
+		<!-- Permisos del sistema -->
+		<key>NSCameraUsageDescription</key>
+		<string>Esta aplicación necesita acceso a la cámara para tomar fotos a los platos o ingredientes.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Esta aplicación necesita acceso a las fotos para guardar o cargar imágenes de tus platos.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Esta aplicación necesita acceso al micrófono para grabar instrucciones o audios de recetas.</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Necesitamos tu ubicación para sugerirte ingredientes o platos cercanos.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Necesitamos tu ubicación incluso en segundo plano para enviarte alertas de ingredientes cercanos.</string>
+
+		<!-- Permisos de red local para evitar error del observatorio -->
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>Esta aplicación requiere acceso a la red local para funciones de desarrollo y depuración.</string>
+		<key>NSBonjourServices</key>
+		<array>
+			<string>_dartobservatory._tcp</string>
+		</array>
+
+		<!-- Red arbitraria (desarrollo) -->
 		<key>NSAppTransportSecurity</key>
-		<dict/>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+
+		<!-- Notificaciones -->
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
+
+		<!-- Orientaciones -->
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
@@ -69,9 +111,33 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key>NSCameraUsageDescription</key>
-		<string>Esta aplicación necesita acceso a la cámara para tomar fotos a los platos o ingredientes</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Esta aplicación necesita acceso a las fotos para obtener los platos o ingredientes de la biblioteca de fotos.</string>
-	</dict>
+
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+
+		<!-- Consultas de esquema -->
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>pulsesecure</string>
+		</array>
+
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+
+		<!-- Permisos de notificación (legacy, opcional) -->
+		<key>UIUserNotificationType</key>
+		<dict>
+			<key>UIUserNotificationTypeAlert</key>
+			<string>YES</string>
+			<key>UIUserNotificationTypeBadge</key>
+			<string>YES</string>
+			<key>UIUserNotificationTypeSound</key>
+			<string>YES</string>
+		</dict>
+
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
 </plist>

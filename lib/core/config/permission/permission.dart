@@ -7,10 +7,9 @@ Future<void> requestPermissions() async {
   final statuses =
       await [
         Permission.microphone,
-        // Permission.speech,
+        Permission.speech,
         Permission.camera,
-        // Permission.location,
-        // Permission.storage,
+        Permission.photos,
       ].request();
 
   statuses.forEach((permission, status) {

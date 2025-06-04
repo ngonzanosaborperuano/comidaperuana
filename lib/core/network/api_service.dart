@@ -9,7 +9,6 @@ import 'package:recetasperuanas/core/network/models/api_response.dart';
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 
 class ApiService {
-  // final Dio _dio = DioClient().dio;
   final _api = dotenv.env['API']!;
   final _logger = Logger('ApiService');
 
@@ -20,20 +19,17 @@ class ApiService {
     String? authorization,
   }) async {
     try {
-      final response = await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.get<List<dynamic>>(endpoint, queryParameters: queryParameters);
-      final data = response.data;
-
-      if (data == null) {
-        throw Exception('''
-        Respuesta del servidor inválida.
-
-        Lista de datos nula.
-        ''');
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
       }
 
+      final result = await dioClient.dio.get<List<dynamic>>(
+        endpoint,
+        queryParameters: queryParameters,
+      );
+      final data = result.data ?? [];
+      dioClient.clearAuthorization();
       return ApiResponse.success(
         data: data.map((e) => fromJson(e as Map<String, dynamic>)).toList(),
       );
@@ -50,11 +46,17 @@ class ApiService {
   }) async {
     assert(T is! List, 'Use `getList` for list responses');
     try {
-      final response = await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.get<Map<String, dynamic>>(endpoint, queryParameters: queryParameters);
-      final data = response.data?['data'] ?? {};
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
+      }
+
+      final result = await dioClient.dio.get<Map<String, dynamic>>(
+        endpoint,
+        queryParameters: queryParameters,
+      );
+      final data = result.data?['data'] ?? {};
+      dioClient.clearAuthorization();
       return ApiResponse.success(data: data == null ? null : fromJson(data));
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -66,13 +68,17 @@ class ApiService {
     Map<String, dynamic>? body,
     String? authorization,
     required FromJson<T> fromJson,
+    bool isLogout = false,
   }) async {
     try {
-      final result = await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.post<Map<String, dynamic>>(endpoint, data: body);
-      final data = result.data?['data'] ?? {};
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
+      }
+      final result = await dioClient.dio.post<Map<String, dynamic>>(endpoint, data: body);
+
+      final data = result.data?['data'];
+      dioClient.clearAuthorization();
       return ApiResponse.success(data: data == null ? null : fromJson(data));
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -85,10 +91,13 @@ class ApiService {
     String? authorization,
   }) async {
     try {
-      await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.put<dynamic>(endpoint, data: data);
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
+      }
+
+      await dioClient.dio.put<dynamic>(endpoint, data: data);
+      dioClient.clearAuthorization();
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -101,10 +110,13 @@ class ApiService {
     String? authorization,
   }) async {
     try {
-      await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.put<dynamic>(endpoint, data: data);
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
+      }
+
+      await dioClient.dio.put<dynamic>(endpoint, data: data);
+      dioClient.clearAuthorization();
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);
@@ -117,10 +129,13 @@ class ApiService {
     String? authorization,
   }) async {
     try {
-      await DioClient(
-        baseUrl: _api,
-        authorization: authorization,
-      ).dio.delete<dynamic>(endpoint, data: data);
+      final dioClient = DioClient(baseUrl: _api);
+      if (authorization != null) {
+        dioClient.updateAuthorization(authorization);
+      }
+
+      await dioClient.dio.delete<dynamic>(endpoint, data: data);
+      dioClient.clearAuthorization();
       return const ApiResponse();
     } catch (error, stackTrace) {
       return _handleError(error, stackTrace);

@@ -70,6 +70,9 @@ App Check
 ============================================
 https://hasankarli.medium.com/flutter-firebase-app-check-21355c9ad349
 
+token ios
+https://firebase.google.com/docs/app-check/flutter/debug-provider?hl=es-419&authuser=0
+
 ============================================
 Kafka
 ============================================

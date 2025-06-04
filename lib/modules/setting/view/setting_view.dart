@@ -6,7 +6,6 @@ import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
-import 'package:recetasperuanas/core/provider/pages_provider.dart';
 import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/modules/setting/controller/setting_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -120,8 +119,9 @@ class LogOutButton extends StatelessWidget {
         isCancel: true,
         text: context.loc.logOut,
         showIcon: false,
-        onPressed: () {
-          con.logout();
+        onPressed: () async {
+          await con.logout();
+          if (!context.mounted) return;
           context.go(Routes.splash.description);
         },
       ),

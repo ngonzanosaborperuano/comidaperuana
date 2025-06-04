@@ -1,7 +1,6 @@
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
@@ -18,6 +17,8 @@ class UserRepository extends BaseRepository {
   static const String path = 'users';
   final _logger = Logger('UserRepository');
   ISecureStorageService secureStorageService = SecurityStorageService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>['email', 'profile']);
 
   Future<(bool, String)> login({required AuthUser user, required int type}) async {
     try {
@@ -25,7 +26,6 @@ class UserRepository extends BaseRepository {
         return loginWithGoogle();
       } else if (type == LoginWith.withUserPassword) {
         return loginWithEmailPass(user);
-        // return loginWithEmail(user);
       }
     } catch (e, stackTrace) {
       _logger.severe('Error al iniciar sesión: $e', e, stackTrace);
@@ -36,8 +36,14 @@ class UserRepository extends BaseRepository {
 
   Future<(bool, String)> loginWithEmailPass(AuthUser user) async {
     try {
-      await FirebaseAuth.instance.signInWithCredential(
+      final response = await FirebaseAuth.instance.signInWithCredential(
         EmailAuthProvider.credential(email: user.email, password: user.contrasena!),
+      );
+      user = AuthUser(
+        email: user.email,
+        contrasena: response.user!.uid,
+        foto: response.user!.photoURL,
+        nombreCompleto: response.user!.displayName,
       );
 
       return await signInOrRegister(user);
@@ -54,17 +60,17 @@ class UserRepository extends BaseRepository {
     try {
       final isExists = await _apiService.get(endpoint: '$path/${user.email}', fromJson: (id) => id);
 
-      final userModel = AuthUser(
-        nombreCompleto: user.nombreCompleto,
-        foto: user.foto,
-        email: user.email,
-        contrasena: user.contrasena,
-      );
+      // final userModel = AuthUser(
+      //   nombreCompleto: user.nombreCompleto,
+      //   foto: user.foto,
+      //   email: user.email,
+      //   contrasena: user.contrasena,
+      // );
 
       if (isExists.data!['id'] == 0) {
-        await register(userModel);
+        await register(user);
       } else {
-        await loginWithEmail(userModel);
+        await loginWithEmail(user);
       }
       return (true, 'Login or registration successful');
     } catch (e, stackTrace) {
@@ -116,38 +122,79 @@ class UserRepository extends BaseRepository {
 
   Future<(bool, String)> loginWithGoogle() async {
     try {
-      final clientIdIOS = Platform.isIOS ? dotenv.env['CLIENT_ID']! : null;
-      final clientIdAndroid = Platform.isIOS ? dotenv.env['SERVER_CLIENT_ID']! : null;
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        scopes: <String>['email'],
-        clientId: clientIdIOS,
-        serverClientId: clientIdAndroid,
-      );
+      // // final clientIdIOS = Platform.isIOS ? dotenv.env['CLIENT_ID']! : null;
+      // // final clientIdAndroid = Platform.isIOS ? dotenv.env['SERVER_CLIENT_ID']! : null;
+      // final GoogleSignIn googleSignIn = GoogleSignIn(
+      //   scopes: <String>['email'],
+      //   // clientId: clientIdIOS,
+      //   // serverClientId: clientIdAndroid,
+      // );
 
-      if (await googleSignIn.isSignedIn()) {
-        await googleSignIn.signOut();
-      }
+      // if (await googleSignIn.isSignedIn()) {
+      //   await googleSignIn.signOut();
+      // }
 
-      final GoogleSignInAccount? signInAccount = await googleSignIn.signIn();
+      // final GoogleSignInAccount? signInAccount = await googleSignIn.signIn();
 
-      if (signInAccount == null) {
+      // if (signInAccount == null) {
+      //   return (false, 'Google sign-in aborted by user');
+      // }
+
+      // final GoogleSignInAuthentication googleAuth = await signInAccount.authentication;
+
+      // final OAuthCredential oauthCredentials = GoogleAuthProvider.credential(
+      //   idToken: googleAuth.idToken,
+      //   accessToken: googleAuth.accessToken,
+      // );
+      // if (oauthCredentials.accessToken == null || oauthCredentials.idToken == null) {
+      //   return (false, 'Google sign-in failed: No access token or ID token received.');
+      // }
+      // final result = await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
+      // Trigger del flujo de autenticación
+      // Asegúrate de que no hay sesiones previas
+      // Primero, verifica si hay una sesión activa
+      // Primero, verifica si hay una sesión activa
+
+      await _googleSignIn.signOut(); // Forzar cierre de sesión anterior
+      await _auth.signOut(); // Limpiar sesión de Firebase
+      // Limpiar cualquier caché de autenticación
+
+      // Esperar un momento para asegurar que todo se limpió
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      // Intentar el nuevo sign in
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        log('Google Sign In fue cancelado por el usuario');
         return (false, 'Google sign-in aborted by user');
       }
 
-      final GoogleSignInAuthentication googleAuth = await signInAccount.authentication;
+      // Obtener detalles de autenticación con manejo de errores
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication.catchError((
+        error,
+      ) {
+        log('Error en autenticación de Google: $error');
+        throw error;
+      });
 
-      final OAuthCredential oauthCredentials = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-      if (oauthCredentials.accessToken == null || oauthCredentials.idToken == null) {
-        return (false, 'Google sign-in failed: No access token or ID token received.');
+      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
+        log('No se pudieron obtener los tokens necesarios');
+        return (false, 'Google sign-in aborted by user');
       }
-      final result = await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
+
+      // Crear credencial
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Iniciar sesión en Firebase
+      final result = await _auth.signInWithCredential(credential);
       final data = result.user!;
       AuthUser user = AuthUser(
         email: data.email!,
-        contrasena: result.user!.uid,
+        contrasena: data.uid,
         foto: data.photoURL,
         nombreCompleto: data.displayName,
       );
@@ -161,8 +208,22 @@ class UserRepository extends BaseRepository {
     }
   }
 
-  Future<bool> register(AuthUser user) async {
+  Future<bool> register(AuthUser user, {int? type}) async {
     try {
+      if (type == LoginWith.withUserPassword) {
+        final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: user.email,
+          password: user.contrasena!,
+        );
+        final data = response.user!;
+        user = AuthUser(
+          email: user.email,
+          contrasena: data.uid,
+          nombreCompleto: user.nombreCompleto,
+          foto: user.foto,
+        );
+      }
+
       final result = await _apiService.post(
         endpoint: path,
         body: user.toJson(),
@@ -170,10 +231,6 @@ class UserRepository extends BaseRepository {
       );
 
       if (result.success == false) return false;
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: user.email,
-        password: user.contrasena!,
-      );
 
       await loginWithEmail(user);
 
@@ -199,6 +256,9 @@ class UserRepository extends BaseRepository {
 
   Future<void> logout() async {
     try {
+      await _googleSignIn.signOut();
+      await _auth.signOut();
+
       final data = (await secureStorageService.loadCredentials())!;
       final result = await _apiService.post(
         endpoint: '$path/logout',
@@ -206,10 +266,8 @@ class UserRepository extends BaseRepository {
         body: {"id": data.id},
         fromJson: (p0) => p0,
       );
-      if (!result.success) return;
-
       await secureStorageService.deleteCredentials();
-      await FirebaseAuth.instance.signOut();
+      if (!result.success) return;
     } catch (e, stackTrace) {
       _logger.severe('Error: $e', e, stackTrace);
       addError(e, stackTrace);
