@@ -1,10 +1,12 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
-import 'package:recetasperuanas/modules/home/widget/widget.dart' show CardTask;
+import 'package:recetasperuanas/modules/home/widget/widget.dart'
+    show AppGeminiTextToTextButton, CardTask;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/text_widget.dart';
 
@@ -36,8 +38,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-
     return Center(
       child:
           widget.con.listTask.isEmpty
@@ -92,6 +92,13 @@ class _HomeViewState extends State<HomeView> {
                             },
                             child: const Text('MercadoPago - Custom Tabs'),
                           ),
+                          AppGeminiTextToTextButton(
+                            prompt: 'tamales, para 2 personas',
+                            onResult: (text) {
+                              log(text);
+                            },
+                          ),
+
                           const SizedBox(height: 20),
                           Center(child: AppText(text: context.loc.noNote)),
                         ],

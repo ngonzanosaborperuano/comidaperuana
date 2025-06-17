@@ -19,50 +19,195 @@ class GeminiAIService {
   );
   final RemoteConfigService _configService;
   final jsonSchema = Schema.object(
-    description: 'Schema para una receta de cocina detallada.',
+    description: 'Respuesta estructurada para una receta de cocina enriquecida.',
     properties: {
-      'NombrePlato': Schema.string(description: 'Nombre del plato de comida.'),
-      'IngredientesUtilizados': Schema.string(
-        description: 'Lista de ingredientes necesarios, idealmente con cantidades.',
+      'isValidRecipe': Schema.boolean(
+        description: 'Indica si la entrada fue válida y se generó una receta.',
       ),
-      'AlternativasIngredientes': Schema.string(
-        description: 'Sugerencias para reemplazar ingredientes si alguno no está disponible.',
+      'errorMessage': Schema.string(
+        description:
+            'Mensaje de error si no se puede generar una receta válida (por ejemplo, si no es una receta o si solicita más de una a la vez).',
       ),
-      'Preparacion': Schema.object(
-        description: 'Detalles sobre la preparación del plato.',
+      'result': Schema.object(
+        description: 'Contiene los datos completos de la receta, solo si la solicitud fue válida.',
         properties: {
-          'TiempoEstimado': Schema.string(
-            description:
-                'Tiempo total estimado para la preparación y cocción (ej. "45 minutos") concidera que se cocina de casa.',
+          'title': Schema.string(description: 'Nombre del plato.'),
+          'summary': Schema.string(description: 'Resumen breve del plato.'),
+          'isVegetarian': Schema.boolean(description: '¿Es vegetariano?'),
+          'mealType': Schema.string(description: 'Tipo de comida.'),
+          'difficulty': Schema.string(description: 'Nivel de dificultad.'),
+          'isAllergenic': Schema.boolean(description: '¿Contiene alérgenos comunes?'),
+
+          'allergens': Schema.array(
+            description: 'Lista de alérgenos presentes.',
+            items: Schema.object(
+              properties: {'name': Schema.string(description: 'Nombre del alérgeno.')},
+            ),
           ),
-          'Pasos': Schema.string(
-            description:
-                'Pasos detallados de la preparación, preferiblemente numerados o en una lista clara.',
+
+          'ingredients': Schema.array(
+            description: 'Ingredientes usados.',
+            items: Schema.object(
+              properties: {
+                'name': Schema.string(description: 'Nombre del ingrediente.'),
+                'amount': Schema.string(description: 'Cantidad.'),
+              },
+            ),
+          ),
+
+          'AlternativasIngredientes': Schema.array(
+            description: 'Sugerencias para reemplazar ingredientes.',
+            items: Schema.object(
+              properties: {
+                'original': Schema.string(description: 'Ingrediente original.'),
+                'alternativas': Schema.array(
+                  items: Schema.object(
+                    properties: {'name': Schema.string(description: 'Ingrediente alternativo.')},
+                  ),
+                ),
+              },
+            ),
+          ),
+
+          'instructions': Schema.array(
+            description: 'Pasos detallados para la preparación.',
+            items: Schema.object(
+              properties: {
+                'step': Schema.number(description: 'Número de paso en orden secuencial.'),
+                'text': Schema.string(description: 'Texto descriptivo del paso.'),
+              },
+            ),
+          ),
+
+          'nutrition_info': Schema.object(
+            properties: {
+              'calories': Schema.integer(description: 'Calorías.'),
+              'protein': Schema.integer(description: 'Proteína en gramos.'),
+              'carbs': Schema.integer(description: 'Carbohidratos en gramos.'),
+              'fats': Schema.integer(description: 'Grasas en gramos.'),
+              'fiber': Schema.integer(description: 'Fibra en gramos.'),
+              'sugar': Schema.integer(description: 'Azúcar en gramos.'),
+              'sodium': Schema.integer(description: 'Sodio en miligramos.'),
+              'cholesterol': Schema.integer(description: 'Colesterol en miligramos.'),
+              'vitamin_c': Schema.integer(description: 'Vitamina C en miligramos.'),
+              'iron': Schema.integer(description: 'Hierro en miligramos.'),
+            },
+          ),
+
+          'macros': Schema.object(
+            properties: {
+              'protein_g': Schema.number(),
+              'carbs_g': Schema.number(),
+              'fats_g': Schema.number(),
+              'fiber_g': Schema.number(),
+              'sugar_g': Schema.number(),
+              'sodium_mg': Schema.number(),
+              'cholesterol_mg': Schema.number(),
+              'iron_mg': Schema.number(),
+              'vitamin_c_mg': Schema.number(),
+            },
+          ),
+
+          'glycemic_index': Schema.number(),
+
+          'diets': Schema.array(
+            description: 'Dietas compatibles.',
+            items: Schema.object(
+              properties: {'name': Schema.string(description: 'Nombre de la dieta.')},
+            ),
+          ),
+
+          'recommended_servings': Schema.object(
+            properties: {
+              'adult': Schema.string(),
+              'child': Schema.string(),
+              'athlete': Schema.string(),
+              'senior': Schema.string(),
+            },
+          ),
+
+          'satiety_level': Schema.string(),
+          'digestion_time_minutes': Schema.number(),
+
+          'medical_restrictions': Schema.array(
+            description: 'Condiciones médicas incompatibles.',
+            items: Schema.object(
+              properties: {'name': Schema.string(description: 'Condición médica.')},
+            ),
+          ),
+
+          'processing_level': Schema.number(),
+          'environmental_impact': Schema.string(),
+
+          'similar_dishes': Schema.array(
+            items: Schema.object(
+              properties: {'name': Schema.string(description: 'Nombre del plato similar.')},
+            ),
+          ),
+
+          'extra_info': Schema.object(
+            properties: {
+              'origin_country': Schema.string(),
+              'ideal_season': Schema.string(),
+              'cooking_method': Schema.string(),
+              'spicy_level': Schema.string(),
+            },
+          ),
+
+          'recommended_pairings': Schema.object(
+            properties: {
+              'drinks': Schema.array(
+                items: Schema.object(
+                  properties: {'name': Schema.string(description: 'Bebida recomendada.')},
+                ),
+              ),
+              'sides': Schema.array(
+                items: Schema.object(
+                  properties: {'name': Schema.string(description: 'Guarnición sugerida.')},
+                ),
+              ),
+              'desserts': Schema.array(
+                items: Schema.object(
+                  properties: {'name': Schema.string(description: 'Postre sugerido.')},
+                ),
+              ),
+            },
+          ),
+
+          'health_warnings': Schema.array(
+            items: Schema.object(
+              properties: {'text': Schema.string(description: 'Advertencia médica.')},
+            ),
+          ),
+          'plating_instructions': Schema.array(
+            description: 'Instrucciones detalladas sobre cómo servir o emplatar el plato.',
+            items: Schema.object(
+              properties: {
+                'step': Schema.number(description: 'Número de paso.'),
+                'description': Schema.string(description: 'Descripción del paso de emplatado.'),
+              },
+            ),
           ),
         },
       ),
-      'Recomendaciones': Schema.string(
+      'cacheTime': Schema.string(
         description:
-            'Consejos, trucos o tips adicionales para mejorar la receta o la presentación.',
+            'Timestamp de caché (UNIX timestamp en segundos o milisegundos, sin decimales).',
       ),
-      'Origen': Schema.string(
-        description: 'Breve descripción del origen geográfico o cultural del plato.',
-      ),
-      'Error': Schema.string(
+      'time': Schema.string(
         description:
-            'Mensaje de error si la solicitud no se puede procesar como una receta o si falta información crucial.',
+            'Timestamp de generación (UNIX timestamp en segundos o milisegundos, sin decimales).',
       ),
     },
-    propertyOrdering: [
-      'NombrePlato',
-      'IngredientesUtilizados',
-      'Preparacion',
-      'AlternativasIngredientes',
-      'Recomendaciones',
-      'Origen',
-    ],
-    optionalProperties: ['Error'],
+    propertyOrdering: ['isValidRecipe', 'errorMessage', 'result', 'cacheTime', 'time'],
+    optionalProperties: ['errorMessage', 'result'], //, 'cacheTime', 'time'
   );
+
+  final safetySettingsImage = [
+    SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.high, null),
+    SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.high, null),
+    SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high, null),
+  ];
 
   Stream<String> generateAudioTextStream({required InlineDataPart audioPart}) async* {
     final modelName = _configService.getString("model_name");

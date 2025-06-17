@@ -93,7 +93,6 @@ class UserRepository extends BaseRepository {
 
   Future<bool> loginWithEmail(AuthUser user) async {
     try {
-      print(user.toJson());
       final result = await _apiService.post<AuthUser>(
         endpoint: '$path/login',
         body: user.toJson(),

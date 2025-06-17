@@ -39,7 +39,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get titleAccessDenied => 'Access denied';
 
   @override
-  String get textAccessDenied => 'The data entered is incorrect or you do not have a registered user, please try again.';
+  String get textAccessDenied =>
+      'The data entered is incorrect or you do not have a registered user, please try again.';
 
   @override
   String get validateEmpty => 'This field is required.';
@@ -60,7 +61,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get anyNumber => '* Must contain at least one number';
 
   @override
-  String get specialCharacter => '* Must contain at least one special character.';
+  String get specialCharacter =>
+      '* Must contain at least one special character.';
 
   @override
   String get invalidPassword => 'The password is invalid';
@@ -84,7 +86,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register => 'Register';
 
   @override
-  String get validatePasswordText => 'The passwords do not match, please try again.';
+  String get validatePasswordText =>
+      'The passwords do not match, please try again.';
 
   @override
   String get error => 'Error';
@@ -168,7 +171,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listPending => 'List Pending';
 
   @override
-  String get completeInformation => 'Please complete the details and create an account';
+  String get completeInformation =>
+      'Please complete the details and create an account';
 
   @override
   String get user => 'User';
@@ -189,7 +193,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingTitle1 => 'Fresh and Delicious Meals';
 
   @override
-  String get onboardingSubtitle1 => 'Discover healthy and tasty recipes every day.';
+  String get onboardingSubtitle1 =>
+      'Discover healthy and tasty recipes every day.';
 
   @override
   String get onboardingTitle2 => 'Cook at Home';
@@ -201,13 +206,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingTitle3 => 'Chef Recipes & Traditional Dishes';
 
   @override
-  String get onboardingSubtitle3 => 'Explore chef-created recipes and traditional flavors from around the world.';
+  String get onboardingSubtitle3 =>
+      'Explore chef-created recipes and traditional flavors from around the world.';
 
   @override
   String get onboardingTitle4 => 'Welcome to Cocinando!';
 
   @override
-  String get onboardingSubtitle4 => 'Use AI to discover what to cook with the ingredients you already have at home.';
+  String get onboardingSubtitle4 =>
+      'Use AI to discover what to cook with the ingredients you already have at home.';
 
   @override
   String get unsupportedSignInMethod => 'Sign-in method not supported';
@@ -219,16 +226,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get googleSignInAborted => 'Google sign-in aborted by user';
 
   @override
-  String get googleNoToken => 'Google sign-in failed: No access token or ID token received.';
+  String get googleNoToken =>
+      'Google sign-in failed: No access token or ID token received.';
 
   @override
-  String get accountExistsWithDifferentCredential => 'The account already exists with a different credential.';
+  String get accountExistsWithDifferentCredential =>
+      'The account already exists with a different credential.';
 
   @override
   String get invalidCredential => 'The credential received is invalid.';
 
   @override
-  String get operationNotAllowed => 'Operation not allowed. Please enable Google sign-in in Firebase console.';
+  String get operationNotAllowed =>
+      'Operation not allowed. Please enable Google sign-in in Firebase console.';
 
   @override
   String get userDisabled => 'User disabled. Please contact support.';
@@ -240,7 +250,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wrongPassword => 'Wrong password provided for that user.';
 
   @override
-  String get unknownGoogleSignInError => 'An unknown error occurred during Google sign-in';
+  String get unknownGoogleSignInError =>
+      'An unknown error occurred during Google sign-in';
 
   @override
   String get googleSignInError => 'An error occurred during Google sign-in';
@@ -258,7 +269,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailAlreadyInUse => 'The account already exists for that email.';
 
   @override
-  String get unknownEmailLoginError => 'An unknown error occurred during email/password login';
+  String get unknownEmailLoginError =>
+      'An unknown error occurred during email/password login';
 
   @override
   String get emailLoginError => 'An error occurred during email/password login';
@@ -267,7 +279,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recoverEmail => 'Recover email';
 
   @override
-  String get recoverAccountMessage => 'To recover your account, enter an email address and then accept. Check your email. If you don\'t see it, check your other emails or spam folders.';
+  String get recoverAccountMessage =>
+      'To recover your account, enter an email address and then accept. Check your email. If you don\'t see it, check your other emails or spam folders.';
 
   @override
   String get recoverPassword => 'Recover password.';
@@ -279,7 +292,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorUserNotFound => 'No user is registered with that email.';
 
   @override
-  String get errorTooManyRequests => 'Too many requests. Please try again later.';
+  String get errorTooManyRequests =>
+      'Too many requests. Please try again later.';
 
   @override
   String get errorNetwork => 'Network error. Check your internet connection.';

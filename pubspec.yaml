@@ -44,6 +44,8 @@ dependencies:
   flutter_sound: ^9.28.0
   firebase_remote_config: ^5.4.4
   mime: ^2.0.0
+  webview_flutter: ^4.2.2
+  http: ^1.4.0
 
 dev_dependencies:
   mockito: ^5.4.5

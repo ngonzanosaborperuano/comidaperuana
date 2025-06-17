@@ -1,0 +1,125 @@
+erDiagram
+  RECIPES {
+    int id PK
+    text title
+    text summary
+    boolean is_vegetarian
+    text meal_type
+    text difficulty
+    boolean is_allergenic
+    int digestion_time_minutes
+    text environmental_impact
+    int glycemic_index
+    text satiety_level
+    int processing_level
+    boolean is_valid_recipe
+    text error_message
+    bigint cache_time
+    bigint time
+  }
+  INGREDIENTS {
+    int id PK
+    int recipe_id FK
+    text name
+    text amount
+  }
+  ALTERNATIVES {
+    int id PK
+    int ingredient_id FK
+    text original
+  }
+  ALTERNATIVE_ITEMS {
+    int id PK
+    int alternative_id FK
+    text name
+  }
+  ALLERGENS {
+    int id PK
+    int recipe_id FK
+    text name
+  }
+  DIETS {
+    int id PK
+    int recipe_id FK
+    text name
+  }
+  INSTRUCTIONS {
+    int id PK
+    int recipe_id FK
+    int step
+    text text
+  }
+  PLATING_INSTRUCTIONS {
+    int id PK
+    int recipe_id FK
+    int step
+    text text
+  }
+  NUTRITION_INFO {
+    int id PK
+    int recipe_id FK
+    int calories
+    int protein
+    int carbs
+    int fat
+  }
+  MACROS {
+    int id PK
+    int nutrition_info_id FK
+    int value
+    text type
+  }
+  RECOMMENDED_SERVINGS {
+    int id PK
+    int recipe_id FK
+    int adult
+    int child
+    int athlete
+    int senior
+  }
+  MEDICAL_RESTRICTIONS {
+    int id PK
+    int recipe_id FK
+    text name
+  }
+  HEALTH_WARNINGS {
+    int id PK
+    int recipe_id FK
+    text text
+  }
+  EXTRA_INFO {
+    int id PK
+    int recipe_id FK
+    text cooking_method
+    text ideal_season
+    text origin_country
+    text spicy_level
+  }
+  SIMILAR_DISHES {
+    int id PK
+    int recipe_id FK
+    text name
+  }
+  RECOMMENDED_PAIRINGS {
+    int id PK
+    int recipe_id FK
+    text drinks
+    text sides
+    text desserts
+  }
+
+  RECIPES ||--o{ INGREDIENTS : has
+  INGREDIENTS ||--o{ ALTERNATIVES : has
+  ALTERNATIVES ||--o{ ALTERNATIVE_ITEMS : has
+  RECIPES ||--o{ ALLERGENS : has
+  RECIPES ||--o{ DIETS : has
+  RECIPES ||--o{ INSTRUCTIONS : has
+  RECIPES ||--o{ PLATING_INSTRUCTIONS : has
+  RECIPES ||--o{ NUTRITION_INFO : has
+  NUTRITION_INFO ||--o{ MACROS : has
+  RECIPES ||--o{ RECOMMENDED_SERVINGS : has
+  RECIPES ||--o{ MEDICAL_RESTRICTIONS : has
+  RECIPES ||--o{ HEALTH_WARNINGS : has
+  RECIPES ||--o{ EXTRA_INFO : has
+  RECIPES ||--o{ SIMILAR_DISHES : has
+  RECIPES ||--o{ RECOMMENDED_PAIRINGS : has
