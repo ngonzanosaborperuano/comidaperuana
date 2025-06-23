@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:recetasperuanas/app.dart';
 import 'package:recetasperuanas/core/error/error_handler.dart';
 import 'package:recetasperuanas/core/init/app_initializer.dart';
 import 'package:recetasperuanas/core/logger/logger.dart';
+import 'package:recetasperuanas/core/services/clarity.dart';
 import 'package:recetasperuanas/firebase_options.dart';
 
 Future<void> bootstrap() async {
@@ -18,7 +20,7 @@ Future<void> bootstrap() async {
   await _initializeFirebaseAppCheck();
   await initializeApp();
 
-  runApp(const MyApp());
+  runApp(ClarityWidget(app: const MyApp(), clarityConfig: clarity()));
 }
 
 Future<void> _initializeFirebaseAppCheck() async {
