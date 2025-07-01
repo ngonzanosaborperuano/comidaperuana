@@ -10,15 +10,25 @@ import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dar
 import 'package:recetasperuanas/shared/repository/base_repository.dart';
 
 class UserRepository extends BaseRepository {
-  UserRepository({required ApiService apiService}) : _apiService = apiService;
+  UserRepository({
+    required ApiService apiService,
+    FirebaseAuth? firebaseAuth,
+    GoogleSignIn? googleSignIn,
+    ISecureStorageService? secureStorage,
+  })  : _apiService = apiService,
+        _auth = firebaseAuth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
+        secureStorageService = secureStorage ?? SecurityStorageService();
+
   final ApiService _apiService;
+  final FirebaseAuth _auth;
+  final GoogleSignIn _googleSignIn;
+  final ISecureStorageService secureStorageService;
+
   @override
   String get name => 'UserRepository';
   static const String path = 'users';
   final _logger = Logger('UserRepository');
-  ISecureStorageService secureStorageService = SecurityStorageService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>['email', 'profile']);
 
   Future<(bool, String)> login({required AuthUser user, required int type}) async {
     try {
@@ -36,7 +46,7 @@ class UserRepository extends BaseRepository {
 
   Future<(bool, String)> loginWithEmailPass(AuthUser user) async {
     try {
-      final response = await FirebaseAuth.instance.signInWithCredential(
+      final response = await _auth.signInWithCredential(
         EmailAuthProvider.credential(email: user.email, password: user.contrasena!),
       );
       user = AuthUser(
@@ -82,7 +92,7 @@ class UserRepository extends BaseRepository {
 
   Future<String?> recoverCredential(String email) async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e.code;
     } catch (e) {
@@ -102,7 +112,7 @@ class UserRepository extends BaseRepository {
       if (result.success == false) return false;
       final jsonData = result.data;
       final userModel = AuthUser(
-        id: int.parse(jsonData!.id.toString()),
+        id: jsonData!.id,
         nombreCompleto: jsonData.nombreCompleto,
         foto: jsonData.foto,
         email: user.email,
@@ -211,7 +221,7 @@ class UserRepository extends BaseRepository {
   Future<bool> register(AuthUser user, {int? type}) async {
     try {
       if (type == LoginWith.withUserPassword) {
-        final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final response = await _auth.createUserWithEmailAndPassword(
           email: user.email,
           password: user.contrasena!,
         );

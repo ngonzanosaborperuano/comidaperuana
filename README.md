@@ -98,3 +98,9 @@ luego: fvm dart fix --apply
 DISEÑO de la app
 ============================================
 https://gj4vf7-5173.csb.app/
+
+============================================
+GEMINI CLI
+
+npm install -g @google/gemini-cli
+gemini
