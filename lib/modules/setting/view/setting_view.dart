@@ -19,7 +19,7 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingController>(
-      builder: (_, SettingController con, __) {
+      builder: (_, SettingController con, _) {
         final loading = con.userModel == UserModel.empty;
         return Column(
           children: [
@@ -50,7 +50,7 @@ class DarkMode extends StatelessWidget {
           AppText(text: context.loc.darkMode),
           ValueListenableBuilder(
             valueListenable: con.isDark,
-            builder: (_, bool isDark, __) {
+            builder: (_, bool isDark, _) {
               final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
               con.isDark.value = themeProvider.themeMode == ThemeMode.dark;
               return AppSwitch(
@@ -82,7 +82,7 @@ class Language extends StatelessWidget {
           AppText(text: context.loc.changeLanguage),
           ValueListenableBuilder(
             valueListenable: con.isSpanish,
-            builder: (_, bool isSpanish, __) {
+            builder: (_, bool isSpanish, _) {
               final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
               con.isSpanish.value = localeProvider.locale.languageCode == 'es';
               return Material(
