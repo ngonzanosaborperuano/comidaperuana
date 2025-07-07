@@ -15,10 +15,10 @@ class UserRepository extends BaseRepository {
     FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
     ISecureStorageService? secureStorage,
-  })  : _apiService = apiService,
-        _auth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
-        secureStorageService = secureStorage ?? SecurityStorageService();
+  }) : _apiService = apiService,
+       _auth = firebaseAuth ?? FirebaseAuth.instance,
+       _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
+       secureStorageService = secureStorage ?? SecurityStorageService();
 
   final ApiService _apiService;
   final FirebaseAuth _auth;
@@ -27,7 +27,7 @@ class UserRepository extends BaseRepository {
 
   @override
   String get name => 'UserRepository';
-  static const String path = 'users';
+  static const String path = 'v1/auth';
   final _logger = Logger('UserRepository');
 
   Future<(bool, String)> login({required AuthUser user, required int type}) async {
@@ -68,7 +68,10 @@ class UserRepository extends BaseRepository {
 
   Future<(bool, String)> signInOrRegister(AuthUser user) async {
     try {
-      final isExists = await _apiService.get(endpoint: '$path/${user.email}', fromJson: (id) => id);
+      final isExists = await _apiService.get(
+        endpoint: '$path/correo/${user.email}',
+        fromJson: (id) => id,
+      );
 
       // final userModel = AuthUser(
       //   nombreCompleto: user.nombreCompleto,
@@ -268,16 +271,7 @@ class UserRepository extends BaseRepository {
     try {
       await _googleSignIn.signOut();
       await _auth.signOut();
-
-      final data = (await secureStorageService.loadCredentials())!;
-      final result = await _apiService.post(
-        endpoint: '$path/logout',
-        authorization: data.sessionToken,
-        body: {"id": data.id},
-        fromJson: (p0) => p0,
-      );
       await secureStorageService.deleteCredentials();
-      if (!result.success) return;
     } catch (e, stackTrace) {
       _logger.severe('Error: $e', e, stackTrace);
       addError(e, stackTrace);
