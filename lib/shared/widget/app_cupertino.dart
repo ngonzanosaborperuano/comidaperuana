@@ -29,14 +29,14 @@ class AppCupertino extends StatelessWidget {
             locale: localeProvider.locale,
             theme: CupertinoThemeData(
               brightness: isDark ? Brightness.dark : Brightness.light,
-              primaryColor: AppColors.primary,
+              primaryColor: AppColors.primary1,
               scaffoldBackgroundColor:
                   isDark ? CupertinoColors.black : CupertinoColors.systemGroupedBackground,
               textTheme: CupertinoTextThemeData(
                 textStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: isDark ? CupertinoColors.white : AppColors.primaryText,
+                  color: isDark ? CupertinoColors.white : AppColors.slate800,
                 ),
                 navTitleTextStyle: TextStyle(
                   fontSize: 20,
@@ -46,10 +46,10 @@ class AppCupertino extends StatelessWidget {
                 navLargeTitleTextStyle: TextStyle(
                   fontSize: 34,
                   fontWeight: FontWeight.bold,
-                  color: isDark ? CupertinoColors.white : AppColors.primary,
+                  color: isDark ? CupertinoColors.white : AppColors.primary1,
                 ),
                 actionTextStyle: TextStyle(
-                  color: isDark ? CupertinoColors.activeOrange : AppColors.primary,
+                  color: isDark ? CupertinoColors.activeOrange : AppColors.primary1,
                 ),
               ),
             ),

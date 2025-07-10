@@ -28,7 +28,7 @@ class DashboardView extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: todo.completed == 1 ? AppColors.success : AppColors.error,
+                    backgroundColor: todo.completed == 1 ? AppColors.emerald700 : AppColors.red700,
                     child: Icon(
                       todo.completed == 1 ? Icons.check : Icons.close,
                       color: AppColors.white,

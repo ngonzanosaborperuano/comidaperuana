@@ -28,7 +28,6 @@ final appRouter = GoRouter(
     GoRoute(path: Routes.welcome.description, builder: WelcomePage.routeBuilder),
     GoRoute(path: Routes.login.description, builder: LoginPage.routeBuilder),
     GoRoute(path: Routes.register.description, builder: RegisterPage.routeBuilder),
-
     GoRoute(
       path: Routes.home.description,
       builder: HomePage.routeBuilder,

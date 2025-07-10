@@ -125,7 +125,7 @@ abstract class AppLocalizations {
   /// Prompt for user to enter login credentials
   ///
   /// In en, this message translates to:
-  /// **'Please enter your credentials.'**
+  /// **'Sign in to your account to see your favorite recipes.'**
   String get descriptionLogin;
 
   /// Label for email input field
@@ -431,7 +431,7 @@ abstract class AppLocalizations {
   /// Alternative option label (e.g., login or register)
   ///
   /// In en, this message translates to:
-  /// **'or'**
+  /// **'Or continue with'**
   String get or;
 
   /// Description for login with credentials
@@ -461,7 +461,7 @@ abstract class AppLocalizations {
   /// First onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Discover healthy and tasty recipes every day.'**
+  /// **'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of Peruvian gastronomy. Every meal will be a unique experience!'**
   String get onboardingSubtitle1;
 
   /// Second onboarding screen title
@@ -473,7 +473,7 @@ abstract class AppLocalizations {
   /// Second onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Find recipes to cook yourself.'**
+  /// **'Don\'t know what to cook today? Our AI suggests perfect dishes based on your ingredients, available time, and nutritional preferences. Cooking has never been easier!'**
   String get onboardingSubtitle2;
 
   /// Third onboarding screen title
@@ -485,7 +485,7 @@ abstract class AppLocalizations {
   /// Third onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Explore chef-created recipes and traditional flavors from around the world.'**
+  /// **'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic Peruvian flavors. Cook like an expert!'**
   String get onboardingSubtitle3;
 
   /// Fourth onboarding screen title
@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// Fourth onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Use AI to discover what to cook with the ingredients you already have at home.'**
+  /// **'Your intelligent culinary assistant that plans menus, calculates calories, optimizes nutrients, and inspires you daily. Discover the future of cooking!'**
   String get onboardingSubtitle4;
 
   /// Error message when auth method isn't supported
@@ -611,7 +611,7 @@ abstract class AppLocalizations {
   /// It will be the title of an alert or modal.
   ///
   /// In en, this message translates to:
-  /// **'Recover email'**
+  /// **'Forgot your password?'**
   String get recoverEmail;
 
   /// Instructions for account recovery using email.
@@ -661,6 +661,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The email format is not valid.'**
   String get errorInvalidEmail;
+
+  /// Application name
+  ///
+  /// In en, this message translates to:
+  /// **'Cocinando IA'**
+  String get cocinandoIA;
+
+  /// Application slogan
+  ///
+  /// In en, this message translates to:
+  /// **'Your intelligent culinary assistant'**
+  String get culinaryAssistant;
+
+  /// Welcome title in onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to CocinandoIA!'**
+  String get welcomeToCocinandoIA;
+
+  /// Personalization description in onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s personalize your experience to offer you the best recipes adapted to your needs.'**
+  String get personalizeExperience;
+
+  /// Button to continue
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// Button to start cooking
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s Start!'**
+  String get startCooking;
+
+  /// Question about diets in onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Do you follow any specific diet?'**
+  String get followDietQuestion;
+
+  /// Instruction for multiple selection
+  ///
+  /// In en, this message translates to:
+  /// **'Select all that apply'**
+  String get selectAllThatApply;
+
+  /// Question about allergies in onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have any allergies?'**
+  String get haveAllergiesQuestion;
+
+  /// Note about the importance of allergies
+  ///
+  /// In en, this message translates to:
+  /// **'This information is important for your safety'**
+  String get importantForSafety;
+
+  /// Question about experience level
+  ///
+  /// In en, this message translates to:
+  /// **'What is your level of experience in the kitchen?'**
+  String get experienceLevelQuestion;
+
+  /// Omnivore diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Omnivore'**
+  String get omnivore;
+
+  /// Vegetarian diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetarian'**
+  String get vegetarian;
+
+  /// Vegan diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Vegan'**
+  String get vegan;
+
+  /// Pescatarian diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Pescatarian'**
+  String get pescatarian;
+
+  /// Gluten free diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Gluten Free'**
+  String get glutenFree;
+
+  /// Lactose free diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Lactose Free'**
+  String get lactoseFree;
+
+  /// Keto diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Keto'**
+  String get keto;
+
+  /// Paleo diet option
+  ///
+  /// In en, this message translates to:
+  /// **'Paleo'**
+  String get paleo;
+
+  /// Nuts allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Nuts'**
+  String get nuts;
+
+  /// Seafood allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Seafood'**
+  String get seafood;
+
+  /// Eggs allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Eggs'**
+  String get eggs;
+
+  /// Dairy allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy'**
+  String get dairy;
+
+  /// Soy allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Soy'**
+  String get soy;
+
+  /// Wheat allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Wheat'**
+  String get wheat;
+
+  /// Fish allergy
+  ///
+  /// In en, this message translates to:
+  /// **'Fish'**
+  String get fish;
+
+  /// No allergies
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// Beginner cooking level
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get beginner;
+
+  /// Beginner level description
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m just learning the basics'**
+  String get beginnerDescription;
+
+  /// Intermediate cooking level
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get intermediate;
+
+  /// Intermediate level description
+  ///
+  /// In en, this message translates to:
+  /// **'I can follow recipes without problems'**
+  String get intermediateDescription;
+
+  /// Advanced cooking level
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get advanced;
+
+  /// Advanced level description
+  ///
+  /// In en, this message translates to:
+  /// **'I like to experiment and create new dishes'**
+  String get advancedDescription;
+
+  /// Professional chef level
+  ///
+  /// In en, this message translates to:
+  /// **'Professional Chef'**
+  String get professionalChef;
+
+  /// Professional chef level description
+  ///
+  /// In en, this message translates to:
+  /// **'I have professional experience in cooking'**
+  String get professionalChefDescription;
+
+  /// Error toast title when no option is selected
+  ///
+  /// In en, this message translates to:
+  /// **'Selection required'**
+  String get selectionRequired;
+
+  /// Error toast message when no option is selected
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one option'**
+  String get pleaseSelectAtLeastOne;
+
+  /// Info toast message for diet setup
+  ///
+  /// In en, this message translates to:
+  /// **'Now let\'s set up your diet'**
+  String get setupDiet;
+
+  /// Title for first onboarding step
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1 of 3'**
+  String get step1Of3;
+
+  /// Warning toast message about allergies
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s important to know your allergies for your safety'**
+  String get allergyInfo;
+
+  /// Warning toast title about allergies
+  ///
+  /// In en, this message translates to:
+  /// **'Allergy information'**
+  String get allergyInfoTitle;
+
+  /// Info toast message for final step
+  ///
+  /// In en, this message translates to:
+  /// **'Finally, tell us your level of experience'**
+  String get finalStep;
+
+  /// Title for final onboarding step
+  ///
+  /// In en, this message translates to:
+  /// **'Final step'**
+  String get finalStepTitle;
+
+  /// Success toast message when setup is completed
+  ///
+  /// In en, this message translates to:
+  /// **'Setup completed successfully'**
+  String get setupCompleted;
+
+  /// Welcome toast title
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get welcomeTitle;
+
+  /// Title for personalized recipes on access page
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized culinary recipes'**
+  String get personalizedRecipes;
+
+  /// Description of the application on access page
+  ///
+  /// In en, this message translates to:
+  /// **'Discover delicious recipes and culinary tips with Cocinando IA'**
+  String get discoverRecipes;
 }
 
 class _AppLocalizationsDelegate

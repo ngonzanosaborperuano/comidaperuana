@@ -59,7 +59,7 @@ class ModalView extends StatelessWidget {
             Text(titleHeader, style: AppStyles.headingPrimary),
             AppVerticalSpace.md,
             if (showDivider) ...[
-              const Divider(height: 0.5, color: AppColors.greyscale200),
+              const Divider(height: 0.5, color: AppColors.slate200),
               AppVerticalSpace.md,
             ],
             if (child != null) ...[child!, AppVerticalSpace.md],

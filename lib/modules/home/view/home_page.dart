@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         return HomeController(
           userRepository: context.read<UserRepository>(),
           taskRepository: TaskRepository(DatabaseHelper.instance, apiService: ApiService()),
-        );//..allRecipes();
+        ); //..allRecipes();
       },
       child: Consumer<HomeController>(
         builder: (_, HomeController con, __) {
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
     con.titleController.clear();
     con.bodyController.clear();
     final result = await AppDialog(
-      titleColor: AppColorScheme.of(context).textPrimary,
+      titleColor: AppColorScheme.of(context).text,
       title: context.loc.addNote,
       body: Form(
         key: formKeyNote,
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: ColoredBox(
-                color: AppColorScheme.of(context).textSecundary,
+                color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.insertTitle,
                   textEditingController: con.titleController,
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: ColoredBox(
-                color: AppColorScheme.of(context).textSecundary,
+                color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.writeNote,
                   textEditingController: con.bodyController,

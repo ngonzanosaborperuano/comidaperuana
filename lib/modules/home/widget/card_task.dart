@@ -29,12 +29,12 @@ class CardTask extends StatelessWidget {
           transform: const GradientRotation(0.25),
           stops: const [0.75, 0.8, 0.85],
           colors: [
-            AppColorScheme.of(context).warnnig,
+            AppColorScheme.of(context).warning,
             AppColorScheme.of(context).success,
-            AppColorScheme.of(context).warnnig,
+            AppColorScheme.of(context).warning,
           ],
         ),
-        border: Border.all(width: 1, color: AppColorScheme.of(context).textSecundary),
+        border: Border.all(width: 1, color: AppColorScheme.of(context).textSecondary),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
@@ -47,17 +47,17 @@ class CardTask extends StatelessWidget {
             AppText(
               text: 'ID: ${itemTask.id}',
               fontWeight: FontWeight.bold,
-              color: AppColors.blackColor,
+              color: AppColors.text2,
             ),
             AppText(
               text: '${context.loc.title}: ${itemTask.title}',
               fontWeight: FontWeight.bold,
-              color: AppColors.blackColor,
+              color: AppColors.text2,
             ),
             AppText(
               text:
                   '${context.loc.status}: ${itemTask.completed! == 1 ? context.loc.completed : context.loc.pending}',
-              color: AppColors.blackColor,
+              color: AppColors.text2,
             ),
             _editTask(context),
           ],
@@ -83,11 +83,11 @@ class CardTask extends StatelessWidget {
             showCustomSnackBar(
               context: context,
               message: '${context.loc.messageDeleteNote} ${itemTask.id}',
-              backgroundColor: result ? AppColors.success : AppColorScheme.of(context).errorPrimary,
+              backgroundColor: result ? AppColors.emerald700 : AppColorScheme.of(context).error,
               foregroundColor: AppColors.white,
             );
           },
-          icon: const Icon(Icons.delete_outline, size: 30, color: AppColors.secondaryRedDark),
+          icon: const Icon(Icons.delete_outline, size: 30, color: AppColors.red800),
         ),
       ],
     );
@@ -101,7 +101,7 @@ class CardTask extends StatelessWidget {
     GlobalKey<FormState> formKeyNote = GlobalKey<FormState>();
     con.titleController.text = taskModel.title;
     final result = await AppDialog(
-      titleColor: AppColorScheme.of(context).textPrimary,
+      titleColor: AppColorScheme.of(context).text,
       title: context.loc.updateTask,
       body: Form(
         key: formKeyNote,
@@ -112,7 +112,7 @@ class CardTask extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: ColoredBox(
-                color: AppColorScheme.of(context).textSecundary,
+                color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.insertTitle,
                   textEditingController: con.titleController,
@@ -125,7 +125,7 @@ class CardTask extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: ColoredBox(
-                color: AppColorScheme.of(context).textSecundary,
+                color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.writeNote,
                   textEditingController: con.bodyController,

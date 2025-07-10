@@ -8,11 +8,19 @@ class AppShimmer extends StatelessWidget {
   final Duration period;
   final bool enabled;
 
-  const AppShimmer({
+  const AppShimmer.light({
     super.key,
     required this.child,
     this.baseColor = const Color(0xFFE0E0E0),
     this.highlightColor = const Color(0xFFF5F5F5),
+    this.period = const Duration(milliseconds: 1500),
+    this.enabled = true,
+  });
+  const AppShimmer.progress({
+    super.key,
+    required this.child,
+    this.baseColor = const Color(0xFFD97706),
+    this.highlightColor = const Color(0xFFFBBF24),
     this.period = const Duration(milliseconds: 1500),
     this.enabled = true,
   });

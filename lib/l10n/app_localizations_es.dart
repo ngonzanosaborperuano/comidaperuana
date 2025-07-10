@@ -21,7 +21,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get login => 'Iniciar sesión';
 
   @override
-  String get descriptionLogin => 'Por favor ingrese sus credenciales.';
+  String get descriptionLogin =>
+      'Accede a tu cuenta para ver tus recetas favoritas.';
 
   @override
   String get email => 'Correo';
@@ -178,7 +179,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get user => 'Usuario';
 
   @override
-  String get or => 'o';
+  String get or => 'O continúar con';
 
   @override
   String get userPass => 'Usuario y contraseña';
@@ -194,27 +195,28 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingSubtitle1 =>
-      'Descubre recetas saludables y sabrosas todos los días.';
+      'Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía peruana. ¡Cada comida será una experiencia única!';
 
   @override
   String get onboardingTitle2 => 'Cocina en casa';
 
   @override
-  String get onboardingSubtitle2 => 'Encuentra recetas para cocinar tú mismo.';
+  String get onboardingSubtitle2 =>
+      '¿No sabes qué cocinar hoy? Nuestra IA te sugiere platos perfectos según tus ingredientes, tiempo disponible y preferencias nutricionales. ¡Cocinar nunca fue tan fácil!';
 
   @override
   String get onboardingTitle3 => 'Recetas de chefs y platos típicos';
 
   @override
   String get onboardingSubtitle3 =>
-      'Explora recetas creadas por chefs y sabores tradicionales de todo el mundo.';
+      'Accede a recetas exclusivas de chefs profesionales con información nutricional detallada, técnicas secretas y los auténticos sabores del Perú. ¡Cocina como un experto!';
 
   @override
   String get onboardingTitle4 => '¡Bienvenido a Cocinando!';
 
   @override
   String get onboardingSubtitle4 =>
-      'Usa inteligencia artificial para descubrir qué cocinar con los ingredientes que ya tienes en casa.';
+      'Tu asistente culinario inteligente que planifica menús, calcula calorías, optimiza nutrientes y te inspira cada día. ¡Descubre el futuro de cocinar!';
 
   @override
   String get unsupportedSignInMethod => 'Tipo de inicio de sesión no soportado';
@@ -283,7 +285,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ocurrió un error durante el inicio de sesión con correo/contraseña';
 
   @override
-  String get recoverEmail => 'Recuperar correo';
+  String get recoverEmail => '¿Olvidaste tu contraseña?';
 
   @override
   String get recoverAccountMessage =>
@@ -311,4 +313,153 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorInvalidEmail => 'El correo no tiene un formato válido.';
+
+  @override
+  String get cocinandoIA => 'Cocinando IA';
+
+  @override
+  String get culinaryAssistant => 'Tu asistente culinario inteligente';
+
+  @override
+  String get welcomeToCocinandoIA => '¡Bienvenido a CocinandoIA!';
+
+  @override
+  String get personalizeExperience =>
+      'Vamos a personalizar tu experiencia para ofrecerte las mejores recetas adaptadas a tus necesidades.';
+
+  @override
+  String get continueButton => 'Continuar';
+
+  @override
+  String get startCooking => '¡Comenzar!';
+
+  @override
+  String get followDietQuestion => '¿Sigues alguna dieta específica?';
+
+  @override
+  String get selectAllThatApply => 'Selecciona todas las que apliquen';
+
+  @override
+  String get haveAllergiesQuestion => '¿Tienes alguna alergia?';
+
+  @override
+  String get importantForSafety =>
+      'Esta información es importante para tu seguridad';
+
+  @override
+  String get experienceLevelQuestion =>
+      '¿Cuál es tu nivel de experiencia en la cocina?';
+
+  @override
+  String get omnivore => 'Omnívoro';
+
+  @override
+  String get vegetarian => 'Vegetariano';
+
+  @override
+  String get vegan => 'Vegano';
+
+  @override
+  String get pescatarian => 'Pescetariano';
+
+  @override
+  String get glutenFree => 'Sin gluten';
+
+  @override
+  String get lactoseFree => 'Sin lactosa';
+
+  @override
+  String get keto => 'Keto';
+
+  @override
+  String get paleo => 'Paleo';
+
+  @override
+  String get nuts => 'Frutos secos';
+
+  @override
+  String get seafood => 'Mariscos';
+
+  @override
+  String get eggs => 'Huevo';
+
+  @override
+  String get dairy => 'Lácteos';
+
+  @override
+  String get soy => 'Soya';
+
+  @override
+  String get wheat => 'Trigo';
+
+  @override
+  String get fish => 'Pescado';
+
+  @override
+  String get none => 'Ninguna';
+
+  @override
+  String get beginner => 'Principiante';
+
+  @override
+  String get beginnerDescription => 'Apenas estoy aprendiendo lo básico';
+
+  @override
+  String get intermediate => 'Intermedio';
+
+  @override
+  String get intermediateDescription => 'Puedo seguir recetas sin problemas';
+
+  @override
+  String get advanced => 'Avanzado';
+
+  @override
+  String get advancedDescription =>
+      'Me gusta experimentar y crear nuevos platos';
+
+  @override
+  String get professionalChef => 'Chef profesional';
+
+  @override
+  String get professionalChefDescription =>
+      'Tengo experiencia profesional en cocina';
+
+  @override
+  String get selectionRequired => 'Selección requerida';
+
+  @override
+  String get pleaseSelectAtLeastOne =>
+      'Por favor selecciona al menos una opción';
+
+  @override
+  String get setupDiet => 'Ahora configuremos tu dieta';
+
+  @override
+  String get step1Of3 => 'Paso 1 de 3';
+
+  @override
+  String get allergyInfo =>
+      'Es importante conocer tus alergias para tu seguridad';
+
+  @override
+  String get allergyInfoTitle => 'Información sobre alergias';
+
+  @override
+  String get finalStep => 'Por último, cuéntanos tu nivel de experiencia';
+
+  @override
+  String get finalStepTitle => 'Paso final';
+
+  @override
+  String get setupCompleted => 'Configuración completada exitosamente';
+
+  @override
+  String get welcomeTitle => '¡Bienvenido!';
+
+  @override
+  String get personalizedRecipes => 'Recetas culinarias personalizadas';
+
+  @override
+  String get discoverRecipes =>
+      'Descubre deliciosas recetas y consejos culinarios con Cocinando IA';
 }

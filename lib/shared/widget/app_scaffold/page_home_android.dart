@@ -19,7 +19,7 @@ class PageHomeAndroid extends StatelessWidget {
                   if (widget.onBackPressed != null)
                     IconButton(
                       onPressed: widget.onBackPressed,
-                      icon: Icon(Icons.arrow_back, color: context.color.menuIsNotActive),
+                      icon: Icon(Icons.arrow_back, color: context.color.buttonPrimary),
                     ),
                   if (widget.title != null) Expanded(child: widget.title ?? const SizedBox()),
                 ],

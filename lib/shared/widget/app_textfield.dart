@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/config.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppTextField<T extends Object> extends StatelessWidget {
   const AppTextField({
@@ -18,7 +18,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
     this.obscuringCharacter,
     this.obscureText,
     this.validator,
-    this.suffixIcon,
+    this.prefixIcon,
   });
 
   final double? width;
@@ -32,7 +32,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
   final String? obscuringCharacter;
   final bool? obscureText;
   final String? Function(String?)? validator;
-  final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
     return CupertinoTextFormFieldRow(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       obscureText: obscureText ?? false,
-      cursorColor: AppColorScheme.of(context).secondary,
+      cursorColor: context.color.text,
       cursorHeight: 20,
       obscuringCharacter: obscuringCharacter ?? '*',
       controller: textEditingController,
@@ -69,10 +69,9 @@ class AppTextField<T extends Object> extends StatelessWidget {
       inputFormatters: inputFormatters,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 0.5, color: AppColors.greyscale200),
+        border: Border.all(width: 0.5, color: AppColors.slate200),
       ),
       placeholder: hintText,
-      style: const TextStyle(height: 2),
       validator: validator,
     );
   }
@@ -81,18 +80,18 @@ class AppTextField<T extends Object> extends StatelessWidget {
     return InputDecoration(
       alignLabelWithHint: false,
       hintText: hintText,
-      suffixIcon: suffixIcon,
+      prefixIcon: prefixIcon,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.greyscale200),
+        borderSide: const BorderSide(color: AppColors.slate200),
         borderRadius: BorderRadius.circular(10),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.greyscale700),
+        borderSide: const BorderSide(color: AppColors.slate700),
       ),
 
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.greyscale200),
+        borderSide: const BorderSide(color: AppColors.slate200),
         borderRadius: BorderRadius.circular(10),
       ),
       errorStyle: const TextStyle(fontSize: 12),

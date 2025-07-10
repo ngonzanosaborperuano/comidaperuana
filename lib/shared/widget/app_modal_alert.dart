@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/config.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
@@ -32,16 +31,8 @@ class AppModalAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme.of(context).platform == TargetPlatform.iOS
-        ? _buildCupertinoDialog(
-          context,
-          AppColorScheme.of(context).errorPrimary,
-          AppColorScheme.of(context).errorSecundary,
-        )
-        : _buildMaterialDialog(
-          context,
-          AppColorScheme.of(context).errorSecundary,
-          AppColorScheme.of(context).errorPrimary,
-        );
+        ? _buildCupertinoDialog(context, context.color.error, context.color.errorBackground)
+        : _buildMaterialDialog(context, context.color.errorBackground, context.color.error);
   }
 
   Widget _buildMaterialDialog(BuildContext context, Color dialogColor, Color textColor) {
@@ -61,15 +52,13 @@ class AppModalAlert extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(icon, size: 24, color: AppColorScheme.of(context).errorPrimary),
+                  Icon(icon, size: 24, color: context.color.error),
                   AppHorizontalSpace.sm,
                   Expanded(
                     child: Text(
                       title!,
                       textAlign: TextAlign.left,
-                      style: AppStyles.h2TextBlack.copyWith(
-                        color: AppColorScheme.of(context).errorPrimary,
-                      ),
+                      style: AppStyles.h2TextBlack.copyWith(color: context.color.error),
                     ),
                   ),
                 ],
@@ -78,9 +67,7 @@ class AppModalAlert extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 text,
-                style: AppStyles.bodyTextNoOverflow.copyWith(
-                  color: AppColorScheme.of(context).textPrimary,
-                ),
+                style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
               ),
             ),
             AppButton(
@@ -101,9 +88,9 @@ class AppModalAlert extends StatelessWidget {
           title != null
               ? Row(
                 children: [
-                  Icon(icon, color: AppColors.error, size: 24),
+                  Icon(icon, color: AppColors.red700, size: 24),
                   const SizedBox(width: 8),
-                  Text(title!, style: const TextStyle(color: AppColors.error)),
+                  Text(title!, style: const TextStyle(color: AppColors.red700)),
                 ],
               )
               : null,
@@ -111,16 +98,17 @@ class AppModalAlert extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: Text(
           text,
-          style: AppStyles.bodyTextNoOverflow.copyWith(
-            color: AppColorScheme.of(context).textPrimary,
-          ),
+          style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
           textAlign: TextAlign.center,
         ),
       ),
       actions: [
         CupertinoDialogAction(
           onPressed: onPressed ?? () => context.pop(),
-          child: Text(labelButton ?? context.loc.accept, style: const TextStyle(color: AppColors.error)),
+          child: Text(
+            labelButton ?? context.loc.accept,
+            style: const TextStyle(color: AppColors.red700),
+          ),
         ),
       ],
     );

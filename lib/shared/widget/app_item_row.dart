@@ -31,7 +31,7 @@ class AppItemRow extends StatelessWidget {
               child: Text(title, maxLines: 2, style: AppStyles.bodyTextBold),
             ),
             Flexible(
-              child: AppShimmer(
+              child: AppShimmer.light(
                 enabled: subTitle == '' || subTitle == 'null',
                 child: Text(subTitle, overflow: TextOverflow.ellipsis, maxLines: maxLines),
               ),

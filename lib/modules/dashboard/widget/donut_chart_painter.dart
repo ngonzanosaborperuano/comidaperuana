@@ -59,7 +59,7 @@ class DonutChartPainter extends CustomPainter {
 
     final backgroundPaint =
         Paint()
-          ..color = AppColors.greyscale200
+          ..color = AppColors.slate200
           ..style = PaintingStyle.stroke
           ..strokeWidth = strokeWidth;
 

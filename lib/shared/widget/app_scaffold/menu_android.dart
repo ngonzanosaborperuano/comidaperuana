@@ -24,7 +24,7 @@ class _MenuAndroidState extends State<MenuAndroid> {
               bottom: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: context.color.textSecundary,
+                  color: context.color.textSecondary,
                   boxShadow: [
                     BoxShadow(
                       color: context.color.menuActive,
@@ -35,8 +35,8 @@ class _MenuAndroidState extends State<MenuAndroid> {
                   ],
                 ),
                 child: BottomNavigationBar(
-                  backgroundColor: context.color.textSecundary,
-                  selectedItemColor: context.color.menuIsNotActive,
+                  backgroundColor: context.color.textSecondary,
+                  selectedItemColor: context.color.buttonPrimary,
                   unselectedItemColor: context.color.menuActive,
                   currentIndex: value.selectPage,
                   iconSize: 30,
@@ -64,13 +64,13 @@ class _MenuAndroidState extends State<MenuAndroid> {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: context.color.textSecundary,
-                  border: Border.all(color: context.color.menuIsNotActive, width: 4),
+                  color: context.color.textSecondary,
+                  border: Border.all(color: context.color.buttonPrimary, width: 4),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 15,
                       spreadRadius: 0,
-                      color: context.color.menuIsNotActive,
+                      color: context.color.buttonPrimary,
                       offset: const Offset(0, 10),
                     ),
                   ],

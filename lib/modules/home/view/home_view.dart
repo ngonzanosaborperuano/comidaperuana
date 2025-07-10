@@ -45,8 +45,8 @@ class _HomeViewState extends State<HomeView> {
                 width: 500,
                 height: 500,
                 child: Card(
-                  shadowColor: context.color.textPrimary,
-                  color: context.color.textSecundary,
+                  shadowColor: context.color.text,
+                  color: context.color.textSecondary,
                   elevation: 5,
                   margin: const EdgeInsets.all(20.0),
                   shape: const RoundedRectangleBorder(

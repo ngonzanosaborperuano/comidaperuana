@@ -50,7 +50,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       child: Consumer<PagesProvider>(
         builder: (BuildContext context, PagesProvider value, Widget? child) {
           return CupertinoPageScaffold(
-            backgroundColor: context.color.textSecundary,
+            backgroundColor: context.color.background,
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
@@ -71,7 +71,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       child: Consumer<PagesProvider>(
         builder: (BuildContext context, PagesProvider value, Widget? child) {
           return Scaffold(
-            backgroundColor: context.color.textSecundary,
+            backgroundColor: context.color.background,
             body: Stack(
               alignment: Alignment.bottomCenter,
               children: [

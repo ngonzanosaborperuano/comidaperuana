@@ -6,7 +6,7 @@ import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
-  factory WelcomePage.routeBuilder(_, __) {
+  factory WelcomePage.routeBuilder(_, _) {
     return const WelcomePage(key: Key('welcome_page'));
   }
 

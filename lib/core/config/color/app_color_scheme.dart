@@ -22,45 +22,134 @@ class AppColorScheme extends InheritedWidget {
         AppColorScheme(brightness: brightness, platform: platform, child: const SizedBox.shrink());
   }
 
+  // === COLORES PRINCIPALES ===
+  Color get buttonPrimary {
+    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.primary1;
+  }
+
+  Color get background {
+    return brightness == Brightness.dark ? AppColors.backgroundDark : AppColors.background;
+  }
+
+  Color get backgroundCard {
+    return brightness == Brightness.dark ? AppColors.backgroundCardDark : AppColors.backgroundCard;
+  }
+
+  Color get textSecondary {
+    return brightness == Brightness.dark ? AppColors.text2 : AppColors.text2;
+  }
+
+  Color get textSecondary2 {
+    return brightness == Brightness.dark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+  }
+
+  Color get text {
+    return brightness == Brightness.dark ? AppColors.textDark : AppColors.text;
+  }
+
+  Color get textNormal {
+    return brightness == Brightness.dark ? AppColors.textDark : AppColors.textDark;
+  }
+
+  Color get border {
+    return brightness == Brightness.dark ? AppColors.slate700 : AppColors.text2;
+  }
+
   Color get primary {
-    return brightness == Brightness.dark ? AppColors.primaryCopper : AppColors.white;
-  }
-
-  Color get menuActive {
-    return brightness == Brightness.dark ? AppColors.white : AppColors.secondaryLead;
-  }
-
-  Color get menuIsNotActive {
-    return brightness == Brightness.dark ? AppColors.warningBackground : AppColors.primaryCopper;
+    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.white;
   }
 
   Color get secondary {
-    return brightness != Brightness.dark ? AppColors.primaryCopper : AppColors.white;
+    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.slate700;
   }
+
+  Color get surface {
+    return brightness == Brightness.dark ? AppColors.slate900 : AppColors.slate50;
+  }
+
+  // === COLORES DE TEXTO ===
+
+  Color get textOnPrimary {
+    return brightness == Brightness.dark ? AppColors.slate900 : AppColors.white;
+  }
+
+  // === COLORES DE MENÚ ===
+
+  Color get menuActive {
+    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.slate700;
+  }
+
+  Color get menuInactive {
+    return brightness == Brightness.dark ? AppColors.slate500 : AppColors.slate400;
+  }
+
+  Color get menuBackground {
+    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.slate200;
+  }
+
+  // === COLORES DE ESTADO ===
 
   Color get success {
-    return brightness == Brightness.dark ? AppColors.secondary : AppColors.success;
+    return brightness == Brightness.dark ? AppColors.emerald200 : AppColors.emerald700;
   }
 
-  Color get errorPrimary {
-    return brightness != Brightness.dark ? AppColors.secondaryRed : AppColors.white;
+  Color get successBackground {
+    return brightness == Brightness.dark ? AppColors.emerald900 : AppColors.emerald50;
   }
 
-  Color get errorSecundary {
-    return brightness == Brightness.dark ? AppColors.secondaryRed : AppColors.white;
+  Color get error {
+    return brightness == Brightness.dark ? AppColors.red200 : AppColors.red700;
   }
 
-  Color get textPrimary {
-    return brightness == Brightness.dark ? AppColors.white : AppColors.blackColor;
+  Color get errorBackground {
+    return brightness == Brightness.dark ? AppColors.red800 : AppColors.red50;
   }
 
-  Color get textSecundary {
-    return brightness != Brightness.dark ? AppColors.white : AppColors.blackColor;
+  Color get warning {
+    return brightness == Brightness.dark ? AppColors.yellow400 : AppColors.amber700;
   }
 
-  Color get warnnig {
-    return brightness != Brightness.dark ? AppColors.warningBackground : AppColors.warning;
+  Color get warningBackground {
+    return brightness == Brightness.dark ? AppColors.amber900 : AppColors.yellow100;
   }
+
+  Color get info {
+    return brightness == Brightness.dark ? AppColors.slate400 : AppColors.slate500;
+  }
+
+  // === COLORES DE BORDES ===
+
+  Color get borderLight {
+    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.slate200;
+  }
+
+  // === COLORES DE SOMBRAS ===
+
+  Color get shadow {
+    return brightness == Brightness.dark
+        ? AppColors.text2.withValues(alpha: 0.5)
+        : AppColors.slate900.withValues(alpha: 0.1);
+  }
+
+  Color get elevation {
+    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.white;
+  }
+
+  // === GRADIENTES ===
+
+  LinearGradient get primaryGradient {
+    return brightness == Brightness.dark ? AppColors.darkModeLinear : AppColors.orangeToBrownLinear;
+  }
+
+  LinearGradient get successGradient {
+    return AppColors.successLinear;
+  }
+
+  LinearGradient get warmGradient {
+    return AppColors.warmLinear;
+  }
+
+  // === PROPIEDADES ADICIONALES PARA COMPATIBILIDAD ===
 
   @override
   bool updateShouldNotify(covariant AppColorScheme oldWidget) {

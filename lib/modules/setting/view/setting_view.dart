@@ -86,7 +86,7 @@ class Language extends StatelessWidget {
               final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
               con.isSpanish.value = localeProvider.locale.languageCode == 'es';
               return Material(
-                color: context.color.textSecundary,
+                color: context.color.textSecondary,
                 child: AppSwitch(
                   value: isSpanish,
                   onChanged: (bool value) {
@@ -144,7 +144,7 @@ class MiPerfil extends StatelessWidget {
           AppVerticalSpace.sl,
           Text(context.loc.setting, style: AppStyles.headingPrimary),
           AppVerticalSpace.xslg,
-          AppShimmer(
+          AppShimmer.light(
             enabled: loading,
             child: Container(
               padding: const EdgeInsets.all(4),

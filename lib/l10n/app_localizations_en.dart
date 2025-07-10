@@ -21,7 +21,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get descriptionLogin => 'Please enter your credentials.';
+  String get descriptionLogin =>
+      'Sign in to your account to see your favorite recipes.';
 
   @override
   String get email => 'Email';
@@ -178,7 +179,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get user => 'User';
 
   @override
-  String get or => 'or';
+  String get or => 'Or continue with';
 
   @override
   String get userPass => 'Username and password';
@@ -194,27 +195,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSubtitle1 =>
-      'Discover healthy and tasty recipes every day.';
+      'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of Peruvian gastronomy. Every meal will be a unique experience!';
 
   @override
   String get onboardingTitle2 => 'Cook at Home';
 
   @override
-  String get onboardingSubtitle2 => 'Find recipes to cook yourself.';
+  String get onboardingSubtitle2 =>
+      'Don\'t know what to cook today? Our AI suggests perfect dishes based on your ingredients, available time, and nutritional preferences. Cooking has never been easier!';
 
   @override
   String get onboardingTitle3 => 'Chef Recipes & Traditional Dishes';
 
   @override
   String get onboardingSubtitle3 =>
-      'Explore chef-created recipes and traditional flavors from around the world.';
+      'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic Peruvian flavors. Cook like an expert!';
 
   @override
   String get onboardingTitle4 => 'Welcome to Cocinando!';
 
   @override
   String get onboardingSubtitle4 =>
-      'Use AI to discover what to cook with the ingredients you already have at home.';
+      'Your intelligent culinary assistant that plans menus, calculates calories, optimizes nutrients, and inspires you daily. Discover the future of cooking!';
 
   @override
   String get unsupportedSignInMethod => 'Sign-in method not supported';
@@ -276,7 +278,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailLoginError => 'An error occurred during email/password login';
 
   @override
-  String get recoverEmail => 'Recover email';
+  String get recoverEmail => 'Forgot your password?';
 
   @override
   String get recoverAccountMessage =>
@@ -303,4 +305,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorInvalidEmail => 'The email format is not valid.';
+
+  @override
+  String get cocinandoIA => 'Cocinando IA';
+
+  @override
+  String get culinaryAssistant => 'Your intelligent culinary assistant';
+
+  @override
+  String get welcomeToCocinandoIA => 'Welcome to CocinandoIA!';
+
+  @override
+  String get personalizeExperience =>
+      'Let\'s personalize your experience to offer you the best recipes adapted to your needs.';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get startCooking => 'Let\'s Start!';
+
+  @override
+  String get followDietQuestion => 'Do you follow any specific diet?';
+
+  @override
+  String get selectAllThatApply => 'Select all that apply';
+
+  @override
+  String get haveAllergiesQuestion => 'Do you have any allergies?';
+
+  @override
+  String get importantForSafety =>
+      'This information is important for your safety';
+
+  @override
+  String get experienceLevelQuestion =>
+      'What is your level of experience in the kitchen?';
+
+  @override
+  String get omnivore => 'Omnivore';
+
+  @override
+  String get vegetarian => 'Vegetarian';
+
+  @override
+  String get vegan => 'Vegan';
+
+  @override
+  String get pescatarian => 'Pescatarian';
+
+  @override
+  String get glutenFree => 'Gluten Free';
+
+  @override
+  String get lactoseFree => 'Lactose Free';
+
+  @override
+  String get keto => 'Keto';
+
+  @override
+  String get paleo => 'Paleo';
+
+  @override
+  String get nuts => 'Nuts';
+
+  @override
+  String get seafood => 'Seafood';
+
+  @override
+  String get eggs => 'Eggs';
+
+  @override
+  String get dairy => 'Dairy';
+
+  @override
+  String get soy => 'Soy';
+
+  @override
+  String get wheat => 'Wheat';
+
+  @override
+  String get fish => 'Fish';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String get beginner => 'Beginner';
+
+  @override
+  String get beginnerDescription => 'I\'m just learning the basics';
+
+  @override
+  String get intermediate => 'Intermediate';
+
+  @override
+  String get intermediateDescription => 'I can follow recipes without problems';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get advancedDescription =>
+      'I like to experiment and create new dishes';
+
+  @override
+  String get professionalChef => 'Professional Chef';
+
+  @override
+  String get professionalChefDescription =>
+      'I have professional experience in cooking';
+
+  @override
+  String get selectionRequired => 'Selection required';
+
+  @override
+  String get pleaseSelectAtLeastOne => 'Please select at least one option';
+
+  @override
+  String get setupDiet => 'Now let\'s set up your diet';
+
+  @override
+  String get step1Of3 => 'Step 1 of 3';
+
+  @override
+  String get allergyInfo =>
+      'It\'s important to know your allergies for your safety';
+
+  @override
+  String get allergyInfoTitle => 'Allergy information';
+
+  @override
+  String get finalStep => 'Finally, tell us your level of experience';
+
+  @override
+  String get finalStepTitle => 'Final step';
+
+  @override
+  String get setupCompleted => 'Setup completed successfully';
+
+  @override
+  String get welcomeTitle => 'Welcome!';
+
+  @override
+  String get personalizedRecipes => 'Personalized culinary recipes';
+
+  @override
+  String get discoverRecipes =>
+      'Discover delicious recipes and culinary tips with Cocinando IA';
 }

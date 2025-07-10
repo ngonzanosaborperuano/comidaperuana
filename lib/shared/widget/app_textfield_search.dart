@@ -28,8 +28,8 @@ class AppTextFieldSearch extends StatelessWidget {
           cursorColor: context.color.menuActive,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: context.color.textSecundary,
-            border: Border.all(width: 2.0, color: context.color.menuIsNotActive),
+            color: context.color.textSecondary,
+            border: Border.all(width: 2.0, color: context.color.buttonPrimary),
           ),
         )
         : SizedBox(
@@ -38,17 +38,17 @@ class AppTextFieldSearch extends StatelessWidget {
             onChanged: onChanged,
             controller: textController,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search, color: context.color.menuIsNotActive),
+              prefixIcon: Icon(Icons.search, color: context.color.buttonPrimary),
               suffix: IconButton(onPressed: onPressed, icon: const Icon(Icons.close, size: 15)),
               hintText: placeholder,
               hintStyle: const TextStyle(fontSize: 16),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(width: 2.0, color: context.color.menuIsNotActive),
+                borderSide: BorderSide(width: 2.0, color: context.color.buttonPrimary),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(width: 2.0, color: context.color.menuIsNotActive),
+                borderSide: BorderSide(width: 2.0, color: context.color.buttonPrimary),
               ),
             ),
             style: const TextStyle(fontSize: 16),

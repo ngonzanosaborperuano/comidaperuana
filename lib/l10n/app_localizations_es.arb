@@ -16,7 +16,7 @@
   "@login": {
     "description": "Texto del botón para iniciar sesión"
   },
-  "descriptionLogin": "Por favor ingrese sus credenciales.",
+  "descriptionLogin": "Accede a tu cuenta para ver tus recetas favoritas.",
   "@descriptionLogin": {
     "description": "Texto de descripción en la pantalla de login"
   },
@@ -220,7 +220,7 @@
   "@user": {
     "description": "Campo para nombre de usuario"
   },
-  "or": "o",
+  "or": "O continúar con",
   "@or": {
     "description": "Separador entre opciones"
   },
@@ -240,7 +240,7 @@
   "@onboardingTitle1": {
     "description": "Título de la primera pantalla de onboarding"
   },
-  "onboardingSubtitle1": "Descubre recetas saludables y sabrosas todos los días.",
+  "onboardingSubtitle1": "Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía peruana. ¡Cada comida será una experiencia única!",
   "@onboardingSubtitle1": {
     "description": "Subtítulo de la primera pantalla de onboarding"
   },
@@ -248,7 +248,7 @@
   "@onboardingTitle2": {
     "description": "Título de la segunda pantalla de onboarding"
   },
-  "onboardingSubtitle2": "Encuentra recetas para cocinar tú mismo.",
+  "onboardingSubtitle2": "¿No sabes qué cocinar hoy? Nuestra IA te sugiere platos perfectos según tus ingredientes, tiempo disponible y preferencias nutricionales. ¡Cocinar nunca fue tan fácil!",
   "@onboardingSubtitle2": {
     "description": "Subtítulo de la segunda pantalla de onboarding"
   },
@@ -256,7 +256,7 @@
   "@onboardingTitle3": {
     "description": "Título de la tercera pantalla de onboarding"
   },
-  "onboardingSubtitle3": "Explora recetas creadas por chefs y sabores tradicionales de todo el mundo.",
+  "onboardingSubtitle3": "Accede a recetas exclusivas de chefs profesionales con información nutricional detallada, técnicas secretas y los auténticos sabores del Perú. ¡Cocina como un experto!",
   "@onboardingSubtitle3": {
     "description": "Subtítulo de la tercera pantalla de onboarding"
   },
@@ -264,7 +264,7 @@
   "@onboardingTitle4": {
     "description": "Título de la cuarta pantalla de onboarding"
   },
-  "onboardingSubtitle4": "Usa inteligencia artificial para descubrir qué cocinar con los ingredientes que ya tienes en casa.",
+  "onboardingSubtitle4": "Tu asistente culinario inteligente que planifica menús, calcula calorías, optimiza nutrientes y te inspira cada día. ¡Descubre el futuro de cocinar!",
   "@onboardingSubtitle4": {
     "description": "Subtítulo de la cuarta pantalla de onboarding"
   },
@@ -340,7 +340,7 @@
   "@emailLoginError": {
     "description": "Mensaje de error general en login con correo/contraseña"
   },
-  "recoverEmail": "Recuperar correo",
+  "recoverEmail": "¿Olvidaste tu contraseña?",
   "@recoverEmail": {
     "description": "Sera el titulo de un alert o modal."
   },
@@ -375,5 +375,193 @@
   "errorInvalidEmail": "El correo no tiene un formato válido.",
   "@errorInvalidEmail": {
     "description": "Mensaje mostrado cuando el formato del correo electrónico es inválido."
+  },
+  "cocinandoIA": "Cocinando IA",
+  "@cocinandoIA": {
+    "description": "Nombre de la aplicación"
+  },
+  "culinaryAssistant": "Tu asistente culinario inteligente",
+  "@culinaryAssistant": {
+    "description": "Eslogan de la aplicación"
+  },
+  "welcomeToCocinandoIA": "¡Bienvenido a CocinandoIA!",
+  "@welcomeToCocinandoIA": {
+    "description": "Título de bienvenida en onboarding"
+  },
+  "personalizeExperience": "Vamos a personalizar tu experiencia para ofrecerte las mejores recetas adaptadas a tus necesidades.",
+  "@personalizeExperience": {
+    "description": "Descripción de personalización en onboarding"
+  },
+  "continueButton": "Continuar",
+  "@continueButton": {
+    "description": "Botón para continuar"
+  },
+  "startCooking": "¡Comenzar!",
+  "@startCooking": {
+    "description": "Botón para empezar a cocinar"
+  },
+  "followDietQuestion": "¿Sigues alguna dieta específica?",
+  "@followDietQuestion": {
+    "description": "Pregunta sobre dietas en onboarding"
+  },
+  "selectAllThatApply": "Selecciona todas las que apliquen",
+  "@selectAllThatApply": {
+    "description": "Instrucción para selección múltiple"
+  },
+  "haveAllergiesQuestion": "¿Tienes alguna alergia?",
+  "@haveAllergiesQuestion": {
+    "description": "Pregunta sobre alergias en onboarding"
+  },
+  "importantForSafety": "Esta información es importante para tu seguridad",
+  "@importantForSafety": {
+    "description": "Nota sobre la importancia de alergias"
+  },
+  "experienceLevelQuestion": "¿Cuál es tu nivel de experiencia en la cocina?",
+  "@experienceLevelQuestion": {
+    "description": "Pregunta sobre nivel de experiencia"
+  },
+  "omnivore": "Omnívoro",
+  "@omnivore": {
+    "description": "Opción de dieta omnívora"
+  },
+  "vegetarian": "Vegetariano",
+  "@vegetarian": {
+    "description": "Opción de dieta vegetariana"
+  },
+  "vegan": "Vegano",
+  "@vegan": {
+    "description": "Opción de dieta vegana"
+  },
+  "pescatarian": "Pescetariano",
+  "@pescatarian": {
+    "description": "Opción de dieta pescetariana"
+  },
+  "glutenFree": "Sin gluten",
+  "@glutenFree": {
+    "description": "Opción de dieta sin gluten"
+  },
+  "lactoseFree": "Sin lactosa",
+  "@lactoseFree": {
+    "description": "Opción de dieta sin lactosa"
+  },
+  "keto": "Keto",
+  "@keto": {
+    "description": "Opción de dieta keto"
+  },
+  "paleo": "Paleo",
+  "@paleo": {
+    "description": "Opción de dieta paleo"
+  },
+  "nuts": "Frutos secos",
+  "@nuts": {
+    "description": "Alergia a frutos secos"
+  },
+  "seafood": "Mariscos",
+  "@seafood": {
+    "description": "Alergia a mariscos"
+  },
+  "eggs": "Huevo",
+  "@eggs": {
+    "description": "Alergia al huevo"
+  },
+  "dairy": "Lácteos",
+  "@dairy": {
+    "description": "Alergia a lácteos"
+  },
+  "soy": "Soya",
+  "@soy": {
+    "description": "Alergia a la soya"
+  },
+  "wheat": "Trigo",
+  "@wheat": {
+    "description": "Alergia al trigo"
+  },
+  "fish": "Pescado",
+  "@fish": {
+    "description": "Alergia al pescado"
+  },
+  "none": "Ninguna",
+  "@none": {
+    "description": "Sin alergias"
+  },
+  "beginner": "Principiante",
+  "@beginner": {
+    "description": "Nivel principiante en cocina"
+  },
+  "beginnerDescription": "Apenas estoy aprendiendo lo básico",
+  "@beginnerDescription": {
+    "description": "Descripción del nivel principiante"
+  },
+  "intermediate": "Intermedio",
+  "@intermediate": {
+    "description": "Nivel intermedio en cocina"
+  },
+  "intermediateDescription": "Puedo seguir recetas sin problemas",
+  "@intermediateDescription": {
+    "description": "Descripción del nivel intermedio"
+  },
+  "advanced": "Avanzado",
+  "@advanced": {
+    "description": "Nivel avanzado en cocina"
+  },
+  "advancedDescription": "Me gusta experimentar y crear nuevos platos",
+  "@advancedDescription": {
+    "description": "Descripción del nivel avanzado"
+  },
+  "professionalChef": "Chef profesional",
+  "@professionalChef": {
+    "description": "Nivel chef profesional"
+  },
+  "professionalChefDescription": "Tengo experiencia profesional en cocina",
+  "@professionalChefDescription": {
+    "description": "Descripción del nivel chef profesional"
+  },
+  "selectionRequired": "Selección requerida",
+  "@selectionRequired": {
+    "description": "Título del toast de error cuando no se selecciona una opción"
+  },
+  "pleaseSelectAtLeastOne": "Por favor selecciona al menos una opción",
+  "@pleaseSelectAtLeastOne": {
+    "description": "Mensaje del toast de error cuando no se selecciona una opción"
+  },
+  "setupDiet": "Ahora configuremos tu dieta",
+  "@setupDiet": {
+    "description": "Mensaje del toast informativo para configurar dieta"
+  },
+  "step1Of3": "Paso 1 de 3",
+  "@step1Of3": {
+    "description": "Título del primer paso del onboarding"
+  },
+  "allergyInfo": "Es importante conocer tus alergias para tu seguridad",
+  "@allergyInfo": {
+    "description": "Mensaje del toast de advertencia sobre alergias"
+  },
+  "allergyInfoTitle": "Información sobre alergias",
+  "@allergyInfoTitle": {
+    "description": "Título del toast de advertencia sobre alergias"
+  },
+  "finalStep": "Por último, cuéntanos tu nivel de experiencia",
+  "@finalStep": {
+    "description": "Mensaje del toast del paso final"
+  },
+  "finalStepTitle": "Paso final",
+  "@finalStepTitle": {
+    "description": "Título del toast del paso final"
+  },
+  "setupCompleted": "Configuración completada exitosamente",
+  "@setupCompleted": {
+    "description": "Mensaje del toast de éxito al completar configuración"
+  },
+  "welcomeTitle": "¡Bienvenido!",
+  "@welcomeTitle": {
+    "description": "Título del toast de bienvenida"
+  },
+  "personalizedRecipes": "Recetas culinarias personalizadas",
+  "@personalizedRecipes": {
+    "description": "Título de recetas personalizadas en la página de acceso"
+  },
+  "discoverRecipes": "Descubre deliciosas recetas y consejos culinarios con Cocinando IA",
+  "@discoverRecipes": {
+    "description": "Descripción de la aplicación en la página de acceso"
   }
 }

@@ -14,7 +14,8 @@ class LoginWithGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppButton(
-      rounded: true,
+      iconAtStart: true,
+      isGoogle: true,
       text: 'Google',
       onPressed: () async {
         await const LoadingDialog().show(
@@ -67,8 +68,7 @@ class LoginWithGoogle extends StatelessWidget {
         );
       },
       showIcon: true,
-      iconWidget: Image.asset('assets/img/google.png', width: 30, height: 30),
-      isAlternative: true,
+      iconWidget: Image.asset('assets/img/google.png', width: 20, height: 20),
     );
   }
 }

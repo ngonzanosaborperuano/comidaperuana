@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
 
@@ -15,6 +14,21 @@ class AppButton extends StatelessWidget {
     this.rounded = true,
     this.isCancel = false,
     this.isAlternative = false,
+    this.iconAtStart = false,
+    this.isGoogle = false,
+  });
+  const AppButton.google({
+    required this.text,
+    this.onPressed,
+    super.key,
+    this.iconWidget,
+    this.enabledButton = true,
+    this.showIcon = true,
+    this.rounded = true,
+    this.isCancel = false,
+    this.isAlternative = false,
+    this.iconAtStart = false,
+    this.isGoogle = true,
   });
 
   final String text;
@@ -25,20 +39,23 @@ class AppButton extends StatelessWidget {
   final Widget? iconWidget;
   final bool isCancel;
   final bool isAlternative;
+  final bool iconAtStart;
+  final bool isGoogle;
 
   @override
   Widget build(BuildContext context) {
     Color colorPrimary;
     Color colorSecondary;
+    final color = context.color;
     if (isAlternative) {
-      colorPrimary = AppColorScheme.of(context).secondary;
-      colorSecondary = AppColorScheme.of(context).primary;
+      colorPrimary = color.buttonPrimary;
+      colorSecondary = color.primary;
+    } else if (isGoogle) {
+      colorPrimary = color.text;
+      colorSecondary = color.background;
     } else {
-      colorPrimary =
-          isCancel ? AppColorScheme.of(context).secondary : AppColorScheme.of(context).primary;
-
-      colorSecondary =
-          isCancel ? AppColorScheme.of(context).primary : AppColorScheme.of(context).secondary;
+      colorPrimary = isCancel ? color.buttonPrimary : color.textNormal;
+      colorSecondary = isCancel ? color.textOnPrimary : color.buttonPrimary;
     }
 
     return Theme.of(context).platform == TargetPlatform.iOS
@@ -57,7 +74,7 @@ class AppButton extends StatelessWidget {
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
-            side: BorderSide(color: context.color.secondary),
+            side: BorderSide(color: colorPrimary, width: 0.5),
           ),
         ),
         elevation: WidgetStateProperty.all(0),
@@ -67,28 +84,44 @@ class AppButton extends StatelessWidget {
   }
 
   Widget _buildCupertinoButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
-    return CupertinoButton(
-      onPressed: enabledButton ? onPressed : null,
-      color: colorSecundary,
-      borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
-      child: _buildButtonContent(colorPrimary, context),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+        border: Border.all(
+          color: context.color.buttonPrimary, // Color del borde
+          width: 1.0, // Grosor del borde
+        ),
+      ),
+      child: CupertinoButton(
+        onPressed: enabledButton ? onPressed : null,
+        color: colorSecundary,
+        borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+        child: _buildButtonContent(colorPrimary, context),
+      ),
     );
   }
 
   Widget _buildButtonContent(Color colorSecundary, BuildContext context) {
+    final textWidget = Text(
+      text,
+      style: TextStyle(color: colorSecundary, fontSize: 18, fontWeight: FontWeight.w700),
+    );
+
+    final iconTheme =
+        showIcon && iconWidget != null
+            ? IconTheme(data: IconThemeData(color: colorSecundary), child: iconWidget!)
+            : null;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (!showIcon) ...[
-          AppHorizontalSpace.sm,
+        if (iconAtStart) ...[
+          if (iconTheme != null) ...[iconTheme, AppHorizontalSpace.sm],
+          textWidget,
         ] else ...[
-          iconWidget ?? const SizedBox(),
-          AppHorizontalSpace.sm,
+          textWidget,
+          if (iconTheme != null) ...[AppHorizontalSpace.sm, iconTheme],
         ],
-        Text(
-          text,
-          style: TextStyle(color: colorSecundary, fontSize: 18, fontWeight: FontWeight.w700),
-        ),
       ],
     );
   }

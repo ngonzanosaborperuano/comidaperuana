@@ -2,244 +2,196 @@ import 'package:flutter/material.dart';
 
 /// Clase que define la paleta de colores utilizada en la aplicación.
 class AppColors {
-  /// Azul principal utilizado en los temas de la aplicación.
-  static const MaterialColor primaryBlue = MaterialColor(
-    0xFF1757a6,
-    <int, Color>{},
-  );
+  static const MaterialColor primary1 = MaterialColor(0xFFff6b35, <int, Color>{});
 
-  /// Color principal utilizado para representar el cobre.
-  static const MaterialColor primaryCopper = MaterialColor(
-    0xFFbf8328,
-    <int, Color>{},
-  );
+  static const MaterialColor background = MaterialColor(0xFFffffff, <int, Color>{});
+  static const MaterialColor backgroundDark = MaterialColor(0xFF0d1116, <int, Color>{});
 
-  /// Gris oscuro utilizado como color principal para el plomo.
-  static const MaterialColor primaryLead = MaterialColor(
-    0xFF5e5d5c,
-    <int, Color>{},
-  );
+  static const MaterialColor backgroundCard = MaterialColor(0xFFffffff, <int, Color>{});
+  static const MaterialColor backgroundCardDark = MaterialColor(0xFF161b22, <int, Color>{});
 
-  /// Color negro utilizado en la aplicación.
-  static const Color blackColor = Colors.black;
+  static const Color text = MaterialColor(0xFF10181c, <int, Color>{});
+  static const Color textDark = MaterialColor(0xFFecedee, <int, Color>{});
 
-  /// Azul secundario utilizado en elementos secundarios de la aplicación.
-  static const MaterialColor secondaryBlue = MaterialColor(
-    0xFF0366a5,
-    <int, Color>{},
-  );
+  static const MaterialColor text2 = MaterialColor(0xFFa1a1aa, <int, Color>{});
 
-  /// Azul cielo secundario para destacar elementos.
-  static const MaterialColor secondarySkayBlue = MaterialColor(
-    0xFF05aae4,
-    <int, Color>{},
-  );
+  static const MaterialColor error = MaterialColor(0xFFf31a65, <int, Color>{});
 
-  /// Gris claro utilizado para representar elementos secundarios.
-  static const MaterialColor secondaryLead = MaterialColor(
-    0xFFbcbdc0,
-    <int, Color>{},
-  );
+  static const MaterialColor icon = MaterialColor(0xFF71717a, <int, Color>{});
+
+  static const MaterialColor textSecondary = MaterialColor(0xFFff6b35, <int, Color>{});
+  static const MaterialColor textSecondaryDark = MaterialColor(0xFFfe9e76, <int, Color>{});
+
+  /////////////////////////  ////ff6b35
 
   /// Rojo oscuro utilizado para advertencias y errores.
-  static const MaterialColor secondaryBlackRed = MaterialColor(
-    0xFF962e33,
-    <int, Color>{},
-  );
+  static const MaterialColor secondaryBlackRed = MaterialColor(0xFF92400E, <int, Color>{});
 
-  /// Rojo secundario utilizado en botones y alertas.
-  static const MaterialColor secondaryRed = MaterialColor(
-    0xFFee1e23,
-    <int, Color>{},
-  );
-  static const MaterialColor alternativeRed = MaterialColor(
-    0x8DFF5963,
-    <int, Color>{},
-  );
+  /// Marrón oscuro utilizado para elementos complementarios.
+  static const MaterialColor brownDark = MaterialColor(0xFFB45309, <int, Color>{});
 
-  /// Naranja secundario utilizado para advertencias.
-  static const MaterialColor secondaryOrange = MaterialColor(
-    0xFFf7931d,
-    <int, Color>{},
-  );
+  /// Amarillo naranja utilizado para destacar elementos.
+  static const MaterialColor yellowOrange = MaterialColor(0xFFF59E0B, <int, Color>{});
 
-  /// Rojo oscuro utilizado para errores críticos.
-  static const MaterialColor secondaryRedDark = MaterialColor(
-    0xFFC00000,
-    <int, Color>{},
-  );
+  /// Amarillo claro utilizado para fondos suaves.
+  static const MaterialColor yellowLight = MaterialColor(0xFFFEF3C7, <int, Color>{});
 
-  static const MaterialColor greyscale200 = MaterialColor(
-    0xFFD5DEE2,
-    <int, Color>{},
-  );
+  /// Gris azulado medio utilizado para elementos secundarios.
+  static const MaterialColor slate500 = MaterialColor(0xFF64748B, <int, Color>{});
 
-  /// Gris claro utilizado en elementos secundarios.
-  static const MaterialColor greyscale400 = MaterialColor(
-    0xFFB8C3C8,
-    <int, Color>{},
-  );
+  /// Gris oscuro utilizado para fondos y texto.
+  static const MaterialColor slate700 = MaterialColor(0xFF334155, <int, Color>{});
 
-  /// Gris medio utilizado en bordes, íconos y texto de soporte.
-  static const MaterialColor greyscale500 = MaterialColor(
-    0xFF8F9FA7,
-    <int, Color>{},
-  );
-
-  /// Gris oscuro utilizado en texto y elementos destacados.
-  static const MaterialColor greyscale600 = MaterialColor(
-    0xFF778790,
-    <int, Color>{},
-  );
-
-  /// Gris muy oscuro utilizado para texto y fondos de contraste.
-  static const MaterialColor greyscale700 = MaterialColor(
-    0xFF65737B,
-    <int, Color>{},
-  );
-
-  /// Gris casi negro utilizado en fondos y textos.
-  static const MaterialColor greyscale900 = MaterialColor(
-    0xFF2F373C,
-    <int, Color>{},
-  );
+  /// Gris muy claro utilizado para fondos sutiles.
+  static const MaterialColor slate50 = MaterialColor(0xFFF1F5F9, <int, Color>{});
 
   /// Color blanco utilizado como fondo principal.
   static const MaterialColor white = MaterialColor(0xFFFFFFFF, <int, Color>{});
 
-  /// Azul primario utilizado en elementos destacados.
-  static const MaterialColor primary = MaterialColor(
-    0xFF121a65,
-    <int, Color>{},
+  /// Gris muy oscuro utilizado para texto y fondos.
+  static const MaterialColor slate800 = MaterialColor(0xFF1E293B, <int, Color>{});
+
+  /// Verde muy claro utilizado para fondos de éxito.
+  static const MaterialColor emerald100 = MaterialColor(0xFFD1FAE5, <int, Color>{});
+
+  /// Verde oscuro utilizado para elementos de éxito.
+  static const MaterialColor emerald700 = MaterialColor(0xFF047857, <int, Color>{});
+
+  /// Amarillo muy claro utilizado para fondos cálidos.
+  static const MaterialColor amber50 = MaterialColor(0xFFFFFBEB, <int, Color>{});
+
+  /// Verde muy oscuro utilizado para elementos destacados.
+  static const MaterialColor emerald800 = MaterialColor(0xFF065F46, <int, Color>{});
+
+  /// Verde medio utilizado para elementos de éxito.
+  static const MaterialColor emerald600 = MaterialColor(0xFF166534, <int, Color>{});
+
+  /// Marrón medio utilizado para elementos complementarios.
+  static const MaterialColor amber700 = MaterialColor(0xFF854D0E, <int, Color>{});
+
+  /// Rojo oscuro utilizado para errores.
+  static const MaterialColor red700 = MaterialColor(0xFF991B1B, <int, Color>{});
+
+  /// Rojo muy oscuro utilizado para errores críticos.
+  static const MaterialColor rose700 = MaterialColor(0xFF9F1239, <int, Color>{});
+
+  /// Verde claro utilizado para fondos de éxito suaves.
+  static const MaterialColor emerald50 = MaterialColor(0xFFDCFCE7, <int, Color>{});
+
+  /// Gris muy claro utilizado para fondos neutros.
+  static const MaterialColor slate25 = MaterialColor(0xFFF8FAFC, <int, Color>{});
+
+  /// Rojo muy claro utilizado para fondos de error suaves.
+  static const MaterialColor red50 = MaterialColor(0xFFFEE2E2, <int, Color>{});
+
+  /// Amarillo claro utilizado para fondos de advertencia.
+  static const MaterialColor yellow100 = MaterialColor(0xFFFEF9C3, <int, Color>{});
+
+  /// Rosa muy claro utilizado para fondos suaves.
+  static const MaterialColor rose50 = MaterialColor(0xFFFFE4E6, <int, Color>{});
+
+  // === COLORES PARA MODO DARK ===
+
+  /// Amarillo medio utilizado para elementos destacados en dark mode.
+  static const MaterialColor yellow400 = MaterialColor(0xFFFBBF24, <int, Color>{});
+
+  /// Amarillo muy claro utilizado para fondos suaves en dark mode.
+  static const MaterialColor yellow200 = MaterialColor(0xFFFDE68A, <int, Color>{});
+
+  /// Gris muy claro utilizado para fondos en dark mode.
+  static const MaterialColor slate200 = MaterialColor(0xFFE2E8F0, <int, Color>{});
+
+  /// Gris claro utilizado para elementos secundarios en dark mode.
+  static const MaterialColor slate300 = MaterialColor(0xFFCBD5E1, <int, Color>{});
+
+  /// Gris medio utilizado para texto secundario en dark mode.
+  static const MaterialColor slate400 = MaterialColor(0xFF94A3B8, <int, Color>{});
+
+  /// Verde muy claro utilizado para éxito en dark mode.
+  static const MaterialColor emerald200 = MaterialColor(0xFFA7F3D0, <int, Color>{});
+
+  /// Verde muy oscuro utilizado para fondos de éxito en dark mode.
+  static const MaterialColor emerald900 = MaterialColor(0xFF064E3B, <int, Color>{});
+
+  /// Marrón muy oscuro utilizado para elementos en dark mode.
+  static const MaterialColor amber900 = MaterialColor(0xFF78350F, <int, Color>{});
+
+  /// Gris casi negro utilizado para fondos principales en dark mode.
+  static const MaterialColor slate900 = MaterialColor(0xFF0F172A, <int, Color>{});
+
+  /// Verde claro utilizado para elementos de éxito en dark mode.
+  static const MaterialColor emerald300 = MaterialColor(0xFFBBF7D0, <int, Color>{});
+
+  /// Rojo muy claro utilizado para errores suaves en dark mode.
+  static const MaterialColor red200 = MaterialColor(0xFFFECACA, <int, Color>{});
+
+  /// Rosa claro utilizado para elementos suaves en dark mode.
+  static const MaterialColor rose200 = MaterialColor(0xFFFECDD3, <int, Color>{});
+
+  /// Amarillo claro utilizado para advertencias en dark mode.
+  static const MaterialColor yellow200Alt = MaterialColor(0xFFFEF08A, <int, Color>{});
+
+  /// Verde muy oscuro utilizado para fondos intensos en dark mode.
+  static const MaterialColor emerald950 = MaterialColor(0xFF14532D, <int, Color>{});
+
+  /// Marrón oscuro utilizado para elementos complementarios en dark mode.
+  static const MaterialColor amber800 = MaterialColor(0xFF713F12, <int, Color>{});
+
+  /// Rojo muy oscuro utilizado para errores críticos en dark mode.
+  static const MaterialColor red800 = MaterialColor(0xFF7F1D1D, <int, Color>{});
+
+  /// Rosa muy oscuro utilizado para elementos intensos en dark mode.
+  static const MaterialColor rose800 = MaterialColor(0xFF881337, <int, Color>{});
+
+  /// Amarillo medio utilizado para destacar en dark mode.
+  static const MaterialColor yellow300 = MaterialColor(0xFFFCD34D, <int, Color>{});
+
+  // === GRADIENTES LINEALES ===
+
+  /// Gradiente lineal para modo dark - de gris oscuro a más oscuro
+  static const LinearGradient darkModeLinear = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF334155), // slate700
+      Color(0xFF0F172A), // slate900
+    ],
+    stops: [0.0, 1.0],
   );
 
-  /// Azul terciario utilizado en detalles interactivos.
-  static const MaterialColor tertiary = MaterialColor(
-    0xFF007bff,
-    <int, Color>{},
+  /// Gradiente lineal cálido - de amarillo a naranja
+  static const LinearGradient warmLinear = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color(0xFFFBBF24), // yellow400
+      Color(0xFF78350F), // amber900
+    ],
+    stops: [0.0, 1.0],
   );
 
-  /// Azul water para destacar elementos en fondos oscuros.
-  static const MaterialColor onPrimaryWater = MaterialColor(
-    0xFFd2e6ff,
-    <int, Color>{},
-  );
-  static const MaterialColor blueLight = MaterialColor(
-    0xFF90c3fb,
-    <int, Color>{},
-  );
-
-  /// Color alternativo utilizado en fondos y contornos.
-  static const MaterialColor alternate = MaterialColor(
-    0xFFe0e3e7,
-    <int, Color>{},
+  /// Gradiente lineal de éxito - de verde claro a oscuro
+  static const LinearGradient successLinear = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFA7F3D0), // emerald200
+      Color(0xFF064E3B), // emerald900
+    ],
+    stops: [0.0, 1.0],
   );
 
-  /// Color utilizado para el texto primario.
-  static const MaterialColor primaryText = MaterialColor(
-    0xFF14181b,
-    <int, Color>{},
+  /// Gradiente lineal naranja a marrón - de amarillo naranja a marrón oscuro
+  static const LinearGradient orangeToBrownLinear = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFFF59E0B), // yellowOrange
+      Color(0xFFB45309), // brownDark
+    ],
+    stops: [0.0, 1.0],
   );
 
-  /// Color utilizado para el texto secundario.
-  static const MaterialColor secondaryText = MaterialColor(
-    0xFF57636c,
-    <int, Color>{},
-  );
-
-  /// Color de fondo primario utilizado en las pantallas.
-  static const MaterialColor primaryBackground = MaterialColor(
-    0xFFf1f4f8,
-    <int, Color>{},
-  );
-
-  /// Color de fondo secundario (blanco).
-  static const MaterialColor secondaryBackground = MaterialColor(
-    0xFFffffff,
-    <int, Color>{},
-  );
-
-  /// Color de fondo secundario (blanco).
-  static const MaterialColor itemMenuBackground = MaterialColor(
-    0xFFf5f5f5,
-    <int, Color>{},
-  );
-
-  /// Color de acento utilizado para elementos destacados.
-  static const MaterialColor accent1 = MaterialColor(
-    0xFF4c4b39ef,
-    <int, Color>{},
-  );
-
-  /// Azul de acento utilizado en botones y enlaces.
-  static const MaterialColor accent2 = MaterialColor(
-    0xFF005abe,
-    <int, Color>{},
-  );
-
-  /// Verde de acento utilizado en indicadores de éxito.
-  static const MaterialColor accent3 = MaterialColor(
-    0xFF4dee8b60,
-    <int, Color>{},
-  );
-
-  /// Blanco transparente utilizado en fondos y sombras.
-  static const MaterialColor accent4 = MaterialColor(
-    0xFFccffffff,
-    <int, Color>{},
-  );
-
-  /// Verde utilizado para indicar éxito.
-  static const MaterialColor success = MaterialColor(
-    0xFF27ae60,
-    <int, Color>{},
-  );
-
-  static const MaterialColor successDark = MaterialColor(
-    0x4627AE5F,
-    <int, Color>{},
-  );
-
-  /// Rojo utilizado para errores.
-  static const MaterialColor error = MaterialColor(0xFFff5963, <int, Color>{});
-
-  /// Amarillo utilizado para advertencias.
-  static const MaterialColor warning = MaterialColor(
-    0xFFFFC008,
-    <int, Color>{},
-  );
-
-  /// Amarillo utilizado para advertencias.
-  static const MaterialColor warningBackground = MaterialColor(
-    0xFFFFECB3,
-    <int, Color>{},
-  );
-
-  /// Blanco utilizado como color informativo.
-  static const MaterialColor info = MaterialColor(0xFFffffff, <int, Color>{});
-  static const MaterialColor transparent = MaterialColor(
-    0x00FFFFFF,
-    <int, Color>{},
-  );
-
-  ///Colores pasteles complementarios
-  static const MaterialColor greenPastelActive = MaterialColor(
-    0xff9dfbc4,
-    <int, Color>{},
-  );
-  static const MaterialColor redPastelInactive = MaterialColor(
-    0xffff9688,
-    <int, Color>{},
-  );
-
-  /// Azul secundario para temas secundarios.
-  static const MaterialColor secondary = MaterialColor(
-    0xFF0d45ff,
-    <int, Color>{},
-  );
-
-  static const MaterialColor secondaryOpacity = MaterialColor(
-    0xFFAFC0F9,
-    <int, Color>{},
-  );
+  /// Transparente utilizado para fondos y sombras.
+  static const MaterialColor transparent = MaterialColor(0x00FFFFFF, <int, Color>{});
 }

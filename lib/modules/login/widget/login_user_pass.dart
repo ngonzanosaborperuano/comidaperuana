@@ -37,8 +37,8 @@ class LoginUserPass extends StatelessWidget {
           collapsedShape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          collapsedBackgroundColor: context.color.textSecundary,
-          backgroundColor: context.color.textSecundary,
+          collapsedBackgroundColor: context.color.textSecondary,
+          backgroundColor: context.color.textSecondary,
           childrenPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           children: [
             AppVerticalSpace.sm,
@@ -128,7 +128,7 @@ class LoginUserPass extends StatelessWidget {
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
-                  backgroundColor: context.color.textSecundary,
+                  backgroundColor: context.color.textSecondary,
                   builder: (context) {
                     TextEditingController textEditingController = TextEditingController();
                     return Padding(
@@ -199,7 +199,7 @@ class LoginUserPass extends StatelessWidget {
                   context: context,
                   message: 'Correo de recuperación enviado con éxito.',
                   backgroundColor: context.color.success,
-                  foregroundColor: context.color.textPrimary,
+                  foregroundColor: context.color.text,
                 );
 
                 break;
@@ -230,7 +230,7 @@ class LoginUserPass extends StatelessWidget {
     return showCustomSnackBar(
       context: context,
       message: message,
-      backgroundColor: AppColors.error,
+      backgroundColor: AppColors.red700,
       foregroundColor: AppColors.white,
     );
   }

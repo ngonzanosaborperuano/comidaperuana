@@ -20,7 +20,7 @@ class MenuIOS extends StatelessWidget {
               right: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: context.color.textSecundary,
+                  color: context.color.textSecondary,
                   boxShadow: [
                     BoxShadow(
                       color: context.color.menuActive,
@@ -31,8 +31,8 @@ class MenuIOS extends StatelessWidget {
                   ],
                 ),
                 child: CupertinoTabBar(
-                  backgroundColor: context.color.textSecundary,
-                  activeColor: context.color.menuIsNotActive,
+                  backgroundColor: context.color.textSecondary,
+                  activeColor: context.color.buttonPrimary,
                   inactiveColor: context.color.menuActive,
                   currentIndex: value.selectPage,
                   height: kToolbarHeight,
@@ -56,13 +56,13 @@ class MenuIOS extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: context.color.textSecundary,
-                  border: Border.all(color: context.color.menuIsNotActive, width: 4),
+                  color: context.color.textSecondary,
+                  border: Border.all(color: context.color.buttonPrimary, width: 4),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 15,
                       spreadRadius: 0,
-                      color: context.color.menuIsNotActive,
+                      color: context.color.buttonPrimary,
                       offset: const Offset(0, 10),
                     ),
                   ],

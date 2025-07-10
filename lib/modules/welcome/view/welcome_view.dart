@@ -1,193 +1,599 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/app_button_icon.dart';
-import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
+import 'package:recetasperuanas/shared/widget/spacing/spacing.dart'
+    show AppSpacing, AppVerticalSpace;
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
-class WelcomeView extends StatelessWidget {
+import '../../../core/constants/routes.dart';
+import '../../../l10n/app_localizations.dart';
+
+class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const OnboardingScreen();
-
-    // Padding(
-    //   padding: const EdgeInsets.symmetric(horizontal: 20),
-    //   child: Center(
-    //     child: SingleChildScrollView(
-    //       child: Column(
-    //         children: [
-    //           OnboardingScreen(),
-    //           Hero(
-    //             tag: 'logo',
-    //             child: ClipOval(
-    //               child: Image.asset('assets/img/logoOutName.png', width: 200, height: 200),
-    //             ),
-    //           ),
-    //           AppVerticalSpace.md,
-    //           AppText(
-    //             text: context.loc.welcome,
-    //             fontSize: AppSpacing.xmd,
-    //             fontWeight: FontWeight.bold,
-    //           ),
-    //           AppText(
-    //             text: context.loc.descriptionWelcome,
-    //             fontSize: AppSpacing.md,
-    //             fontWeight: FontWeight.w400,
-    //           ),
-    //           Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               AppVerticalSpace.xslg,
-    //               AppButton(
-    //                 text: context.loc.getStarted,
-    //                 onPressed: () {
-    //                   context.go(Routes.login.description);
-    //                 },
-    //                 showIcon: false,
-    //               ),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
-  }
+  State<WelcomeView> createState() => _WelcomeViewState();
 }
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
-
-  @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _controller = PageController();
+class _WelcomeViewState extends State<WelcomeView> {
+  late final PageController _pageController;
   int _currentPage = 0;
-  List<Map<String, String>> onboardingData = [];
+
+  final Set<String> _selectedDiets = {};
+  final Set<String> _selectedAllergies = {};
+  String _selectedExperience = '';
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
   }
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    onboardingData = [
-      {
-        "image": "assets/img/imagen_1.png",
-        "title": context.loc.onboardingTitle1,
-        "subtitle": context.loc.onboardingSubtitle1,
-      },
-      {
-        "image": "assets/img/imagen_2.png",
-        "title": context.loc.onboardingTitle2,
-        "subtitle": context.loc.onboardingSubtitle2,
-      },
-      {
-        "image": "assets/img/imagen_3.png",
-        "title": context.loc.onboardingTitle3,
-        "subtitle": context.loc.onboardingSubtitle3,
-      },
-      {
-        "image": "assets/img/imagen_4.png",
-        "title": context.loc.onboardingTitle4,
-        "subtitle": context.loc.onboardingSubtitle4,
-      },
-    ];
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
-    return SingleChildScrollView(
+  bool _nextPage() {
+    final l10n = context.loc;
+    if (_currentPage < 4) {
+      if (_currentPage == 1 && _selectedDiets.isEmpty) {
+        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        return false;
+      }
+      if (_currentPage == 2 && _selectedAllergies.isEmpty) {
+        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        return false;
+      }
+      if (_currentPage == 3 && _selectedExperience.isEmpty) {
+        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        return false;
+      }
+
+      switch (_currentPage) {
+        case 0:
+          context.showInfoToast(l10n.setupDiet, title: l10n.step1Of3);
+          break;
+        case 1:
+          context.showWarningToast(l10n.allergyInfo, title: l10n.allergyInfoTitle);
+          break;
+        case 2:
+          context.showInfoToast(l10n.finalStep, title: l10n.finalStepTitle);
+          break;
+        case 3:
+          context.showSuccessToast(l10n.setupCompleted, title: l10n.welcomeTitle);
+          break;
+      }
+
+      _currentPage++;
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {});
+    }
+    return true;
+  }
+
+  Widget _buildDietPage(AppLocalizations l10n) {
+    final diets = {
+      'omnivore': l10n.omnivore,
+      'vegetarian': l10n.vegetarian,
+      'vegan': l10n.vegan,
+      'pescatarian': l10n.pescatarian,
+      'glutenFree': l10n.glutenFree,
+      'lactoseFree': l10n.lactoseFree,
+      'keto': l10n.keto,
+      'paleo': l10n.paleo,
+      'none': l10n.none,
+    };
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: size.height * 0.8,
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: onboardingData.length,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
+          TextCocinando(context: context),
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            l10n.followDietQuestion,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Text(l10n.selectAllThatApply, style: TextStyle(fontSize: 16, color: context.color.text)),
+          const SizedBox(height: AppSpacing.lg),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              itemCount: diets.length,
               itemBuilder: (context, index) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AppVerticalSpace.xslg,
-                    Image.asset(
-                      onboardingData[index]['image']!,
-                      fit: BoxFit.contain,
-                      width: 300,
-                      height: 300,
-                    ),
-                    AppVerticalSpace.xmd,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Column(
-                        children: [
-                          Text(
-                            onboardingData[index]['title']!,
-                            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            onboardingData[index]['subtitle']!,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (onboardingData.length - 1 == index) ...[
-                      AppVerticalSpace.xlg,
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: AppButton(
-                          text: context.loc.getStarted,
-                          onPressed: () {
-                            context.go(Routes.login.description);
-                          },
-                          showIcon: false,
-                        ),
-                      ),
-                    ],
-                    const Spacer(),
-                  ],
+                final key = diets.keys.elementAt(index);
+                final value = diets[key]!;
+                final isSelected = _selectedDiets.contains(key);
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (key == 'none') {
+                        if (isSelected) {
+                          _selectedDiets.remove(key);
+                        } else {
+                          _selectedDiets.clear();
+                          _selectedDiets.add(key);
+                        }
+                      } else {
+                        _selectedDiets.remove('none');
+                        if (isSelected) {
+                          _selectedDiets.remove(key);
+                        } else {
+                          _selectedDiets.add(key);
+                        }
+                      }
+                    });
+                  },
+                  child: SelectButton(isSelected: isSelected, value: value),
                 );
               },
             ),
           ),
-          SizedBox(
-            height: size.height * 0.1,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  onboardingData.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    margin: const EdgeInsets.symmetric(horizontal: 6),
-                    width: _currentPage == index ? 14 : 8,
-                    height: _currentPage == index ? 14 : 8,
-                    decoration: BoxDecoration(
-                      color:
-                          _currentPage == index
-                              ? context.color.secondary
-                              : context.color.textPrimary,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAllergyPage(AppLocalizations l10n) {
+    final allergies = {
+      'nuts': l10n.nuts,
+      'seafood': l10n.seafood,
+      'eggs': l10n.eggs,
+      'dairy': l10n.dairy,
+      'soy': l10n.soy,
+      'wheat': l10n.wheat,
+      'fish': l10n.fish,
+      'none': l10n.none,
+    };
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextCocinando(context: context),
+          AppVerticalSpace.lg,
+          Text(
+            l10n.haveAllergiesQuestion,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+          ),
+          AppVerticalSpace.md,
+          Text(l10n.importantForSafety, style: TextStyle(fontSize: 16, color: context.color.text)),
+          AppVerticalSpace.lg,
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
               ),
+              itemCount: allergies.length,
+              itemBuilder: (context, index) {
+                final key = allergies.keys.elementAt(index);
+                final value = allergies[key]!;
+                final isSelected = _selectedAllergies.contains(key);
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (key == 'none') {
+                        if (isSelected) {
+                          _selectedAllergies.remove(key);
+                        } else {
+                          _selectedAllergies.clear();
+                          _selectedAllergies.add(key);
+                        }
+                      } else {
+                        _selectedAllergies.remove('none');
+                        if (isSelected) {
+                          _selectedAllergies.remove(key);
+                        } else {
+                          _selectedAllergies.add(key);
+                        }
+                      }
+                    });
+                  },
+                  child: SelectButton(isSelected: isSelected, value: value),
+                );
+              },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildExperiencePage(AppLocalizations l10n) {
+    final experienceLevels = {
+      'beginner': {'title': l10n.beginner, 'description': l10n.beginnerDescription},
+      'intermediate': {'title': l10n.intermediate, 'description': l10n.intermediateDescription},
+      'advanced': {'title': l10n.advanced, 'description': l10n.advancedDescription},
+      'professionalChef': {
+        'title': l10n.professionalChef,
+        'description': l10n.professionalChefDescription,
+      },
+    };
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextCocinando(context: context),
+          AppVerticalSpace.lg,
+          Text(
+            l10n.experienceLevelQuestion,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+          ),
+          AppVerticalSpace.lg,
+          Expanded(
+            child: ListView.builder(
+              itemCount: experienceLevels.length,
+              itemBuilder: (context, index) {
+                final key = experienceLevels.keys.elementAt(index);
+                final level = experienceLevels[key]!;
+                final isSelected = _selectedExperience == key;
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedExperience = key;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: context.color.background,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isSelected ? context.color.buttonPrimary : context.color.border,
+                          width: 2,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color:
+                                    isSelected ? context.color.buttonPrimary : context.color.border,
+                                width: 2,
+                              ),
+                              color: isSelected ? context.color.buttonPrimary : Colors.transparent,
+                            ),
+                            child:
+                                isSelected
+                                    ? Icon(Icons.check, size: 16, color: context.color.background)
+                                    : null,
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  level['title']!,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: context.color.text,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  level['description']!,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: context.color.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWelcomePage(AppLocalizations l10n) {
+    return Column(
+      children: [
+        TextCocinando(context: context),
+        const Spacer(flex: 2),
+        Text(
+          l10n.welcomeToCocinandoIA,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: context.color.text),
+          textAlign: TextAlign.center,
+        ),
+        AppVerticalSpace.md,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            l10n.personalizeExperience,
+            style: TextStyle(fontSize: 16, color: context.color.text, height: 1.5),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        AppVerticalSpace.xlg,
+        Container(
+          width: 250,
+          height: 250,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: context.color.shadow,
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+                spreadRadius: 20,
+              ),
+            ],
+          ),
+          child: ClipOval(
+            child: Image.asset(
+              'assets/img/cocinera.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: context.color.warmGradient.colors,
+                    ),
+                  ),
+                  child: const Icon(Icons.restaurant_menu, size: 80, color: Colors.white),
+                );
+              },
+            ),
+          ),
+        ),
+        const Spacer(flex: 2),
+      ],
+    );
+  }
+
+  Widget _buildAccessPage(AppLocalizations l10n) {
+    return Column(
+      children: [
+        TextCocinando(context: context),
+        const Spacer(flex: 1),
+        Container(
+          width: 250,
+          height: 250,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: context.color.shadow,
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+                spreadRadius: 20,
+              ),
+            ],
+          ),
+          child: ClipOval(
+            child: Image.asset(
+              'assets/img/init.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: context.color.warmGradient.colors,
+                    ),
+                  ),
+                  child: const Icon(Icons.restaurant_menu, size: 80, color: Colors.white),
+                );
+              },
+            ),
+          ),
+        ),
+        const Spacer(flex: 1),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            l10n.personalizedRecipes,
+            style: TextStyle(
+              fontSize: 16,
+              color: context.color.warning,
+              height: 2.5,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        AppVerticalSpace.sm,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            l10n.discoverRecipes,
+            style: TextStyle(fontSize: 16, color: context.color.text, height: 1.5),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        AppVerticalSpace.xlg,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: AppButton(
+            text: l10n.login,
+            showIcon: true,
+            iconWidget: const Icon(Icons.login),
+            iconAtStart: true,
+            onPressed: () {
+              context.go(Routes.login.description);
+            },
+          ),
+        ),
+        AppVerticalSpace.sm,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: AppButton(
+            text: l10n.register,
+            showIcon: true,
+            iconWidget: const Icon(Icons.person_add_alt),
+            iconAtStart: true,
+            onPressed: () {
+              context.go(Routes.register.description);
+            },
+            isAlternative: true,
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.loc;
+    final color = context.color;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ColoredBox(
+          color: color.background,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (_currentPage < 4)
+                SizedBox(
+                  height: 8,
+                  child: AppShimmer.progress(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: constraints.maxWidth * ((_currentPage + 1) / 4),
+                      decoration: BoxDecoration(
+                        gradient: color.primaryGradient,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                ),
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildWelcomePage(l10n),
+                    _buildDietPage(l10n),
+                    _buildAllergyPage(l10n),
+                    _buildExperiencePage(l10n),
+                    _buildAccessPage(l10n),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: _currentPage < 4,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: AppButton(
+                    text: l10n.continueButton,
+                    onPressed: _nextPage,
+                    showIcon: true,
+                    iconWidget: const Icon(Icons.arrow_forward),
+                  ),
+                ),
+              ),
+              AppVerticalSpace.lg,
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class SelectButton extends StatelessWidget {
+  const SelectButton({super.key, required this.isSelected, required this.value});
+
+  final bool isSelected;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isSelected ? context.color.background : context.color.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isSelected ? context.color.buttonPrimary : context.color.border,
+          width: 2,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (isSelected) ...[
+            Icon(Icons.check_circle, color: context.color.buttonPrimary, size: 20),
+            const SizedBox(width: 8),
+          ],
+          Text(value, style: TextStyle(fontSize: 16, color: context.color.text)),
+        ],
+      ),
+    );
+  }
+}
+
+class TextCocinando extends StatelessWidget {
+  const TextCocinando({super.key, required this.context});
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.loc;
+
+    return Column(
+      children: [
+        AppVerticalSpace.slg,
+        Text(
+          l10n.cocinandoIA,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: context.color.buttonPrimary,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        AppVerticalSpace.sm,
+        Text(
+          l10n.culinaryAssistant,
+          style: TextStyle(fontSize: 16, color: context.color.text),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
