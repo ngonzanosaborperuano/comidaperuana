@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:recetasperuanas/core/config/config.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppTextField<T extends Object> extends StatelessWidget {
@@ -69,7 +68,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
       inputFormatters: inputFormatters,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 0.5, color: AppColors.slate200),
+        border: Border.all(width: 0.5, color: context.color.border),
       ),
       placeholder: hintText,
       validator: validator,
@@ -82,16 +81,16 @@ class AppTextField<T extends Object> extends StatelessWidget {
       hintText: hintText,
       prefixIcon: prefixIcon,
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.slate200),
+        borderSide: BorderSide(color: context.color.border),
         borderRadius: BorderRadius.circular(10),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.slate700),
+        borderSide: BorderSide(color: context.color.text),
       ),
 
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.slate200),
+        borderSide: BorderSide(color: context.color.error),
         borderRadius: BorderRadius.circular(10),
       ),
       errorStyle: const TextStyle(fontSize: 12),

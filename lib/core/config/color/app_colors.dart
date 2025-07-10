@@ -7,7 +7,7 @@ class AppColors {
   static const MaterialColor background = MaterialColor(0xFFffffff, <int, Color>{});
   static const MaterialColor backgroundDark = MaterialColor(0xFF0d1116, <int, Color>{});
 
-  static const MaterialColor backgroundCard = MaterialColor(0xFFffffff, <int, Color>{});
+  static const MaterialColor backgroundCard = MaterialColor(0xFFF1F5F9, <int, Color>{});
   static const MaterialColor backgroundCardDark = MaterialColor(0xFF161b22, <int, Color>{});
 
   static const Color text = MaterialColor(0xFF10181c, <int, Color>{});
@@ -43,7 +43,6 @@ class AppColors {
   static const MaterialColor slate700 = MaterialColor(0xFF334155, <int, Color>{});
 
   /// Gris muy claro utilizado para fondos sutiles.
-  static const MaterialColor slate50 = MaterialColor(0xFFF1F5F9, <int, Color>{});
 
   /// Color blanco utilizado como fondo principal.
   static const MaterialColor white = MaterialColor(0xFFFFFFFF, <int, Color>{});

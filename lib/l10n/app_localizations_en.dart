@@ -453,4 +453,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get discoverRecipes =>
       'Discover delicious recipes and culinary tips with Cocinando IA';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
 }

@@ -27,7 +27,7 @@ class AppDecorations {
         borderRadius: BorderRadius.circular(10),
       ),
       filled: true,
-      fillColor: AppColors.slate50,
+      fillColor: AppColors.backgroundCard,
       suffixIcon: Icon(suffixIcon, size: 24, color: AppColors.text),
       contentPadding: const EdgeInsets.all(10),
     );

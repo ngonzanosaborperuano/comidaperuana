@@ -31,75 +31,108 @@ class _LoginViewState extends State<LoginView> {
           child: SizedBox(
             width: size.width * 0.9,
             height: size.height * 0.8,
-            child: Card(
-              color: context.color.backgroundCard,
-              elevation: 10,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppVerticalSpace.xlg,
-                    const LogoWidget(),
-                    AppVerticalSpace.sm,
-                    AppText(
-                      text: context.loc.login,
-                      fontSize: AppSpacing.xxmd,
-                      fontWeight: FontWeight.bold,
-                      color: context.color.text,
-                    ),
-                    AppVerticalSpace.md,
-                    AppText(
-                      text: context.loc.descriptionLogin,
-                      fontSize: AppSpacing.md,
-                      fontWeight: FontWeight.w400,
-                      color: context.color.text,
-                      textAlign: TextAlign.center,
-                    ),
-                    AppVerticalSpace.xmd,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        children: [
-                          AppTextField(
-                            hintText: context.loc.email,
-                            textEditingController: con.emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            prefixIcon: const Icon(Icons.email),
-                          ),
-                          AppVerticalSpace.md,
-                          AppTextField(
-                            hintText: context.loc.password,
-                            textEditingController: con.passwordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            prefixIcon: const Icon(Icons.lock),
-                          ),
-                          AppVerticalSpace.md,
-                          SizedBox(
-                            width: size.width,
-                            child: AppText(
-                              text: context.loc.recoverEmail,
-                              fontSize: AppSpacing.md,
-                              fontWeight: FontWeight.w400,
-                              color: context.color.textSecondary2,
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                          AppVerticalSpace.md,
-                          AppButton(text: context.loc.login, onPressed: () {}),
-
-                          AppVerticalSpace.md,
-                          const DividerWidget(),
-                          AppVerticalSpace.md,
-                          LoginWithGoogle(con: con),
-                        ],
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: context.color.background,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: context.color.border,
+                    blurRadius: 10,
+                    blurStyle: BlurStyle.outer,
+                  ),
+                ],
+              ),
+              child: Card(
+                color: context.color.background,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppVerticalSpace.xlg,
+                      const LogoWidget(),
+                      AppVerticalSpace.sm,
+                      AppText(
+                        text: context.loc.login,
+                        fontSize: AppSpacing.xxmd,
+                        fontWeight: FontWeight.bold,
+                        color: context.color.text,
                       ),
-                    ),
+                      AppVerticalSpace.md,
+                      AppText(
+                        text: context.loc.descriptionLogin,
+                        fontSize: AppSpacing.md,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.text,
+                        textAlign: TextAlign.center,
+                      ),
+                      AppVerticalSpace.xmd,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          children: [
+                            AppTextField(
+                              hintText: context.loc.email,
+                              textEditingController: con.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              prefixIcon: Icon(Icons.email, color: context.color.textSecondary),
+                            ),
+                            AppVerticalSpace.md,
+                            AppTextField(
+                              hintText: context.loc.password,
+                              textEditingController: con.passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
+                            ),
+                            AppVerticalSpace.md,
+                            SizedBox(
+                              width: size.width,
+                              child: AppText(
+                                text: context.loc.recoverEmail,
+                                fontSize: AppSpacing.md,
+                                color: context.color.textSecondary2,
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                            AppVerticalSpace.md,
+                            AppButton(text: context.loc.login, onPressed: () {}),
 
-                    AppVerticalSpace.xlg,
-                    LoginUserPass(formKeyLogin: _formKeyLogin, con: con),
+                            AppVerticalSpace.md,
+                            const DividerWidget(),
+                            AppVerticalSpace.md,
+                            LoginWithGoogle(con: con),
+                            AppVerticalSpace.lg,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText(
+                                  text: context.loc.dontHaveAccount,
+                                  fontSize: AppSpacing.md,
+                                  fontWeight: FontWeight.w400,
+                                  color: context.color.text,
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: AppText(
+                                    text: context.loc.register,
+                                    fontSize: AppSpacing.md,
+                                    fontWeight: FontWeight.w400,
+                                    color: context.color.textSecondary2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
 
-                    AppVerticalSpace.xlg,
-                  ],
+                      AppVerticalSpace.xlg,
+                      LoginUserPass(formKeyLogin: _formKeyLogin, con: con),
+
+                      AppVerticalSpace.xlg,
+                    ],
+                  ),
                 ),
               ),
             ),

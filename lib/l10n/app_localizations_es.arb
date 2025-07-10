@@ -563,5 +563,9 @@
   "discoverRecipes": "Descubre deliciosas recetas y consejos culinarios con Cocinando IA",
   "@discoverRecipes": {
     "description": "Descripción de la aplicación en la página de acceso"
+  },
+  "dontHaveAccount": "¿No tienes una cuenta?",
+  "@dontHaveAccount": {
+    "description": "Pregunta para usuarios que no tienen cuenta en la pantalla de login"
   }
 }

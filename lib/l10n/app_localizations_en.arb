@@ -563,5 +563,9 @@
   "discoverRecipes": "Discover delicious recipes and culinary tips with Cocinando IA",
   "@discoverRecipes": {
     "description": "Description of the application on access page"
+  },
+  "dontHaveAccount": "Don't have an account?",
+  "@dontHaveAccount": {
+    "description": "Question for users who don't have an account on the login screen"
   }
 }

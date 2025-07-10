@@ -64,7 +64,7 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get surface {
-    return brightness == Brightness.dark ? AppColors.slate900 : AppColors.slate50;
+    return brightness == Brightness.dark ? AppColors.slate900 : AppColors.backgroundCard;
   }
 
   // === COLORES DE TEXTO ===

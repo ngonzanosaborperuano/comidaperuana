@@ -943,6 +943,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Discover delicious recipes and culinary tips with Cocinando IA'**
   String get discoverRecipes;
+
+  /// Question for users who don't have an account on the login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
 }
 
 class _AppLocalizationsDelegate
