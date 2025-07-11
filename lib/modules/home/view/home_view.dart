@@ -86,8 +86,9 @@ class _HomeViewState extends State<HomeView> {
                                         SafariViewControllerDismissButtonStyle.cancel,
                                   ),
                                 );
-                              } catch (e) {
-                                debugPrint(e.toString());
+                              } catch (e, stackTrace) {
+                                debugPrint('Error: $e');
+                                debugPrint('StackTrace: $stackTrace');
                               }
                             },
                             child: const Text('MercadoPago - Custom Tabs'),

@@ -118,6 +118,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get darkMode => 'Modo oscuro';
 
   @override
+  String get autoRotation => 'Rotación automática';
+
+  @override
+  String get autoRotationDescription =>
+      'Permitir girar la pantalla automáticamente';
+
+  @override
   String get completed => 'Completado';
 
   @override

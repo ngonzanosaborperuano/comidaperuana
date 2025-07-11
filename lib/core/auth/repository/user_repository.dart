@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
@@ -98,7 +99,8 @@ class UserRepository extends BaseRepository {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e.code;
-    } catch (e) {
+    } catch (e, stackTrace) {
+      debugPrint('StackTrace: $stackTrace');
       return 'Ocurrió un error inesperado.';
     }
     return null;

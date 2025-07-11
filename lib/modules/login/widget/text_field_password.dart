@@ -21,6 +21,7 @@ class TextFieldPassword extends StatelessWidget {
                 textEditingController: con.passwordController,
                 obscureText: value,
                 obscuringCharacter: '*',
+                prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
                 validator: (value) => con.validatePassword(value ?? '', context),
               ),
             ),

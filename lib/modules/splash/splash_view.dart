@@ -7,6 +7,7 @@ import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
 import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
+import 'package:recetasperuanas/modules/login/widget/logo_widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class SplashView extends StatefulWidget {
@@ -78,9 +79,9 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       body: Hero(
         tag: 'logo',
         child: Center(
-          child: RotationTransition(
-            turns: Tween(begin: 0.0, end: 0.025).animate(_animation),
-            child: Image.asset('assets/img/logoOutName.png', width: 200, height: 200),
+          child: Transform.scale(
+            scale: 1.5, // Más grande para splash
+            child: const LogoWidget(),
           ),
         ),
       ),

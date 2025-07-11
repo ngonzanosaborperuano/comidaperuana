@@ -308,6 +308,18 @@ abstract class AppLocalizations {
   /// **'Dark mode'**
   String get darkMode;
 
+  /// Option to enable automatic screen rotation
+  ///
+  /// In en, this message translates to:
+  /// **'Auto rotation'**
+  String get autoRotation;
+
+  /// Description of the auto rotation functionality
+  ///
+  /// In en, this message translates to:
+  /// **'Allow screen to rotate automatically'**
+  String get autoRotationDescription;
+
   /// Status label for completed tasks
   ///
   /// In en, this message translates to:

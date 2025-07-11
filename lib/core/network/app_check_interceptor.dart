@@ -16,8 +16,8 @@ class AppCheckInterceptor extends Interceptor {
       } else {
         _logger.severe('❌ No se pudo obtener el token de App Check');
       }
-    } catch (e) {
-      _logger.severe('❌ Error al obtener App Check token: $e');
+    } catch (e, stackTrace) {
+      _logger.severe('❌ Error al obtener App Check token: $e', e, stackTrace);
     }
 
     return handler.next(options);

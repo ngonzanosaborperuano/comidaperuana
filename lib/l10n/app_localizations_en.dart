@@ -118,6 +118,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get darkMode => 'Dark mode';
 
   @override
+  String get autoRotation => 'Auto rotation';
+
+  @override
+  String get autoRotationDescription => 'Allow screen to rotate automatically';
+
+  @override
   String get completed => 'Completed';
 
   @override

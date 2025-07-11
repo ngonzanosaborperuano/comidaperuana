@@ -28,6 +28,7 @@ class SettingView extends StatelessWidget {
             const Divider(height: 20, endIndent: 20, indent: 20),
             Language(con: con),
             DarkMode(con: con),
+            AutoRotation(con: con),
             AppVerticalSpace.slg,
             LogOutButton(con: con),
           ],
@@ -124,6 +125,45 @@ class LogOutButton extends StatelessWidget {
           if (!context.mounted) return;
           context.go(Routes.splash.description);
         },
+      ),
+    );
+  }
+}
+
+class AutoRotation extends StatelessWidget {
+  const AutoRotation({super.key, required this.con});
+  final SettingController con;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(text: context.loc.autoRotation),
+              AppText(
+                text: context.loc.autoRotationDescription,
+                fontSize: 12,
+                color: context.color.textSecondary,
+              ),
+            ],
+          ),
+          ValueListenableBuilder(
+            valueListenable: con.isAutoRotationEnabled,
+            builder: (_, bool isEnabled, _) {
+              return AppSwitch(
+                value: isEnabled,
+                onChanged: (bool value) async {
+                  await con.toggleAutoRotation(value);
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

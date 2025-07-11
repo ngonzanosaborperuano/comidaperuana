@@ -5,6 +5,7 @@ enum CacheConstants {
   darkMode._('__darkMode__'),
   spanish._('__spanish__'),
   validTime._('__validTime__'),
+  autoRotation._('__autoRotation__'),
   @Deprecated('''
   Check why this exists
   ''')

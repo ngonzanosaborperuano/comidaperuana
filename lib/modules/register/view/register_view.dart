@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
+import 'package:recetasperuanas/modules/login/widget/logo_widget.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
@@ -29,7 +30,7 @@ class _RegisterViewState extends State<RegisterView> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
         child: Consumer<RegisterController>(
-          builder: (_, RegisterController con, __) {
+          builder: (_, RegisterController con, _) {
             return SizedBox(
               width: double.infinity,
               child: Column(
@@ -42,11 +43,12 @@ class _RegisterViewState extends State<RegisterView> {
                     icon: Icon(Icons.arrow_back_ios_new, color: context.color.primary),
                   ),
 
-                  Hero(
-                    tag: 'logo',
-                    child: Center(
-                      child: ClipOval(
-                        child: Image.asset('assets/img/logoOutName.png', width: 200, height: 200),
+                  Center(
+                    child: Hero(
+                      tag: 'logo',
+                      child: Transform.scale(
+                        scale: 1.5, // Tamaño medio para register
+                        child: const LogoWidget(),
                       ),
                     ),
                   ),

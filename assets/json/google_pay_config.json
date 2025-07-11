@@ -1,0 +1,38 @@
+{
+    "provider": "google_pay",
+    "data": {
+        "environment": "TEST",
+        "apiVersion": 2,
+        "apiVersionMinor": 0,
+        "allowedPaymentMethods": [
+            {
+                "type": "CARD",
+                "tokenizationSpecification": {
+                    "type": "PAYMENT_GATEWAY",
+                    "parameters": {
+                        "gateway": "payu",
+                        "gatewayMerchantId": "508029"
+                    }
+                },
+                "parameters": {
+                    "allowedCardNetworks": [
+                        "VISA",
+                        "MASTERCARD"
+                    ],
+                    "allowedAuthMethods": [
+                        "PAN_ONLY",
+                        "CRYPTOGRAM_3DS"
+                    ]
+                }
+            }
+        ],
+        "merchantInfo": {
+            "merchantName": "Recetas Peruanas",
+            "merchantId": "508029"
+        },
+        "transactionInfo": {
+            "countryCode": "PE",
+            "currencyCode": "PEN"
+        }
+    }
+}

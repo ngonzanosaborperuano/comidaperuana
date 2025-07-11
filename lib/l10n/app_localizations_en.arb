@@ -140,6 +140,14 @@
   "@darkMode": {
     "description": "Toggle option for dark mode"
   },
+  "autoRotation": "Auto rotation",
+  "@autoRotation": {
+    "description": "Option to enable automatic screen rotation"
+  },
+  "autoRotationDescription": "Allow screen to rotate automatically",
+  "@autoRotationDescription": {
+    "description": "Description of the auto rotation functionality"
+  },
   "completed": "Completed",
   "@completed": {
     "description": "Status label for completed tasks"

@@ -51,6 +51,10 @@ class AppColorScheme extends InheritedWidget {
     return brightness == Brightness.dark ? AppColors.textDark : AppColors.textDark;
   }
 
+  Color get error {
+    return brightness == Brightness.dark ? AppColors.error : AppColors.error;
+  }
+
   Color get border {
     return brightness == Brightness.dark ? AppColors.slate700 : AppColors.text2;
   }
@@ -95,10 +99,6 @@ class AppColorScheme extends InheritedWidget {
 
   Color get successBackground {
     return brightness == Brightness.dark ? AppColors.emerald900 : AppColors.emerald50;
-  }
-
-  Color get error {
-    return brightness == Brightness.dark ? AppColors.red200 : AppColors.red700;
   }
 
   Color get errorBackground {

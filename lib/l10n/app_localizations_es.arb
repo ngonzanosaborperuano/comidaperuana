@@ -140,6 +140,14 @@
   "@darkMode": {
     "description": "Opción para modo oscuro"
   },
+  "autoRotation": "Rotación automática",
+  "@autoRotation": {
+    "description": "Opción para habilitar la rotación automática de pantalla"
+  },
+  "autoRotationDescription": "Permitir girar la pantalla automáticamente",
+  "@autoRotationDescription": {
+    "description": "Descripción de la funcionalidad de rotación automática"
+  },
   "completed": "Completado",
   "@completed": {
     "description": "Estado completado"
