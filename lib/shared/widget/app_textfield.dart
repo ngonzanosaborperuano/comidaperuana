@@ -84,12 +84,12 @@ class AppTextField<T extends Object> extends StatelessWidget {
       hintText: hintText,
       prefixIcon: prefixIcon,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: context.color.border),
+        borderSide: BorderSide(color: context.color.textSecondary),
         borderRadius: BorderRadius.circular(10),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: context.color.text),
+        borderSide: BorderSide(color: context.color.textNormal),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: context.color.error),
