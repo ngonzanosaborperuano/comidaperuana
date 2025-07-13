@@ -124,6 +124,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get autoRotationDescription => 'Allow screen to rotate automatically';
 
   @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
   String get completed => 'Completed';
 
   @override
@@ -179,7 +185,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get completeInformation =>
-      'Please complete the details and create an account';
+      'Join CocinandoIA to discover personalized recipes and nutritional information.';
 
   @override
   String get user => 'User';
@@ -288,7 +294,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoverAccountMessage =>
-      'To recover your account, enter an email address and then accept. Check your email. If you don\'t see it, check your other emails or spam folders.';
+      'To recover your account, enter an email address and then send. Check your email. If you don\'t see it, check your other emails or spam folders.';
 
   @override
   String get recoverPassword => 'Recover password.';

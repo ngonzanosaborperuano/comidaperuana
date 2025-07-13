@@ -43,6 +43,10 @@ class AppColorScheme extends InheritedWidget {
     return brightness == Brightness.dark ? AppColors.textSecondaryDark : AppColors.textSecondary;
   }
 
+  Color get textSecondary2Invert {
+    return brightness == Brightness.dark ? AppColors.textSecondary : AppColors.textSecondaryDark;
+  }
+
   Color get text {
     return brightness == Brightness.dark ? AppColors.textDark : AppColors.text;
   }

@@ -29,10 +29,8 @@ Future<void> bootstrap() async {
 }
 
 Future<void> _configureDeviceOrientation() async {
-  // Inicializar SharedPreferences para poder leer la configuración
   await SharedPreferencesHelper.init();
 
-  // Obtener preferencia del usuario (por defecto deshabilitada)
   final isAutoRotationEnabled = SharedPreferencesHelper.instance.getBool(
     CacheConstants.autoRotation,
   );
@@ -60,7 +58,7 @@ Future<void> _initializeFirebaseAppCheck() async {
 
     await FirebaseAppCheck.instance.activate(
       // Web provider removido temporalmente - agregar cuando tengas la key válida
-      // webProvider: ReCaptchaV3Provider('your-actual-recaptcha-key'),
+      webProvider: ReCaptchaV3Provider('your-actual-recaptcha-key'),
       androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
       appleProvider:
           kDebugMode ? AppleProvider.debug : AppleProvider.appAttestWithDeviceCheckFallback,

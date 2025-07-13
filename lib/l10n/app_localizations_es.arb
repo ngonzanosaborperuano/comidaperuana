@@ -148,6 +148,14 @@
   "@autoRotationDescription": {
     "description": "Descripción de la funcionalidad de rotación automática"
   },
+  "showPassword": "Mostrar contraseña",
+  "@showPassword": {
+    "description": "Texto para mostrar u ocultar la contraseña"
+  },
+  "hidePassword": "Ocultar contraseña",
+  "@hidePassword": {
+    "description": "Texto para ocultar la contraseña"
+  },
   "completed": "Completado",
   "@completed": {
     "description": "Estado completado"
@@ -220,7 +228,7 @@
   "@listPending": {
     "description": "Título para la lista de tareas pendientes"
   },
-  "completeInformation": "Por favor complete los detalles y cree una cuenta",
+  "completeInformation": "Únete a CocinandoIA para descubrir recetas personalizadas, datos nutricionales.",
   "@completeInformation": {
     "description": "Mensaje al registrar usuario"
   },
@@ -352,7 +360,7 @@
   "@recoverEmail": {
     "description": "Sera el titulo de un alert o modal."
   },
-  "recoverAccountMessage": "Para recuperar tu cuenta, ingresa una dirección de correo electrónico y luego acepta. Revisa tu correo. Si no lo ves, revisa otros correos o la carpeta de spam.",
+  "recoverAccountMessage": "Para recuperar tu cuenta, ingresa una dirección de correo electrónico y luego enviar. Revisa tu correo. Si no lo ves, revisa otros correos o la carpeta de spam.",
   "@recoverAccountMessage": {
     "description": "Instrucciones para recuperación de cuenta por correo electrónico."
   },

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppTextField<T extends Object> extends StatelessWidget {
@@ -68,8 +69,10 @@ class AppTextField<T extends Object> extends StatelessWidget {
       inputFormatters: inputFormatters,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 0.5, color: context.color.border),
+        border: Border.all(width: 0.5, color: context.color.error),
       ),
+      style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+      strutStyle: const StrutStyle(height: 1.5),
       placeholder: hintText,
       validator: validator,
     );
@@ -88,13 +91,15 @@ class AppTextField<T extends Object> extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: context.color.text),
       ),
-
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: context.color.error),
         borderRadius: BorderRadius.circular(10),
       ),
       errorStyle: const TextStyle(fontSize: 12),
-      errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: context.color.error),
+        borderRadius: BorderRadius.circular(10),
+      ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 12),
     );
   }

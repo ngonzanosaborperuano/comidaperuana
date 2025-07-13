@@ -15,7 +15,6 @@ class RegisterController extends BaseController {
   final _logger = Logger('RegisterController');
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController repeatController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   ValueNotifier<bool> isObscureText = ValueNotifier<bool>(true);
 

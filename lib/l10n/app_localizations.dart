@@ -320,6 +320,18 @@ abstract class AppLocalizations {
   /// **'Allow screen to rotate automatically'**
   String get autoRotationDescription;
 
+  /// Text to show or hide the password
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// Text to hide the password
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
   /// Status label for completed tasks
   ///
   /// In en, this message translates to:
@@ -431,7 +443,7 @@ abstract class AppLocalizations {
   /// Prompt for user to complete registration
   ///
   /// In en, this message translates to:
-  /// **'Please complete the details and create an account'**
+  /// **'Join CocinandoIA to discover personalized recipes and nutritional information.'**
   String get completeInformation;
 
   /// Label for user input
@@ -629,7 +641,7 @@ abstract class AppLocalizations {
   /// Instructions for account recovery using email.
   ///
   /// In en, this message translates to:
-  /// **'To recover your account, enter an email address and then accept. Check your email. If you don\'t see it, check your other emails or spam folders.'**
+  /// **'To recover your account, enter an email address and then send. Check your email. If you don\'t see it, check your other emails or spam folders.'**
   String get recoverAccountMessage;
 
   /// Title to recover password.

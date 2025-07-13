@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
-import 'package:recetasperuanas/modules/login/widget/logo_widget.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
@@ -27,44 +27,45 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
       child: SingleChildScrollView(
         child: Consumer<RegisterController>(
           builder: (_, RegisterController con, _) {
             return SizedBox(
               width: double.infinity,
+              height: MediaQuery.of(context).size.height,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      context.go(Routes.login.description);
-                    },
-                    icon: Icon(Icons.arrow_back_ios_new, color: context.color.primary),
-                  ),
-
-                  Center(
-                    child: Hero(
-                      tag: 'logo',
-                      child: Transform.scale(
-                        scale: 1.5, // Tamaño medio para register
-                        child: const LogoWidget(),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          context.go(Routes.login.description);
+                        },
+                        icon: Icon(Icons.arrow_back, color: context.color.text),
                       ),
-                    ),
+                    ],
+                  ),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: context.color.textSecondary2Invert,
+                    child: Icon(Icons.person_add, size: 30, color: context.color.background),
                   ),
                   AppVerticalSpace.md,
-                  Center(
-                    child: AppText(
-                      text: context.loc.registerNow,
-                      fontSize: AppSpacing.xmd,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  AppText(
+                    text: context.loc.registerNow,
+                    fontSize: AppSpacing.xxmd,
+                    fontWeight: FontWeight.bold,
+                    color: context.color.text,
+                    textAlign: TextAlign.center,
                   ),
-
+                  AppVerticalSpace.md,
                   AppText(
                     text: context.loc.completeInformation,
                     fontSize: AppSpacing.md,
                     fontWeight: FontWeight.w400,
+                    textAlign: TextAlign.center,
                   ),
                   Form(
                     key: _formKeyRegister,
@@ -73,96 +74,29 @@ class _RegisterViewState extends State<RegisterView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppVerticalSpace.xlg,
-                        AppText(text: context.loc.fullName),
-                        AppVerticalSpace.sm,
                         AppTextField(
                           hintText: context.loc.enterFullName,
                           textEditingController: con.fullNameController,
                           keyboardType: TextInputType.name,
                           validator: (value) => con.validateEmpty(value ?? '', context),
+                          prefixIcon: Icon(Icons.person, color: context.color.textSecondary),
                         ),
                         AppVerticalSpace.xmd,
-                        AppText(text: context.loc.email),
-                        AppVerticalSpace.sm,
                         AppTextField(
                           hintText: context.loc.enterEmail,
                           textEditingController: con.emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) => con.validateEmail(value ?? '', context),
+                          prefixIcon: Icon(Icons.email, color: context.color.textSecondary),
                         ),
                         AppVerticalSpace.xmd,
-                        AppText(text: context.loc.password),
-                        AppVerticalSpace.sm,
-                        ValueListenableBuilder(
-                          valueListenable: con.isObscureText,
-                          builder: (BuildContext context, value, Widget? child) {
-                            return Row(
-                              children: [
-                                Expanded(
-                                  child: AppTextField(
-                                    hintText: context.loc.enterPassword,
-                                    textEditingController: con.passwordController,
-                                    obscureText: value,
-                                    obscuringCharacter: '*',
-                                    validator:
-                                        (value) => con.validatePassword(value ?? '', context),
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    con.isObscureText.value = !con.isObscureText.value;
-                                  },
-                                  icon: Icon(
-                                    con.isObscureText.value
-                                        ? Icons.remove_red_eye_outlined
-                                        : Icons.remove_red_eye,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
+                        TextPassword(con: con),
                         AppVerticalSpace.xmd,
-                        AppText(text: context.loc.repeatPassword),
-                        AppVerticalSpace.sm,
-                        ValueListenableBuilder(
-                          valueListenable: con.isReObscureText,
-                          builder: (BuildContext context, value, Widget? child) {
-                            return Row(
-                              children: [
-                                Expanded(
-                                  child: AppTextField(
-                                    hintText: context.loc.enterPassword,
-                                    textEditingController: con.repeatController,
-                                    obscureText: value,
-                                    obscuringCharacter: '*',
-                                    validator:
-                                        (value) => con.validatePassword(value ?? '', context),
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    con.isObscureText.value = !con.isObscureText.value;
-                                  },
-                                  icon: Icon(
-                                    con.isObscureText.value
-                                        ? Icons.remove_red_eye_outlined
-                                        : Icons.remove_red_eye,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                        AppVerticalSpace.xlg,
                         AppButton(
                           text: context.loc.register,
                           onPressed: () => showAdaptiveDialoga(context: context, con: con),
-
                           showIcon: false,
                         ),
-
-                        AppVerticalSpace.xmd,
                       ],
                     ),
                   ),
@@ -180,23 +114,21 @@ class _RegisterViewState extends State<RegisterView> {
     required RegisterController con,
   }) async {
     if (!_formKeyRegister.currentState!.validate()) return;
-    if (con.passwordController.text != con.repeatController.text) {
-      if (!context.mounted) return;
-      await showAdaptiveDialog(
-        context: context,
-        builder: (context) {
-          return AppModalAlert(
-            text: context.loc.validatePasswordText,
-            title: context.loc.error,
-            maxHeight: 200,
-            icon: Icons.error,
-            labelButton: context.loc.accept,
-            onPressed: context.pop,
-          );
-        },
-      );
-      return;
-    }
+
+    await showAdaptiveDialog(
+      context: context,
+      builder: (context) {
+        return AppModalAlert(
+          text: context.loc.validatePasswordText,
+          title: context.loc.error,
+          maxHeight: 200,
+          icon: Icons.error,
+          labelButton: context.loc.accept,
+          onPressed: context.pop,
+        );
+      },
+    );
+    if (!context.mounted) return;
     await const LoadingDialog().show(
       context,
       future: () async {
@@ -229,6 +161,42 @@ class _RegisterViewState extends State<RegisterView> {
             },
           );
         }
+      },
+    );
+  }
+}
+
+class TextPassword extends StatelessWidget {
+  const TextPassword({super.key, required this.con});
+  final RegisterController con;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: con.isObscureText,
+      builder: (BuildContext context, value, Widget? child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppTextField(
+              hintText: context.loc.enterPassword,
+              textEditingController: con.passwordController,
+              obscureText: value,
+              obscuringCharacter: '*',
+              validator: (value) => con.validatePassword(value ?? '', context),
+              prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
+            ),
+            TextButton(
+              onPressed: () {
+                con.isObscureText.value = !con.isObscureText.value;
+              },
+              child: Text(
+                con.isObscureText.value ? context.loc.showPassword : context.loc.hidePassword,
+                style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+              ),
+            ),
+          ],
+        );
       },
     );
   }

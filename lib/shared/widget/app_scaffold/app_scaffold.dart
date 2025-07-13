@@ -15,7 +15,7 @@ class AppScaffold extends StatefulWidget {
     this.onBackPressed,
     this.title,
     super.key,
-    this.toolbarHeight = 70,
+    this.toolbarHeight = 0,
     this.onPressed,
     this.showMenu = false,
   });
@@ -37,10 +37,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
 
-    return SafeArea(
-      bottom: false,
-      child: isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context),
-    );
+    return isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context);
   }
 
   Widget _buildCupertinoScaffold(BuildContext context) {
@@ -54,7 +51,10 @@ class _AppScaffoldState extends State<AppScaffold> {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Positioned.fill(child: IndexedStack(index: value.selectPage, children: pagesIOS)),
+                Positioned.fill(
+                  top: widget.toolbarHeight,
+                  child: IndexedStack(index: value.selectPage, children: pagesIOS),
+                ),
                 if (widget.showMenu) ...[const MenuIOS()],
               ],
             ),
@@ -76,6 +76,7 @@ class _AppScaffoldState extends State<AppScaffold> {
               alignment: Alignment.bottomCenter,
               children: [
                 Positioned.fill(
+                  top: widget.toolbarHeight,
                   child: IndexedStack(index: value.selectPage, children: pageAndroid),
                 ),
                 if (widget.showMenu) ...[const MenuAndroid()],

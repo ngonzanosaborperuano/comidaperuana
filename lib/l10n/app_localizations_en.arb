@@ -148,6 +148,14 @@
   "@autoRotationDescription": {
     "description": "Description of the auto rotation functionality"
   },
+  "showPassword": "Show password",
+  "@showPassword": {
+    "description": "Text to show or hide the password"
+  },
+  "hidePassword": "Hide password",
+  "@hidePassword": {
+    "description": "Text to hide the password"
+  },
   "completed": "Completed",
   "@completed": {
     "description": "Status label for completed tasks"
@@ -220,7 +228,7 @@
   "@listPending": {
     "description": "Label for a list of pending items"
   },
-  "completeInformation": "Please complete the details and create an account",
+  "completeInformation": "Join CocinandoIA to discover personalized recipes and nutritional information.",
   "@completeInformation": {
     "description": "Prompt for user to complete registration"
   },
@@ -352,7 +360,7 @@
   "@recoverEmail": {
     "description": "It will be the title of an alert or modal."
   },
-  "recoverAccountMessage": "To recover your account, enter an email address and then accept. Check your email. If you don't see it, check your other emails or spam folders.",
+  "recoverAccountMessage": "To recover your account, enter an email address and then send. Check your email. If you don't see it, check your other emails or spam folders.",
   "@recoverAccountMessage": {
     "description": "Instructions for account recovery using email."
   },
