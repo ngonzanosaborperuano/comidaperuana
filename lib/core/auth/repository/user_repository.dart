@@ -29,6 +29,7 @@ class UserRepository extends BaseRepository {
   @override
   String get name => 'UserRepository';
   static const String path = 'v1/auth';
+  static const String usuario = 'v1/users';
   final _logger = Logger('UserRepository');
 
   Future<(bool, String)> login({required AuthUser user, required int type}) async {
@@ -67,7 +68,7 @@ class UserRepository extends BaseRepository {
     }
   }
 
-  Future<(bool, String)> signInOrRegister(AuthUser user) async {
+  Future<(bool, String)> signInOrRegister(AuthUser user, {int? type}) async {
     try {
       final isExists = await _apiService.get(
         endpoint: '$path/correo/${user.email}',
@@ -80,9 +81,12 @@ class UserRepository extends BaseRepository {
       //   email: user.email,
       //   contrasena: user.contrasena,
       // );
+      if (!isExists.success) {
+        return (false, 'Error al iniciar sesión o registrar: ${isExists.message}');
+      }
 
       if (isExists.data!['id'] == 0) {
-        await register(user);
+        await register(user, type: type);
       } else {
         await loginWithEmail(user);
       }
@@ -213,7 +217,7 @@ class UserRepository extends BaseRepository {
         foto: data.photoURL,
         nombreCompleto: data.displayName,
       );
-      return await signInOrRegister(user);
+      return await signInOrRegister(user, type: LoginWith.withGoogle);
     } on FirebaseAuthException catch (e, stackTrace) {
       _logger.severe('Error al iniciar sesión con Google: $e', e, stackTrace);
       return (false, e.code);
@@ -235,12 +239,14 @@ class UserRepository extends BaseRepository {
           email: user.email,
           contrasena: data.uid,
           nombreCompleto: user.nombreCompleto,
-          foto: user.foto,
+          foto:
+              user.foto ??
+              'https://cdn-icons-png.freepik.com/256/12894/12894535.png?semt=ais_hybrid',
         );
       }
 
       final result = await _apiService.post(
-        endpoint: path,
+        endpoint: usuario,
         body: user.toJson(),
         fromJson: (id) => id,
       );

@@ -22,7 +22,7 @@ class RegisterController extends BaseController {
 
   Future<bool?> register(AuthUser user) async {
     try {
-      final result = await _userRepository.register(user,type: LoginWith.withUserPassword);
+      final result = await _userRepository.register(user, type: LoginWith.withUserPassword);
       _logger.info('Resultado del registro: $result');
       if (result == false) {
         _logger.info('Error al registrar');
