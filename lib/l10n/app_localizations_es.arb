@@ -4,6 +4,10 @@
   "@welcome": {
     "description": "Título de bienvenida en la pantalla principal"
   },
+  "welcomeToRecetasPeruanas": "¡Bienvenido a Recetas Peruanas!",
+  "@welcomeToRecetasPeruanas": {
+    "description": "Mensaje de bienvenida después del login exitoso"
+  },
   "descriptionWelcome": "Lo mejor de la gastronomia peruana.",
   "@descriptionWelcome": {
     "description": "Subtítulo de bienvenida"

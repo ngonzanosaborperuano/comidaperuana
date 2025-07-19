@@ -25,7 +25,6 @@ class RegisterController extends BaseController {
       final result = await _userRepository.register(user, type: LoginWith.withUserPassword);
       _logger.info('Resultado del registro: $result');
       if (result == false) {
-        _logger.info('Error al registrar');
         return false;
       }
       return true;

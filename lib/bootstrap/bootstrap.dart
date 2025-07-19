@@ -57,23 +57,29 @@ Future<void> _initializeFirebaseAppCheck() async {
     log('🔧 Inicializando Firebase App Check...');
 
     await FirebaseAppCheck.instance.activate(
-      // Web provider removido temporalmente - agregar cuando tengas la key válida
-      webProvider: ReCaptchaV3Provider('your-actual-recaptcha-key'),
+      // En desarrollo, usar solo debug providers para evitar errores de App Attest
       androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-      appleProvider:
-          kDebugMode ? AppleProvider.debug : AppleProvider.appAttestWithDeviceCheckFallback,
+      appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.deviceCheck,
     );
 
     log('✅ Firebase App Check activado correctamente');
 
-    String? token = await FirebaseAppCheck.instance.getToken();
-    if (token != null) {
-      log('✅ App Check Token obtenido: ${token.substring(0, 20)}...');
-    } else {
-      log('❌ No se pudo obtener el token de App Check');
+    // Obtener un token inicial para evitar errores en operaciones de autenticación
+    try {
+      await Future.delayed(const Duration(seconds: 1)); // Pequeño delay para estabilizar
+      String? token = await FirebaseAppCheck.instance.getToken(true); // forceRefresh = true
+      if (token != null) {
+        log('✅ Token de App Check obtenido: ${token.substring(0, 20)}...');
+      } else {
+        log('⚠️ No se pudo obtener el token de App Check inicial');
+      }
+    } catch (tokenError) {
+      log('⚠️ Error al obtener token inicial de App Check: $tokenError');
+      log('ℹ️ La app continuará funcionando - App Check se manejará automáticamente');
     }
   } catch (e, stackTrace) {
     log('❌ Error al inicializar Firebase App Check: $e');
     log('Stack trace: $stackTrace');
+    // No lanzar el error para que la app pueda continuar funcionando
   }
 }

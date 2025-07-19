@@ -98,11 +98,17 @@ abstract class AppLocalizations {
     Locale('es'),
   ];
 
-  /// Welcome message on the home screen
+  /// Welcome title on main screen
   ///
   /// In en, this message translates to:
-  /// **'Welcome to peruvian food'**
+  /// **'Welcome to Peruvian Food'**
   String get welcome;
+
+  /// Welcome message after successful login
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Peruvian Recipes!'**
+  String get welcomeToRecetasPeruanas;
 
   /// Subtitle under the welcome message
   ///
@@ -632,7 +638,7 @@ abstract class AppLocalizations {
   /// **'An error occurred during email/password login'**
   String get emailLoginError;
 
-  /// It will be the title of an alert or modal.
+  /// Will be the title of an alert or modal.
   ///
   /// In en, this message translates to:
   /// **'Forgot your password?'**

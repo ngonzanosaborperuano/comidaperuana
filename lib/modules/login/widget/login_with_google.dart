@@ -31,6 +31,7 @@ class LoginWithGoogle extends StatelessWidget {
 
             if (isSuccess) {
               if (!context.mounted) return;
+              context.showSuccessToast(context.loc.welcomeToCocinandoIA);
               context.go(Routes.home.description);
             } else {
               var mensageUser = '';

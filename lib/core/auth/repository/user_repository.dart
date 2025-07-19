@@ -141,6 +141,9 @@ class UserRepository extends BaseRepository {
 
   Future<(bool, String)> loginWithGoogle() async {
     try {
+      // Obtener token de App Check antes de operaciones de autenticación
+      // await _ensureAppCheckToken(); // Eliminado
+
       // // final clientIdIOS = Platform.isIOS ? dotenv.env['CLIENT_ID']! : null;
       // // final clientIdAndroid = Platform.isIOS ? dotenv.env['SERVER_CLIENT_ID']! : null;
       // final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -258,10 +261,22 @@ class UserRepository extends BaseRepository {
       return true;
     } catch (e, stackTrace) {
       _logger.severe('Error al registrar: $e', e, stackTrace);
-      addError(e, stackTrace);
       return false;
     }
   }
+
+  /// Asegura que hay un token válido de App Check antes de operaciones de autenticación
+  // Future<void> _ensureAppCheckToken() async {
+  //   try {
+  //     // Intentar obtener un token de App Check
+  //     await FirebaseAppCheck.instance.getToken(true); // forceRefresh = true
+  //     log('✅ Token de App Check obtenido para operación de autenticación');
+  //   } catch (e) {
+  //     log('⚠️ No se pudo obtener token de App Check: $e');
+  //     log('ℹ️ Continuando con la operación...');
+  //     // No lanzar el error para permitir que la operación continúe
+  //   }
+  // }
 
   Future<AuthUser> getUser() async {
     try {

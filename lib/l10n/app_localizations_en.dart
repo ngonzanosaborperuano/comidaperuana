@@ -9,7 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get welcome => 'Welcome to peruvian food';
+  String get welcome => 'Welcome to Peruvian Food';
+
+  @override
+  String get welcomeToRecetasPeruanas => 'Welcome to Peruvian Recipes!';
 
   @override
   String get descriptionWelcome => 'The best of Peruvian gastronomy.';

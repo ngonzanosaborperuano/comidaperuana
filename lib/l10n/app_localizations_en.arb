@@ -1,8 +1,12 @@
 {
   "@@locale": "en",
-  "welcome": "Welcome to peruvian food",
+  "welcome": "Welcome to Peruvian Food",
   "@welcome": {
-    "description": "Welcome message on the home screen"
+    "description": "Welcome title on main screen"
+  },
+  "welcomeToRecetasPeruanas": "Welcome to Peruvian Recipes!",
+  "@welcomeToRecetasPeruanas": {
+    "description": "Welcome message after successful login"
   },
   "descriptionWelcome": "The best of Peruvian gastronomy.",
   "@descriptionWelcome": {
@@ -358,7 +362,7 @@
   },
   "recoverEmail": "Forgot your password?",
   "@recoverEmail": {
-    "description": "It will be the title of an alert or modal."
+    "description": "Will be the title of an alert or modal."
   },
   "recoverAccountMessage": "To recover your account, enter an email address and then send. Check your email. If you don't see it, check your other emails or spam folders.",
   "@recoverAccountMessage": {
