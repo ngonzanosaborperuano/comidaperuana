@@ -15,6 +15,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeToRecetasPeruanas => 'Welcome to Peruvian Recipes!';
 
   @override
+  String get home => 'Home';
+
+  @override
+  String get analysis => 'Analysis';
+
+  @override
+  String get plan => 'Plan';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
   String get descriptionWelcome => 'The best of Peruvian gastronomy.';
 
   @override

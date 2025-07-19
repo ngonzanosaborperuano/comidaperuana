@@ -110,6 +110,30 @@ abstract class AppLocalizations {
   /// **'Welcome to Peruvian Recipes!'**
   String get welcomeToRecetasPeruanas;
 
+  /// Title of the home page
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// Title of the analysis page
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis'**
+  String get analysis;
+
+  /// Title of the planning page
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get plan;
+
+  /// Title of the profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
   /// Subtitle under the welcome message
   ///
   /// In en, this message translates to:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/config.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_shimmer.dart';
 import 'package:recetasperuanas/shared/widget/spacing/app_spacer.dart';
 
@@ -25,7 +26,10 @@ class AppItemRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            if (icon != null) ...[Icon(icon, size: 18), AppHorizontalSpace.sm],
+            if (icon != null) ...[
+              Icon(icon, size: 18, color: context.color.buttonPrimary),
+              AppHorizontalSpace.sm,
+            ],
             SizedBox(
               width: maxWidth,
               child: Text(title, maxLines: 2, style: AppStyles.bodyTextBold),

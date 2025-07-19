@@ -8,6 +8,22 @@
   "@welcomeToRecetasPeruanas": {
     "description": "Mensaje de bienvenida después del login exitoso"
   },
+  "home": "Inicio",
+  "@home": {
+    "description": "Título de la página de inicio"
+  },
+  "analysis": "Análisis",
+  "@analysis": {
+    "description": "Título de la página de análisis"
+  },
+  "plan": "Planifica",
+  "@plan": {
+    "description": "Título de la página de planificación"
+  },
+  "profile": "Perfil",
+  "@profile": {
+    "description": "Título de la página de perfil"
+  },
   "descriptionWelcome": "Lo mejor de la gastronomia peruana.",
   "@descriptionWelcome": {
     "description": "Subtítulo de bienvenida"

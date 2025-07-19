@@ -1,7 +1,8 @@
 import 'dart:io' show Platform;
-import 'package:flutter/material.dart';
+
 import 'package:flutter/cupertino.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
+import 'package:flutter/material.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppSwitch extends StatelessWidget {
   final bool value;
@@ -15,14 +16,10 @@ class AppSwitch extends StatelessWidget {
       return CupertinoSwitch(
         value: value,
         onChanged: onChanged,
-        activeTrackColor: AppColorScheme.of(context).success,
+        activeTrackColor: context.color.buttonPrimary,
       );
     } else {
-      return Switch(
-        value: value,
-        onChanged: onChanged,
-        activeColor: AppColorScheme.of(context).success,
-      );
+      return Switch(value: value, onChanged: onChanged, activeColor: context.color.buttonPrimary);
     }
   }
 }

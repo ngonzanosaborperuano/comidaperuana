@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/provider/pages_provider.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/app_scaffold/navigation_items_mixin.dart';
 
 class MenuAndroid extends StatefulWidget {
   const MenuAndroid({super.key});
@@ -10,7 +11,12 @@ class MenuAndroid extends StatefulWidget {
   State<MenuAndroid> createState() => _MenuAndroidState();
 }
 
-class _MenuAndroidState extends State<MenuAndroid> {
+class _MenuAndroidState extends State<MenuAndroid> with NavigationItemsMixin {
+  static const double _bottomNavIconSize = 30.0;
+  static const double _shadowBlurRadius = 3.0;
+  static const double _shadowSpreadRadius = 2.0;
+  static const double _shadowOffsetY = 5.5;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<PagesProvider>(
@@ -28,61 +34,26 @@ class _MenuAndroidState extends State<MenuAndroid> {
                   boxShadow: [
                     BoxShadow(
                       color: context.color.menuActive,
-                      blurRadius: 5,
-                      spreadRadius: 2,
-                      offset: const Offset(0, 5.5),
+                      blurRadius: _shadowBlurRadius,
+                      spreadRadius: _shadowSpreadRadius,
+                      offset: const Offset(0, _shadowOffsetY),
                     ),
                   ],
                 ),
                 child: BottomNavigationBar(
-                  backgroundColor: context.color.textSecondary,
-                  selectedItemColor: context.color.buttonPrimary,
-                  unselectedItemColor: context.color.menuActive,
+                  backgroundColor: context.color.background,
+                  selectedItemColor: context.color.textSecondary2,
+                  unselectedItemColor: context.color.textSecondary,
                   currentIndex: value.selectPage,
-                  iconSize: 30,
+                  iconSize: _bottomNavIconSize,
                   type: BottomNavigationBarType.fixed,
-                  showUnselectedLabels: false,
-                  showSelectedLabels: false,
-                  items: const [
-                    BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-                    BottomNavigationBarItem(icon: Icon(Icons.graphic_eq), label: ''),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.book, color: Colors.transparent),
-                      label: 'sss',
-                    ),
-                    BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-                    BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-                  ],
+                  showUnselectedLabels: true,
+                  showSelectedLabels: true,
+                  enableFeedback: false,
+                  items: buildAndroidNavigationItems(value.selectPage, context),
                   onTap: (index) {
                     context.read<PagesProvider>().togglePage(index);
                   },
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.03,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: context.color.textSecondary,
-                  border: Border.all(color: context.color.buttonPrimary, width: 4),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 15,
-                      spreadRadius: 0,
-                      color: context.color.buttonPrimary,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'assets/img/logoOutName.png',
-                    fit: BoxFit.cover,
-                    width: 60,
-                    height: 60,
-                  ),
                 ),
               ),
             ),

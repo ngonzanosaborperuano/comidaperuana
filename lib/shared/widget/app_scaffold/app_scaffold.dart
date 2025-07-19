@@ -15,7 +15,7 @@ class AppScaffold extends StatefulWidget {
     this.onBackPressed,
     this.title,
     super.key,
-    this.toolbarHeight = 0,
+    this.toolbarHeight = kToolbarHeight,
     this.onPressed,
     this.showMenu = false,
   });

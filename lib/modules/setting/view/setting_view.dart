@@ -10,7 +10,6 @@ import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/modules/setting/controller/setting_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/models/user_model.dart';
-import 'package:recetasperuanas/shared/widget/spacing/app_spacer.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class SettingView extends StatelessWidget {
@@ -27,9 +26,11 @@ class SettingView extends StatelessWidget {
             AppVerticalSpace.sm,
             const Divider(height: 20, endIndent: 20, indent: 20),
             Language(con: con),
+            AppVerticalSpace.sm,
             DarkMode(con: con),
+            AppVerticalSpace.sm,
             AutoRotation(con: con),
-            AppVerticalSpace.slg,
+            AppVerticalSpace.sm,
             LogOutButton(con: con),
           ],
         );
@@ -86,20 +87,17 @@ class Language extends StatelessWidget {
             builder: (_, bool isSpanish, _) {
               final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
               con.isSpanish.value = localeProvider.locale.languageCode == 'es';
-              return Material(
-                color: context.color.textSecondary,
-                child: AppSwitch(
-                  value: isSpanish,
-                  onChanged: (bool value) {
-                    con.isSpanish.value = value;
-                    if (value) {
-                      context.read<LocaleProvider>().setLocale(const Locale('es'));
-                    } else {
-                      context.read<LocaleProvider>().setLocale(const Locale('en'));
-                    }
-                    SharedPreferencesHelper.instance.setBool(CacheConstants.spanish, value: !value);
-                  },
-                ),
+              return AppSwitch(
+                value: isSpanish,
+                onChanged: (bool value) {
+                  con.isSpanish.value = value;
+                  if (value) {
+                    context.read<LocaleProvider>().setLocale(const Locale('es'));
+                  } else {
+                    context.read<LocaleProvider>().setLocale(const Locale('en'));
+                  }
+                  SharedPreferencesHelper.instance.setBool(CacheConstants.spanish, value: !value);
+                },
               );
             },
           ),
@@ -181,9 +179,8 @@ class MiPerfil extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          AppVerticalSpace.sl,
           Text(context.loc.setting, style: AppStyles.headingPrimary),
-          AppVerticalSpace.xslg,
+          AppVerticalSpace.xmd,
           AppShimmer.light(
             enabled: loading,
             child: Container(
@@ -211,8 +208,18 @@ class MiPerfil extends StatelessWidget {
             ),
           ),
           AppVerticalSpace.lg,
-          AppItemRow(title: context.loc.lastName, subTitle: con.userModel.nombreCompleto!),
-          AppItemRow(title: context.loc.email, subTitle: con.userModel.email),
+          AppItemRow(
+            title: context.loc.user,
+            subTitle: con.userModel.nombreCompleto!,
+            icon: Icons.person,
+            maxWidth: 100,
+          ),
+          AppItemRow(
+            title: context.loc.email,
+            subTitle: con.userModel.email,
+            icon: Icons.email,
+            maxWidth: 100,
+          ),
         ],
       ),
     );
