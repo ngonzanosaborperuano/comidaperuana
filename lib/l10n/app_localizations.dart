@@ -1003,6 +1003,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don\'t have an account?'**
   String get dontHaveAccount;
+
+  /// PayU button text
+  ///
+  /// In en, this message translates to:
+  /// **'Pay with PayU'**
+  String get payuButton;
+
+  /// PayU button description
+  ///
+  /// In en, this message translates to:
+  /// **'Secure payment with cards and Google Pay'**
+  String get payuDescription;
+
+  /// PayU processing message
+  ///
+  /// In en, this message translates to:
+  /// **'Processing payment with PayU...'**
+  String get payuProcessing;
+
+  /// PayU success message
+  ///
+  /// In en, this message translates to:
+  /// **'Payment processed successfully'**
+  String get payuSuccess;
+
+  /// PayU error message
+  ///
+  /// In en, this message translates to:
+  /// **'Error processing payment'**
+  String get payuError;
 }
 
 class _AppLocalizationsDelegate

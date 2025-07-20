@@ -11,7 +11,6 @@ import 'package:recetasperuanas/modules/home/view/home_view.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
 import 'package:recetasperuanas/shared/utils/util.dart';
-import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         ); //..allRecipes();
       },
       child: Consumer<HomeController>(
-        builder: (_, HomeController con, __) {
+        builder: (_, HomeController con, _) {
           return AppScaffold(
             title: AppTextFieldSearch(
               placeholder: context.loc.searchRecipe,

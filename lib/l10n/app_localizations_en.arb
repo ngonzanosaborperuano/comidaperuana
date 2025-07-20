@@ -603,5 +603,25 @@
   "dontHaveAccount": "Don't have an account?",
   "@dontHaveAccount": {
     "description": "Question for users who don't have an account on the login screen"
+  },
+  "payuButton": "Pay with PayU",
+  "@payuButton": {
+    "description": "PayU button text"
+  },
+  "payuDescription": "Secure payment with cards and Google Pay",
+  "@payuDescription": {
+    "description": "PayU button description"
+  },
+  "payuProcessing": "Processing payment with PayU...",
+  "@payuProcessing": {
+    "description": "PayU processing message"
+  },
+  "payuSuccess": "Payment processed successfully",
+  "@payuSuccess": {
+    "description": "PayU success message"
+  },
+  "payuError": "Error processing payment",
+  "@payuError": {
+    "description": "PayU error message"
   }
 }

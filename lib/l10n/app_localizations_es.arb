@@ -603,5 +603,25 @@
   "dontHaveAccount": "¿No tienes una cuenta?",
   "@dontHaveAccount": {
     "description": "Pregunta para usuarios que no tienen cuenta en la pantalla de login"
+  },
+  "payuButton": "Pagar con PayU",
+  "@payuButton": {
+    "description": "Texto del botón de PayU"
+  },
+  "payuDescription": "Pago seguro con tarjetas y Google Pay",
+  "@payuDescription": {
+    "description": "Descripción del botón de PayU"
+  },
+  "payuProcessing": "Procesando pago con PayU...",
+  "@payuProcessing": {
+    "description": "Mensaje de procesamiento de PayU"
+  },
+  "payuSuccess": "Pago procesado exitosamente",
+  "@payuSuccess": {
+    "description": "Mensaje de éxito de PayU"
+  },
+  "payuError": "Error al procesar el pago",
+  "@payuError": {
+    "description": "Mensaje de error de PayU"
   }
 }

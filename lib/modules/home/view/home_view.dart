@@ -5,6 +5,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
+import 'package:recetasperuanas/modules/home/widget/subscription_plans_page.dart';
 import 'package:recetasperuanas/modules/home/widget/widget.dart'
     show AppGeminiTextToTextButton, CardTask;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -22,6 +23,7 @@ class _HomeViewState extends State<HomeView> {
   ValueNotifier<Uint8List?> img = ValueNotifier<Uint8List?>(null);
   ValueNotifier<List<Uint8List?>> imgList = ValueNotifier<List<Uint8List?>>([]);
   ScrollController scrollController = ScrollController();
+
   // modelo gemini-2.0-flash
   final safetySettings = [
     SafetySetting(HarmCategory.harassment, HarmBlockThreshold.high, null),
@@ -93,6 +95,49 @@ class _HomeViewState extends State<HomeView> {
                             },
                             child: const Text('MercadoPago - Custom Tabs'),
                           ),
+
+                          const SizedBox(height: 16),
+
+                          // Botón de PayU
+                          ElevatedButton.icon(
+                            onPressed: () async {
+                              // Usar el sistema de planes existente
+                              showSubscriptionModal(
+                                context,
+                                onSelected: () {
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(context.loc.payuSuccess),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.payment, color: Colors.white),
+                            label: Text(
+                              context.loc.payuButton,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF2E7D32), // Verde PayU
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          // Descripción del botón PayU
+                          Text(
+                            context.loc.payuDescription,
+                            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                            textAlign: TextAlign.center,
+                          ),
+
                           AppGeminiTextToTextButton(
                             prompt: 'tamales, para 2 personas',
                             onResult: (text) {

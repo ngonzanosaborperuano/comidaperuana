@@ -483,4 +483,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get payuButton => 'Pay with PayU';
+
+  @override
+  String get payuDescription => 'Secure payment with cards and Google Pay';
+
+  @override
+  String get payuProcessing => 'Processing payment with PayU...';
+
+  @override
+  String get payuSuccess => 'Payment processed successfully';
+
+  @override
+  String get payuError => 'Error processing payment';
 }

@@ -5,7 +5,7 @@ import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  factory LoginPage.routeBuilder(_, __) {
+  factory LoginPage.routeBuilder(_, _) {
     return const LoginPage(key: Key('login_page'));
   }
 

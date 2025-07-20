@@ -551,7 +551,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
           ),
         );
       },
-      onFailure: () {        
+      onFailure: () {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Error en el pago. Inténtalo de nuevo.'),
@@ -618,16 +618,22 @@ void showSubscriptionModal(BuildContext context, {VoidCallback? onSelected}) {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     builder:
-        (context) => Container(
-          height: MediaQuery.of(context).size.height * 0.9,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+        (context) => ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: SubscriptionPlansPage(onSubscriptionSelected: onSelected),
+          child: Container(
+            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: SubscriptionPlansPage(onSubscriptionSelected: onSelected),
+          ),
         ),
   );
 }
