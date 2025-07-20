@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -7,6 +9,7 @@ import '../../../core/services/subscription_service.dart';
 /// Widget WebView para checkout de PayU
 class PayUCheckoutWebView extends StatefulWidget {
   final String checkoutUrl;
+  final Map<String, String> checkoutData;
   final VoidCallback? onPaymentCompleted;
   final VoidCallback? onPaymentFailed;
   final VoidCallback? onCancel;
@@ -14,6 +17,7 @@ class PayUCheckoutWebView extends StatefulWidget {
   const PayUCheckoutWebView({
     super.key,
     required this.checkoutUrl,
+    required this.checkoutData,
     this.onPaymentCompleted,
     this.onPaymentFailed,
     this.onCancel,
@@ -59,7 +63,17 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
               },
             ),
           )
-          ..loadRequest(Uri.parse(widget.checkoutUrl));
+          ..loadRequest(
+            Uri.parse(widget.checkoutUrl),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            method: LoadRequestMethod.post,
+            body: Uint8List.fromList(
+              widget.checkoutData.entries
+                  .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                  .join('&')
+                  .codeUnits,
+            ),
+          );
   }
 
   /// Verificar respuesta de PayU en la URL
@@ -197,7 +211,20 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                     Navigator.pop(context); // Cerrar diálogo
                     setState(() {
                       _hasProcessedPayment = false;
-                      _controller.loadRequest(Uri.parse(widget.checkoutUrl));
+                      _controller.loadRequest(
+                        Uri.parse(widget.checkoutUrl),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        method: LoadRequestMethod.post,
+                        body: Uint8List.fromList(
+                          widget.checkoutData.entries
+                              .map(
+                                (e) =>
+                                    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+                              )
+                              .join('&')
+                              .codeUnits,
+                        ),
+                      );
                     });
                   },
                   child: const Text('Intentar de Nuevo'),
@@ -304,7 +331,7 @@ void showPayUCheckout(
   try {
     final payuService = PayUGooglePayService();
 
-    // Generar URL de checkout
+    // Generar URL y datos de checkout
     final response = await payuService.processSubscriptionPayment(
       planType: planType,
       amount: planType.basePrice,
@@ -314,6 +341,22 @@ void showPayUCheckout(
     );
 
     if (response.success && response.checkoutUrl != null) {
+      // Generar datos para POST
+      final checkoutData = PayUGooglePayService.buildPayUCheckoutData(
+        merchantId: PayUConfig.merchantId,
+        accountId: PayUConfig.accountId,
+        apiKey: PayUConfig.apiKey,
+        amount: planType.basePrice,
+        currency: PayUConfig.currency,
+        referenceCode: 'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}',
+        description: 'Suscripción ${planType.displayName} - Recetas Peruanas',
+        buyerEmail: userEmail,
+        buyerName: userName,
+        responseUrl: PayUConfig.responseUrl,
+        confirmationUrl: PayUConfig.confirmationUrl,
+        test: PayUConfig.testMode,
+      );
+
       // Mostrar WebView con checkout
       if (context.mounted) {
         Navigator.push(
@@ -322,6 +365,7 @@ void showPayUCheckout(
             builder:
                 (context) => PayUCheckoutWebView(
                   checkoutUrl: response.checkoutUrl!,
+                  checkoutData: checkoutData,
                   onPaymentCompleted: onSuccess,
                   onPaymentFailed: onFailure,
                 ),

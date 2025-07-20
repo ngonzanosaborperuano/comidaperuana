@@ -2,22 +2,36 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'subscription_service.dart';
 
-/// Configuración de PayU
+/// Configuración de PayU usando variables de entorno
 class PayUConfig {
-  static const String merchantId = '1025140'; // Tu merchant ID
-  static const String accountId = '1034315'; // Tu account ID
-  static const String apiKey = 'GtyOI4RDWGO7pBbDQsptJqMQ1J'; // Tu API Key
-  static const String baseUrl = 'https://sandbox.api.payulatam.com'; // Sandbox
-  // static const String baseUrl = 'https://api.payulatam.com'; // Producción
+  // Credenciales desde variables de entorno
+  static String get merchantId => dotenv.env['PAYU_MERCHANT_ID'] ?? '1025140';
+  static String get accountId =>
+      dotenv.env['PAYU_ACCOUNTT_ID'] ?? '1034315'; // Corregir nombre de variable
+  static String get apiKey => dotenv.env['PAYU_API_KEY'] ?? 'GtyOI4RDWGO7pBbDQsptJqMQ1J';
+  static String get apiLogin => dotenv.env['PAYU_API_LOGIN'] ?? 'vll2XHR8E7OJ5Ts';
 
-  // URLs de respuesta
-  static const String responseUrl =
-      'https://developers.payu.com/europe/docs/payment-solutions/cards/digital-wallets/google-pay/';
-  static const String confirmationUrl = 'https://pub.dev/packages/webview_flutter';
+  // URLs de la API desde variables de entorno
+  static String get baseUrl => dotenv.env['PAYU_BASE_URL'] ?? 'https://api.payulatam.com';
+  static String get checkoutUrl =>
+      dotenv.env['PAYU_CHECKOUT_URL'] ?? 'https://checkout.payulatam.com/ppp-web-gateway-payu/';
+
+  // Configuración regional desde variables de entorno
+  static String get currency => dotenv.env['PAYU_CURRENCY'] ?? 'PEN';
+  static String get language => dotenv.env['PAYU_LANGUAGE'] ?? 'es';
+
+  // URLs de respuesta desde variables de entorno
+  static String get responseUrl => dotenv.env['PAYU_RESPONSE_URL'] ?? 'https://www.google.com';
+  static String get confirmationUrl =>
+      dotenv.env['PAYU_CONFIRMATION_URL'] ?? 'https://www.google.com';
+
+  // Modo de prueba desde variables de entorno
+  static bool get testMode => dotenv.env['PAYU_TEST_MODE'] == 'true';
 }
 
 /// Modelo de respuesta de PayU
@@ -74,18 +88,10 @@ class PayUGooglePayService extends ChangeNotifier {
       _setLoading(true);
       _clearError();
 
-      final checkoutUrl = await _generateCheckoutUrl(
-        planType: planType,
-        amount: amount,
-        userEmail: userEmail,
-        userName: userName,
-        phoneNumber: phoneNumber,
-      );
-
       return PayUResponse(
         success: true,
         message: 'Checkout URL generado exitosamente',
-        checkoutUrl: checkoutUrl,
+        checkoutUrl: PayUConfig.checkoutUrl,
         rawData: {
           'planType': planType.id,
           'amount': amount,
@@ -100,63 +106,6 @@ class PayUGooglePayService extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
-  }
-
-  /// Generar URL de checkout para PayU
-  Future<String> _generateCheckoutUrl({
-    required SubscriptionPlanType planType,
-    required double amount,
-    required String userEmail,
-    required String userName,
-    String? phoneNumber,
-  }) async {
-    final referenceCode =
-        'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}';
-    final signature = _generateSignature(referenceCode, amount);
-    // 🔍 DEBUG: Imprimir parámetros
-    debugPrint('=== DEBUG PAYU ===');
-    debugPrint('merchantId: ${PayUConfig.merchantId}');
-    debugPrint('accountId: ${PayUConfig.accountId}');
-    debugPrint('referenceCode: $referenceCode');
-    debugPrint('amount: ${amount.toStringAsFixed(1)}');
-    debugPrint('signature: $signature');
-    debugPrint('==================');
-    final params = {
-      'merchantId': PayUConfig.merchantId,
-      'accountId': PayUConfig.accountId,
-      'description': 'Suscripción ${planType.displayName} - Recetas Peruanas',
-      'referenceCode': referenceCode,
-      'amount': amount.toStringAsFixed(1),
-      'currency': 'PEN',
-      'signature': signature,
-      'test': '1', // 0 para producción
-      'buyerEmail': userEmail,
-      'buyerFullName': userName,
-      'responseUrl': PayUConfig.responseUrl,
-      'confirmationUrl': PayUConfig.confirmationUrl,
-      'lng': 'es',
-      // Habilitar Google Pay
-      'paymentMethods': 'GOOGLE_PAY,VISA,MASTERCARD',
-      'extra1': planType.id, // Para identificar el plan en la respuesta
-    };
-
-    final queryString = params.entries
-        .map((e) => '${e.key}=${Uri.encodeComponent(e.value)}')
-        .join('&');
-
-    return 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/?$queryString';
-  }
-
-  /// Generar firma MD5 para PayU
-  String _generateSignature(String referenceCode, double amount) {
-    final cleanAmount = amount.toStringAsFixed(1);
-    final signatureString =
-        '${PayUConfig.apiKey}~${PayUConfig.merchantId}~$referenceCode~$cleanAmount~PEN';
-
-    final bytes = utf8.encode(signatureString);
-    final digest = md5.convert(bytes);
-
-    return digest.toString();
   }
 
   /// Procesar respuesta de PayU (llamar cuando regrese del checkout)
@@ -216,9 +165,9 @@ class PayUGooglePayService extends ChangeNotifier {
   Future<PayUResponse> checkTransactionStatus({required String orderId}) async {
     try {
       final requestBody = {
-        'language': 'es',
+        'language': PayUConfig.language,
         'command': 'ORDER_DETAIL',
-        'merchant': {'apiKey': PayUConfig.apiKey, 'apiLogin': PayUConfig.merchantId},
+        'merchant': {'apiKey': PayUConfig.apiKey, 'apiLogin': PayUConfig.apiLogin},
         'details': {'orderId': orderId},
       };
 
@@ -255,10 +204,69 @@ class PayUGooglePayService extends ChangeNotifier {
     _lastError = null;
     notifyListeners();
   }
+
+  /// Generar datos para POST al WebCheckout
+  static Map<String, String> buildPayUCheckoutData({
+    required String merchantId,
+    required String accountId,
+    required String apiKey,
+    required double amount,
+    required String currency,
+    required String referenceCode,
+    required String description,
+    required String buyerEmail,
+    required String buyerName,
+    required String responseUrl,
+    required String confirmationUrl,
+    bool test = true,
+  }) {
+    final formattedAmount = amount.toStringAsFixed(2);
+    final signatureString = '$apiKey~$merchantId~$referenceCode~$formattedAmount~$currency';
+    final signature = md5.convert(utf8.encode(signatureString)).toString();
+
+    debugPrint('Signature string: $signatureString');
+    debugPrint('Generated signature: $signature');
+
+    return {
+      'merchantId': merchantId,
+      'accountId': accountId,
+      'description': description,
+      'referenceCode': referenceCode,
+      'amount': formattedAmount,
+      'currency': currency,
+      'signature': signature,
+      'test': test ? '1' : '0',
+      'buyerEmail': buyerEmail,
+      'buyerFullName': buyerName,
+      'responseUrl': responseUrl,
+      'confirmationUrl': confirmationUrl,
+      'lng': 'es', // Idioma español para Perú
+    };
+  }
 }
 
 /// Extension para obtener precios con formato PayU
 extension PayUPricing on SubscriptionPlanType {
   String get payuFormattedPrice => basePrice.toStringAsFixed(1);
   String get payuDescription => 'Suscripción $displayName - Recetas Peruanas';
+}
+
+/// Tarjetas de prueba para Perú (Sandbox)
+class PayUTestCards {
+  // Tarjetas de crédito de prueba para Perú
+  static const String visaCredit = '4111111111111111';
+  static const String mastercardCredit = '5555555555554444';
+
+  // Tarjetas de débito de prueba para Perú
+  static const String visaDebit = '4005580000000007';
+  static const String mastercardDebit = '5200828282828210';
+
+  // CVV de prueba (cualquier número de 3 dígitos)
+  static const String testCvv = '123';
+
+  // Fecha de vencimiento (cualquier fecha futura)
+  static const String testExpiry = '12/25';
+
+  // Documento de identidad de prueba
+  static const String testDocument = '12345678';
 }

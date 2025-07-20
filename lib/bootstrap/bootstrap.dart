@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recetasperuanas/app.dart';
 import 'package:recetasperuanas/core/error/error_handler.dart';
 import 'package:recetasperuanas/core/init/app_initializer.dart';
@@ -18,6 +19,9 @@ Future<void> bootstrap() async {
   initLogger();
   setupGlobalErrorHandlers();
 
+  // Cargar variables de entorno
+  await _loadEnvironmentVariables();
+
   // Configurar orientación inteligente basada en el dispositivo
   await _configureDeviceOrientation();
 
@@ -26,6 +30,24 @@ Future<void> bootstrap() async {
   await initializeApp();
 
   runApp(ClarityWidget(app: const MyApp(), clarityConfig: clarity()));
+}
+
+Future<void> _loadEnvironmentVariables() async {
+  try {
+    log('🔧 Cargando variables de entorno...');
+    await dotenv.load(fileName: '.env');
+    log('✅ Variables de entorno cargadas correctamente');
+    
+    // Log de configuración PayU (sin mostrar credenciales completas)
+    final merchantId = dotenv.env['PAYU_MERCHANT_ID'] ?? 'No configurado';
+    final currency = dotenv.env['PAYU_CURRENCY'] ?? 'No configurado';
+    final testMode = dotenv.env['PAYU_TEST_MODE'] ?? 'No configurado';
+    
+    log('📋 Configuración PayU: MerchantID=$merchantId, Currency=$currency, TestMode=$testMode');
+  } catch (e) {
+    log('⚠️ No se pudo cargar el archivo .env: $e');
+    log('ℹ️ Usando valores por defecto para PayU');
+  }
 }
 
 Future<void> _configureDeviceOrientation() async {
