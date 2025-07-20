@@ -505,7 +505,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Pago seguro con PayU • Google Pay disponible',
+                        'Pago seguro con PayU',
                         style: TextStyle(fontSize: 12, color: Colors.green),
                       ),
                     ),

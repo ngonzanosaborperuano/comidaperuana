@@ -10,16 +10,17 @@ import 'subscription_service.dart';
 /// Configuración de PayU usando variables de entorno
 class PayUConfig {
   // Credenciales desde variables de entorno
-  static String get merchantId => dotenv.env['PAYU_MERCHANT_ID'] ?? '1025140';
-  static String get accountId =>
-      dotenv.env['PAYU_ACCOUNTT_ID'] ?? '1034315'; // Corregir nombre de variable
-  static String get apiKey => dotenv.env['PAYU_API_KEY'] ?? 'GtyOI4RDWGO7pBbDQsptJqMQ1J';
-  static String get apiLogin => dotenv.env['PAYU_API_LOGIN'] ?? 'vll2XHR8E7OJ5Ts';
+  static String get merchantId => dotenv.env['PAYU_MERCHANT_ID'] ?? '508029'; // Sandbox Perú
+  static String get accountId => dotenv.env['PAYU_ACCOUNT_ID'] ?? '512326'; // Sandbox Perú
+  static String get apiKey =>
+      dotenv.env['PAYU_API_KEY'] ?? '4Vj8eK4rloUd272L48hsrarnUA'; // Sandbox Perú
+  static String get apiLogin => dotenv.env['PAYU_API_LOGIN'] ?? 'pRRXKOl8ikMmt9u'; // Sandbox Perú
 
   // URLs de la API desde variables de entorno
-  static String get baseUrl => dotenv.env['PAYU_BASE_URL'] ?? 'https://api.payulatam.com';
+  static String get baseUrl => dotenv.env['PAYU_BASE_URL'] ?? 'https://sandbox.api.payulatam.com';
   static String get checkoutUrl =>
-      dotenv.env['PAYU_CHECKOUT_URL'] ?? 'https://checkout.payulatam.com/ppp-web-gateway-payu/';
+      dotenv.env['PAYU_CHECKOUT_URL'] ??
+      'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/';
 
   // Configuración regional desde variables de entorno
   static String get currency => dotenv.env['PAYU_CURRENCY'] ?? 'PEN';
@@ -31,7 +32,8 @@ class PayUConfig {
       dotenv.env['PAYU_CONFIRMATION_URL'] ?? 'https://www.google.com';
 
   // Modo de prueba desde variables de entorno
-  static bool get testMode => dotenv.env['PAYU_TEST_MODE'] == 'true';
+  static bool get testMode =>
+      dotenv.env['PAYU_TEST_MODE'] == 'true' || dotenv.env['PAYU_TEST_MODE'] == null;
 }
 
 /// Modelo de respuesta de PayU

@@ -1,9 +1,8 @@
-import 'dart:typed_data';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../core/services/payu_google_pay_service.dart';
+import '../../../core/services/payu_service.dart';
 import '../../../core/services/subscription_service.dart';
 
 /// Widget WebView para checkout de PayU
@@ -31,6 +30,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
   late WebViewController _controller;
   bool _isLoading = true;
   bool _hasProcessedPayment = false;
+  String? _currentUrl;
 
   @override
   void initState() {
@@ -46,19 +46,27 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
           ..setNavigationDelegate(
             NavigationDelegate(
               onPageStarted: (String url) {
-                setState(() => _isLoading = true);
+                setState(() {
+                  _isLoading = true;
+                  _currentUrl = url;
+                });
+                debugPrint('🌐 PAYU - Página iniciando: $url');
                 _checkPaymentResponse(url);
               },
               onPageFinished: (String url) {
                 setState(() => _isLoading = false);
+                debugPrint('✅ PAYU - Página terminada: $url');
               },
               onHttpError: (HttpResponseError error) {
-                _showError('Error de conexión: ${error.response?.statusCode}');
+                debugPrint('❌ PAYU - Error HTTP: ${error.response?.statusCode}');
+                //_showError('Error de conexión: ${error.response?.statusCode}');
               },
               onWebResourceError: (WebResourceError error) {
+                debugPrint('❌ PAYU - Error de recurso: ${error.description} - ${error.url}');
                 _showError('Error cargando página: ${error.description}');
               },
               onNavigationRequest: (NavigationRequest request) {
+                debugPrint('🔄 PAYU - Navegación solicitada: ${request.url}');
                 return NavigationDecision.navigate;
               },
             ),
@@ -74,16 +82,25 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                   .codeUnits,
             ),
           );
+
+    debugPrint('🚀 PAYU - URL inicial de checkout: ${widget.checkoutUrl}');
+    debugPrint('📋 PAYU - Datos enviados: ${widget.checkoutData}');
   }
 
   /// Verificar respuesta de PayU en la URL
   void _checkPaymentResponse(String url) {
     if (_hasProcessedPayment) return;
 
+    debugPrint('🔍 PAYU - Verificando URL: $url');
+
     // URLs de respuesta de PayU contienen parámetros del resultado
     if (url.contains('tu-app.com/response') || url.contains('payu') && url.contains('response')) {
+      debugPrint('🎯 PAYU - URL de respuesta detectada!');
+
       final uri = Uri.parse(url);
       final params = uri.queryParameters;
+
+      debugPrint('📋 PAYU - Parámetros de respuesta: $params');
 
       final transactionState = params['transactionState'];
       final referenceCode = params['referenceCode'];
@@ -91,6 +108,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
       final orderId = params['orderId'];
 
       if (transactionState != null && referenceCode != null) {
+        debugPrint('✅ PAYU - Procesando resultado: Estado=$transactionState, Ref=$referenceCode');
         _hasProcessedPayment = true;
         _processPaymentResult(
           transactionState: transactionState,
@@ -99,7 +117,11 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
           orderId: orderId,
           additionalData: params,
         );
+      } else {
+        debugPrint('⚠️ PAYU - URL de respuesta sin parámetros requeridos');
       }
+    } else {
+      debugPrint('ℹ️ PAYU - URL no es de respuesta de pago');
     }
   }
 
@@ -285,7 +307,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '🔒 Checkout seguro de PayU • Google Pay disponible',
+                    '🔒 Checkout seguro de PayU',
                     style: TextStyle(fontSize: 12, color: Colors.green),
                   ),
                 ),
@@ -294,7 +316,34 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
           ),
 
           // WebView
-          Expanded(child: WebViewWidget(controller: _controller)),
+          Expanded(
+            child: Column(
+              children: [
+                // Debug info (solo en modo debug)
+                if (kDebugMode)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.blue[50],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '🔍 Debug - URLs de navegación:',
+                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'URL actual: ${_currentUrl ?? 'Cargando...'}',
+                          style: const TextStyle(fontSize: 8),
+                        ),
+                      ],
+                    ),
+                  ),
+                Expanded(child: WebViewWidget(controller: _controller)),
+              ],
+            ),
+          ),
 
           // Footer con información
           Container(
