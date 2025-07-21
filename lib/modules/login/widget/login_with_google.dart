@@ -13,7 +13,7 @@ class LoginWithGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton(
+    return AppButton.google(
       iconAtStart: true,
       isGoogle: true,
       text: 'Google',

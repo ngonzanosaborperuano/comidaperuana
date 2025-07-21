@@ -87,7 +87,7 @@ class AppButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
-        border: Border.all(color: colorSecundary, width: 1.0),
+        border: Border.all(color: colorPrimary, width: 0.5),
       ),
       child: CupertinoButton(
         onPressed: enabledButton ? onPressed : null,

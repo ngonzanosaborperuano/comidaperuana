@@ -6,6 +6,7 @@ import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
 import 'package:recetasperuanas/modules/login/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginView extends StatefulWidget {
@@ -39,63 +40,12 @@ class _LoginViewState extends State<LoginView>
     return Consumer<LoginController>(
       builder: (_, LoginController con, _) {
         this.con = con;
-        return SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppVerticalSpace.xmd,
-
-                  // Logo animado
-                  RepaintBoundary(
-                    child: AnimatedScaleWidget(
-                      animation: scaleAnimation,
-                      child: const AnimatedLogoWidget(
-                        child: Hero(tag: 'logo', child: LogoWidget()),
-                      ),
-                    ),
-                  ),
-
-                  AppVerticalSpace.md,
-
-                  // Título con animación de entrada
-                  RepaintBoundary(
-                    child: AnimatedEntryWidget(
-                      animation: fadeAnimation,
-                      slideOffset: const Offset(0, 0.2),
-                      child: AppText(
-                        text: context.loc.login,
-                        fontSize: AppSpacing.xxmd,
-                        fontWeight: FontWeight.bold,
-                        color: context.color.text,
-                      ),
-                    ),
-                  ),
-
-                  AppVerticalSpace.md,
-
-                  // Descripción con animación fade
-                  RepaintBoundary(
-                    child: FadeTransition(
-                      opacity: fadeAnimation,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: AppText(
-                          text: context.loc.descriptionLogin,
-                          fontSize: AppSpacing.md,
-                          fontWeight: FontWeight.w400,
-                          color: context.color.text,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  AppVerticalSpace.xmd,
-
-                  // Formulario animado
                   AnimatedLoginForm(
                     formKey: _formKeyLogin,
                     controller: con,
@@ -159,17 +109,11 @@ class _LoginViewState extends State<LoginView>
                       );
                     },
                   ),
-
                   AppVerticalSpace.xlg,
-
-                  // Divider con animación fade
                   RepaintBoundary(
                     child: FadeTransition(opacity: fadeAnimation, child: const DividerWidget()),
                   ),
-
                   AppVerticalSpace.md,
-
-                  // Login con Google con animación de entrada
                   RepaintBoundary(
                     child: AnimatedEntryWidget(
                       animation: fadeAnimation,
@@ -177,10 +121,7 @@ class _LoginViewState extends State<LoginView>
                       child: LoginWithGoogle(con: con),
                     ),
                   ),
-
                   AppVerticalSpace.lg,
-
-                  // Enlace de registro con animación fade
                   RepaintBoundary(
                     child: FadeTransition(
                       opacity: fadeAnimation,
@@ -208,8 +149,6 @@ class _LoginViewState extends State<LoginView>
                       ),
                     ),
                   ),
-
-                  AppVerticalSpace.xlg,
                 ],
               ),
             ),

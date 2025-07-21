@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
+import 'package:recetasperuanas/modules/login/widget/widget.dart' show LogoWidget;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
@@ -151,6 +153,46 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                AppVerticalSpace.xmd,
+                RepaintBoundary(
+                  child: AnimatedScaleWidget(
+                    animation: widget.animation,
+                    child: const AnimatedLogoWidget(child: Hero(tag: 'logo', child: LogoWidget())),
+                  ),
+                ),
+
+                AppVerticalSpace.md,
+                RepaintBoundary(
+                  child: AnimatedEntryWidget(
+                    animation: widget.animation,
+                    slideOffset: const Offset(0, 0.2),
+                    child: AppText(
+                      text: context.loc.login,
+                      fontSize: AppSpacing.xxmd,
+                      fontWeight: FontWeight.bold,
+                      color: context.color.text,
+                    ),
+                  ),
+                ),
+
+                AppVerticalSpace.md,
+                RepaintBoundary(
+                  child: FadeTransition(
+                    opacity: widget.animation,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: AppText(
+                        text: context.loc.descriptionLogin,
+                        fontSize: AppSpacing.md,
+                        fontWeight: FontWeight.w400,
+                        color: context.color.text,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+
+                AppVerticalSpace.xmd,
                 // Campo de email
                 RepaintBoundary(
                   child: AnimatedEntryWidget(
