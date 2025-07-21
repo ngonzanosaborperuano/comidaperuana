@@ -1,106 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recetasperuanas/core/config/style/app_styles.dart';
+import 'package:recetasperuanas/core/services/subscription_service.dart' show SubscriptionPlanType;
+import 'package:recetasperuanas/modules/home/models/subscription_plan.dart'
+    show SubscriptionPlan, SubscriptionPlans;
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
-import '../../../core/services/subscription_service.dart';
 import 'payu_checkout_webview.dart';
 
-// Modelo de plan de suscripción
-class SubscriptionPlan {
-  final String id;
-  final String name;
-  final String description;
-  final double monthlyPrice;
-  final double originalPrice;
-  final int durationMonths;
-  final bool isPopular;
-  final bool isBestValue;
-  final List<String> features;
-
-  const SubscriptionPlan({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.monthlyPrice,
-    required this.originalPrice,
-    required this.durationMonths,
-    this.isPopular = false,
-    this.isBestValue = false,
-    required this.features,
-  });
-
-  double get totalPrice => monthlyPrice * durationMonths;
-  double get totalSavings => (originalPrice * durationMonths) - totalPrice;
-  int get discountPercentage => ((totalSavings / (originalPrice * durationMonths)) * 100).round();
-}
-
-// Planes de suscripción disponibles
-class SubscriptionPlans {
-  static const List<SubscriptionPlan> available = [
-    SubscriptionPlan(
-      id: 'monthly',
-      name: 'Mensual',
-      description: 'Acceso completo por 1 mes',
-      monthlyPrice: 29.90,
-      originalPrice: 29.90,
-      durationMonths: 1,
-      features: [
-        'Recetas premium ilimitadas',
-        'Técnicas de cocina exclusivas',
-        'Videos paso a paso',
-        'Lista de compras inteligente',
-        'Soporte prioritario',
-      ],
-    ),
-    SubscriptionPlan(
-      id: 'quarterly',
-      name: 'Trimestral',
-      description: '¡Más Popular! - 3 meses',
-      monthlyPrice: 23.30,
-      originalPrice: 29.90,
-      durationMonths: 3,
-      isPopular: true,
-      features: [
-        'Todo lo del plan mensual',
-        'Recetas de temporada exclusivas',
-        'Planificador de menús',
-        'Consejos nutricionales',
-        'Descuentos en cursos',
-      ],
-    ),
-    SubscriptionPlan(
-      id: 'biannual',
-      name: 'Semestral',
-      description: 'Ahorra más - 6 meses',
-      monthlyPrice: 19.98,
-      originalPrice: 29.90,
-      durationMonths: 6,
-      features: [
-        'Todo lo del plan trimestral',
-        'Acceso a masterclasses',
-        'Comunidad VIP de cocina',
-        'Calendario gastronómico',
-        'Libro digital de recetas',
-      ],
-    ),
-    SubscriptionPlan(
-      id: 'annual',
-      name: 'Anual',
-      description: '¡Mejor Valor! - 12 meses',
-      monthlyPrice: 16.66,
-      originalPrice: 29.90,
-      durationMonths: 12,
-      isBestValue: true,
-      features: [
-        'Todo lo de planes anteriores',
-        'Consultas con chef profesional',
-        'Kit de especias peruanas',
-        'Certificado de cocina peruana',
-        'Acceso de por vida a contenido básico',
-      ],
-    ),
-  ];
-}
-
-// Página principal de planes de suscripción
 class SubscriptionPlansPage extends StatefulWidget {
   final String? userEmail;
   final String? userName;
@@ -145,22 +53,34 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF2E7D32), Color(0xFF388E3C), Color(0xFF4CAF50)],
-          ),
-        ),
-        child: SafeArea(
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: Column(
-              children: [_buildHeader(), Expanded(child: _buildPlansList()), _buildBottomSection()],
+    return Container(
+      decoration: BoxDecoration(color: context.color.background),
+      child: SafeArea(
+        child: Column(
+          children: [
+            _buildHeader(),
+            Expanded(
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  child: Column(
+                    children: [
+                      _buildDescriptionBanner(),
+                      AppVerticalSpace.xmd,
+                      ...SubscriptionPlans.available.map(
+                        (plan) => Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: _buildPlanCard(plan),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
+            _buildBottomSection(),
+          ],
         ),
       ),
     );
@@ -168,48 +88,79 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: kTextTabBarHeight),
           Row(
             children: [
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+              Container(
+                decoration: BoxDecoration(
+                  color: context.color.background.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  onPressed: context.pop,
+                  icon: Icon(Icons.arrow_back_ios_new, color: context.color.text, size: 20),
+                  style: IconButton.styleFrom(padding: const EdgeInsets.all(12)),
+                ),
               ),
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Planes Premium',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: AppStyles.h1.copyWith(color: context.color.text),
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(width: 48),
+              const SizedBox(width: 56),
             ],
           ),
-          const SizedBox(height: 16),
-          const Text(
-            '🇵🇪 Descubre los secretos de la cocina peruana',
-            style: TextStyle(fontSize: 16, color: Colors.white70),
-            textAlign: TextAlign.center,
-          ),
+          AppVerticalSpace.xmd,
         ],
       ),
     );
   }
 
-  Widget _buildPlansList() {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: SubscriptionPlans.available.length,
-      itemBuilder: (context, index) {
-        final plan = SubscriptionPlans.available[index];
-        return AnimatedContainer(
-          duration: Duration(milliseconds: 300 + (index * 100)),
-          margin: const EdgeInsets.only(bottom: 16),
-          child: _buildPlanCard(plan),
-        );
-      },
+  Widget _buildDescriptionBanner() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: BoxDecoration(
+        color: context.color.backgroundCard,
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: context.color.textSecondary.withValues(alpha: 0.2), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: context.color.textSecondary.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.color.buttonPrimary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.flag, color: context.color.buttonPrimary, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Descubre los secretos de la cocina peruana',
+              style: TextStyle(
+                color: context.color.text,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -219,23 +170,30 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
     return GestureDetector(
       onTap: () => setState(() => selectedPlan = plan),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: isSelected ? Colors.orange : Colors.transparent, width: 2),
+          color: context.color.background,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? context.color.buttonPrimary : context.color.border,
+            width: isSelected ? 2.5 : 0,
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
+              color:
+                  isSelected
+                      ? context.color.buttonPrimary.withValues(alpha: 0.3)
+                      : context.color.textSecondary.withValues(alpha: 0.2),
+              blurRadius: isSelected ? 16 : 12,
+              offset: Offset(0, isSelected ? 8 : 4),
+              spreadRadius: isSelected ? 2 : 0,
             ),
           ],
         ),
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -247,53 +205,61 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                           children: [
                             Text(
                               plan.name,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: context.color.text,
+                                letterSpacing: -0.3,
+                              ),
                             ),
+                            const SizedBox(height: 4),
                             Text(
                               plan.description,
-                              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: context.color.textSecondary,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: isSelected ? Colors.orange : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Icon(
-                          isSelected ? Icons.check_circle : Icons.circle_outlined,
-                          color: isSelected ? Colors.white : Colors.grey[600],
-                          size: 20,
-                        ),
-                      ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-                  // Precios
+                  // Precios con mejor jerarquía
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
                         'S/ ${plan.monthlyPrice.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2E7D32),
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w800,
+                          color: context.color.buttonPrimary,
+                          letterSpacing: -0.5,
                         ),
                       ),
-                      const Text('/mes', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                      const SizedBox(width: 8),
+                      Text(
+                        '/mes',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: context.color.textSecondary,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       if (plan.discountPercentage > 0) ...[
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 16),
                         Text(
                           'S/ ${plan.originalPrice.toStringAsFixed(2)}',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             decoration: TextDecoration.lineThrough,
-                            color: Colors.grey[500],
+                            color: context.color.textSecondary,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -301,35 +267,79 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                   ),
 
                   if (plan.discountPercentage > 0) ...[
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.red[100],
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        'Ahorra ${plan.discountPercentage}% • S/ ${plan.totalSavings.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.red[700],
-                          fontWeight: FontWeight.bold,
+                        gradient: LinearGradient(
+                          colors: [
+                            context.color.buttonPrimary,
+                            context.color.buttonPrimary.withValues(alpha: 0.8),
+                          ],
                         ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: context.color.buttonPrimary.withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.local_fire_department,
+                            color: context.color.background,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'Ahorra ${plan.discountPercentage}% • S/ ${plan.totalSavings.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: context.color.background,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-                  // Características
+                  // Características con mejor diseño
                   ...plan.features.map(
                     (feature) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: Row(
                         children: [
-                          const Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 16),
-                          const SizedBox(width: 8),
-                          Expanded(child: Text(feature, style: const TextStyle(fontSize: 14))),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: context.color.buttonPrimary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.check_circle,
+                              color: context.color.buttonPrimary,
+                              size: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              feature,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: context.color.text,
+                                fontWeight: FontWeight.w500,
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -338,51 +348,82 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
               ),
             ),
 
-            // Etiquetas especiales
+            // Etiquetas especiales con mejor diseño
             if (plan.isPopular)
               Positioned(
-                top: 0,
-                right: 0,
+                top: 20,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: const BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(16),
-                      bottomLeft: Radius.circular(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        context.color.buttonPrimary,
+                        context.color.buttonPrimary.withValues(alpha: 0.8),
+                      ],
                     ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.color.buttonPrimary.withValues(alpha: 0.4),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  child: const Text(
-                    '🔥 MÁS POPULAR',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.local_fire_department, color: context.color.background, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'MÁS POPULAR',
+                        style: TextStyle(
+                          color: context.color.background,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
 
             if (plan.isBestValue)
               Positioned(
-                top: 0,
-                right: 0,
+                top: 20,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF2E7D32),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(16),
-                      bottomLeft: Radius.circular(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [context.color.success, context.color.success.withValues(alpha: 0.8)],
                     ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.color.success.withValues(alpha: 0.4),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  child: const Text(
-                    '💎 MEJOR VALOR',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.diamond, color: context.color.background, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'MEJOR VALOR',
+                        style: TextStyle(
+                          color: context.color.background,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -394,58 +435,89 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
 
   Widget _buildBottomSection() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         children: [
-          // Información de seguridad
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: context.color.backgroundCard,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: context.color.textSecondary.withValues(alpha: 0.2),
+                width: 1,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: context.color.textSecondary.withValues(alpha: 0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.security, color: Colors.white70, size: 20),
-                SizedBox(width: 12),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: context.color.buttonPrimary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(Icons.security, color: context.color.buttonPrimary, size: 20),
+                ),
+                const SizedBox(width: 16),
                 Expanded(
-                  child: Text(
-                    '🔒 Pago 100% seguro\n✅ Cancela cuando quieras',
-                    style: TextStyle(color: Colors.white70, fontSize: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Pago 100% seguro',
+                        style: TextStyle(
+                          color: context.color.text,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Cancela cuando quieras',
+                        style: TextStyle(
+                          color: context.color.textSecondary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-
-          const SizedBox(height: 20),
-
-          // Botón de continuar
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: selectedPlan != null ? _handleSubscription : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                elevation: 8,
-              ),
-              child: Text(
+          AppVerticalSpace.xmd,
+          AppButton(
+            text:
                 selectedPlan != null ? 'Continuar con ${selectedPlan!.name}' : 'Selecciona un plan',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
+            onPressed: selectedPlan != null ? _handleSubscription : null,
+            enabledButton: selectedPlan != null,
+            showIcon: selectedPlan != null,
+            iconWidget: selectedPlan != null ? const Icon(Icons.arrow_forward) : null,
+            iconAtStart: false,
           ),
 
-          const SizedBox(height: 12),
+          AppVerticalSpace.sm,
 
-          // Términos y condiciones
-          const Text(
-            'Al continuar aceptas nuestros Términos y Condiciones',
-            style: TextStyle(color: Colors.white60, fontSize: 12),
-            textAlign: TextAlign.center,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              'Al continuar aceptas nuestros Términos y Condiciones',
+              style: TextStyle(
+                color: context.color.textSecondary,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
@@ -460,11 +532,11 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Row(
+            title: Row(
               children: [
-                Icon(Icons.payment, color: Colors.green),
-                SizedBox(width: 8),
-                Text('Confirmar Suscripción'),
+                Icon(Icons.payment, color: context.color.buttonPrimary),
+                const SizedBox(width: 8),
+                const Text('Confirmar Suscripción'),
               ],
             ),
             content: Column(
@@ -485,13 +557,13 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.green[100],
+                      color: context.color.buttonPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       '🎉 Ahorras ${selectedPlan!.discountPercentage}% (S/ ${selectedPlan!.totalSavings.toStringAsFixed(2)})',
                       style: TextStyle(
-                        color: Colors.green[700],
+                        color: context.color.buttonPrimary,
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
@@ -499,14 +571,14 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                   ),
                 ],
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.security, color: Colors.green, size: 16),
-                    SizedBox(width: 8),
+                    Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'Pago seguro con PayU',
-                        style: TextStyle(fontSize: 12, color: Colors.green),
+                        style: TextStyle(fontSize: 12, color: context.color.buttonPrimary),
                       ),
                     ),
                   ],
@@ -523,8 +595,8 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                 icon: const Icon(Icons.payment),
                 label: const Text('Pagar Ahora'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
+                  backgroundColor: context.color.buttonPrimary,
+                  foregroundColor: context.color.background,
                 ),
               ),
             ],
@@ -546,16 +618,16 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('¡Suscripción ${selectedPlan!.name} activada!'),
-            backgroundColor: Colors.green,
+            backgroundColor: context.color.success,
             duration: const Duration(seconds: 3),
           ),
         );
       },
       onFailure: () {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Error en el pago. Inténtalo de nuevo.'),
-            backgroundColor: Colors.red,
+          SnackBar(
+            content: const Text('Error en el pago. Inténtalo de nuevo.'),
+            backgroundColor: context.color.error,
           ),
         );
       },
@@ -602,8 +674,8 @@ class SubscriptionButton extends StatelessWidget {
       icon: Icon(icon ?? Icons.star),
       label: Text(text),
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? const Color(0xFF2E7D32),
-        foregroundColor: textColor ?? Colors.white,
+        backgroundColor: backgroundColor ?? context.color.buttonPrimary,
+        foregroundColor: textColor ?? context.color.background,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       ),
@@ -617,24 +689,7 @@ void showSubscriptionModal(BuildContext context, {VoidCallback? onSelected}) {
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder:
-        (context) => ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Container(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: SubscriptionPlansPage(onSubscriptionSelected: onSelected),
-          ),
-        ),
+    builder: (context) => SubscriptionPlansPage(onSubscriptionSelected: onSelected),
   );
 }
 
@@ -651,48 +706,12 @@ mixin SubscriptionMixin {
   }
 
   // Mostrar modal
-  void showSubscriptionDialog(BuildContext context, {VoidCallback? onSelected}) {
-    showSubscriptionModal(context, onSelected: onSelected);
-  }
-
-  // Banner de suscripción
-  Widget buildSubscriptionBanner(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF2E7D32), Color(0xFF4CAF50)]),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.star, color: Colors.white, size: 24),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '¡Hazte Premium!',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Accede a recetas exclusivas',
-                  style: TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () => navigateToSubscriptionPlans(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFF2E7D32),
-            ),
-            child: const Text('Ver Planes'),
-          ),
-        ],
-      ),
+  void showSubscriptionModal(BuildContext context, {VoidCallback? onSelected}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SubscriptionPlansPage(onSubscriptionSelected: onSelected),
     );
   }
 }

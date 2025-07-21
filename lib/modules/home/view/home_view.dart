@@ -9,7 +9,7 @@ import 'package:recetasperuanas/modules/home/widget/subscription_plans_page.dart
 import 'package:recetasperuanas/modules/home/widget/widget.dart'
     show AppGeminiTextToTextButton, CardTask;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/text_widget.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key, required this.con});
@@ -101,17 +101,11 @@ class _HomeViewState extends State<HomeView> {
                           // Botón de PayU
                           ElevatedButton.icon(
                             onPressed: () async {
-                              // Usar el sistema de planes existente
                               showSubscriptionModal(
                                 context,
                                 onSelected: () {
                                   if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(context.loc.payuSuccess),
-                                        backgroundColor: Colors.green,
-                                      ),
-                                    );
+                                    context.showSuccessToast(context.loc.payuSuccess);
                                   }
                                 },
                               );

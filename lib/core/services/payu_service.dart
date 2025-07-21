@@ -2,74 +2,16 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
+import 'package:recetasperuanas/shared/models/payu_response_model.dart' show PayUResponse;
 
 import 'subscription_service.dart';
 
-/// Configuración de PayU usando variables de entorno
-class PayUConfig {
-  // Credenciales desde variables de entorno
-  static String get merchantId => dotenv.env['PAYU_MERCHANT_ID'] ?? '508029'; // Sandbox Perú
-  static String get accountId => dotenv.env['PAYU_ACCOUNT_ID'] ?? '512326'; // Sandbox Perú
-  static String get apiKey =>
-      dotenv.env['PAYU_API_KEY'] ?? '4Vj8eK4rloUd272L48hsrarnUA'; // Sandbox Perú
-  static String get apiLogin => dotenv.env['PAYU_API_LOGIN'] ?? 'pRRXKOl8ikMmt9u'; // Sandbox Perú
-
-  // URLs de la API desde variables de entorno
-  static String get baseUrl => dotenv.env['PAYU_BASE_URL'] ?? 'https://sandbox.api.payulatam.com';
-  static String get checkoutUrl =>
-      dotenv.env['PAYU_CHECKOUT_URL'] ??
-      'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/';
-
-  // Configuración regional desde variables de entorno
-  static String get currency => dotenv.env['PAYU_CURRENCY'] ?? 'PEN';
-  static String get language => dotenv.env['PAYU_LANGUAGE'] ?? 'es';
-
-  // URLs de respuesta desde variables de entorno
-  static String get responseUrl => dotenv.env['PAYU_RESPONSE_URL'] ?? 'https://www.google.com';
-  static String get confirmationUrl =>
-      dotenv.env['PAYU_CONFIRMATION_URL'] ?? 'https://www.google.com';
-
-  // Modo de prueba desde variables de entorno
-  static bool get testMode =>
-      dotenv.env['PAYU_TEST_MODE'] == 'true' || dotenv.env['PAYU_TEST_MODE'] == null;
-}
-
-/// Modelo de respuesta de PayU
-class PayUResponse {
-  final bool success;
-  final String? transactionId;
-  final String? orderId;
-  final String? message;
-  final String? checkoutUrl;
-  final Map<String, dynamic>? rawData;
-
-  const PayUResponse({
-    required this.success,
-    this.transactionId,
-    this.orderId,
-    this.message,
-    this.checkoutUrl,
-    this.rawData,
-  });
-
-  factory PayUResponse.fromJson(Map<String, dynamic> json) {
-    return PayUResponse(
-      success: json['code'] == 'SUCCESS',
-      transactionId: json['result']?['payload']?['id']?.toString(),
-      orderId: json['result']?['payload']?['orderId']?.toString(),
-      message: json['result']?['payload']?['responseMessage'],
-      rawData: json,
-    );
-  }
-}
-
-/// Servicio principal para PayU
-class PayUGooglePayService extends ChangeNotifier {
-  static final PayUGooglePayService _instance = PayUGooglePayService._internal();
-  factory PayUGooglePayService() => _instance;
-  PayUGooglePayService._internal();
+class PayUService extends ChangeNotifier {
+  static final PayUService _instance = PayUService._internal();
+  factory PayUService() => _instance;
+  PayUService._internal();
 
   bool _isLoading = false;
   String? _lastError;

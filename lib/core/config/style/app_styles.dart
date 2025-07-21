@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppStyles {
+  static const TextStyle h1 = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+    overflow: TextOverflow.ellipsis,
+  );
+
   static const TextStyle h2TextBlack = TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.bold,

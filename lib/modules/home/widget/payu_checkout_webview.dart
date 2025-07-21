@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../core/services/payu_service.dart';
@@ -63,7 +64,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
               },
               onWebResourceError: (WebResourceError error) {
                 debugPrint('❌ PAYU - Error de recurso: ${error.description} - ${error.url}');
-                _showError('Error cargando página: ${error.description}');
+                //_showError('Error cargando página: ${error.description}');
               },
               onNavigationRequest: (NavigationRequest request) {
                 debugPrint('🔄 PAYU - Navegación solicitada: ${request.url}');
@@ -134,7 +135,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     Map<String, String>? additionalData,
   }) async {
     try {
-      final payuService = PayUGooglePayService();
+      final payuService = PayUService();
 
       final success = await payuService.processPaymentResponse(
         referenceCode: referenceCode,
@@ -378,7 +379,7 @@ void showPayUCheckout(
   VoidCallback? onFailure,
 }) async {
   try {
-    final payuService = PayUGooglePayService();
+    final payuService = PayUService();
 
     // Generar URL y datos de checkout
     final response = await payuService.processSubscriptionPayment(
@@ -391,7 +392,7 @@ void showPayUCheckout(
 
     if (response.success && response.checkoutUrl != null) {
       // Generar datos para POST
-      final checkoutData = PayUGooglePayService.buildPayUCheckoutData(
+      final checkoutData = PayUService.buildPayUCheckoutData(
         merchantId: PayUConfig.merchantId,
         accountId: PayUConfig.accountId,
         apiKey: PayUConfig.apiKey,

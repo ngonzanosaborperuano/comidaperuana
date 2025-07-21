@@ -153,6 +153,10 @@ class AppColorScheme extends InheritedWidget {
     return AppColors.warmLinear;
   }
 
+  LinearGradient get subscriptionGradient {
+    return AppColors.orangeToBrownLinear;
+  }
+
   // === PROPIEDADES ADICIONALES PARA COMPATIBILIDAD ===
 
   @override

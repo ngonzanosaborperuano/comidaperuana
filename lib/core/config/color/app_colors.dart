@@ -42,6 +42,14 @@ class AppColors {
   /// Gris oscuro utilizado para fondos y texto.
   static const MaterialColor slate700 = MaterialColor(0xFF334155, <int, Color>{});
 
+  // Colores de PayU
+  static const MaterialColor payuGreen = MaterialColor(0xFF00A650, <int, Color>{});
+  static const MaterialColor payuOrange = MaterialColor(0xFFFF6B35, <int, Color>{});
+  static const MaterialColor payuDarkGray = MaterialColor(0xFF2C3E50, <int, Color>{});
+
+  static const MaterialColor payuGreenDark = MaterialColor(0xFF064E3B, <int, Color>{});
+  static const MaterialColor payuGreenLight = MaterialColor(0xFFA7F3D0, <int, Color>{});
+
   /// Gris muy claro utilizado para fondos sutiles.
 
   /// Color blanco utilizado como fondo principal.
@@ -173,10 +181,7 @@ class AppColors {
   static const LinearGradient successLinear = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFFA7F3D0), // emerald200
-      Color(0xFF064E3B), // emerald900
-    ],
+    colors: [payuGreenDark, payuGreenLight],
     stops: [0.0, 1.0],
   );
 
