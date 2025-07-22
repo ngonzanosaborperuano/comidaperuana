@@ -687,5 +687,9 @@
     "placeholders": {
       "planName": {}
     }
+  },
+  "recoverEmailSent": "Correo de recuperación enviado con éxito.",
+  "@recoverEmailSent": {
+    "description": "Mensaje de éxito al enviar el correo de recuperación de contraseña"
   }
 }

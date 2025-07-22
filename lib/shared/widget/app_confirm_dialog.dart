@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
-class AppConfirmDialogMagic extends StatelessWidget {
+class AppConfirmDialog extends StatelessWidget {
   final String title;
   final Widget content;
   final String confirmLabel;
@@ -13,8 +13,9 @@ class AppConfirmDialogMagic extends StatelessWidget {
   final Color? borderColorFrom;
   final Color? borderColorTo;
   final Color? backgroundColor;
+  final bool showAnimatedBorder;
 
-  const AppConfirmDialogMagic({
+  const AppConfirmDialog({
     super.key,
     required this.title,
     required this.content,
@@ -26,6 +27,7 @@ class AppConfirmDialogMagic extends StatelessWidget {
     this.borderColorFrom,
     this.borderColorTo,
     this.backgroundColor,
+    this.showAnimatedBorder = true,
   });
 
   @override
@@ -55,16 +57,17 @@ class AppConfirmDialogMagic extends StatelessWidget {
             elevation: 0,
             child: Stack(
               children: [
-                Positioned.fill(
-                  child: IgnorePointer(
-                    child: CustomPaint(
-                      painter: _BorderBeamPainter(
-                        colorFrom: borderColorFrom ?? Theme.of(context).colorScheme.primary,
-                        colorTo: borderColorTo ?? Theme.of(context).colorScheme.secondary,
+                if (showAnimatedBorder)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: CustomPaint(
+                        painter: _BorderBeamPainter(
+                          colorFrom: borderColorFrom ?? Theme.of(context).colorScheme.primary,
+                          colorTo: borderColorTo ?? Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
                     ),
                   ),
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
                   child: Column(

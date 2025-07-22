@@ -128,7 +128,7 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
       case ToastType.success:
         return color.success;
       case ToastType.error:
-        return color.error;
+        return color.errorText;
       case ToastType.warning:
         return color.warning;
       case ToastType.info:
@@ -142,7 +142,7 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
       case ToastType.success:
         return color.success;
       case ToastType.error:
-        return color.error;
+        return color.errorText;
       case ToastType.warning:
         return color.warning;
       case ToastType.info:

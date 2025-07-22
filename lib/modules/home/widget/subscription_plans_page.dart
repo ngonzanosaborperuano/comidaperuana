@@ -5,7 +5,7 @@ import 'package:recetasperuanas/core/services/subscription_service.dart' show Su
 import 'package:recetasperuanas/modules/home/models/subscription_plan.dart'
     show SubscriptionPlan, SubscriptionPlans;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/app_confirm_dialog_magic.dart';
+import 'package:recetasperuanas/shared/widget/app_confirm_dialog.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 import 'payu_checkout_webview.dart';
@@ -187,10 +187,9 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
       context: context,
       barrierDismissible: true,
       builder:
-          (context) => AppConfirmDialogMagic(
+          (context) => AppConfirmDialog(
             title: context.loc.confirmSubscription,
             content: Column(
-              //mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(context.loc.planLabel(selectedPlan!.name)),

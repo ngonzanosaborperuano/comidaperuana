@@ -16,6 +16,7 @@ class AppColors {
   static const MaterialColor text2 = MaterialColor(0xFFa1a1aa, <int, Color>{});
 
   static const MaterialColor error = MaterialColor(0xFFf31a65, <int, Color>{});
+  static const MaterialColor errorText = MaterialColor(0xFFF7B7CD, <int, Color>{});
 
   static const MaterialColor icon = MaterialColor(0xFF71717a, <int, Color>{});
 

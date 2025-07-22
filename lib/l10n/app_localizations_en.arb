@@ -714,5 +714,9 @@
     "placeholders": {
       "planName": {}
     }
+  },
+  "recoverEmailSent": "Recovery email sent successfully.",
+  "@recoverEmailSent": {
+    "description": "Success message when the password recovery email is sent"
   }
 }

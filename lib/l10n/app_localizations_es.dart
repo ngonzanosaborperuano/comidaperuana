@@ -575,4 +575,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String subscriptionActivated(Object planName) {
     return '¡Suscripción $planName activada!';
   }
+
+  @override
+  String get recoverEmailSent => 'Correo de recuperación enviado con éxito.';
 }

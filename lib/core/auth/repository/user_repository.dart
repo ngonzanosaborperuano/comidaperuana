@@ -101,13 +101,13 @@ class UserRepository extends BaseRepository {
   Future<String?> recoverCredential(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
+      return 'success';
     } on FirebaseAuthException catch (e) {
       return e.code;
     } catch (e, stackTrace) {
       debugPrint('StackTrace: $stackTrace');
       return 'Ocurrió un error inesperado.';
     }
-    return null;
   }
 
   Future<bool> loginWithEmail(AuthUser user) async {

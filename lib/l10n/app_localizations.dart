@@ -1135,6 +1135,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription {planName} activated!'**
   String subscriptionActivated(Object planName);
+
+  /// Success message when the password recovery email is sent
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery email sent successfully.'**
+  String get recoverEmailSent;
 }
 
 class _AppLocalizationsDelegate
