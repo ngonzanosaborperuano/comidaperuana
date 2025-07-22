@@ -476,7 +476,7 @@ void showSubscriptionModal(BuildContext context, {VoidCallback? onSelected}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
+    backgroundColor: context.color.background,
     builder: (context) => SubscriptionPlansPage(onSubscriptionSelected: onSelected),
   );
 }

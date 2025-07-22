@@ -9,7 +9,7 @@ import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
-  factory RegisterPage.routeBuilder(_, __) {
+  factory RegisterPage.routeBuilder(_, _) {
     return const RegisterPage(key: Key('register_page'));
   }
 
