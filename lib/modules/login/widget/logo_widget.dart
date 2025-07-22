@@ -66,8 +66,8 @@ class _LogoWidgetState extends State<LogoWidget> with SingleTickerProviderStateM
                   end: Alignment.bottomRight,
                   colors: [
                     context.color.buttonPrimary,
-                    context.color.buttonPrimary.withValues(alpha: 0.8),
-                    context.color.error.withValues(alpha: 0.6),
+                    context.color.buttonPrimary.withOpacity(0.8),
+                    context.color.error.withOpacity(0.6),
                   ],
                 ),
                 boxShadow: [

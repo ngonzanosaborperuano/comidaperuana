@@ -67,94 +67,123 @@ class _RegisterViewState extends State<RegisterView>
   Widget build(BuildContext context) {
     return Consumer<RegisterController>(
       builder: (_, RegisterController con, _) {
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              RepaintBoundary(
-                child: FadeTransition(
-                  opacity: fadeAnimation,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          context.go(Routes.login.description);
-                        },
-                        icon: Icon(Icons.arrow_back, color: context.color.text),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Avatar animado
-              RepaintBoundary(
-                child: AnimatedScaleWidget(
-                  animation: scaleAnimation,
-                  child: AnimatedAvatar(
-                    onTap: () {
-                      // Efecto adicional al tocar el avatar
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(context.loc.registerNow),
-                          duration: const Duration(seconds: 1),
+        return AppScaffold(
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    double maxWidth = constraints.maxWidth > 600 ? 450 : double.infinity;
+                    return Center(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        child: Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: context.color.background,
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.07),
+                                blurRadius: 16,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: _buildRegisterForm(context, con),
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              AppVerticalSpace.md,
-
-              // Textos con animación de slide
-              RepaintBoundary(
-                child: AnimatedEntryWidget(
-                  animation: fadeAnimation,
-                  slideOffset: const Offset(0, 0.3),
-                  child: Column(
-                    children: [
-                      AppText(
-                        text: context.loc.registerNow,
-                        fontSize: AppSpacing.xxmd,
-                        fontWeight: FontWeight.bold,
-                        color: context.color.text,
-                        textAlign: TextAlign.center,
                       ),
-                      AppVerticalSpace.md,
-                      AppText(
-                        text: context.loc.completeInformation,
-                        fontSize: AppSpacing.md,
-                        fontWeight: FontWeight.w400,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
-
-              // Formulario con animación fade
-              RepaintBoundary(
-                child: FadeTransition(
-                  opacity: formAnimation,
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(0, 0.2),
-                      end: Offset.zero,
-                    ).animate(CurvedAnimation(parent: formController, curve: Curves.easeOutCubic)),
-                    child: RegisterForm(
-                      formKey: _formKeyRegister,
-                      controller: con,
-                      onRegister: (user) => _handleRegister(context, user, con),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildRegisterForm(BuildContext context, RegisterController con) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RepaintBoundary(
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.go(Routes.login.description);
+                  },
+                  icon: Icon(Icons.arrow_back, color: context.color.text),
+                ),
+              ],
+            ),
+          ),
+        ),
+        // Avatar animado
+        RepaintBoundary(
+          child: AnimatedScaleWidget(
+            animation: scaleAnimation,
+            child: AnimatedAvatar(
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(context.loc.registerNow),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        AppVerticalSpace.md,
+        // Textos con animación de slide
+        RepaintBoundary(
+          child: AnimatedEntryWidget(
+            animation: fadeAnimation,
+            slideOffset: const Offset(0, 0.3),
+            child: Column(
+              children: [
+                AppText(
+                  text: context.loc.registerNow,
+                  fontSize: AppSpacing.xxmd,
+                  fontWeight: FontWeight.bold,
+                  color: context.color.text,
+                  textAlign: TextAlign.center,
+                ),
+                AppVerticalSpace.md,
+                AppText(
+                  text: context.loc.completeInformation,
+                  fontSize: AppSpacing.md,
+                  fontWeight: FontWeight.w400,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+        // Formulario con animación fade
+        RepaintBoundary(
+          child: FadeTransition(
+            opacity: formAnimation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 0.2),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(parent: formController, curve: Curves.easeOutCubic)),
+              child: RegisterForm(
+                formKey: _formKeyRegister,
+                controller: con,
+                onRegister: (user) => _handleRegister(context, user, con),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
