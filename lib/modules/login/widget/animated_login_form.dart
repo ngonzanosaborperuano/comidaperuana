@@ -40,7 +40,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
           mainAxisSize: MainAxisSize.min,
           spacing: AppSpacing.md,
           children: [
-            AppVerticalSpace.xmd,
+            AppVerticalSpace.sm,
             LogoLogin(widget: widget),
             HeaderAndSubTitle(widget: widget),
             EmailLogin(widget: widget),
