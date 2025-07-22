@@ -140,10 +140,6 @@
   "@logOut": {
     "description": "Botón para cerrar sesión"
   },
-  "cancel": "Cancelar",
-  "@cancel": {
-    "description": "Botón para cancelar"
-  },
   "firstName": "Apellido Paterno",
   "@firstName": {
     "description": "Campo para apellido paterno"
@@ -623,5 +619,73 @@
   "payuError": "Error al procesar el pago",
   "@payuError": {
     "description": "Mensaje de error de PayU"
+  },
+  "premiumPlans": "Planes Premium",
+  "confirmSubscription": "Confirmar Suscripción",
+  "planLabel": "Plan: {planName}",
+  "@planLabel": {
+    "description": "Etiqueta para el nombre del plan",
+    "placeholders": {
+      "planName": {}
+    }
+  },
+  "durationLabel": "Duración: {months} mes{pluralSuffix}",
+  "@durationLabel": {
+    "description": "Etiqueta para la duración en meses",
+    "placeholders": {
+      "months": {},
+      "pluralSuffix": {}
+    }
+  },
+  "monthlyPriceLabel": "Precio mensual: S/ {price}",
+  "@monthlyPriceLabel": {
+    "description": "Etiqueta para el precio mensual",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "totalToPayLabel": "Total a pagar: S/ {total}",
+  "@totalToPayLabel": {
+    "description": "Etiqueta para el total a pagar",
+    "placeholders": {
+      "total": {}
+    }
+  },
+  "payuSafe": "Pago seguro con PayU",
+  "saveLabel": "🎉 Ahorras {percent}% (S/ {amount})",
+  "@saveLabel": {
+    "description": "Etiqueta para el ahorro",
+    "placeholders": {
+      "percent": {},
+      "amount": {}
+    }
+  },
+  "payNow": "Pagar Ahora",
+  "continueWith": "Continuar con {planName}",
+  "@continueWith": {
+    "description": "Botón para continuar con el plan seleccionado",
+    "placeholders": {
+      "planName": {}
+    }
+  },
+  "discoverPeruvianCuisine": "Descubre los secretos de la cocina peruana",
+  "@discoverPeruvianCuisine": {
+    "description": "Texto para invitar a descubrir la cocina peruana"
+  },
+  "payu100Safe": "Pago 100% seguro",
+  "cancelAnytime": "Cancela cuando quieras",
+  "acceptTerms": "Al continuar aceptas nuestros Términos y Condiciones",
+  "selectPlan": "Selecciona un plan",
+  "paymentError": "Error en el pago. Inténtalo de nuevo.",
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Botón para cancelar"
+  },
+  "subscriptionActivated": "¡Suscripción {planName} activada!",
+  "@subscriptionActivated": {
+    "description": "Mensaje de éxito al activar una suscripción",
+    "placeholders": {
+      "planName": {}
+    }
   }
 }

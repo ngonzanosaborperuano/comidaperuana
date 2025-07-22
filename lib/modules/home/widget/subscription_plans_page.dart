@@ -5,6 +5,7 @@ import 'package:recetasperuanas/core/services/subscription_service.dart' show Su
 import 'package:recetasperuanas/modules/home/models/subscription_plan.dart'
     show SubscriptionPlan, SubscriptionPlans;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/app_confirm_dialog_magic.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 import 'payu_checkout_webview.dart';
@@ -182,30 +183,26 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
 
   void _handleSubscription() {
     if (selectedPlan == null) return;
-
-    // Confirmar antes de proceder al pago
     showDialog(
       context: context,
+      barrierDismissible: true,
       builder:
-          (context) => AlertDialog(
-            title: Row(
-              children: [
-                Icon(Icons.payment, color: context.color.buttonPrimary),
-                const SizedBox(width: 8),
-                const Text('Confirmar Suscripción'),
-              ],
-            ),
+          (context) => AppConfirmDialogMagic(
+            title: context.loc.confirmSubscription,
             content: Column(
-              mainAxisSize: MainAxisSize.min,
+              //mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Plan: ${selectedPlan!.name}'),
+                Text(context.loc.planLabel(selectedPlan!.name)),
                 Text(
-                  'Duración: ${selectedPlan!.durationMonths} mes${selectedPlan!.durationMonths > 1 ? 'es' : ''}',
+                  context.loc.durationLabel(
+                    selectedPlan!.durationMonths,
+                    selectedPlan!.durationMonths > 1 ? 'es' : '',
+                  ),
                 ),
-                Text('Precio mensual: S/ ${selectedPlan!.monthlyPrice.toStringAsFixed(2)}'),
+                Text(context.loc.monthlyPriceLabel(selectedPlan!.monthlyPrice.toStringAsFixed(2))),
                 Text(
-                  'Total a pagar: S/ ${selectedPlan!.totalPrice.toStringAsFixed(2)}',
+                  context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 if (selectedPlan!.discountPercentage > 0) ...[
@@ -217,7 +214,10 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      '🎉 Ahorras ${selectedPlan!.discountPercentage}% (S/ ${selectedPlan!.totalSavings.toStringAsFixed(2)})',
+                      context.loc.saveLabel(
+                        selectedPlan!.discountPercentage,
+                        selectedPlan!.totalSavings.toStringAsFixed(2),
+                      ),
                       style: TextStyle(
                         color: context.color.buttonPrimary,
                         fontWeight: FontWeight.bold,
@@ -233,7 +233,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Pago seguro con PayU',
+                        context.loc.payuSafe,
                         style: TextStyle(fontSize: 12, color: context.color.buttonPrimary),
                       ),
                     ),
@@ -241,27 +241,21 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                 ),
               ],
             ),
-            actions: [
-              TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _proceedToPayment();
-                },
-                icon: const Icon(Icons.payment),
-                label: const Text('Pagar Ahora'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: context.color.buttonPrimary,
-                  foregroundColor: context.color.background,
-                ),
-              ),
-            ],
+            confirmLabel: context.loc.payNow,
+            cancelLabel: context.loc.cancel,
+            onConfirm: () {
+              context.pop();
+              _proceedToPayment();
+            },
+            onCancel: context.pop,
+            confirmColor: context.color.buttonPrimary,
+            borderColorFrom: context.color.buttonPrimary,
+            borderColorTo: context.color.error,
           ),
     );
   }
 
   void _proceedToPayment() {
-    // Usar el checkout de PayU
     showPayUCheckout(
       context,
       planType: getPlanType(selectedPlan!.id),
@@ -269,23 +263,10 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
       userName: widget.userName ?? 'Usuario',
       onSuccess: () {
         widget.onSubscriptionSelected?.call();
-
-        // Mostrar mensaje de éxito
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('¡Suscripción ${selectedPlan!.name} activada!'),
-            backgroundColor: context.color.success,
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        context.showSuccessToast(context.loc.subscriptionActivated(selectedPlan!.name));
       },
       onFailure: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Error en el pago. Inténtalo de nuevo.'),
-            backgroundColor: context.color.error,
-          ),
-        );
+        context.showErrorToast(context.loc.paymentError);
       },
     );
   }
@@ -341,7 +322,7 @@ class DescriptionBanner extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Descubre los secretos de la cocina peruana',
+              context.loc.discoverPeruvianCuisine,
               style: TextStyle(
                 color: context.color.text,
                 fontSize: 16,
@@ -383,7 +364,7 @@ class HeaderPlanes extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  'Planes Premium',
+                  context.loc.premiumPlans,
                   style: AppStyles.h1.copyWith(color: context.color.text),
                   textAlign: TextAlign.center,
                 ),
@@ -435,7 +416,7 @@ class PagoSeguro extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Pago 100% seguro',
+                  context.loc.payu100Safe,
                   style: TextStyle(
                     color: context.color.text,
                     fontSize: 14,
@@ -444,7 +425,7 @@ class PagoSeguro extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Cancela cuando quieras',
+                  context.loc.cancelAnytime,
                   style: TextStyle(
                     color: context.color.textSecondary,
                     fontSize: 13,
@@ -853,7 +834,9 @@ class BottomSectionWidget extends StatelessWidget {
           AppVerticalSpace.sm,
           AppButton(
             text:
-                selectedPlan != null ? 'Continuar con ${selectedPlan!.name}' : 'Selecciona un plan',
+                selectedPlan != null
+                    ? context.loc.continueWith(selectedPlan!.name)
+                    : context.loc.selectPlan,
             onPressed: onContinue,
             enabledButton: selectedPlan != null,
             showIcon: selectedPlan != null,
@@ -864,7 +847,7 @@ class BottomSectionWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              'Al continuar aceptas nuestros Términos y Condiciones',
+              context.loc.acceptTerms,
               style: TextStyle(
                 color: context.color.textSecondary,
                 fontSize: 12,

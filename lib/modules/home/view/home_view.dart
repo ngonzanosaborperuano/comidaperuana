@@ -32,7 +32,6 @@ class _HomeViewState extends State<HomeView> {
     SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high, null),
   ];
 
-  // modelo imagen-3.0-generate-002
   final imagenSafetySettings = ImagenSafetySettings(
     ImagenSafetyFilterLevel.blockLowAndAbove,
     ImagenPersonFilterLevel.allowAdult,
@@ -93,14 +92,14 @@ class _HomeViewState extends State<HomeView> {
                                 debugPrint('StackTrace: $stackTrace');
                               }
                             },
-                            child: const Text('MercadoPago - Custom Tabs'),
+                            child: Text(context.loc.payuSafe),
                           ),
 
                           const SizedBox(height: 16),
 
-                          // Botón de PayU
-                          ElevatedButton.icon(
-                            onPressed: () async {
+                          AppButton(
+                            text: context.loc.premiumPlans,
+                            onPressed: () {
                               showSubscriptionModal(
                                 context,
                                 onSelected: () {
@@ -110,17 +109,6 @@ class _HomeViewState extends State<HomeView> {
                                 },
                               );
                             },
-                            icon: const Icon(Icons.payment, color: Colors.white),
-                            label: Text(
-                              context.loc.payuButton,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF2E7D32), // Verde PayU
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
                           ),
 
                           const SizedBox(height: 8),

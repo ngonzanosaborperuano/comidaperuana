@@ -508,4 +508,71 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get payuError => 'Error al procesar el pago';
+
+  @override
+  String get premiumPlans => 'Planes Premium';
+
+  @override
+  String get confirmSubscription => 'Confirmar Suscripción';
+
+  @override
+  String planLabel(Object planName) {
+    return 'Plan: $planName';
+  }
+
+  @override
+  String durationLabel(Object months, Object pluralSuffix) {
+    return 'Duración: $months mes$pluralSuffix';
+  }
+
+  @override
+  String monthlyPriceLabel(Object price) {
+    return 'Precio mensual: S/ $price';
+  }
+
+  @override
+  String totalToPayLabel(Object total) {
+    return 'Total a pagar: S/ $total';
+  }
+
+  @override
+  String get payuSafe => 'Pago seguro con PayU';
+
+  @override
+  String saveLabel(Object percent, Object amount) {
+    return '🎉 Ahorras $percent% (S/ $amount)';
+  }
+
+  @override
+  String get payNow => 'Pagar Ahora';
+
+  @override
+  String continueWith(Object planName) {
+    return 'Continuar con $planName';
+  }
+
+  @override
+  String get discoverPeruvianCuisine =>
+      'Descubre los secretos de la cocina peruana';
+
+  @override
+  String get payu100Safe => 'Pago 100% seguro';
+
+  @override
+  String get cancelAnytime => 'Cancela cuando quieras';
+
+  @override
+  String get acceptTerms =>
+      'Al continuar aceptas nuestros Términos y Condiciones';
+
+  @override
+  String get selectPlan => 'Selecciona un plan';
+
+  @override
+  String get paymentError => 'Error en el pago. Inténtalo de nuevo.';
+
+  @override
+  String subscriptionActivated(Object planName) {
+    return '¡Suscripción $planName activada!';
+  }
 }

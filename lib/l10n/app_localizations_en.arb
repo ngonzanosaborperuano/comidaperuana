@@ -623,5 +623,96 @@
   "payuError": "Error processing payment",
   "@payuError": {
     "description": "PayU error message"
+  },
+  "premiumPlans": "Premium Plans",
+  "@premiumPlans": {
+    "description": "Title for the premium plans screen"
+  },
+  "confirmSubscription": "Confirm Subscription",
+  "@confirmSubscription": {
+    "description": "Title for the subscription confirmation dialog"
+  },
+  "planLabel": "Plan: {planName}",
+  "@planLabel": {
+    "description": "Label for the plan name",
+    "placeholders": {
+      "planName": {}
+    }
+  },
+  "durationLabel": "Duration: {months} month{pluralSuffix}",
+  "@durationLabel": {
+    "description": "Label for duration in months",
+    "placeholders": {
+      "months": {},
+      "pluralSuffix": {}
+    }
+  },
+  "monthlyPriceLabel": "Monthly price: S/ {price}",
+  "@monthlyPriceLabel": {
+    "description": "Label for monthly price",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "totalToPayLabel": "Total to pay: S/ {total}",
+  "@totalToPayLabel": {
+    "description": "Label for total to pay",
+    "placeholders": {
+      "total": {}
+    }
+  },
+  "payuSafe": "Secure payment with PayU",
+  "@payuSafe": {
+    "description": "Label for secure payment with PayU"
+  },
+  "saveLabel": "🎉 Save {percent}% (S/ {amount})",
+  "@saveLabel": {
+    "description": "Label for savings",
+    "placeholders": {
+      "percent": {},
+      "amount": {}
+    }
+  },
+  "payNow": "Pay Now",
+  "@payNow": {
+    "description": "Button label to pay now"
+  },
+  "continueWith": "Continue with {planName}",
+  "@continueWith": {
+    "description": "Continue with plan",
+    "placeholders": {
+      "planName": {}
+    }
+  },
+  "discoverPeruvianCuisine": "Discover the secrets of Peruvian cuisine",
+  "@discoverPeruvianCuisine": {
+    "description": "Text inviting to discover Peruvian cuisine"
+  },
+  "payu100Safe": "100% secure payment",
+  "@payu100Safe": {
+    "description": "Label for 100% secure payment"
+  },
+  "cancelAnytime": "Cancel anytime",
+  "@cancelAnytime": {
+    "description": "Label for cancel anytime option"
+  },
+  "acceptTerms": "By continuing you accept our Terms and Conditions",
+  "@acceptTerms": {
+    "description": "Label for accepting terms and conditions"
+  },
+  "selectPlan": "Select a plan",
+  "@selectPlan": {
+    "description": "Prompt to select a plan"
+  },
+  "paymentError": "Payment error. Please try again.",
+  "@paymentError": {
+    "description": "Error message for payment failure"
+  },
+  "subscriptionActivated": "Subscription {planName} activated!",
+  "@subscriptionActivated": {
+    "description": "Success message when a subscription is activated",
+    "placeholders": {
+      "planName": {}
+    }
   }
 }

@@ -1033,6 +1033,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error processing payment'**
   String get payuError;
+
+  /// Title for the premium plans screen
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Plans'**
+  String get premiumPlans;
+
+  /// Title for the subscription confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Subscription'**
+  String get confirmSubscription;
+
+  /// Label for the plan name
+  ///
+  /// In en, this message translates to:
+  /// **'Plan: {planName}'**
+  String planLabel(Object planName);
+
+  /// Label for duration in months
+  ///
+  /// In en, this message translates to:
+  /// **'Duration: {months} month{pluralSuffix}'**
+  String durationLabel(Object months, Object pluralSuffix);
+
+  /// Label for monthly price
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly price: S/ {price}'**
+  String monthlyPriceLabel(Object price);
+
+  /// Label for total to pay
+  ///
+  /// In en, this message translates to:
+  /// **'Total to pay: S/ {total}'**
+  String totalToPayLabel(Object total);
+
+  /// Label for secure payment with PayU
+  ///
+  /// In en, this message translates to:
+  /// **'Secure payment with PayU'**
+  String get payuSafe;
+
+  /// Label for savings
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Save {percent}% (S/ {amount})'**
+  String saveLabel(Object percent, Object amount);
+
+  /// Button label to pay now
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now'**
+  String get payNow;
+
+  /// Continue with plan
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with {planName}'**
+  String continueWith(Object planName);
+
+  /// Text inviting to discover Peruvian cuisine
+  ///
+  /// In en, this message translates to:
+  /// **'Discover the secrets of Peruvian cuisine'**
+  String get discoverPeruvianCuisine;
+
+  /// Label for 100% secure payment
+  ///
+  /// In en, this message translates to:
+  /// **'100% secure payment'**
+  String get payu100Safe;
+
+  /// Label for cancel anytime option
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime'**
+  String get cancelAnytime;
+
+  /// Label for accepting terms and conditions
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing you accept our Terms and Conditions'**
+  String get acceptTerms;
+
+  /// Prompt to select a plan
+  ///
+  /// In en, this message translates to:
+  /// **'Select a plan'**
+  String get selectPlan;
+
+  /// Error message for payment failure
+  ///
+  /// In en, this message translates to:
+  /// **'Payment error. Please try again.'**
+  String get paymentError;
+
+  /// Success message when a subscription is activated
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription {planName} activated!'**
+  String subscriptionActivated(Object planName);
 }
 
 class _AppLocalizationsDelegate

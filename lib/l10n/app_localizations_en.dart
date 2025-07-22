@@ -498,4 +498,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get payuError => 'Error processing payment';
+
+  @override
+  String get premiumPlans => 'Premium Plans';
+
+  @override
+  String get confirmSubscription => 'Confirm Subscription';
+
+  @override
+  String planLabel(Object planName) {
+    return 'Plan: $planName';
+  }
+
+  @override
+  String durationLabel(Object months, Object pluralSuffix) {
+    return 'Duration: $months month$pluralSuffix';
+  }
+
+  @override
+  String monthlyPriceLabel(Object price) {
+    return 'Monthly price: S/ $price';
+  }
+
+  @override
+  String totalToPayLabel(Object total) {
+    return 'Total to pay: S/ $total';
+  }
+
+  @override
+  String get payuSafe => 'Secure payment with PayU';
+
+  @override
+  String saveLabel(Object percent, Object amount) {
+    return '🎉 Save $percent% (S/ $amount)';
+  }
+
+  @override
+  String get payNow => 'Pay Now';
+
+  @override
+  String continueWith(Object planName) {
+    return 'Continue with $planName';
+  }
+
+  @override
+  String get discoverPeruvianCuisine =>
+      'Discover the secrets of Peruvian cuisine';
+
+  @override
+  String get payu100Safe => '100% secure payment';
+
+  @override
+  String get cancelAnytime => 'Cancel anytime';
+
+  @override
+  String get acceptTerms => 'By continuing you accept our Terms and Conditions';
+
+  @override
+  String get selectPlan => 'Select a plan';
+
+  @override
+  String get paymentError => 'Payment error. Please try again.';
+
+  @override
+  String subscriptionActivated(Object planName) {
+    return 'Subscription $planName activated!';
+  }
 }
