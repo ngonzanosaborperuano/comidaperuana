@@ -54,7 +54,7 @@ sirve para cuando estas en un emulador y quieres abrir el app desde un deeplink
 
 adb shell 'am start -a android.intent.action.VIEW \
  -c android.intent.category.BROWSABLE \
- -d "https://ricope-e01a994cf2ab.herokuapp.com/home"' \
+ -d "https://cocinando.shop/home"' \
  com.ngonzano.comidaperuana
 
 //

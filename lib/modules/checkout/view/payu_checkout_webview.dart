@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,23 +11,19 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../core/services/payu_service.dart';
 
-/// Widget WebView para checkout de PayU
 class PayUCheckoutWebView extends StatefulWidget {
   final String checkoutUrl;
   final Map<String, String> checkoutData;
   final VoidCallback? onPaymentCompleted;
   final VoidCallback? onPaymentFailed;
-  final VoidCallback? onCancel;
-  final Color background;
+  // Eliminado onCancel porque no se usa
 
   const PayUCheckoutWebView({
     super.key,
     required this.checkoutUrl,
     required this.checkoutData,
-    required this.background,
     this.onPaymentCompleted,
     this.onPaymentFailed,
-    this.onCancel,
   });
 
   @override
@@ -37,7 +35,6 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
 
   bool _hasProcessedPayment = false;
   ValueNotifier progress = ValueNotifier<int>(0);
-  ValueNotifier showBackButton = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -56,7 +53,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     _controller =
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setBackgroundColor(widget.background)
+          ..setBackgroundColor(Colors.white)
           ..setNavigationDelegate(
             NavigationDelegate(
               onPageStarted: (String url) {
@@ -98,8 +95,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                   .join('&')
                   .codeUnits,
             ),
-          )
-          ..setBackgroundColor(widget.background);
+          );
   }
 
   /// Verificar respuesta de PayU en la URL
@@ -107,9 +103,13 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     if (_hasProcessedPayment) return;
 
     debugPrint('🔍 PAYU - Verificando URL: $url');
+    final uri = Uri.parse(url);
+    final params = uri.queryParameters;
+    final transactionState = params['transactionState'];
 
     // URLs de respuesta de PayU contienen parámetros del resultado
-    if (url.contains('webhook') || url.contains('payu') && url.contains('response')) {
+    // aqui ver la manera que se cierre el webview
+    if (transactionState == '4') {
       debugPrint('🎯 PAYU - URL de respuesta detectada!');
 
       final uri = Uri.parse(url);
@@ -160,7 +160,6 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
       );
 
       if (success) {
-        showBackButton.value = false;
         _showSuccessDialog();
       } else {
         _showFailureDialog(transactionState);
@@ -175,35 +174,52 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: const Text('¡Pago Exitoso!'),
-            content: const Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Tu suscripción ha sido activada correctamente.'),
-                SizedBox(height: 8),
-                Text(
-                  '🎉 ¡Bienvenido a Premium!\nYa puedes disfrutar de todas las funcionalidades.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
-                ),
-              ],
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  context.go(Routes.home.description);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('¡Continuar!'),
+      barrierColor: Colors.black.withOpacity(0.3), // oscurece un poco el fondo
+      builder: (context) {
+        return Stack(
+          children: [
+            // Fondo desenfocado
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+              child: Container(
+                color: Colors.black.withOpacity(0), // Necesario para que el blur funcione
               ),
-            ],
-          ),
+            ),
+            // El diálogo encima
+            Center(
+              child: AlertDialog(
+                icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
+                title: const Text('¡Pago Exitoso!'),
+                content: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Tu suscripción ha sido activada correctamente.'),
+                    SizedBox(height: 8),
+                    Text(
+                      '🎉 ¡Bienvenido a Premium!\nYa puedes disfrutar de todas las funcionalidades.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      widget.onPaymentCompleted?.call();
+                      context.go(Routes.home.description);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('¡Continuar!'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -282,25 +298,6 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ValueListenableBuilder(
-            valueListenable: showBackButton,
-            builder: (BuildContext context, dynamic value, Widget? child) {
-              return !value
-                  ? IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () async {
-                      // Verifica si hay historial para volver atrás
-                      if (await _controller.canGoBack()) {
-                        _controller.goBack();
-                      } else {
-                        if (!context.mounted) return;
-                        context.pop();
-                      }
-                    },
-                  )
-                  : const SizedBox.shrink();
-            },
-          ),
           SizedBox(
             height: 4,
             child: ValueListenableBuilder(
@@ -311,6 +308,22 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                   width: MediaQuery.of(context).size.width * (value / 100),
                   decoration: BoxDecoration(gradient: context.color.primaryGradient),
                 );
+              },
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () async {
+                if (await _controller.canGoBack()) {
+                  _controller.goBack();
+                } else {
+                  if (!context.mounted) return;
+                  context.pop();
+                }
               },
             ),
           ),

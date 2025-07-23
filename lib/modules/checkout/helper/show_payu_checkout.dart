@@ -5,7 +5,6 @@ import 'package:recetasperuanas/core/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
 import 'package:recetasperuanas/modules/checkout/view/payu_checkout_webview.dart'
     show PayUCheckoutWebView;
-import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 void showPayUCheckout(
   BuildContext context, {
@@ -56,7 +55,6 @@ void showPayUCheckout(
                   checkoutData: checkoutData,
                   onPaymentCompleted: onSuccess,
                   onPaymentFailed: onFailure,
-                  background: context.color.background,
                 ),
           ),
         );
