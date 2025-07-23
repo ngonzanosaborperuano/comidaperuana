@@ -665,7 +665,7 @@
   "@payuSafe": {
     "description": "Label for secure payment with PayU"
   },
-  "saveLabel": "🎉 Save {percent}% (S/ {amount})",
+  "saveLabel": "Save {percent}% (S/ {amount})",
   "@saveLabel": {
     "description": "Label for savings",
     "placeholders": {
@@ -684,9 +684,9 @@
       "planName": {}
     }
   },
-  "discoverPeruvianCuisine": "Discover the secrets of Peruvian cuisine",
-  "@discoverPeruvianCuisine": {
-    "description": "Text inviting to discover Peruvian cuisine"
+  "discoverCuisine": "Discover the secrets of cuisine",
+  "@discoverCuisine": {
+    "description": "Text inviting to discover cuisine"
   },
   "payu100Safe": "100% secure payment",
   "@payu100Safe": {
@@ -718,5 +718,21 @@
   "recoverEmailSent": "Recovery email sent successfully.",
   "@recoverEmailSent": {
     "description": "Success message when the password recovery email is sent"
+  },
+  "bestValue": "BEST VALUE",
+  "@bestValue": {
+    "description": "Label for the best value plan"
+  },
+  "popular": "POPULAR",
+  "@popular": {
+    "description": "Label for the popular plan"
+  },
+  "perMonth": "/month",
+  "@perMonth": {
+    "description": "Label for the price per month"
+  },
+  "processedByPayuSsl": "Processed by PayU • SSL Secure",
+  "@processedByPayuSsl": {
+    "description": "Footer text to indicate payment is processed by PayU and is SSL secure"
   }
 }

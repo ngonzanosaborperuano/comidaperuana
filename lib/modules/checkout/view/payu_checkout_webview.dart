@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
+import 'package:go_router/go_router.dart';
+import 'package:recetasperuanas/core/constants/routes.dart';
+import 'package:recetasperuanas/modules/checkout/widget/widget.dart' show FootPayU;
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../core/services/payu_service.dart';
-import '../../../core/services/subscription_service.dart';
 
 /// Widget WebView para checkout de PayU
 class PayUCheckoutWebView extends StatefulWidget {
@@ -13,11 +16,13 @@ class PayUCheckoutWebView extends StatefulWidget {
   final VoidCallback? onPaymentCompleted;
   final VoidCallback? onPaymentFailed;
   final VoidCallback? onCancel;
+  final Color background;
 
   const PayUCheckoutWebView({
     super.key,
     required this.checkoutUrl,
     required this.checkoutData,
+    required this.background,
     this.onPaymentCompleted,
     this.onPaymentFailed,
     this.onCancel,
@@ -29,9 +34,10 @@ class PayUCheckoutWebView extends StatefulWidget {
 
 class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
   late WebViewController _controller;
-  bool _isLoading = true;
+
   bool _hasProcessedPayment = false;
-  String? _currentUrl;
+  ValueNotifier progress = ValueNotifier<int>(0);
+  ValueNotifier showBackButton = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -39,24 +45,26 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     _initializeWebView();
   }
 
+  @override
+  void dispose() {
+    _controller.clearCache();
+    _controller.clearLocalStorage();
+    super.dispose();
+  }
+
   void _initializeWebView() {
     _controller =
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setBackgroundColor(Colors.white)
+          ..setBackgroundColor(widget.background)
           ..setNavigationDelegate(
             NavigationDelegate(
               onPageStarted: (String url) {
-                setState(() {
-                  _isLoading = true;
-                  _currentUrl = url;
-                });
-                debugPrint('🌐 PAYU - Página iniciando: $url');
+                debugPrint('🌐 PAYU - Página cargando: $url');
                 _checkPaymentResponse(url);
               },
               onPageFinished: (String url) {
-                setState(() => _isLoading = false);
-                debugPrint('✅ PAYU - Página terminada: $url');
+                debugPrint('✅ PAYU - Página cargada: $url');
               },
               onHttpError: (HttpResponseError error) {
                 debugPrint('❌ PAYU - Error HTTP: ${error.response?.statusCode}');
@@ -70,6 +78,14 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                 debugPrint('🔄 PAYU - Navegación solicitada: ${request.url}');
                 return NavigationDecision.navigate;
               },
+              onSslAuthError: (SslAuthError error) {
+                debugPrint('❌ PAYU - Error de SSL: ${error.certificate} - ${error.platform}');
+                //_showError('Error de SSL: ${error.description}');
+              },
+              onProgress: (int progreso) {
+                progress.value = progreso;
+                setState(() {});
+              },
             ),
           )
           ..loadRequest(
@@ -82,10 +98,8 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                   .join('&')
                   .codeUnits,
             ),
-          );
-
-    debugPrint('🚀 PAYU - URL inicial de checkout: ${widget.checkoutUrl}');
-    debugPrint('📋 PAYU - Datos enviados: ${widget.checkoutData}');
+          )
+          ..setBackgroundColor(widget.background);
   }
 
   /// Verificar respuesta de PayU en la URL
@@ -95,7 +109,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     debugPrint('🔍 PAYU - Verificando URL: $url');
 
     // URLs de respuesta de PayU contienen parámetros del resultado
-    if (url.contains('tu-app.com/response') || url.contains('payu') && url.contains('response')) {
+    if (url.contains('webhook') || url.contains('payu') && url.contains('response')) {
       debugPrint('🎯 PAYU - URL de respuesta detectada!');
 
       final uri = Uri.parse(url);
@@ -146,6 +160,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
       );
 
       if (success) {
+        showBackButton.value = false;
         _showSuccessDialog();
       } else {
         _showFailureDialog(transactionState);
@@ -179,9 +194,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
             actions: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context); // Cerrar diálogo
-                  Navigator.pop(context); // Cerrar WebView
-                  widget.onPaymentCompleted?.call();
+                  context.go(Routes.home.description);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
@@ -222,8 +235,9 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context); // Cerrar diálogo
-                  Navigator.pop(context); // Cerrar WebView
+                  context
+                    ..pop
+                    ..pop();
                   widget.onPaymentFailed?.call();
                 },
                 child: const Text('Entendido'),
@@ -231,7 +245,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
               if (transactionState == '6') // Solo si fue rechazado
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Cerrar diálogo
+                    context.pop();
                     setState(() {
                       _hasProcessedPayment = false;
                       _controller.loadRequest(
@@ -259,189 +273,51 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
 
   void _showError(String error) {
     if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(error),
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 5),
-      ),
-    );
+    context.showErrorToast(error);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Checkout Seguro'),
-        backgroundColor: const Color(0xFF2E7D32),
-        foregroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            Navigator.pop(context);
-            widget.onCancel?.call();
-          },
-        ),
-        actions: [
-          if (_isLoading)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-              ),
-            ),
-        ],
-      ),
+    return AppScaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Información de seguridad
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            color: Colors.green[50],
-            child: const Row(
-              children: [
-                Icon(Icons.security, color: Colors.green, size: 20),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    '🔒 Checkout seguro de PayU',
-                    style: TextStyle(fontSize: 12, color: Colors.green),
-                  ),
-                ),
-              ],
+          ValueListenableBuilder(
+            valueListenable: showBackButton,
+            builder: (BuildContext context, dynamic value, Widget? child) {
+              return !value
+                  ? IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () async {
+                      // Verifica si hay historial para volver atrás
+                      if (await _controller.canGoBack()) {
+                        _controller.goBack();
+                      } else {
+                        if (!context.mounted) return;
+                        context.pop();
+                      }
+                    },
+                  )
+                  : const SizedBox.shrink();
+            },
+          ),
+          SizedBox(
+            height: 4,
+            child: ValueListenableBuilder(
+              valueListenable: progress,
+              builder: (context, value, child) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: MediaQuery.of(context).size.width * (value / 100),
+                  decoration: BoxDecoration(gradient: context.color.primaryGradient),
+                );
+              },
             ),
           ),
-
-          // WebView
-          Expanded(
-            child: Column(
-              children: [
-                // Debug info (solo en modo debug)
-                if (kDebugMode)
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[50],
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '🔍 Debug - URLs de navegación:',
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'URL actual: ${_currentUrl ?? 'Cargando...'}',
-                          style: const TextStyle(fontSize: 8),
-                        ),
-                      ],
-                    ),
-                  ),
-                Expanded(child: WebViewWidget(controller: _controller)),
-              ],
-            ),
-          ),
-
-          // Footer con información
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.grey[100],
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.lock, size: 16, color: Colors.grey),
-                SizedBox(width: 8),
-                Text(
-                  'Procesado por PayU • SSL Seguro',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
+          Expanded(child: WebViewWidget(controller: _controller)),
+          const FootPayU(),
         ],
       ),
     );
-  }
-}
-
-/// Función helper para mostrar el checkout
-void showPayUCheckout(
-  BuildContext context, {
-  required SubscriptionPlanType planType,
-  required String userEmail,
-  required String userName,
-  String? phoneNumber,
-  VoidCallback? onSuccess,
-  VoidCallback? onFailure,
-}) async {
-  try {
-    final payuService = PayUService();
-
-    // Generar URL y datos de checkout
-    final response = await payuService.processSubscriptionPayment(
-      planType: planType,
-      amount: planType.basePrice,
-      userEmail: userEmail,
-      userName: userName,
-      phoneNumber: phoneNumber,
-    );
-
-    if (response.success && response.checkoutUrl != null) {
-      // Generar datos para POST
-      final checkoutData = PayUService.buildPayUCheckoutData(
-        merchantId: PayUConfig.merchantId,
-        accountId: PayUConfig.accountId,
-        apiKey: PayUConfig.apiKey,
-        amount: planType.basePrice,
-        currency: PayUConfig.currency,
-        referenceCode: 'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}',
-        description: 'Suscripción ${planType.displayName} - Recetas Peruanas',
-        buyerEmail: userEmail,
-        buyerName: userName,
-        responseUrl: PayUConfig.responseUrl,
-        confirmationUrl: PayUConfig.confirmationUrl,
-        test: PayUConfig.testMode,
-      );
-
-      // Mostrar WebView con checkout
-      if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => PayUCheckoutWebView(
-                  checkoutUrl: response.checkoutUrl!,
-                  checkoutData: checkoutData,
-                  onPaymentCompleted: onSuccess,
-                  onPaymentFailed: onFailure,
-                ),
-          ),
-        );
-      }
-    } else {
-      // Error generando checkout
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(response.message ?? 'Error generando checkout'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        onFailure?.call();
-      }
-    }
-  } catch (e, stackTrace) {
-    if (context.mounted) {
-      print('Error: $e');
-      debugPrint('StackTrace: $stackTrace');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red));
-      onFailure?.call();
-    }
   }
 }

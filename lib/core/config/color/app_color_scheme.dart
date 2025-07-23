@@ -146,7 +146,9 @@ class AppColorScheme extends InheritedWidget {
   // === GRADIENTES ===
 
   LinearGradient get primaryGradient {
-    return brightness == Brightness.dark ? AppColors.darkModeLinear : AppColors.orangeToBrownLinear;
+    return brightness == Brightness.dark
+        ? AppColors.orangeToBrownLinear
+        : AppColors.orangeToBrownLinear;
   }
 
   LinearGradient get successGradient {

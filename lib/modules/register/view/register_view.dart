@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
-import 'package:recetasperuanas/modules/register/widget/animated_avatar.dart';
 import 'package:recetasperuanas/modules/register/widget/register_form.dart';
-import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
+import 'package:recetasperuanas/shared/widget/responsive_constrained_box.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class RegisterView extends StatefulWidget {
@@ -67,110 +66,28 @@ class _RegisterViewState extends State<RegisterView>
   Widget build(BuildContext context) {
     return Consumer<RegisterController>(
       builder: (_, RegisterController con, _) {
-        return Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  double maxWidth = constraints.maxWidth > 600 ? 450 : double.infinity;
-                  return Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: maxWidth),
-                      child: Container(
-                        padding: const EdgeInsets.all(AppSpacing.md),
-                        decoration: BoxDecoration(
-                          color: context.color.backgroundCard,
-                          borderRadius: BorderRadius.circular(24),
-                          boxShadow: [
-                            BoxShadow(
-                              color: context.color.text.withValues(alpha: 0.2),
-                              blurRadius: AppSpacing.md,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RepaintBoundary(
-                              child: FadeTransition(
-                                opacity: fadeAnimation,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        context.go(Routes.login.description);
-                                      },
-                                      icon: Icon(Icons.arrow_back, color: context.color.text),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            RepaintBoundary(
-                              child: AnimatedScaleWidget(
-                                animation: scaleAnimation,
-                                child: AnimatedAvatar(
-                                  onTap: () {
-                                    context.showSuccessToast(context.loc.registerNow);
-                                  },
-                                ),
-                              ),
-                            ),
-                            AppVerticalSpace.md,
-                            RepaintBoundary(
-                              child: AnimatedEntryWidget(
-                                animation: fadeAnimation,
-                                slideOffset: const Offset(0, 0.3),
-                                child: Column(
-                                  children: [
-                                    AppText(
-                                      text: context.loc.registerNow,
-                                      fontSize: AppSpacing.xxmd,
-                                      fontWeight: FontWeight.bold,
-                                      color: context.color.text,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    AppVerticalSpace.md,
-                                    AppText(
-                                      text: context.loc.completeInformation,
-                                      fontSize: AppSpacing.md,
-                                      fontWeight: FontWeight.w400,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            RepaintBoundary(
-                              child: FadeTransition(
-                                opacity: formAnimation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(0, 0.2),
-                                    end: Offset.zero,
-                                  ).animate(
-                                    CurvedAnimation(
-                                      parent: formController,
-                                      curve: Curves.easeOutCubic,
-                                    ),
-                                  ),
-                                  child: RegisterForm(
-                                    formKey: _formKeyRegister,
-                                    controller: con,
-                                    onRegister: (user) => _handleRegister(context, user, con),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            AppVerticalSpace.md,
-                          ],
-                        ),
+        return Scaffold(
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                child: ResponsiveConstrainedBox(
+                  maxTabletWidth: 450,
+                  maxDesktopWidth: 500,
+                  child: Card(
+                    elevation: 0,
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                      child: RegisterForm(
+                        formKey: _formKeyRegister,
+                        controller: con,
+                        onRegister: (user) => _handleRegister(context, user, con),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
             ),
           ),

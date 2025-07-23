@@ -530,7 +530,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String saveLabel(Object percent, Object amount) {
-    return '🎉 Save $percent% (S/ $amount)';
+    return 'Save $percent% (S/ $amount)';
   }
 
   @override
@@ -542,8 +542,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get discoverPeruvianCuisine =>
-      'Discover the secrets of Peruvian cuisine';
+  String get discoverCuisine => 'Discover the secrets of cuisine';
 
   @override
   String get payu100Safe => '100% secure payment';
@@ -567,4 +566,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recoverEmailSent => 'Recovery email sent successfully.';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get popular => 'POPULAR';
+
+  @override
+  String get perMonth => '/month';
+
+  @override
+  String get processedByPayuSsl => 'Processed by PayU • SSL Secure';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AppText extends StatelessWidget {
   final String text;
@@ -21,7 +22,7 @@ class AppText extends StatelessWidget {
     return Text(
       text,
       maxLines: 5,
-      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: color),
+      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: context.color.text),
       textAlign: textAlign,
     );
   }

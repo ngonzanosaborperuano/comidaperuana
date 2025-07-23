@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/services/subscription_service.dart' show SubscriptionPlanType;
+import 'package:recetasperuanas/modules/checkout/helper/show_payu_checkout.dart'
+    show showPayUCheckout;
 import 'package:recetasperuanas/modules/home/models/subscription_plan.dart'
     show SubscriptionPlan, SubscriptionPlans;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_confirm_dialog.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
-
-import 'payu_checkout_webview.dart';
 
 class SubscriptionPlansPage extends StatefulWidget {
   final String? userEmail;
@@ -160,20 +160,16 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
   }
 
   void _playSelectionAnimation() {
-    // 1. Animación de selección principal
     _selectionAnimation.forward().then((_) {
-      // 2. Animación de pulso
       _pulseAnimation.forward().then((_) {
         _pulseAnimation.reverse();
       });
 
-      // 3. Animación de ripple
       _rippleAnimation.forward().then((_) {
         _rippleAnimation.reset();
       });
     });
 
-    // Resetear animación de selección después de un delay
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         _selectionAnimation.reverse();
@@ -192,20 +188,27 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(context.loc.planLabel(selectedPlan!.name)),
-                Text(
-                  context.loc.durationLabel(
+                AppText(text: context.loc.planLabel(selectedPlan!.name), fontSize: AppSpacing.md),
+                AppText(
+                  text: context.loc.durationLabel(
                     selectedPlan!.durationMonths,
                     selectedPlan!.durationMonths > 1 ? 'es' : '',
                   ),
+                  fontSize: AppSpacing.md,
                 ),
-                Text(context.loc.monthlyPriceLabel(selectedPlan!.monthlyPrice.toStringAsFixed(2))),
-                Text(
-                  context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                AppText(
+                  text: context.loc.monthlyPriceLabel(
+                    selectedPlan!.monthlyPrice.toStringAsFixed(2),
+                  ),
+                  fontSize: AppSpacing.md,
+                ),
+                AppText(
+                  text: context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
+                  fontSize: AppSpacing.md,
+                  fontWeight: FontWeight.bold,
                 ),
                 if (selectedPlan!.discountPercentage > 0) ...[
-                  const SizedBox(height: 8),
+                  AppVerticalSpace.sm,
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
@@ -225,7 +228,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                     ),
                   ),
                 ],
-                const SizedBox(height: 16),
+                AppVerticalSpace.md,
                 Row(
                   children: [
                     Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
@@ -238,6 +241,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                     ),
                   ],
                 ),
+                AppVerticalSpace.md,
               ],
             ),
             confirmLabel: context.loc.payNow,
@@ -294,10 +298,10 @@ class DescriptionBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sl, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
-        color: context.color.backgroundCard,
-        borderRadius: BorderRadius.circular(25),
+        color: context.color.background,
+        borderRadius: BorderRadius.circular(AppSpacing.md),
         border: Border.all(color: context.color.textSecondary.withValues(alpha: 0.2), width: 1),
         boxShadow: [
           BoxShadow(
@@ -311,22 +315,19 @@ class DescriptionBanner extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: context.color.buttonPrimary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(AppSpacing.sl),
             ),
-            child: Icon(Icons.flag, color: context.color.buttonPrimary, size: 20),
+            child: Icon(Icons.flag, color: context.color.buttonPrimary, size: AppSpacing.xmd),
           ),
-          const SizedBox(width: 12),
+          AppHorizontalSpace.sl,
           Expanded(
-            child: Text(
-              context.loc.discoverPeruvianCuisine,
-              style: TextStyle(
-                color: context.color.text,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            child: AppText(
+              text: context.loc.discoverCuisine,
+              fontSize: AppSpacing.md,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -342,38 +343,35 @@ class HeaderPlanes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: kTextTabBarHeight),
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: context.color.background.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: IconButton(
-                  onPressed: context.pop,
-                  icon: Icon(Icons.arrow_back_ios_new, color: context.color.text, size: 20),
-                  style: IconButton.styleFrom(padding: const EdgeInsets.all(12)),
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: kTextTabBarHeight),
+        Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: context.color.background.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12),
               ),
-              Expanded(
-                child: Text(
-                  context.loc.premiumPlans,
-                  style: AppStyles.h1.copyWith(color: context.color.text),
-                  textAlign: TextAlign.center,
-                ),
+              child: IconButton(
+                onPressed: context.pop,
+                icon: Icon(Icons.arrow_back_ios_new, color: context.color.text, size: 20),
+                style: IconButton.styleFrom(padding: const EdgeInsets.all(12)),
               ),
-              const SizedBox(width: 56),
-            ],
-          ),
-          AppVerticalSpace.xmd,
-        ],
-      ),
+            ),
+            Expanded(
+              child: Text(
+                context.loc.premiumPlans,
+                style: AppStyles.h1.copyWith(color: context.color.text),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(width: 56),
+          ],
+        ),
+        AppVerticalSpace.xmd,
+      ],
     );
   }
 }
@@ -386,10 +384,10 @@ class PagoSeguro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(AppSpacing.xmd),
       decoration: BoxDecoration(
         color: context.color.background,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.md),
         border: Border.all(color: context.color.buttonPrimary.withValues(alpha: 0.2), width: 1),
         boxShadow: [
           BoxShadow(
@@ -402,14 +400,14 @@ class PagoSeguro extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: context.color.buttonPrimary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(AppSpacing.sl),
             ),
-            child: Icon(Icons.security, color: context.color.buttonPrimary, size: 20),
+            child: Icon(Icons.security, color: context.color.buttonPrimary, size: AppSpacing.xmd),
           ),
-          const SizedBox(width: 16),
+          AppHorizontalSpace.md,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,7 +420,7 @@ class PagoSeguro extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 2),
+                AppVerticalSpace.xxs,
                 Text(
                   context.loc.cancelAnytime,
                   style: TextStyle(
@@ -435,38 +433,6 @@ class PagoSeguro extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SubscriptionButton extends StatelessWidget {
-  final String text;
-  final VoidCallback? onPressed;
-  final Color? backgroundColor;
-  final Color? textColor;
-  final IconData? icon;
-
-  const SubscriptionButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.backgroundColor,
-    this.textColor,
-    this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon ?? Icons.star),
-      label: Text(text),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? context.color.buttonPrimary,
-        foregroundColor: textColor ?? context.color.background,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       ),
     );
   }
@@ -496,8 +462,10 @@ class PlanesPremiumListWidget extends StatelessWidget {
           DescriptionBanner(context: this.context),
           AppVerticalSpace.xmd,
           ...SubscriptionPlans.available.map(
-            (plan) =>
-                Padding(padding: const EdgeInsets.only(bottom: 30), child: buildPlanCard(plan)),
+            (plan) => Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xxmd),
+              child: buildPlanCard(plan),
+            ),
           ),
         ],
       ),
@@ -547,7 +515,7 @@ class PlanCardWidget extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: isSelected ? backgroundColorAnimation.value : context.color.background,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppSpacing.xmd),
                     border: Border.all(
                       color:
                           isSelected
@@ -563,7 +531,7 @@ class PlanCardWidget extends StatelessWidget {
                             isSelected
                                 ? context.color.buttonPrimary.withValues(alpha: 0.5)
                                 : context.color.textSecondary.withValues(alpha: 0.2),
-                        blurRadius: isSelected ? 20 : 15,
+                        blurRadius: isSelected ? AppSpacing.xmd : AppSpacing.md,
                         offset: const Offset(0, 4),
                       ),
                     ],
@@ -580,7 +548,7 @@ class PlanCardWidget extends StatelessWidget {
                 return Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(AppSpacing.xmd),
                       border: Border.all(
                         color: context.color.buttonPrimary.withValues(
                           alpha: 0.3 * (1 - pulseAnimation.value),
@@ -614,19 +582,28 @@ class PlanCardWidget extends StatelessWidget {
             ),
           if (plan.isBestValue || plan.isPopular)
             Positioned(
-              top: 12,
-              right: 12,
+              top: AppSpacing.sl,
+              right: AppSpacing.sl,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                width: 150,
+                height: 30,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: AppSpacing.xxs,
+                ),
                 decoration: BoxDecoration(
                   color:
                       plan.isBestValue
-                          ? Colors.green.withValues(alpha: 0.9)
+                          ? context.color.success.withValues(alpha: 0.9)
                           : context.color.buttonPrimary.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
+                      color:
+                          plan.isBestValue
+                              ? context.color.success.withValues(alpha: 0.9)
+                              : context.color.buttonPrimary.withValues(alpha: 0.9),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -637,15 +614,15 @@ class PlanCardWidget extends StatelessWidget {
                   children: [
                     Icon(
                       plan.isBestValue ? Icons.diamond : Icons.local_fire_department,
-                      color: Colors.white,
+                      color: context.color.background,
                       size: 12,
                     ),
-                    const SizedBox(width: 4),
+                    AppHorizontalSpace.xs,
                     Text(
-                      plan.isBestValue ? 'MEJOR VALOR' : 'POPULAR',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                      plan.isBestValue ? context.loc.bestValue : context.loc.popular,
+                      style: TextStyle(
+                        color: context.color.background,
+                        fontSize: AppSpacing.sl,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -666,7 +643,7 @@ class PlanContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(AppSpacing.xmd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -678,17 +655,17 @@ class PlanContentWidget extends StatelessWidget {
                   Text(
                     plan.name,
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: AppSpacing.xxmd,
                       fontWeight: FontWeight.w700,
                       color: context.color.text,
                       letterSpacing: -0.3,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  AppVerticalSpace.xs,
                   Text(
                     plan.description,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: AppSpacing.md,
                       color: context.color.textSecondary,
                       fontWeight: FontWeight.w500,
                     ),
@@ -697,7 +674,7 @@ class PlanContentWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          AppVerticalSpace.xxmd,
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
@@ -705,23 +682,23 @@ class PlanContentWidget extends StatelessWidget {
               Text(
                 'S/ ${plan.monthlyPrice.toStringAsFixed(2)}',
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: AppSpacing.lg + 2,
                   fontWeight: FontWeight.w800,
                   color: context.color.buttonPrimary,
                   letterSpacing: -0.5,
                 ),
               ),
-              const SizedBox(width: 8),
+              AppHorizontalSpace.xs,
               Text(
-                '/mes',
+                context.loc.perMonth,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: AppSpacing.md,
                   color: context.color.textSecondary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               if (plan.discountPercentage > 0) ...[
-                const SizedBox(width: 16),
+                AppHorizontalSpace.sm,
                 Text(
                   'S/ ${plan.originalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
@@ -735,9 +712,12 @@ class PlanContentWidget extends StatelessWidget {
             ],
           ),
           if (plan.discountPercentage > 0) ...[
-            const SizedBox(height: 12),
+            AppVerticalSpace.sl,
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.sm,
+                vertical: AppSpacing.xs,
+              ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -757,12 +737,19 @@ class PlanContentWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.local_fire_department, color: context.color.background, size: 16),
-                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.local_fire_department,
+                    color: context.color.background,
+                    size: AppSpacing.md,
+                  ),
+                  AppHorizontalSpace.xs,
                   Text(
-                    'Ahorra ${plan.discountPercentage}% • S/ ${plan.totalSavings.toStringAsFixed(2)}',
+                    context.loc.saveLabel(
+                      plan.discountPercentage,
+                      plan.totalSavings.toStringAsFixed(2),
+                    ),
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: AppSpacing.sl,
                       color: context.color.background,
                       fontWeight: FontWeight.w700,
                     ),
@@ -783,9 +770,13 @@ class PlanContentWidget extends StatelessWidget {
                       color: context.color.buttonPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(Icons.check_circle, color: context.color.buttonPrimary, size: 18),
+                    child: Icon(
+                      Icons.check_circle,
+                      color: context.color.buttonPrimary,
+                      size: AppSpacing.md,
+                    ),
                   ),
-                  const SizedBox(width: 12),
+                  AppHorizontalSpace.sm,
                   Expanded(
                     child: Text(
                       feature,
@@ -822,7 +813,12 @@ class BottomSectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 16),
+      padding: const EdgeInsets.only(
+        left: AppSpacing.md,
+        right: AppSpacing.md,
+        top: AppSpacing.sm,
+        bottom: AppSpacing.md,
+      ),
       decoration: BoxDecoration(
         color: context.color.backgroundCard,
         border: Border.all(color: context.color.textSecondary.withValues(alpha: 0.3), width: 1),
@@ -844,7 +840,7 @@ class BottomSectionWidget extends StatelessWidget {
           ),
           AppVerticalSpace.sm,
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
             child: Text(
               context.loc.acceptTerms,
               style: TextStyle(

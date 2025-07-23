@@ -1079,7 +1079,7 @@ abstract class AppLocalizations {
   /// Label for savings
   ///
   /// In en, this message translates to:
-  /// **'🎉 Save {percent}% (S/ {amount})'**
+  /// **'Save {percent}% (S/ {amount})'**
   String saveLabel(Object percent, Object amount);
 
   /// Button label to pay now
@@ -1094,11 +1094,11 @@ abstract class AppLocalizations {
   /// **'Continue with {planName}'**
   String continueWith(Object planName);
 
-  /// Text inviting to discover Peruvian cuisine
+  /// Text inviting to discover cuisine
   ///
   /// In en, this message translates to:
-  /// **'Discover the secrets of Peruvian cuisine'**
-  String get discoverPeruvianCuisine;
+  /// **'Discover the secrets of cuisine'**
+  String get discoverCuisine;
 
   /// Label for 100% secure payment
   ///
@@ -1141,6 +1141,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recovery email sent successfully.'**
   String get recoverEmailSent;
+
+  /// Label for the best value plan
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get bestValue;
+
+  /// Label for the popular plan
+  ///
+  /// In en, this message translates to:
+  /// **'POPULAR'**
+  String get popular;
+
+  /// Label for the price per month
+  ///
+  /// In en, this message translates to:
+  /// **'/month'**
+  String get perMonth;
+
+  /// Footer text to indicate payment is processed by PayU and is SSL secure
+  ///
+  /// In en, this message translates to:
+  /// **'Processed by PayU • SSL Secure'**
+  String get processedByPayuSsl;
 }
 
 class _AppLocalizationsDelegate

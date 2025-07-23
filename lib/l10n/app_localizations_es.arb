@@ -652,7 +652,7 @@
     }
   },
   "payuSafe": "Pago seguro con PayU",
-  "saveLabel": "🎉 Ahorras {percent}% (S/ {amount})",
+  "saveLabel": "Ahorras {percent}% (S/ {amount})",
   "@saveLabel": {
     "description": "Etiqueta para el ahorro",
     "placeholders": {
@@ -668,9 +668,9 @@
       "planName": {}
     }
   },
-  "discoverPeruvianCuisine": "Descubre los secretos de la cocina peruana",
-  "@discoverPeruvianCuisine": {
-    "description": "Texto para invitar a descubrir la cocina peruana"
+  "discoverCuisine": "Descubre los secretos de la cocina",
+  "@discoverCuisine": {
+    "description": "Texto para invitar a descubrir la cocina"
   },
   "payu100Safe": "Pago 100% seguro",
   "cancelAnytime": "Cancela cuando quieras",
@@ -691,5 +691,21 @@
   "recoverEmailSent": "Correo de recuperación enviado con éxito.",
   "@recoverEmailSent": {
     "description": "Mensaje de éxito al enviar el correo de recuperación de contraseña"
+  },
+  "bestValue": "MEJOR VALOR",
+  "@bestValue": {
+    "description": "Etiqueta para el plan con mejor valor"
+  },
+  "popular": "POPULAR",
+  "@popular": {
+    "description": "Etiqueta para el plan popular"
+  },
+  "perMonth": "/mes",
+  "@perMonth": {
+    "description": "Etiqueta para el precio mensual"
+  },
+  "processedByPayuSsl": "Procesado por PayU • SSL Seguro",
+  "@processedByPayuSsl": {
+    "description": "Texto de pie de página para indicar que el pago es procesado por PayU y es seguro SSL"
   }
 }

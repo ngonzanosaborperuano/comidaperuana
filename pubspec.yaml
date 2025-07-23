@@ -49,6 +49,7 @@ dependencies:
   http: ^1.4.0
   webview_flutter: ^4.13.0
   flutter_svg: ^2.0.10+1
+  responsive_builder: ^0.7.0
 
 dev_dependencies:
   mockito: ^5.4.5
