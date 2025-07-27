@@ -3,8 +3,8 @@ import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig
 import 'package:recetasperuanas/core/services/payu_service.dart' show PayUService;
 import 'package:recetasperuanas/core/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
-import 'package:recetasperuanas/modules/checkout/view/payu_checkout_webview.dart'
-    show PayUCheckoutWebView;
+import 'package:recetasperuanas/modules/checkout/view/payu_checkout_webview_v2.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
 void showPayUCheckout(
   BuildContext context, {
@@ -50,7 +50,7 @@ void showPayUCheckout(
           context,
           MaterialPageRoute(
             builder:
-                (context) => PayUCheckoutWebView(
+                (context) => PayUCheckoutWebViewV2(
                   checkoutUrl: response.checkoutUrl!,
                   checkoutData: checkoutData,
                   onPaymentCompleted: onSuccess,
@@ -62,12 +62,7 @@ void showPayUCheckout(
     } else {
       // Error generando checkout
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(response.message ?? 'Error generando checkout'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        context.showErrorToast(response.message ?? 'Error generando checkout');
         onFailure?.call();
       }
     }
@@ -75,9 +70,7 @@ void showPayUCheckout(
     if (context.mounted) {
       print('Error: $e');
       debugPrint('StackTrace: $stackTrace');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red));
+      context.showErrorToast('Error: $e');
       onFailure?.call();
     }
   }

@@ -1165,6 +1165,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Processed by PayU • SSL Secure'**
   String get processedByPayuSsl;
+
+  /// Title for successful subscription confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your subscription!'**
+  String get subscriptionSuccessTitle;
+
+  /// Message for successful subscription confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to CocinandoIA Premium! 🎉\n\nYour subscription has been successfully activated. Now you can enjoy smart recipes, personalized recommendations, and much more.\n\nThank you for trusting us to accompany you in your kitchen!'**
+  String get subscriptionSuccessContent;
+
+  /// Button to go to home after subscribing
+  ///
+  /// In en, this message translates to:
+  /// **'Go to home'**
+  String get goHome;
+
+  /// Button to confirm payment
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get confirmLabel;
 }
 
 class _AppLocalizationsDelegate

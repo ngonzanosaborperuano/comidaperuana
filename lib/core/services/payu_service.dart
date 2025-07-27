@@ -52,7 +52,6 @@ class PayUService extends ChangeNotifier {
     }
   }
 
-  /// Procesar respuesta de PayU (llamar cuando regrese del checkout)
   Future<bool> processPaymentResponse({
     required String referenceCode,
     required String transactionState,
@@ -184,7 +183,7 @@ class PayUService extends ChangeNotifier {
       'buyerFullName': buyerName,
       'responseUrl': responseUrl,
       'confirmationUrl': confirmationUrl,
-      'lng': 'es', // Idioma español para Perú
+      'lng': 'es',
     };
   }
 }

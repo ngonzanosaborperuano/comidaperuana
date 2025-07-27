@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart' show AppButton;
 
 class AppConfirmDialog extends StatefulWidget {
   final String title;
   final Widget content;
   final String confirmLabel;
-  final String cancelLabel;
+  final String? cancelLabel;
   final VoidCallback onConfirm;
   final VoidCallback? onCancel;
   final Color? confirmColor;
@@ -20,7 +21,7 @@ class AppConfirmDialog extends StatefulWidget {
     required this.title,
     required this.content,
     required this.confirmLabel,
-    required this.cancelLabel,
+    this.cancelLabel,
     required this.onConfirm,
     this.onCancel,
     this.confirmColor,
@@ -92,19 +93,18 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.md,
+                    vertical: AppSpacing.md,
+                  ),
                   child: Column(
                     spacing: AppSpacing.md,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.subscriptions,
-                            color: widget.confirmColor ?? Theme.of(context).colorScheme.primary,
-                            size: 28,
-                          ),
-                          const SizedBox(width: 8),
+                          Icon(Icons.subscriptions, color: context.color.buttonPrimary, size: 28),
+                          AppHorizontalSpace.sm,
                           Expanded(
                             child: Text(
                               widget.title,
@@ -119,32 +119,24 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                       widget.content,
                       Row(
                         children: [
-                          Expanded(
-                            child: TextButton(
-                              onPressed: widget.onCancel ?? () => Navigator.of(context).pop(),
-                              child: Text(
-                                widget.cancelLabel,
-                                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                          if (widget.cancelLabel != null) ...[
+                            Expanded(
+                              child: TextButton(
+                                onPressed: widget.onCancel ?? () => Navigator.of(context).pop(),
+                                child: Text(
+                                  widget.cancelLabel!,
+                                  style: TextStyle(color: context.color.text),
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 12),
+                            AppHorizontalSpace.sm,
+                          ],
                           Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: context.color.buttonPrimary,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                              ),
-                              onPressed: widget.onConfirm,
-                              child: Text(
-                                widget.confirmLabel,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: context.color.background,
-                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                              child: AppButton(
+                                onPressed: widget.onConfirm,
+                                text: widget.confirmLabel,
                               ),
                             ),
                           ),

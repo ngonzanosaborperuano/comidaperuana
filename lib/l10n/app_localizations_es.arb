@@ -707,5 +707,21 @@
   "processedByPayuSsl": "Procesado por PayU • SSL Seguro",
   "@processedByPayuSsl": {
     "description": "Texto de pie de página para indicar que el pago es procesado por PayU y es seguro SSL"
+  },
+  "subscriptionSuccessTitle": "¡Gracias por tu suscripción!",
+  "@subscriptionSuccessTitle": {
+    "description": "Título de confirmación de suscripción exitosa"
+  },
+  "subscriptionSuccessContent": "¡Bienvenido a CocinandoIA Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!",
+  "@subscriptionSuccessContent": {
+    "description": "Mensaje de confirmación de suscripción exitosa"
+  },
+  "goHome": "Ir al inicio",
+  "@goHome": {
+    "description": "Botón para ir al home tras suscribirse"
+  },
+  "confirmLabel": "Pagar",
+  "@confirmLabel": {
+    "description": "Botón para confirmar el pago"
   }
 }

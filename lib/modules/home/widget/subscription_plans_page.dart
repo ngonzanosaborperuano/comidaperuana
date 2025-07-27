@@ -232,7 +232,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                 Row(
                   children: [
                     Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
-                    const SizedBox(width: 8),
+                    AppHorizontalSpace.sm,
                     Expanded(
                       child: Text(
                         context.loc.payuSafe,
@@ -244,7 +244,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                 AppVerticalSpace.md,
               ],
             ),
-            confirmLabel: context.loc.payNow,
+            confirmLabel: context.loc.confirmLabel,
             cancelLabel: context.loc.cancel,
             onConfirm: () {
               context.pop();

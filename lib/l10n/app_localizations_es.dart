@@ -589,4 +589,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get processedByPayuSsl => 'Procesado por PayU • SSL Seguro';
+
+  @override
+  String get subscriptionSuccessTitle => '¡Gracias por tu suscripción!';
+
+  @override
+  String get subscriptionSuccessContent =>
+      '¡Bienvenido a CocinandoIA Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!';
+
+  @override
+  String get goHome => 'Ir al inicio';
+
+  @override
+  String get confirmLabel => 'Pagar';
 }

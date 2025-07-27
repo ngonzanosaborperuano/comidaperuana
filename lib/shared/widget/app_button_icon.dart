@@ -101,7 +101,7 @@ class AppButton extends StatelessWidget {
   Widget _buildButtonContent(Color colorSecundary, BuildContext context) {
     final textWidget = Text(
       text,
-      style: TextStyle(color: colorSecundary, fontSize: 18, fontWeight: FontWeight.w700),
+      style: TextStyle(color: colorSecundary, fontSize: 16, fontWeight: FontWeight.w700),
     );
 
     final iconTheme =

@@ -95,6 +95,14 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                   .join('&')
                   .codeUnits,
             ),
+          )
+          ..runJavaScriptReturningResult('window.close()')
+          ..addJavaScriptChannel(
+            'close',
+            onMessageReceived: (message) {
+              debugPrint('🔍 PAYU - Mensaje recibido: $message');
+              context.go(Routes.home.description);
+            },
           );
   }
 
