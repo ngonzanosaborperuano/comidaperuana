@@ -3,7 +3,7 @@ import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig
 import 'package:recetasperuanas/core/services/payu_service.dart' show PayUService;
 import 'package:recetasperuanas/core/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
-import 'package:recetasperuanas/modules/checkout/view/payu_checkout_webview_v2.dart';
+import 'package:recetasperuanas/modules/checkout/view/payu_checkout_page.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 void showPayUCheckout(
@@ -50,11 +50,9 @@ void showPayUCheckout(
           context,
           MaterialPageRoute(
             builder:
-                (context) => PayUCheckoutWebViewV2(
+                (context) => PayUCheckoutWebPage(
                   checkoutUrl: response.checkoutUrl!,
                   checkoutData: checkoutData,
-                  onPaymentCompleted: onSuccess,
-                  onPaymentFailed: onFailure,
                 ),
           ),
         );
