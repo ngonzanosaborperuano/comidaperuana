@@ -175,6 +175,7 @@ class PayUService extends ChangeNotifier {
       'accountId': accountId,
       'description': description,
       'referenceCode': referenceCode,
+      //'paymentMethods': 'VISA,MASTERCARD',
       'amount': formattedAmount,
       'currency': currency,
       'signature': signature,

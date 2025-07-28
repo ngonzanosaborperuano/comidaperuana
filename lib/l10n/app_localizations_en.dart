@@ -9,10 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get welcome => 'Welcome to Peruvian Food';
+  String get welcome => 'Welcome to CocinandoIA';
 
   @override
-  String get welcomeToRecetasPeruanas => 'Welcome to Peruvian Recipes!';
+  String get welcomeToRecetasCocinandoIA => 'Welcome to CocinandoIA!';
 
   @override
   String get home => 'Home';
@@ -27,7 +27,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
-  String get descriptionWelcome => 'The best of Peruvian gastronomy.';
+  String get descriptionWelcome => 'The best of gastronomy.';
 
   @override
   String get getStarted => 'Get Started';
@@ -222,7 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSubtitle1 =>
-      'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of Peruvian gastronomy. Every meal will be a unique experience!';
+      'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of gastronomy. Every meal will be a unique experience!';
 
   @override
   String get onboardingTitle2 => 'Cook at Home';
@@ -236,7 +236,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSubtitle3 =>
-      'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic Peruvian flavors. Cook like an expert!';
+      'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic flavors. Cook like an expert!';
 
   @override
   String get onboardingTitle4 => 'Welcome to Cocinando!';
@@ -563,6 +563,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String subscriptionActivated(Object planName) {
     return 'Subscription $planName activated!';
   }
+
+  @override
+  String get subscription => 'Subscription';
+
+  @override
+  String get appName => 'CocinandoIA';
 
   @override
   String get recoverEmailSent => 'Recovery email sent successfully.';

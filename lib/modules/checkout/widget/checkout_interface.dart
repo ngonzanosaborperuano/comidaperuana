@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/modules/checkout/model/payu_checkout_response_model.dart';
 import 'package:recetasperuanas/modules/checkout/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class CheckoutInterface extends StatefulWidget {
   final String checkoutUrl;
@@ -47,6 +48,7 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: kToolbarHeight),
         SizedBox(
           height: 4,
           child: AnimatedContainer(
@@ -112,6 +114,7 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
               widget.onProgressChanged(p.toDouble());
             },
             shouldOverrideUrlLoading: (controller, navAction) async {
+              debugPrint('navAction: ${navAction.request.url}');
               return NavigationActionPolicy.ALLOW;
             },
             onConsoleMessage: (controller, consoleMessage) async {
@@ -122,6 +125,10 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
                 final responsePayU = PayuCheckoutResponseModel.fromJson(params);
                 if (responsePayU.transactionState == '4') {
                   widget.onPaymentSuccess(responsePayU, params);
+                } else if (responsePayU.transactionState == '6') {
+                  if (mounted) {
+                    context.showErrorToast(context.loc.payuError);
+                  }
                 }
               }
             },

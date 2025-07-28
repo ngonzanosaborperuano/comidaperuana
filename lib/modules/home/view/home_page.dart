@@ -15,7 +15,7 @@ import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  factory HomePage.routeBuilder(_, __) {
+  factory HomePage.routeBuilder(_, _) {
     return const HomePage(key: Key('home_page'));
   }
   Future<bool?> show(BuildContext context) async {

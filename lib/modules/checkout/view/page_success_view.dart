@@ -113,17 +113,20 @@ class _PageSuccessState extends State<PageSuccess> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Background(backgroundAnimation: _backgroundAnimation),
-        AppConfetti(confettiController: _confettiController),
-        Body(
-          fadeAnimation: _fadeAnimation,
-          scaleAnimation: _scaleAnimation,
-          slideAnimation: _slideAnimation,
-          widget: widget,
-        ),
-      ],
+    return PopScope(
+      canPop: false,
+      child: Stack(
+        children: [
+          Background(backgroundAnimation: _backgroundAnimation),
+          AppConfetti(confettiController: _confettiController),
+          Body(
+            fadeAnimation: _fadeAnimation,
+            scaleAnimation: _scaleAnimation,
+            slideAnimation: _slideAnimation,
+            widget: widget,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:recetasperuanas/modules/setting/view/setting_view.dart';
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
-  factory SettingPage.routeBuilder(_, __) {
+  factory SettingPage.routeBuilder(_, _) {
     return const SettingPage(key: Key('setting_page'));
   }
 

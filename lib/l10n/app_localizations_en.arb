@@ -1,11 +1,11 @@
 {
   "@@locale": "en",
-  "welcome": "Welcome to Peruvian Food",
+  "welcome": "Welcome to CocinandoIA",
   "@welcome": {
     "description": "Welcome title on main screen"
   },
-  "welcomeToRecetasPeruanas": "Welcome to Peruvian Recipes!",
-  "@welcomeToRecetasPeruanas": {
+  "welcomeToRecetasCocinandoIA": "Welcome to CocinandoIA!",
+  "@welcomeToRecetasCocinandoIA": {
     "description": "Welcome message after successful login"
   },
   "home": "Home",
@@ -24,7 +24,7 @@
   "@profile": {
     "description": "Title of the profile page"
   },
-  "descriptionWelcome": "The best of Peruvian gastronomy.",
+  "descriptionWelcome": "The best of gastronomy.",
   "@descriptionWelcome": {
     "description": "Subtitle under the welcome message"
   },
@@ -276,7 +276,7 @@
   "@onboardingTitle1": {
     "description": "First onboarding screen title"
   },
-  "onboardingSubtitle1": "Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of Peruvian gastronomy. Every meal will be a unique experience!",
+  "onboardingSubtitle1": "Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of gastronomy. Every meal will be a unique experience!",
   "@onboardingSubtitle1": {
     "description": "First onboarding screen subtitle"
   },
@@ -292,7 +292,7 @@
   "@onboardingTitle3": {
     "description": "Third onboarding screen title"
   },
-  "onboardingSubtitle3": "Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic Peruvian flavors. Cook like an expert!",
+  "onboardingSubtitle3": "Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic flavors. Cook like an expert!",
   "@onboardingSubtitle3": {
     "description": "Third onboarding screen subtitle"
   },
@@ -714,6 +714,14 @@
     "placeholders": {
       "planName": {}
     }
+  },
+  "subscription": "Subscription",
+  "@subscription": {
+    "description": "Word for subscription"
+  },
+  "appName": "CocinandoIA",
+  "@appName": {
+    "description": "Application name"
   },
   "recoverEmailSent": "Recovery email sent successfully.",
   "@recoverEmailSent": {

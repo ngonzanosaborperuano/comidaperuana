@@ -101,14 +101,14 @@ abstract class AppLocalizations {
   /// Welcome title on main screen
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Peruvian Food'**
+  /// **'Welcome to CocinandoIA'**
   String get welcome;
 
   /// Welcome message after successful login
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Peruvian Recipes!'**
-  String get welcomeToRecetasPeruanas;
+  /// **'Welcome to CocinandoIA!'**
+  String get welcomeToRecetasCocinandoIA;
 
   /// Title of the home page
   ///
@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// Subtitle under the welcome message
   ///
   /// In en, this message translates to:
-  /// **'The best of Peruvian gastronomy.'**
+  /// **'The best of gastronomy.'**
   String get descriptionWelcome;
 
   /// Button to start the app or onboarding
@@ -515,7 +515,7 @@ abstract class AppLocalizations {
   /// First onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of Peruvian gastronomy. Every meal will be a unique experience!'**
+  /// **'Transform your daily cooking with personalized recipes, precise nutritional data, and the magic of gastronomy. Every meal will be a unique experience!'**
   String get onboardingSubtitle1;
 
   /// Second onboarding screen title
@@ -539,7 +539,7 @@ abstract class AppLocalizations {
   /// Third onboarding screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic Peruvian flavors. Cook like an expert!'**
+  /// **'Access exclusive recipes from professional chefs with detailed nutritional information, secret techniques, and authentic flavors. Cook like an expert!'**
   String get onboardingSubtitle3;
 
   /// Fourth onboarding screen title
@@ -1135,6 +1135,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription {planName} activated!'**
   String subscriptionActivated(Object planName);
+
+  /// Word for subscription
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subscription;
+
+  /// Application name
+  ///
+  /// In en, this message translates to:
+  /// **'CocinandoIA'**
+  String get appName;
 
   /// Success message when the password recovery email is sent
   ///

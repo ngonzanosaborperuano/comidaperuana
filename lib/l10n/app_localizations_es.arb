@@ -1,11 +1,11 @@
 {
   "@@locale": "es",
-  "welcome": "Bienvenido a Comida peruana",
+  "welcome": "Bienvenido a CocinandoIA",
   "@welcome": {
     "description": "Título de bienvenida en la pantalla principal"
   },
-  "welcomeToRecetasPeruanas": "¡Bienvenido a Recetas Peruanas!",
-  "@welcomeToRecetasPeruanas": {
+  "welcomeToRecetasCocinandoIA": "¡Bienvenido a CocinandoIA!",
+  "@welcomeToRecetasCocinandoIA": {
     "description": "Mensaje de bienvenida después del login exitoso"
   },
   "home": "Inicio",
@@ -24,7 +24,7 @@
   "@profile": {
     "description": "Título de la página de perfil"
   },
-  "descriptionWelcome": "Lo mejor de la gastronomia peruana.",
+  "descriptionWelcome": "Lo mejor de la gastronomia.",
   "@descriptionWelcome": {
     "description": "Subtítulo de bienvenida"
   },
@@ -272,7 +272,7 @@
   "@onboardingTitle1": {
     "description": "Título de la primera pantalla de onboarding"
   },
-  "onboardingSubtitle1": "Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía peruana. ¡Cada comida será una experiencia única!",
+  "onboardingSubtitle1": "Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía. ¡Cada comida será una experiencia única!",
   "@onboardingSubtitle1": {
     "description": "Subtítulo de la primera pantalla de onboarding"
   },
@@ -687,6 +687,14 @@
     "placeholders": {
       "planName": {}
     }
+  },
+  "subscription": "Suscripción",
+  "@subscription": {
+    "description": "Palabra para suscripción"
+  },
+  "appName": "CocinandoIA",
+  "@appName": {
+    "description": "Nombre de la aplicación"
   },
   "recoverEmailSent": "Correo de recuperación enviado con éxito.",
   "@recoverEmailSent": {

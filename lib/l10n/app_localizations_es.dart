@@ -9,10 +9,10 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get welcome => 'Bienvenido a Comida peruana';
+  String get welcome => 'Bienvenido a CocinandoIA';
 
   @override
-  String get welcomeToRecetasPeruanas => '¡Bienvenido a Recetas Peruanas!';
+  String get welcomeToRecetasCocinandoIA => '¡Bienvenido a CocinandoIA!';
 
   @override
   String get home => 'Inicio';
@@ -27,7 +27,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profile => 'Perfil';
 
   @override
-  String get descriptionWelcome => 'Lo mejor de la gastronomia peruana.';
+  String get descriptionWelcome => 'Lo mejor de la gastronomia.';
 
   @override
   String get getStarted => 'Empezar';
@@ -223,7 +223,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingSubtitle1 =>
-      'Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía peruana. ¡Cada comida será una experiencia única!';
+      'Transforma tu cocina diaria con recetas personalizadas, datos nutricionales precisos y la magia de la gastronomía. ¡Cada comida será una experiencia única!';
 
   @override
   String get onboardingTitle2 => 'Cocina en casa';
@@ -574,6 +574,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String subscriptionActivated(Object planName) {
     return '¡Suscripción $planName activada!';
   }
+
+  @override
+  String get subscription => 'Suscripción';
+
+  @override
+  String get appName => 'CocinandoIA';
 
   @override
   String get recoverEmailSent => 'Correo de recuperación enviado con éxito.';

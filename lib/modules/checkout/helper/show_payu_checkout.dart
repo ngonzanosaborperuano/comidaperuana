@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
+import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
 import 'package:recetasperuanas/core/services/payu_service.dart' show PayUService;
 import 'package:recetasperuanas/core/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
-import 'package:recetasperuanas/modules/checkout/view/payu_checkout_page.dart';
+import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 void showPayUCheckout(
@@ -17,6 +19,9 @@ void showPayUCheckout(
 }) async {
   try {
     final payuService = PayUService();
+
+    final description =
+        '${context.loc.subscription} ${planType.displayName} - ${context.loc.appName}';
 
     // Generar URL y datos de checkout
     final response = await payuService.processSubscriptionPayment(
@@ -36,7 +41,7 @@ void showPayUCheckout(
         amount: planType.basePrice,
         currency: PayUConfig.currency,
         referenceCode: 'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}',
-        description: 'Suscripción ${planType.displayName} - Recetas Peruanas',
+        description: description,
         buyerEmail: userEmail,
         buyerName: userName,
         responseUrl: PayUConfig.responseUrl,
@@ -46,15 +51,13 @@ void showPayUCheckout(
 
       // Mostrar WebView con checkout
       if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => PayUCheckoutWebPage(
-                  checkoutUrl: response.checkoutUrl!,
-                  checkoutData: checkoutData,
-                ),
-          ),
+        // Serializar checkoutData para queryParameters
+        final checkoutDataJson = checkoutData.entries
+            .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .join('&');
+        context.pushNamed(
+          Routes.payuCheckout.description,
+          queryParameters: {'checkoutUrl': response.checkoutUrl!, 'checkoutData': checkoutDataJson},
         );
       }
     } else {

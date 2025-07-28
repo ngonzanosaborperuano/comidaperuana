@@ -5,3 +5,4 @@ export 'package:recetasperuanas/modules/home/view/home_page.dart';
 export 'package:recetasperuanas/modules/register/view/register_page.dart';
 export 'package:recetasperuanas/modules/welcome/view/welcome_page.dart';
 export 'package:recetasperuanas/modules/login/view/login_page.dart';
+export 'package:recetasperuanas/modules/checkout/view/payu_checkout_page.dart';

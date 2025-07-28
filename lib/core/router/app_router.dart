@@ -34,6 +34,11 @@ final appRouter = GoRouter(
       routes: [
         GoRoute(path: Routes.setting.endpoint, builder: SettingPage.routeBuilder),
         GoRoute(path: Routes.dashboard.endpoint, builder: DashboardPage.routeBuilder),
+        GoRoute(
+          path: Routes.payuCheckout.endpoint,
+          name: Routes.payuCheckout.description,
+          builder: PayUCheckoutWebPage.routeBuilder,
+        ),
       ],
     ),
   ],
