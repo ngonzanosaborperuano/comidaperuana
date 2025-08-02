@@ -582,6 +582,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appName => 'CocinandoIA';
 
   @override
+  String get difficultyEasy => 'Fácil';
+
+  @override
+  String get difficultyMedium => 'Media';
+
+  @override
+  String get difficultyHard => 'Difícil';
+
+  @override
   String get recoverEmailSent => 'Correo de recuperación enviado con éxito.';
 
   @override

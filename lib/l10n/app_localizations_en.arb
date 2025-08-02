@@ -723,6 +723,18 @@
   "@appName": {
     "description": "Application name"
   },
+  "difficultyEasy": "Easy",
+  "@difficultyEasy": {
+    "description": "Easy difficulty level"
+  },
+  "difficultyMedium": "Medium",
+  "@difficultyMedium": {
+    "description": "Medium difficulty level"
+  },
+  "difficultyHard": "Hard",
+  "@difficultyHard": {
+    "description": "Hard difficulty level"
+  },
   "recoverEmailSent": "Recovery email sent successfully.",
   "@recoverEmailSent": {
     "description": "Success message when the password recovery email is sent"

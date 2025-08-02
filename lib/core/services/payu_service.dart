@@ -192,7 +192,7 @@ class PayUService extends ChangeNotifier {
 /// Extension para obtener precios con formato PayU
 extension PayUPricing on SubscriptionPlanType {
   String get payuFormattedPrice => basePrice.toStringAsFixed(1);
-  String get payuDescription => 'Suscripción $displayName - Recetas Peruanas';
+  String get payuDescription => 'Suscripción $displayName - CocinandoIA';
 }
 
 /// Tarjetas de prueba para Perú (Sandbox)
@@ -200,6 +200,7 @@ class PayUTestCards {
   // Tarjetas de crédito de prueba para Perú
   static const String visaCredit = '4111111111111111';
   static const String mastercardCredit = '5555555555554444';
+  static const String amexCredit = '378282246310005';
 
   // Tarjetas de débito de prueba para Perú
   static const String visaDebit = '4005580000000007';

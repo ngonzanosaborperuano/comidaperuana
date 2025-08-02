@@ -67,13 +67,13 @@ class AppButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: enabledButton ? onPressed : null,
       style: ButtonStyle(
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.all(15)),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.all(AppSpacing.sl)),
         backgroundColor: WidgetStateProperty.all(colorSecundary),
         foregroundColor: WidgetStateProperty.all(colorSecundary),
         overlayColor: WidgetStateProperty.all(colorSecundary),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+            borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
             side: BorderSide(color: colorPrimary, width: 0.5),
           ),
         ),
@@ -86,13 +86,13 @@ class AppButton extends StatelessWidget {
   Widget _buildCupertinoButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+        borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
         border: Border.all(color: colorPrimary, width: 0.5),
       ),
       child: CupertinoButton(
         onPressed: enabledButton ? onPressed : null,
         color: colorSecundary,
-        borderRadius: rounded ? BorderRadius.circular(10) : BorderRadius.zero,
+        borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
         child: _buildButtonContent(enabledButton ? colorPrimary : colorSecundary, context),
       ),
     );
@@ -101,7 +101,7 @@ class AppButton extends StatelessWidget {
   Widget _buildButtonContent(Color colorSecundary, BuildContext context) {
     final textWidget = Text(
       text,
-      style: TextStyle(color: colorSecundary, fontSize: 16, fontWeight: FontWeight.w700),
+      style: TextStyle(color: colorSecundary, fontSize: AppSpacing.md, fontWeight: FontWeight.w700),
     );
 
     final iconTheme =

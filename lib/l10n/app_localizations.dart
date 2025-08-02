@@ -1148,6 +1148,24 @@ abstract class AppLocalizations {
   /// **'CocinandoIA'**
   String get appName;
 
+  /// Easy difficulty level
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get difficultyEasy;
+
+  /// Medium difficulty level
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get difficultyMedium;
+
+  /// Hard difficulty level
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get difficultyHard;
+
   /// Success message when the password recovery email is sent
   ///
   /// In en, this message translates to:

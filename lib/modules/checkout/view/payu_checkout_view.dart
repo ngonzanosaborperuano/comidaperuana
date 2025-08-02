@@ -60,7 +60,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
             setState(() {});
           },
           onPaymentSuccess: (responsePayU, params) async {
-            await Future.delayed(const Duration(seconds: 3), () {
+            await Future.delayed(const Duration(milliseconds: 3000), () {
               _processPaymentResult(
                 transactionState: responsePayU.transactionState!,
                 referenceCode: responsePayU.referenceCode ?? '',

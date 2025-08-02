@@ -696,6 +696,18 @@
   "@appName": {
     "description": "Nombre de la aplicación"
   },
+  "difficultyEasy": "Fácil",
+  "@difficultyEasy": {
+    "description": "Nivel de dificultad fácil"
+  },
+  "difficultyMedium": "Media",
+  "@difficultyMedium": {
+    "description": "Nivel de dificultad media"
+  },
+  "difficultyHard": "Difícil",
+  "@difficultyHard": {
+    "description": "Nivel de dificultad difícil"
+  },
   "recoverEmailSent": "Correo de recuperación enviado con éxito.",
   "@recoverEmailSent": {
     "description": "Mensaje de éxito al enviar el correo de recuperación de contraseña"

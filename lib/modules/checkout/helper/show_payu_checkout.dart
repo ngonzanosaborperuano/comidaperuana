@@ -55,7 +55,7 @@ void showPayUCheckout(
         final checkoutDataJson = checkoutData.entries
             .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
             .join('&');
-        context.pushNamed(
+        context.goNamed(
           Routes.payuCheckout.description,
           queryParameters: {'checkoutUrl': response.checkoutUrl!, 'checkoutData': checkoutDataJson},
         );

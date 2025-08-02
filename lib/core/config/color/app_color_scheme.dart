@@ -139,6 +139,54 @@ class AppColorScheme extends InheritedWidget {
         : AppColors.slate900.withValues(alpha: 0.1);
   }
 
+  Color get difficultyEasyText {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyEasyTextDark
+        : AppColors.difficultyEasyTextLight;
+  }
+
+  Color get difficultyEasyBackground {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyEasyBackgroundDark
+        : AppColors.difficultyEasyBackgroundLight;
+  }
+
+  Color get difficultyMediumText {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyMediumTextDark
+        : AppColors.difficultyMediumTextLight;
+  }
+
+  Color get difficultyMediumBackground {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyMediumBackgroundDark
+        : AppColors.difficultyMediumBackgroundLight;
+  }
+
+  Color get difficultyHardText {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyHardTextDark
+        : AppColors.difficultyHardTextLight;
+  }
+
+  Color get difficultyHardBackground {
+    return brightness == Brightness.dark
+        ? AppColors.difficultyHardBackgroundDark
+        : AppColors.difficultyHardBackgroundLight;
+  }
+
+  // === COLORES DE ETIQUETAS ===
+
+  Color get labelText {
+    return brightness == Brightness.dark ? AppColors.labelTextDark : AppColors.labelTextLight;
+  }
+
+  Color get labelBackground {
+    return brightness == Brightness.dark
+        ? AppColors.labelBackgroundDark
+        : AppColors.labelBackgroundLight;
+  }
+
   Color get elevation {
     return brightness == Brightness.dark ? AppColors.slate800 : AppColors.white;
   }

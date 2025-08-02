@@ -118,7 +118,7 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
               return NavigationActionPolicy.ALLOW;
             },
             onConsoleMessage: (controller, consoleMessage) async {
-              if (consoleMessage.message.contains('https://cocinando.shop/api/v1/docs') &&
+              if (consoleMessage.message.contains('https://cocinando.shop') &&
                   consoleMessage.message.contains('reference_pol')) {
                 final uri = Uri.parse(consoleMessage.message);
                 final params = uri.queryParameters;

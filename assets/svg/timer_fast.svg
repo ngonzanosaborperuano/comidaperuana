@@ -1,0 +1,14 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <!-- Círculo exterior del cronómetro -->
+  <circle cx="12" cy="12" r="10" stroke="#666666" stroke-width="2" fill="none"/>
+  <!-- Manecillas del reloj -->
+  <path d="M12 6v6l4 2" stroke="#666666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Centro del reloj -->
+  <circle cx="12" cy="12" r="1" fill="#666666"/>
+  <!-- Marcadores de tiempo -->
+  <line x1="12" y1="2" x2="12" y2="4" stroke="#666666" stroke-width="1"/>
+  <line x1="12" y1="20" x2="12" y2="22" stroke="#666666" stroke-width="1"/>
+  <line x1="2" y1="12" x2="4" y2="12" stroke="#666666" stroke-width="1"/>
+  <line x1="20" y1="12" x2="22" y2="12" stroke="#666666" stroke-width="1"/>
+</svg> 

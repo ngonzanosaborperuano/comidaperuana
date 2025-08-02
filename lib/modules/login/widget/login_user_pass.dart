@@ -9,7 +9,6 @@ import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
 import 'package:recetasperuanas/modules/login/widget/text_field_password.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/utils/util.dart';
-import 'package:recetasperuanas/shared/widget/spacing/spacing.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginUserPass extends StatelessWidget {
