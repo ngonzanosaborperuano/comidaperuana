@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart' show Equatable;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -5,7 +6,7 @@ part 'payu_checkout_response_model.g.dart';
 
 @immutable
 @JsonSerializable()
-class PayuCheckoutResponseModel {
+class PayuCheckoutResponseModel extends Equatable {
   final String? merchantId;
   @JsonKey(name: 'merchant_name')
   final String? merchantName;
@@ -111,4 +112,52 @@ class PayuCheckoutResponseModel {
   factory PayuCheckoutResponseModel.fromJson(Map<String, dynamic> json) =>
       _$PayuCheckoutResponseModelFromJson(json);
   Map<String, dynamic> toJson() => _$PayuCheckoutResponseModelToJson(this);
+
+  @override
+  List<Object?> get props => [
+    merchantId,
+    merchantName,
+    merchantAddress,
+    telephone,
+    merchantUrl,
+    transactionState,
+    lapTransactionState,
+    message,
+    referenceCode,
+    referencePol,
+    transactionId,
+    description,
+    trazabilityCode,
+    cus,
+    orderLanguage,
+    extra1,
+    extra2,
+    extra3,
+    polTransactionState,
+    signature,
+    polResponseCode,
+    lapResponseCode,
+    risk,
+    polPaymentMethod,
+    lapPaymentMethod,
+    polPaymentMethodType,
+    lapPaymentMethodType,
+    installmentsNumber,
+    txValue,
+    txTax,
+    currency,
+    lng,
+    pseCycle,
+    buyerEmail,
+    pseBank,
+    pseReference1,
+    pseReference2,
+    pseReference3,
+    authorizationCode,
+    khipuBank,
+    txAdministrativeFee,
+    txTaxAdministrativeFee,
+    txTaxAdministrativeFeeReturnBase,
+    processingDate,
+  ];
 }

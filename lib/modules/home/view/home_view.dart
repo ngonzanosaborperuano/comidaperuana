@@ -42,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Center(
       child:
-          widget.con.listTask.isEmpty
+          widget.con.listTask.isNotEmpty
               ? SizedBox(
                 width: 500,
                 height: 500,

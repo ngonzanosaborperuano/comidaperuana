@@ -4,6 +4,8 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
+import 'package:recetasperuanas/modules/checkout/model/payu_checkout_params_model.dart'
+    show PayuCheckoutParamsModel;
 import 'package:recetasperuanas/shared/models/payu_response_model.dart' show PayUResponse;
 
 import 'subscription_service.dart';
@@ -149,7 +151,7 @@ class PayUService extends ChangeNotifier {
   }
 
   /// Generar datos para POST al WebCheckout
-  static Map<String, String> buildPayUCheckoutData({
+  static PayuCheckoutParamsModel buildPayUCheckoutData({
     required String merchantId,
     required String accountId,
     required String apiKey,
@@ -161,31 +163,68 @@ class PayUService extends ChangeNotifier {
     required String buyerName,
     required String responseUrl,
     required String confirmationUrl,
+    required String paymentMethods,
     bool test = true,
   }) {
     final formattedAmount = amount.toStringAsFixed(2);
-    final signatureString = '$apiKey~$merchantId~$referenceCode~$formattedAmount~$currency';
+    final signatureString =
+        '$apiKey~$merchantId~$referenceCode~$formattedAmount~$currency~$paymentMethods';
     final signature = md5.convert(utf8.encode(signatureString)).toString();
 
     debugPrint('Signature string: $signatureString');
     debugPrint('Generated signature: $signature');
 
-    return {
-      'merchantId': merchantId,
-      'accountId': accountId,
-      'description': description,
-      'referenceCode': referenceCode,
-      //'paymentMethods': 'VISA,MASTERCARD',
-      'amount': formattedAmount,
-      'currency': currency,
-      'signature': signature,
-      'test': test ? '1' : '0',
-      'buyerEmail': buyerEmail,
-      'buyerFullName': buyerName,
-      'responseUrl': responseUrl,
-      'confirmationUrl': confirmationUrl,
-      'lng': 'es',
-    };
+    return PayuCheckoutParamsModel.fromServiceParams(
+      merchantId: merchantId,
+      accountId: accountId,
+      description: description,
+      referenceCode: referenceCode,
+      paymentMethods: paymentMethods,
+      amount: formattedAmount,
+      currency: currency,
+      signature: signature,
+      test: test,
+      buyerEmail: buyerEmail,
+      buyerName: buyerName,
+      responseUrl: responseUrl,
+      confirmationUrl: confirmationUrl,
+      lng: 'es',
+    );
+  }
+
+  /// Método de conveniencia para obtener Map desde el modelo
+  static Map<String, String> buildPayUCheckoutDataAsMap({
+    required String merchantId,
+    required String accountId,
+    required String apiKey,
+    required double amount,
+    required String currency,
+    required String referenceCode,
+    required String description,
+    required String buyerEmail,
+    required String buyerName,
+    required String responseUrl,
+    required String confirmationUrl,
+    required String paymentMethods,
+    bool test = true,
+  }) {
+    final paramsModel = buildPayUCheckoutData(
+      merchantId: merchantId,
+      accountId: accountId,
+      apiKey: apiKey,
+      amount: amount,
+      currency: currency,
+      referenceCode: referenceCode,
+      description: description,
+      buyerEmail: buyerEmail,
+      buyerName: buyerName,
+      responseUrl: responseUrl,
+      confirmationUrl: confirmationUrl,
+      paymentMethods: paymentMethods,
+      test: test,
+    );
+
+    return paramsModel.toServiceMap();
   }
 }
 

@@ -20,4 +20,8 @@ class PayUConfig {
 
   static bool get testMode =>
       dotenv.env['PAYU_TEST_MODE'] == 'true' || dotenv.env['PAYU_TEST_MODE'] == null;
+
+  static String get paymentMethods =>
+      dotenv.env['PAYU_PAYMENT_METHODS'] ??
+      'AMEX,DINERS,VISA,VISA_DEBIT,MASTERCARD,MASTERCARD_DEBIT,YAPE';
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
@@ -47,12 +49,14 @@ void showPayUCheckout(
         responseUrl: PayUConfig.responseUrl,
         confirmationUrl: PayUConfig.confirmationUrl,
         test: PayUConfig.testMode,
+        paymentMethods: PayUConfig.paymentMethods,
       );
 
       // Mostrar WebView con checkout
       if (context.mounted) {
         // Serializar checkoutData para queryParameters
-        final checkoutDataJson = checkoutData.entries
+        final checkoutDataMap = checkoutData.toServiceMap();
+        final checkoutDataJson = checkoutDataMap.entries
             .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
             .join('&');
         context.goNamed(
@@ -69,10 +73,8 @@ void showPayUCheckout(
     }
   } catch (e, stackTrace) {
     if (context.mounted) {
-      print('Error: $e');
-      debugPrint('StackTrace: $stackTrace');
+      log('Error: $e', stackTrace: stackTrace);
       context.showErrorToast('Error: $e');
-      onFailure?.call();
     }
   }
 }
