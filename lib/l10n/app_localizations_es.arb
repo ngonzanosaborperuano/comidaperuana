@@ -188,7 +188,7 @@
   "@title": {
     "description": "Campo de título"
   },
-  "searchRecipe": "Buscar receta",
+  "searchRecipe": "Escribe, habla o sube una imagen para buscar recetas...",
   "@searchRecipe": {
     "description": "Campo para buscar recetas"
   },

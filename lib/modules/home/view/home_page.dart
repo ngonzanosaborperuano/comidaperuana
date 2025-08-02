@@ -47,16 +47,36 @@ class _HomePageState extends State<HomePage> {
       child: Consumer<HomeController>(
         builder: (_, HomeController con, _) {
           return AppScaffold(
-            title: AppTextFieldSearch(
-              placeholder: context.loc.searchRecipe,
-              textController: searchController,
-              onPressed: () {
-                searchController.clear();
-                con.allRecipes();
-              },
-              onChanged: (value) {
-                con.searchTask(value);
-              },
+            title: DecoratedBox(
+              decoration: BoxDecoration(
+                color: context.color.background,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: context.color.border),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppHorizontalSpace.xs,
+                  Expanded(
+                    child: AppTextFieldSearch(
+                      placeholder: context.loc.searchRecipe,
+                      textController: searchController,
+                      onPressed: () {
+                        searchController.clear();
+                        con.allRecipes();
+                      },
+                      onChanged: (value) {
+                        con.searchTask(value);
+                      },
+                    ),
+                  ),
+                  AppHorizontalSpace.sm,
+                  context.svgIcon(SvgIcons.microphone, color: context.color.buttonPrimary),
+                  AppHorizontalSpace.sl,
+                  context.svgIcon(SvgIcons.image, color: context.color.buttonPrimary),
+                  AppHorizontalSpace.sm,
+                ],
+              ),
             ),
             body: Column(children: [Expanded(child: HomeView(con: con))]),
 

@@ -15,7 +15,7 @@ class AppMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<LocaleProvider, ThemeProvider>(
-      builder: (_, localeProvider, themeProvider, __) {
+      builder: (_, localeProvider, themeProvider, _) {
         final isDark = themeProvider.themeMode == ThemeMode.dark;
 
         return AppColorScheme(
@@ -25,7 +25,7 @@ class AppMaterial extends StatelessWidget {
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: themeProvider.themeMode,
-            title: 'App Cocinando',
+            title: 'CocinandoIA',
             locale: localeProvider.locale,
             debugShowCheckedModeBanner: false,
             routerConfig: appRouter,

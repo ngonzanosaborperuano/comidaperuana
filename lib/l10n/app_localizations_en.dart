@@ -157,7 +157,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get title => 'Title';
 
   @override
-  String get searchRecipe => 'Search recipe';
+  String get searchRecipe =>
+      'Write, speak or upload an image to search recipes...';
 
   @override
   String get searchTitle => 'Search by title';

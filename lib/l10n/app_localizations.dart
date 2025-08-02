@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// Label or placeholder for recipe search
   ///
   /// In en, this message translates to:
-  /// **'Search recipe'**
+  /// **'Write, speak or upload an image to search recipes...'**
   String get searchRecipe;
 
   /// Prompt to search by title

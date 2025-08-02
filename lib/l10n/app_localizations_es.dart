@@ -158,7 +158,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get title => 'Título';
 
   @override
-  String get searchRecipe => 'Buscar receta';
+  String get searchRecipe =>
+      'Escribe, habla o sube una imagen para buscar recetas...';
 
   @override
   String get searchTitle => 'Buscar por título';

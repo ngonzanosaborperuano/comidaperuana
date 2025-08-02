@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recetasperuanas/core/config/color/app_colors.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class AppTextFieldSearch extends StatelessWidget {
   final String placeholder;
@@ -18,40 +20,49 @@ class AppTextFieldSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefixIcon = context.svgIcon(SvgIcons.search, color: context.color.textSecondary);
     return Theme.of(context).platform == TargetPlatform.iOS
         ? CupertinoSearchTextField(
+          prefixIcon: prefixIcon,
+          suffixIcon: Icon(Icons.close, size: 15, color: context.color.textSecondary),
           onChanged: onChanged,
           controller: textController,
           placeholder: placeholder,
-          placeholderStyle: const TextStyle(fontSize: 16),
+          placeholderStyle: const TextStyle(fontSize: 14),
           style: const TextStyle(fontSize: 18),
           cursorColor: context.color.menuActive,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: context.color.textSecondary,
-            border: Border.all(width: 2.0, color: context.color.buttonPrimary),
+            borderRadius: BorderRadius.circular(20),
+            color: AppColors.transparent,
+            border: Border.all(width: 0.1, color: AppColors.transparent),
           ),
         )
         : SizedBox(
-          height: 50,
+          height: 55,
           child: TextField(
+            cursorColor: context.color.buttonPrimary,
             onChanged: onChanged,
             controller: textController,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search, color: context.color.buttonPrimary),
-              suffix: IconButton(onPressed: onPressed, icon: const Icon(Icons.close, size: 15)),
+              filled: true,
+              fillColor: AppColors.transparent,
+              prefixIcon: Icon(Icons.search, color: context.color.textSecondary),
+              suffixIcon: IconButton(
+                onPressed: onPressed,
+                icon: Icon(Icons.close, color: context.color.textSecondary),
+              ),
               hintText: placeholder,
-              hintStyle: const TextStyle(fontSize: 16),
+              hintStyle: const TextStyle(fontSize: 14),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(width: 2.0, color: context.color.buttonPrimary),
+                borderSide: const BorderSide(width: 2.0, color: AppColors.transparent),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide(width: 2.0, color: context.color.buttonPrimary),
+                borderSide: const BorderSide(width: 0.1, color: AppColors.transparent),
               ),
             ),
-            style: const TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, color: context.color.text),
           ),
         );
   }

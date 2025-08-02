@@ -25,7 +25,7 @@ class AppCupertino extends StatelessWidget {
           brightness: isDark ? Brightness.dark : Brightness.light,
           platform: defaultTargetPlatform,
           child: CupertinoApp.router(
-            title: 'App Task',
+            title: 'CocinandoIA',
             locale: localeProvider.locale,
             theme: CupertinoThemeData(
               brightness: isDark ? Brightness.dark : Brightness.light,

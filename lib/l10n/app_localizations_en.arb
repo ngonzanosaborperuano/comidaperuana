@@ -192,7 +192,7 @@
   "@title": {
     "description": "Label for title input"
   },
-  "searchRecipe": "Search recipe",
+  "searchRecipe": "Write, speak or upload an image to search recipes...",
   "@searchRecipe": {
     "description": "Label or placeholder for recipe search"
   },

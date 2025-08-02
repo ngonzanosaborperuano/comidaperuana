@@ -22,6 +22,10 @@ class SvgIcons {
   static const String vegetarian = 'assets/svg/vegetarian.svg';
   static const String cake = 'assets/svg/cake.svg';
   static const String analysis = 'assets/svg/analysis.svg';
+  static const String microphone = 'assets/svg/microphone.svg';
+  static const String image = 'assets/svg/image.svg';
+  static const String search = 'assets/svg/search.svg';
+  static const String close = 'assets/svg/close.svg';
 
   // Método para obtener la ruta por nombre
   static String? getPath(String name) {
@@ -67,6 +71,14 @@ class SvgIcons {
         return cake;
       case 'analysis':
         return analysis;
+      case 'microphone':
+        return microphone;
+      case 'image':
+        return image;
+      case 'search':
+        return search;
+      case 'close':
+        return close;
       default:
         return null;
     }
@@ -249,92 +261,90 @@ class SvgIconSemantic {
 
   SvgIconSemantic(this.context);
 
-  /// Ícono sparkle
+  AppSvgIcon close({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.close, size: size, color: color);
+  }
+
+  AppSvgIcon microphone({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.microphone, size: size, color: color);
+  }
+
+  AppSvgIcon image({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.image, size: size, color: color);
+  }
+
+  AppSvgIcon search({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.search, size: size, color: color);
+  }
+
   AppSvgIcon sparkle({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.sparkles, size: size, color: color);
   }
 
-  /// Ícono label
   AppSvgIcon label({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.label, size: size, color: color);
   }
 
-  /// Ícono grid all
   AppSvgIcon gridAll({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.gridAll, size: size, color: color);
   }
 
-  /// Ícono coffee breakfast
   AppSvgIcon coffeeBreakfast({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.coffeeBreakfast, size: size, color: color);
   }
 
-  /// Ícono dinner
   AppSvgIcon dinner({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.dinner, size: size, color: color);
   }
 
-  /// Ícono drink
   AppSvgIcon drink({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.drink, size: size, color: color);
   }
 
-  /// Ícono food dinner
   AppSvgIcon foodDinner({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.foodDinner, size: size, color: color);
   }
 
-  /// Ícono fried chicken
   AppSvgIcon friedChicken({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.friedChicken, size: size, color: color);
   }
 
-  /// Ícono hamburger
   AppSvgIcon hamburger({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.hamburger, size: size, color: color);
   }
 
-  /// Ícono home
   AppSvgIcon home({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.home, size: size, color: color);
   }
 
-  /// Ícono lunch
   AppSvgIcon lunch({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.lunch, size: size, color: color);
   }
 
-  /// Ícono plan
   AppSvgIcon plan({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.plan, size: size, color: color);
   }
 
-  /// Ícono profile
   AppSvgIcon profile({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.profile, size: size, color: color);
   }
 
-  /// Ícono soup
   AppSvgIcon soup({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.soup, size: size, color: color);
   }
 
-  /// Ícono timer fast
   AppSvgIcon timerFast({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.timerFast, size: size, color: color);
   }
 
-  /// Ícono vegetarian
   AppSvgIcon vegetarian({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.vegetarian, size: size, color: color);
   }
 
-  /// Ícono cake
   AppSvgIcon cake({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.cake, size: size, color: color);
   }
 
-  /// Ícono analysis
   AppSvgIcon analysis({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.analysis, size: size, color: color);
   }

@@ -23,7 +23,6 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<double> _animation;
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       vsync: this,
     );
 
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward().whenComplete(() {
       checkLoginAndRedirect(context);
     });
@@ -75,7 +73,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.color.textSecondary,
+      backgroundColor: context.color.background,
       body: Hero(
         tag: 'logo',
         child: Center(
