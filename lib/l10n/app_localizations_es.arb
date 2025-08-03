@@ -92,6 +92,10 @@
   "@specialCharacter": {
     "description": "Requisito de carácter especial en contraseña"
   },
+  "listeningSpeakNow": "Escuchando... Habla ahora",
+  "@listeningSpeakNow": {
+    "description": "Mensaje que indica que el micrófono está activo y listo para grabar"
+  },
   "invalidPassword": "La contraseña es inválida",
   "@invalidPassword": {
     "description": "Mensaje de contraseña inválida"

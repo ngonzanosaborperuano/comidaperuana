@@ -81,6 +81,9 @@ class AppLocalizationsEn extends AppLocalizations {
       '* Must contain at least one special character.';
 
   @override
+  String get listeningSpeakNow => 'Listening... Speak now';
+
+  @override
   String get invalidPassword => 'The password is invalid';
 
   @override

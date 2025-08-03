@@ -75,6 +75,12 @@ class AppColorScheme extends InheritedWidget {
     return brightness == Brightness.dark ? AppColors.primary1 : AppColors.slate700;
   }
 
+  Color get secondaryInvert {
+    return brightness == Brightness.dark
+        ? AppColors.slate200.withValues(alpha: 0.3)
+        : AppColors.primary1.withValues(alpha: 0.3);
+  }
+
   Color get surface {
     return brightness == Brightness.dark ? AppColors.slate900 : AppColors.backgroundCard;
   }

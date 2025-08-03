@@ -20,7 +20,11 @@ class AppTextFieldSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prefixIcon = context.svgIcon(SvgIcons.search, color: context.color.textSecondary);
+    final prefixIcon = context.svgIcon(
+      SvgIcons.search,
+      color: context.color.textSecondary,
+      size: 20,
+    );
     return Theme.of(context).platform == TargetPlatform.iOS
         ? CupertinoSearchTextField(
           prefixIcon: prefixIcon,
@@ -28,7 +32,7 @@ class AppTextFieldSearch extends StatelessWidget {
           onChanged: onChanged,
           controller: textController,
           placeholder: placeholder,
-          placeholderStyle: const TextStyle(fontSize: 14),
+          placeholderStyle: const TextStyle(fontSize: 14, color: AppColors.slate400),
           style: const TextStyle(fontSize: 18),
           cursorColor: context.color.menuActive,
           decoration: BoxDecoration(
@@ -46,13 +50,20 @@ class AppTextFieldSearch extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.transparent,
-              prefixIcon: Icon(Icons.search, color: context.color.textSecondary),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(10),
+                child: context.svgIcon(
+                  SvgIcons.search,
+                  color: context.color.textSecondary,
+                  size: 15,
+                ),
+              ),
               suffixIcon: IconButton(
                 onPressed: onPressed,
                 icon: Icon(Icons.close, color: context.color.textSecondary),
               ),
               hintText: placeholder,
-              hintStyle: const TextStyle(fontSize: 14),
+              hintStyle: const TextStyle(fontSize: 14, color: AppColors.slate400),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 borderSide: const BorderSide(width: 2.0, color: AppColors.transparent),

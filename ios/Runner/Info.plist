@@ -70,6 +70,8 @@
 		<string>Esta aplicación necesita acceso a las fotos para guardar o cargar imágenes de tus platos.</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>Esta aplicación necesita acceso al micrófono para grabar instrucciones o audios de recetas.</string>
+		<key>NSSpeechRecognitionUsageDescription</key>
+		<string>Esta aplicación necesita acceso al reconocimiento de voz para transcribir instrucciones o audios de recetas.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Necesitamos tu ubicación para sugerirte ingredientes o platos cercanos.</string>
 		<key>NSLocationAlwaysUsageDescription</key>

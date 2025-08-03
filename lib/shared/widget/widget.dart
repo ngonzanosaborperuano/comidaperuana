@@ -14,6 +14,7 @@ export 'app_text.dart';
 export 'app_textfield.dart';
 export 'app_textfield_search.dart';
 export 'app_toast.dart';
+export 'app_voice_text.dart';
 export 'build_widget.dart';
 export 'curve_test_widget.dart';
 export 'loading_modal.dart';
