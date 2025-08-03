@@ -194,14 +194,14 @@ class MiPerfil extends StatelessWidget {
                     con.userModel.foto == null || con.userModel.foto!.isEmpty
                         ? Image.asset(
                           'assets/img/avatar.png',
-                          width: 150,
-                          height: 150,
+                          width: 80,
+                          height: 80,
                           fit: BoxFit.cover,
                         )
                         : Image.network(
                           con.userModel.foto!,
-                          width: 150,
-                          height: 150,
+                          width: 80,
+                          height: 80,
                           fit: BoxFit.cover,
                         ),
               ),

@@ -26,6 +26,9 @@ class SvgIcons {
   static const String image = 'assets/svg/image.svg';
   static const String search = 'assets/svg/search.svg';
   static const String close = 'assets/svg/close.svg';
+  static const String user = 'assets/svg/user.svg';
+  static const String email = 'assets/svg/email.svg';
+  static const String lock = 'assets/svg/lock.svg';
 
   // Método para obtener la ruta por nombre
   static String? getPath(String name) {
@@ -79,6 +82,12 @@ class SvgIcons {
         return search;
       case 'close':
         return close;
+      case 'user':
+        return user;
+      case 'email':
+        return email;
+      case 'lock':
+        return lock;
       default:
         return null;
     }
@@ -260,6 +269,18 @@ class SvgIconSemantic {
   final BuildContext context;
 
   SvgIconSemantic(this.context);
+
+  AppSvgIcon lock({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.lock, size: size, color: color);
+  }
+
+  AppSvgIcon email({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.email, size: size, color: color);
+  }
+
+  AppSvgIcon user({double? size, Color? color}) {
+    return AppSvgIcon(assetPath: SvgIcons.user, size: size, color: color);
+  }
 
   AppSvgIcon close({double? size, Color? color}) {
     return AppSvgIcon(assetPath: SvgIcons.close, size: size, color: color);

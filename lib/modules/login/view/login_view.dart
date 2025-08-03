@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recetasperuanas/core/constants/option.dart' show LoginWith;
 import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
 import 'package:recetasperuanas/modules/login/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
@@ -41,12 +41,15 @@ class _LoginViewState extends State<LoginView>
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: ResponsiveConstrainedBox(
                 child: Card(
-                  elevation: 0,
+                  elevation: 5,
                   color: context.color.background,
                   margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
-                    side: BorderSide(color: context.color.border, style: BorderStyle.solid),
+                    side: BorderSide(
+                      color: context.color.border.withAlpha(50),
+                      style: BorderStyle.solid,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),

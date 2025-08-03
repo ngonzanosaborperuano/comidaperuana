@@ -124,6 +124,14 @@
   "@register": {
     "description": "Register button text"
   },
+  "createAccount": "Create Account",
+  "@createAccount": {
+    "description": "Title for creating a new account"
+  },
+  "completeInformation": "Complete the information to join our community",
+  "@completeInformation": {
+    "description": "Descriptive subtitle for registration form"
+  },
   "validatePasswordText": "The passwords do not match, please try again.",
   "@validatePasswordText": {
     "description": "Validation message for mismatched passwords"
@@ -251,10 +259,6 @@
   "listPending": "List Pending",
   "@listPending": {
     "description": "Label for a list of pending items"
-  },
-  "completeInformation": "Join CocinandoIA to discover personalized recipes and nutritional information.",
-  "@completeInformation": {
-    "description": "Prompt for user to complete registration"
   },
   "user": "User",
   "@user": {

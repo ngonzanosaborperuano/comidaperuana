@@ -90,6 +90,7 @@ class AppButton extends StatelessWidget {
         border: Border.all(color: colorPrimary, width: 0.5),
       ),
       child: CupertinoButton(
+        sizeStyle: CupertinoButtonSize.medium,
         onPressed: enabledButton ? onPressed : null,
         color: colorSecundary,
         borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,

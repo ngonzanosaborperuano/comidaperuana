@@ -124,6 +124,10 @@
   "@register": {
     "description": "Botón de registro"
   },
+  "createAccount": "Crear cuenta",
+  "@createAccount": {
+    "description": "Título para crear una nueva cuenta"
+  },
   "validatePasswordText": "Las contraseñas no coinciden, vuelva a intentarlo.",
   "@validatePasswordText": {
     "description": "Mensaje de error al comparar contraseñas"

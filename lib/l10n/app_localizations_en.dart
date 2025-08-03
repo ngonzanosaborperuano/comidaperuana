@@ -105,6 +105,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register => 'Register';
 
   @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get completeInformation =>
+      'Complete the information to join our community';
+
+  @override
   String get validatePasswordText =>
       'The passwords do not match, please try again.';
 
@@ -201,10 +208,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listPending => 'List Pending';
-
-  @override
-  String get completeInformation =>
-      'Join CocinandoIA to discover personalized recipes and nutritional information.';
 
   @override
   String get user => 'User';

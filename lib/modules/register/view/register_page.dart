@@ -17,7 +17,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RegisterController>(
       create: (_) => RegisterController(userRepository: UserRepository(apiService: ApiService())),
-      child: const AppScaffold(body: RegisterView()),
+      child: const AppScaffold(toolbarHeight: 0, body: RegisterView()),
     );
   }
 }

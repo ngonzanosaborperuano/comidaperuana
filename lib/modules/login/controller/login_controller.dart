@@ -1,50 +1,186 @@
-import 'package:flutter/widgets.dart';
-import 'package:logging/logging.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
-import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
+import 'package:flutter/material.dart';
+import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/domain/auth/entities/user.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
+/// Enhanced login controller using DDD architecture
 class LoginController extends BaseController {
-  LoginController({required UserRepository userRepository}) : _userRepository = userRepository {
-    _logger.info('LoginController initialized');
-  }
+  LoginController({
+    required LoginUseCase loginUseCase,
+    required RegisterUseCase registerUseCase,
+    required LogoutUseCase logoutUseCase,
+  }) : _loginUseCase = loginUseCase,
+       _registerUseCase = registerUseCase,
+       _logoutUseCase = logoutUseCase;
 
   @override
   String get name => 'LoginController';
 
-  final UserRepository _userRepository;
+  final LoginUseCase _loginUseCase;
+  final RegisterUseCase _registerUseCase;
+  final LogoutUseCase _logoutUseCase;
 
-  final _logger = Logger('LoginController');
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  ISecureStorageService secureStorageService = SecurityStorageService();
-  ValueNotifier<bool> isObscureText = ValueNotifier<bool>(true);
+  // State
+  final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+  final ValueNotifier<User?> _currentUser = ValueNotifier<User?>(null);
+  final ValueNotifier<String?> _errorMessage = ValueNotifier<String?>(null);
 
-  Future<(bool, String)> login({required AuthUser user, required int type}) async {
+  // Getters
+  ValueNotifier<bool> get isLoading => _isLoading;
+  ValueNotifier<User?> get currentUser => _currentUser;
+  ValueNotifier<String?> get errorMessage => _errorMessage;
+
+  /// Login with email and password
+  Future<void> login({required String email, required String password}) async {
+    _setLoading(true);
+    _clearError();
+
     try {
-      final (result, msg) = await _userRepository.login(user: user, type: type);
-      _logger.info('Resultado de inicio de sesión: $result');
-      if (result == false) {
-        return (false, msg);
+      final result = await _loginUseCase.execute(email: email, password: password);
+
+      if (result.isSuccess) {
+        _currentUser.value = result.successValue;
+        _showSuccess('Inicio de sesión exitoso');
+      } else {
+        _setError(result.failureValue!.message);
       }
-      passwordController.clear();
-      emailController.clear();
-      return (true, msg);
-    } catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión: $e', e, stackTrace);
-      return (false, 'Error al iniciar sesión: $e');
+    } catch (e) {
+      _setError('Error inesperado: $e');
+    } finally {
+      _setLoading(false);
     }
   }
 
-  Future<String?> recoverCredential(String email) async {
-    return await _userRepository.recoverCredential(email);
+  /// Login with Google
+  Future<void> loginWithGoogle() async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final result = await _loginUseCase.executeWithGoogle();
+
+      if (result.isSuccess) {
+        _currentUser.value = result.successValue;
+        _showSuccess('Inicio de sesión con Google exitoso');
+      } else {
+        _setError(result.failureValue!.message);
+      }
+    } catch (e) {
+      _setError('Error inesperado: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Register new user
+  Future<void> register({required String email, required String password, String? name}) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final result = await _registerUseCase.execute(email: email, password: password, name: name);
+
+      if (result.isSuccess) {
+        _currentUser.value = result.successValue;
+        _showSuccess('Registro exitoso');
+      } else {
+        _setError(result.failureValue!.message);
+      }
+    } catch (e) {
+      _setError('Error inesperado: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Logout current user
+  Future<void> logout() async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final result = await _logoutUseCase.execute();
+
+      if (result.isSuccess) {
+        _currentUser.value = null;
+        _showSuccess('Sesión cerrada exitosamente');
+      } else {
+        _setError(result.failureValue!.message);
+      }
+    } catch (e) {
+      _setError('Error inesperado: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Validate email format
+  @override
+  String? validateEmail(String email, BuildContext context) {
+    if (email.isEmpty) {
+      return 'El email no puede estar vacío';
+    }
+
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    if (!emailRegex.hasMatch(email)) {
+      return 'El formato del email no es válido';
+    }
+
+    return null;
+  }
+
+  /// Validate password strength
+  @override
+  String? validatePassword(String? password, BuildContext context) {
+    if (password == null || password.isEmpty) {
+      return 'La contraseña no puede estar vacía';
+    }
+
+    if (password.length < 8) {
+      return 'La contraseña debe tener al menos 8 caracteres';
+    }
+
+    if (!RegExp(r'^(?=.*[A-Z])').hasMatch(password)) {
+      return 'La contraseña debe contener al menos una mayúscula';
+    }
+
+    if (!RegExp(r'^(?=.*[a-z])').hasMatch(password)) {
+      return 'La contraseña debe contener al menos una minúscula';
+    }
+
+    if (!RegExp(r'^(?=.*\d)').hasMatch(password)) {
+      return 'La contraseña debe contener al menos un número';
+    }
+
+    return null;
+  }
+
+  // Private methods
+  void _setLoading(bool loading) {
+    _isLoading.value = loading;
+    notifyListeners();
+  }
+
+  void _setError(String message) {
+    _errorMessage.value = message;
+    notifyListeners();
+  }
+
+  void _clearError() {
+    _errorMessage.value = null;
+    notifyListeners();
+  }
+
+  void _showSuccess(String message) {
+    // This would typically show a success toast
+    logger.info(message);
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _isLoading.dispose();
+    _currentUser.dispose();
+    _errorMessage.dispose();
     super.dispose();
   }
 }

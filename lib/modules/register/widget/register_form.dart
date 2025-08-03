@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
+import 'package:recetasperuanas/modules/login/widget/widget.dart' show LogoWidget;
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/modules/register/widget/animated_register_button.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
+
+import '../../../shared/widget/animated_widgets.dart' show AnimatedLogoWidget;
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
@@ -31,8 +34,9 @@ class _RegisterFormState extends State<RegisterForm> {
       key: widget.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const AnimatedLogoWidget(child: Hero(tag: 'logo', child: LogoWidget())),
           AppVerticalSpace.xlg,
           AppTextField(
             hintText: context.loc.enterFullName,

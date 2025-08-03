@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
 import 'package:recetasperuanas/modules/login/helpers/auth_modals.dart'
     show showRecoverPasswordDialog;
 import 'package:recetasperuanas/modules/login/utils/auth_utils.dart' show handleLogin;
@@ -40,8 +40,7 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
           mainAxisSize: MainAxisSize.min,
           spacing: AppSpacing.md,
           children: [
-            AppVerticalSpace.sm,
-            LogoLogin(widget: widget),
+            LogoLogin(animation: widget.animation),
             HeaderAndSubTitle(widget: widget),
             EmailLogin(widget: widget),
             PasswordLogin(widget: widget),

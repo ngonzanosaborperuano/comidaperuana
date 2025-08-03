@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 

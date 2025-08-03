@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/model/auth_user.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
 
 Future<void> handleLogin({
   required BuildContext context,
