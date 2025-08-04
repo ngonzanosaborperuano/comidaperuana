@@ -14,12 +14,10 @@ class AppGeminiVoiceToTextButton extends StatefulWidget {
   const AppGeminiVoiceToTextButton({super.key, this.onResult});
 
   @override
-  State<AppGeminiVoiceToTextButton> createState() =>
-      _AppGeminiVoiceToTextButtonState();
+  State<AppGeminiVoiceToTextButton> createState() => _AppGeminiVoiceToTextButtonState();
 }
 
-class _AppGeminiVoiceToTextButtonState
-    extends State<AppGeminiVoiceToTextButton> {
+class _AppGeminiVoiceToTextButtonState extends State<AppGeminiVoiceToTextButton> {
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   bool _isRecording = false;
   late final String _filePath;
@@ -85,14 +83,23 @@ class _AppGeminiVoiceToTextButtonState
     //   widget.onResult!(chunk);
     // }
 
-    await audioFile.delete();
+    // Verificar si el archivo existe antes de eliminarlo
+    if (await audioFile.exists()) {
+      await audioFile.delete();
+    }
   }
 
   @override
   void dispose() {
     _recorder.closeRecorder();
-    if (File(_filePath).existsSync()) {
-      File(_filePath).deleteSync();
+    // Verificar si el archivo existe antes de eliminarlo
+    final audioFile = File(_filePath);
+    if (audioFile.existsSync()) {
+      try {
+        audioFile.deleteSync();
+      } catch (e) {
+        _loggrer.warning('Error al eliminar archivo de audio: $e');
+      }
     }
     super.dispose();
   }
@@ -109,9 +116,7 @@ class _AppGeminiVoiceToTextButtonState
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
-          _isRecording
-              ? '🎙 Grabando... suelta para enviar'
-              : '🎤 Mantén presionado para grabar',
+          _isRecording ? '🎙 Grabando... suelta para enviar' : '🎤 Mantén presionado para grabar',
           style: const TextStyle(color: Colors.white),
         ),
       ),
