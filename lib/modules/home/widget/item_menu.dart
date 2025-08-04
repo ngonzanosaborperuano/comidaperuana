@@ -19,8 +19,14 @@ class ItemMenu extends StatelessWidget {
           onPressed: onTap ?? () {},
           isDestructiveAction: true,
           isDefaultAction: false,
-          child: Text(title, style: AppStyles.bodyText.copyWith(color: AppColors.slate700)),
+          child: Text(
+            title,
+            style: AppStyles.bodyText.copyWith(color: AppColors.slate700),
+          ),
         )
-        : ListTile(title: Text(title, style: style ?? AppStyles.bodyTextBoldPrimary), onTap: onTap);
+        : ListTile(
+          title: Text(title, style: style ?? AppStyles.bodyTextBoldPrimary),
+          onTap: onTap,
+        );
   }
 }

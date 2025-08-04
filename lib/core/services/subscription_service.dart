@@ -44,7 +44,9 @@ class UserSubscription {
 
   /// Verificar si la suscripción está activa
   bool get isActive =>
-      status == SubscriptionStatus.active && endDate != null && endDate!.isAfter(DateTime.now());
+      status == SubscriptionStatus.active &&
+      endDate != null &&
+      endDate!.isAfter(DateTime.now());
 
   /// Días restantes de suscripción
   int get daysRemaining {
@@ -74,7 +76,8 @@ class UserSubscription {
         (status) => status.name == json['status'],
         orElse: () => SubscriptionStatus.none,
       ),
-      startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+      startDate:
+          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       paidAmount: (json['paidAmount'] ?? 0.0).toDouble(),
       transactionId: json['transactionId'],
@@ -176,7 +179,9 @@ class SubscriptionService extends ChangeNotifier {
 
     if (endDate != null && now.isAfter(endDate)) {
       // Suscripción expirada
-      _currentSubscription = _currentSubscription!.copyWith(status: SubscriptionStatus.expired);
+      _currentSubscription = _currentSubscription!.copyWith(
+        status: SubscriptionStatus.expired,
+      );
       await _saveSubscriptionToStorage();
       notifyListeners();
     }
@@ -230,7 +235,9 @@ class SubscriptionService extends ChangeNotifier {
       _clearError();
 
       if (_currentSubscription != null) {
-        _currentSubscription = _currentSubscription!.copyWith(status: SubscriptionStatus.cancelled);
+        _currentSubscription = _currentSubscription!.copyWith(
+          status: SubscriptionStatus.cancelled,
+        );
         await _saveSubscriptionToStorage();
         notifyListeners();
 
@@ -359,9 +366,18 @@ class SubscriptionService extends ChangeNotifier {
   ];
 
   static const Map<SubscriptionPlanType, Map<String, int>> _featureLimits = {
-    SubscriptionPlanType.monthly: {'daily_recipes': 10, 'monthly_masterclasses': 1},
-    SubscriptionPlanType.quarterly: {'daily_recipes': 25, 'monthly_masterclasses': 2},
-    SubscriptionPlanType.biannual: {'daily_recipes': 50, 'monthly_masterclasses': 3},
+    SubscriptionPlanType.monthly: {
+      'daily_recipes': 10,
+      'monthly_masterclasses': 1,
+    },
+    SubscriptionPlanType.quarterly: {
+      'daily_recipes': 25,
+      'monthly_masterclasses': 2,
+    },
+    SubscriptionPlanType.biannual: {
+      'daily_recipes': 50,
+      'monthly_masterclasses': 3,
+    },
     SubscriptionPlanType.annual: {
       'daily_recipes': -1, // ilimitado
       'monthly_masterclasses': -1, // ilimitado
@@ -390,5 +406,6 @@ extension SubscriptionPricing on SubscriptionPlanType {
 
   double get totalSavings => (originalMonthlyPrice * months) - basePrice;
 
-  int get discountPercentage => ((totalSavings / (originalMonthlyPrice * months)) * 100).round();
+  int get discountPercentage =>
+      ((totalSavings / (originalMonthlyPrice * months)) * 100).round();
 }

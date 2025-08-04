@@ -20,7 +20,10 @@ class HomePage extends StatefulWidget {
     return const HomePage(key: Key('home_page'));
   }
   Future<bool?> show(BuildContext context) async {
-    return showAdaptiveDialog<bool>(context: context, builder: (context) => this);
+    return showAdaptiveDialog<bool>(
+      context: context,
+      builder: (context) => this,
+    );
   }
 
   @override
@@ -42,7 +45,10 @@ class _HomePageState extends State<HomePage> {
       create: (BuildContext context) {
         return HomeController(
           userRepository: context.read<UserRepository>(),
-          taskRepository: TaskRepository(DatabaseHelper.instance, apiService: ApiService()),
+          taskRepository: TaskRepository(
+            DatabaseHelper.instance,
+            apiService: ApiService(),
+          ),
         ); //..allRecipes();
       },
       child: Consumer<HomeController>(
@@ -67,7 +73,10 @@ class _HomePageState extends State<HomePage> {
                                 bottomLeft: Radius.circular(value ? 0 : 10),
                                 bottomRight: Radius.circular(value ? 0 : 10),
                               ),
-                              border: Border.all(color: context.color.border, width: 0.3),
+                              border: Border.all(
+                                color: context.color.border,
+                                width: 0.3,
+                              ),
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +120,9 @@ class _HomePageState extends State<HomePage> {
                             child: ColoredBox(
                               color: context.color.secondaryInvert,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
                                 child: AnimatedContainer(
                                   height: value ? 30 : 0,
                                   width: double.infinity,

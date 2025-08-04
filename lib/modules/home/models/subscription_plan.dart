@@ -23,7 +23,8 @@ class SubscriptionPlan {
 
   double get totalPrice => monthlyPrice * durationMonths;
   double get totalSavings => (originalPrice * durationMonths) - totalPrice;
-  int get discountPercentage => ((totalSavings / (originalPrice * durationMonths)) * 100).round();
+  int get discountPercentage =>
+      ((totalSavings / (originalPrice * durationMonths)) * 100).round();
 }
 
 class SubscriptionPlans {

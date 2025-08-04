@@ -63,17 +63,26 @@ class AppButton extends StatelessWidget {
         : _buildMaterialButton(context, colorPrimary, colorSecondary);
   }
 
-  Widget _buildMaterialButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
+  Widget _buildMaterialButton(
+    BuildContext context,
+    Color colorPrimary,
+    Color colorSecundary,
+  ) {
     return ElevatedButton(
       onPressed: enabledButton ? onPressed : null,
       style: ButtonStyle(
-        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.all(AppSpacing.sl)),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+          const EdgeInsets.all(AppSpacing.sl),
+        ),
         backgroundColor: WidgetStateProperty.all(colorSecundary),
         foregroundColor: WidgetStateProperty.all(colorSecundary),
         overlayColor: WidgetStateProperty.all(colorSecundary),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
+            borderRadius:
+                rounded
+                    ? BorderRadius.circular(AppSpacing.xmd)
+                    : BorderRadius.zero,
             side: BorderSide(color: colorPrimary, width: 0.5),
           ),
         ),
@@ -83,18 +92,27 @@ class AppButton extends StatelessWidget {
     );
   }
 
-  Widget _buildCupertinoButton(BuildContext context, Color colorPrimary, Color colorSecundary) {
+  Widget _buildCupertinoButton(
+    BuildContext context,
+    Color colorPrimary,
+    Color colorSecundary,
+  ) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
+        borderRadius:
+            rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
         border: Border.all(color: colorPrimary, width: 0.5),
       ),
       child: CupertinoButton(
         sizeStyle: CupertinoButtonSize.medium,
         onPressed: enabledButton ? onPressed : null,
         color: colorSecundary,
-        borderRadius: rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
-        child: _buildButtonContent(enabledButton ? colorPrimary : colorSecundary, context),
+        borderRadius:
+            rounded ? BorderRadius.circular(AppSpacing.xmd) : BorderRadius.zero,
+        child: _buildButtonContent(
+          enabledButton ? colorPrimary : colorSecundary,
+          context,
+        ),
       ),
     );
   }
@@ -102,12 +120,19 @@ class AppButton extends StatelessWidget {
   Widget _buildButtonContent(Color colorSecundary, BuildContext context) {
     final textWidget = Text(
       text,
-      style: TextStyle(color: colorSecundary, fontSize: AppSpacing.md, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: colorSecundary,
+        fontSize: AppSpacing.md,
+        fontWeight: FontWeight.w700,
+      ),
     );
 
     final iconTheme =
         showIcon && iconWidget != null
-            ? IconTheme(data: IconThemeData(color: colorSecundary), child: iconWidget!)
+            ? IconTheme(
+              data: IconThemeData(color: colorSecundary),
+              child: iconWidget!,
+            )
             : null;
 
     return Row(

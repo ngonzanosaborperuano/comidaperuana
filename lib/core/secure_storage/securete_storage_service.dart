@@ -2,7 +2,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 
 final secretKey = dotenv.env['SECRET_KEY']!;
 
@@ -46,16 +46,29 @@ class SecurityStorageService implements ISecureStorageService {
 
   @override
   Future<void> saveCredentials(AuthUser credentials) async {
-    await storage.write(key: 'id', value: credentials.id.toString());
-    await storage.write(key: 'nombreCompleto', value: credentials.nombreCompleto);
-    await storage.write(key: 'email', value: credentials.email);
-    await storage.write(key: 'foto', value: credentials.foto);
+    try {
+      _logger.info('Guardando credenciales para usuario: ${credentials.email}');
 
-    final encryptedPassword = encrypt(credentials.contrasena!);
-    await storage.write(key: 'password', value: encryptedPassword);
+      await storage.write(key: 'id', value: credentials.id.toString());
+      await storage.write(key: 'nombreCompleto', value: credentials.nombreCompleto);
+      await storage.write(key: 'email', value: credentials.email);
+      await storage.write(key: 'foto', value: credentials.foto);
 
-    final encryptedToken = encrypt(credentials.sessionToken!);
-    await storage.write(key: 'sessionToken', value: encryptedToken);
+      if (credentials.contrasena != null) {
+        final encryptedPassword = encrypt(credentials.contrasena!);
+        await storage.write(key: 'password', value: encryptedPassword);
+      }
+
+      if (credentials.sessionToken != null) {
+        final encryptedToken = encrypt(credentials.sessionToken!);
+        await storage.write(key: 'sessionToken', value: encryptedToken);
+      }
+
+      _logger.info('Credenciales guardadas exitosamente');
+    } catch (e, stackTrace) {
+      _logger.severe('Error al guardar credenciales: $e', e, stackTrace);
+      rethrow;
+    }
   }
 
   @override
@@ -70,14 +83,14 @@ class SecurityStorageService implements ISecureStorageService {
     final String? password = encryptedPassword != null ? decrypt(encryptedPassword) : null;
     final String? sessionToken = encryptedToken != null ? decrypt(encryptedToken) : null;
 
-    if (encryptedToken == null) {
+    if (email == null) {
       return AuthUser.empty();
     }
 
     return AuthUser(
-      id: int.tryParse(id!),
-      email: email!,
-      contrasena: password!,
+      id: int.tryParse(id ?? '0'),
+      email: email,
+      contrasena: password,
       sessionToken: sessionToken,
       nombreCompleto: nombreCompleto,
       foto: foto,

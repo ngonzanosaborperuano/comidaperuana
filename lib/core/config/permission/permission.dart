@@ -13,6 +13,8 @@ Future<void> requestPermissions() async {
       ].request();
 
   statuses.forEach((permission, status) {
-    logger.warning('Permiso $permission: ${status.isGranted ? "Concedido" : "Denegado"}');
+    logger.warning(
+      'Permiso $permission: ${status.isGranted ? "Concedido" : "Denegado"}',
+    );
   });
 }

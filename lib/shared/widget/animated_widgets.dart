@@ -183,15 +183,19 @@ class _AnimatedPressButtonState extends State<AnimatedPressButton>
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this);
 
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.95,
-    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeInOut)));
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
+    );
 
-    _opacityAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.8,
-    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeInOut)));
+    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.8).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
+    );
   }
 
   @override
@@ -204,7 +208,9 @@ class _AnimatedPressButtonState extends State<AnimatedPressButton>
     if (widget.isLoading) return;
 
     _controller.forward();
-    await Future.delayed(Duration(milliseconds: widget.duration.inMilliseconds ~/ 2));
+    await Future.delayed(
+      Duration(milliseconds: widget.duration.inMilliseconds ~/ 2),
+    );
     _controller.reverse();
 
     widget.onPressed?.call();
@@ -244,7 +250,8 @@ class AnimatedLogoWidget extends StatefulWidget {
   State<AnimatedLogoWidget> createState() => _AnimatedLogoWidgetState();
 }
 
-class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget> with TickerProviderStateMixin {
+class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget>
+    with TickerProviderStateMixin {
   late AnimationController _bounceController;
   late AnimationController _pulseController;
   late AnimationController _rotateController;
@@ -273,18 +280,25 @@ class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget> with TickerProv
     );
 
     _bounceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _bounceController, curve: const SafeCurve(Curves.easeOutBack)),
+      CurvedAnimation(
+        parent: _bounceController,
+        curve: const SafeCurve(Curves.easeOutBack),
+      ),
     );
 
-    _pulseAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.05,
-    ).animate(CurvedAnimation(parent: _pulseController, curve: const SafeCurve(Curves.easeInOut)));
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
+      CurvedAnimation(
+        parent: _pulseController,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
+    );
 
-    _rotateAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _rotateController, curve: const SafeCurve(Curves.easeInOut)));
+    _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _rotateController,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
+    );
 
     _startAnimations();
   }
@@ -337,7 +351,8 @@ class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget> with TickerProv
           // Usar curvas seguras para todos los valores
           final bounceValue = _bounceAnimation.value;
           final pulseValue = widget.enablePulse ? _pulseAnimation.value : 1.0;
-          final rotateValue = widget.enableRotation ? _rotateAnimation.value : 0.0;
+          final rotateValue =
+              widget.enableRotation ? _rotateAnimation.value : 0.0;
 
           double scale = bounceValue;
           if (widget.enablePulse) {
@@ -359,7 +374,8 @@ class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget> with TickerProv
 }
 
 /// Mixin para manejar animaciones escalonadas
-mixin StaggeredAnimationMixin<T extends StatefulWidget> on State<T>, TickerProvider {
+mixin StaggeredAnimationMixin<T extends StatefulWidget>
+    on State<T>, TickerProvider {
   late AnimationController fadeController;
   late AnimationController slideController;
   late AnimationController scaleController;
@@ -381,24 +397,36 @@ mixin StaggeredAnimationMixin<T extends StatefulWidget> on State<T>, TickerProvi
     scaleController = AnimationController(duration: scaleDuration, vsync: this);
     formController = AnimationController(duration: formDuration, vsync: this);
 
-    fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: fadeController, curve: const SafeCurve(Curves.easeInOut)));
-
-    slideAnimation = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
-      CurvedAnimation(parent: slideController, curve: const SafeCurve(Curves.easeOutCubic)),
+    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: fadeController,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
     );
 
-    scaleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: scaleController, curve: const SafeCurve(Curves.easeOutBack)));
+    slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: slideController,
+        curve: const SafeCurve(Curves.easeOutCubic),
+      ),
+    );
 
-    formAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: formController, curve: const SafeCurve(Curves.easeInOut)));
+    scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: scaleController,
+        curve: const SafeCurve(Curves.easeOutBack),
+      ),
+    );
+
+    formAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: formController,
+        curve: const SafeCurve(Curves.easeInOut),
+      ),
+    );
   }
 
   Future<void> startStaggeredAnimations({

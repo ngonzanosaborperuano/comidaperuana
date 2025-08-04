@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart'
+    show AnimatedEntryWidget;
 
 class RecoverPassword extends StatelessWidget {
   final Animation<double> animation;
@@ -27,7 +28,10 @@ class RecoverPassword extends StatelessWidget {
               onPressed: onTap,
               child: Text(
                 this.context.loc.recoverEmail,
-                style: TextStyle(color: this.context.color.buttonPrimary, fontSize: 14),
+                style: TextStyle(
+                  color: this.context.color.buttonPrimary,
+                  fontSize: 14,
+                ),
               ),
             ),
           ],

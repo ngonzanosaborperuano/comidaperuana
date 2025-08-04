@@ -210,7 +210,7 @@ class MiPerfil extends StatelessWidget {
           AppVerticalSpace.lg,
           AppItemRow(
             title: context.loc.user,
-            subTitle: con.userModel.nombreCompleto!,
+            subTitle: con.userModel.nombreCompleto ?? 'No disponible',
             icon: Icons.person,
             maxWidth: 100,
           ),

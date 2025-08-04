@@ -5,7 +5,11 @@ import 'package:recetasperuanas/shared/controller/base_controller.dart';
 /// Widget compartido para iconos de navegación que puede ser reutilizado
 /// en diferentes plataformas (Android e iOS)
 class SharedIconMenu extends StatelessWidget {
-  const SharedIconMenu({super.key, required this.isSelected, required this.path});
+  const SharedIconMenu({
+    super.key,
+    required this.isSelected,
+    required this.path,
+  });
 
   static const double _iconSize = 24.0;
 
@@ -23,6 +27,8 @@ class SharedIconMenu extends StatelessWidget {
   }
 
   Color _getIconColor(BuildContext context) {
-    return isSelected ? context.color.textSecondary2 : context.color.textSecondary;
+    return isSelected
+        ? context.color.textSecondary2
+        : context.color.textSecondary;
   }
 }

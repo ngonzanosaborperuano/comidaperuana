@@ -51,7 +51,11 @@ class AppDialog extends StatelessWidget {
                 height: 40,
                 child: IconButton(
                   onPressed: onClose,
-                  icon: Icon(Icons.close, size: 25, color: AppColorScheme.of(context).text),
+                  icon: Icon(
+                    Icons.close,
+                    size: 25,
+                    color: AppColorScheme.of(context).text,
+                  ),
                 ),
               ),
             Container(
@@ -75,22 +79,35 @@ class AppDialog extends StatelessWidget {
                                   fontSize: 20,
                                   color: titleColor,
                                 )
-                                : const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                : const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
                       ),
-                    Container(padding: const EdgeInsets.symmetric(vertical: 20), child: body),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: body,
+                    ),
                     if (buttons != null)
                       buttonsInRow
                           ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (buttons!.firstOrNull != null) Expanded(child: buttons!.first!),
+                              if (buttons!.firstOrNull != null)
+                                Expanded(child: buttons!.first!),
                               if (buttons!.length > 1) ...[
                                 const SizedBox(width: 12),
                                 Expanded(child: buttons![1]!),
                               ],
                             ],
                           )
-                          : Column(children: [buttons!.first!, AppVerticalSpace.sl, buttons![1]!]),
+                          : Column(
+                            children: [
+                              buttons!.first!,
+                              AppVerticalSpace.sl,
+                              buttons![1]!,
+                            ],
+                          ),
                     AppVerticalSpace.md,
                   ],
                 ),

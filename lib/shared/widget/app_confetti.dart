@@ -25,7 +25,10 @@ class AppConfetti extends StatelessWidget {
         return _drawStar(size);
       case 2: // Círculo
         return Path()..addOval(
-          Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: size.width / 2),
+          Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2),
+            radius: size.width / 2,
+          ),
         );
       default: // Cuadrado con esquinas redondeadas
         return Path()..addRRect(

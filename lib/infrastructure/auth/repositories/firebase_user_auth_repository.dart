@@ -8,7 +8,10 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   FirebaseUserAuthRepository();
 
   @override
-  Future<Result<User, DomainException>> authenticate(Email email, String password) async {
+  Future<Result<User, DomainException>> authenticate(
+    Email email,
+    String password,
+  ) async {
     // Mock implementation
     await Future.delayed(const Duration(milliseconds: 500));
 

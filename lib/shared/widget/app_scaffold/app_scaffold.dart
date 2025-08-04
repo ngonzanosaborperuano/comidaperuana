@@ -37,11 +37,16 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
 
-    return isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context);
+    return isIOS
+        ? _buildCupertinoScaffold(context)
+        : _buildMaterialScaffold(context);
   }
 
   Widget _buildCupertinoScaffold(BuildContext context) {
-    final List<Widget> pagesIOS = [PageHomeIOS(widget: widget), const SettingPage()];
+    final List<Widget> pagesIOS = [
+      PageHomeIOS(widget: widget),
+      const SettingPage(),
+    ];
     return ChangeNotifierProvider<PagesProvider>(
       create: (BuildContext context) => PagesProvider(),
       child: Consumer<PagesProvider>(
@@ -53,7 +58,10 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: [
                 Positioned.fill(
                   top: widget.toolbarHeight,
-                  child: IndexedStack(index: value.selectPage, children: pagesIOS),
+                  child: IndexedStack(
+                    index: value.selectPage,
+                    children: pagesIOS,
+                  ),
                 ),
                 if (widget.showMenu) ...[const MenuIOS()],
               ],
@@ -65,7 +73,10 @@ class _AppScaffoldState extends State<AppScaffold> {
   }
 
   Widget _buildMaterialScaffold(BuildContext context) {
-    final List<Widget> pageAndroid = [PageHomeAndroid(widget: widget), const SettingPage()];
+    final List<Widget> pageAndroid = [
+      PageHomeAndroid(widget: widget),
+      const SettingPage(),
+    ];
     return ChangeNotifierProvider<PagesProvider>(
       create: (BuildContext context) => PagesProvider(),
       child: Consumer<PagesProvider>(
@@ -77,7 +88,10 @@ class _AppScaffoldState extends State<AppScaffold> {
               children: [
                 Positioned.fill(
                   top: widget.toolbarHeight,
-                  child: IndexedStack(index: value.selectPage, children: pageAndroid),
+                  child: IndexedStack(
+                    index: value.selectPage,
+                    children: pageAndroid,
+                  ),
                 ),
                 if (widget.showMenu) ...[const MenuAndroid()],
               ],

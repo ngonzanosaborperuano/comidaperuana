@@ -31,7 +31,9 @@ class TextFieldPassword extends StatelessWidget {
               },
               child: Text(
                 context.loc.showPassword,
-                style: AppStyles.bodyTextBold.copyWith(color: context.color.secondary),
+                style: AppStyles.bodyTextBold.copyWith(
+                  color: context.color.secondary,
+                ),
               ),
             ),
           ],

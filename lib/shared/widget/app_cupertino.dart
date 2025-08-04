@@ -31,7 +31,9 @@ class AppCupertino extends StatelessWidget {
               brightness: isDark ? Brightness.dark : Brightness.light,
               primaryColor: AppColors.primary1,
               scaffoldBackgroundColor:
-                  isDark ? CupertinoColors.black : CupertinoColors.systemGroupedBackground,
+                  isDark
+                      ? CupertinoColors.black
+                      : CupertinoColors.systemGroupedBackground,
               textTheme: CupertinoTextThemeData(
                 textStyle: TextStyle(
                   fontSize: 16,
@@ -49,7 +51,10 @@ class AppCupertino extends StatelessWidget {
                   color: isDark ? CupertinoColors.white : AppColors.primary1,
                 ),
                 actionTextStyle: TextStyle(
-                  color: isDark ? CupertinoColors.activeOrange : AppColors.primary1,
+                  color:
+                      isDark
+                          ? CupertinoColors.activeOrange
+                          : AppColors.primary1,
                 ),
               ),
             ),

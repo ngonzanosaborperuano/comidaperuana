@@ -66,8 +66,12 @@ class MenuIOS extends StatelessWidget with NavigationItemsMixin {
                   item.label!,
                   style: TextStyle(
                     fontSize: 10,
-                    color: isSelected ? context.color.textSecondary2 : context.color.textSecondary,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                    color:
+                        isSelected
+                            ? context.color.textSecondary2
+                            : context.color.textSecondary,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
                   ),
                 ),
             ],

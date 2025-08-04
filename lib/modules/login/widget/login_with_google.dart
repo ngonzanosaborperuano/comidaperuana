@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';

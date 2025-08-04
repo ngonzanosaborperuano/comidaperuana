@@ -18,7 +18,8 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       child: AppButton(
-        text: isLoading ? '${this.context.loc.login}...' : this.context.loc.login,
+        text:
+            isLoading ? '${this.context.loc.login}...' : this.context.loc.login,
         onPressed: onPressed,
         showIcon: false,
         enabledButton: !isLoading,

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class AnimatedAvatar extends StatefulWidget {
-  const AnimatedAvatar({super.key, this.radius = 30, this.iconSize = 30, this.onTap});
+  const AnimatedAvatar({
+    super.key,
+    this.radius = 30,
+    this.iconSize = 30,
+    this.onTap,
+  });
 
   final double radius;
   final double iconSize;
@@ -12,7 +17,8 @@ class AnimatedAvatar extends StatefulWidget {
   State<AnimatedAvatar> createState() => _AnimatedAvatarState();
 }
 
-class _AnimatedAvatarState extends State<AnimatedAvatar> with TickerProviderStateMixin {
+class _AnimatedAvatarState extends State<AnimatedAvatar>
+    with TickerProviderStateMixin {
   late AnimationController _bounceController;
   late AnimationController _rotateController;
   late AnimationController _pulseController;
@@ -31,29 +37,30 @@ class _AnimatedAvatarState extends State<AnimatedAvatar> with TickerProviderStat
     );
 
     _rotateController = AnimationController(
-      duration: const Duration(milliseconds: 3000), // Aumentado de 2000ms para rotación más sutil
+      duration: const Duration(
+        milliseconds: 3000,
+      ), // Aumentado de 2000ms para rotación más sutil
       vsync: this,
     );
 
     _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 2000), // Aumentado de 1500ms para pulso más suave
+      duration: const Duration(
+        milliseconds: 2000,
+      ), // Aumentado de 1500ms para pulso más suave
       vsync: this,
     );
 
-    _bounceAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _bounceController, curve: Curves.elasticOut));
+    _bounceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _bounceController, curve: Curves.elasticOut),
+    );
 
-    _rotateAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _rotateController, curve: Curves.easeInOut));
+    _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _rotateController, curve: Curves.easeInOut),
+    );
 
-    _pulseAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.1,
-    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
 
     // Iniciar animaciones
     _startAnimations();
@@ -94,7 +101,11 @@ class _AnimatedAvatarState extends State<AnimatedAvatar> with TickerProviderStat
     return GestureDetector(
       onTap: _handleTap,
       child: AnimatedBuilder(
-        animation: Listenable.merge([_bounceAnimation, _rotateAnimation, _pulseAnimation]),
+        animation: Listenable.merge([
+          _bounceAnimation,
+          _rotateAnimation,
+          _pulseAnimation,
+        ]),
         builder: (context, child) {
           return Transform.scale(
             scale: _bounceAnimation.value * _pulseAnimation.value,
@@ -108,7 +119,11 @@ class _AnimatedAvatarState extends State<AnimatedAvatar> with TickerProviderStat
         child: CircleAvatar(
           radius: widget.radius,
           backgroundColor: context.color.textSecondary2Invert,
-          child: Icon(Icons.person_add, size: widget.iconSize, color: context.color.background),
+          child: Icon(
+            Icons.person_add,
+            size: widget.iconSize,
+            color: context.color.background,
+          ),
         ),
       ),
     );

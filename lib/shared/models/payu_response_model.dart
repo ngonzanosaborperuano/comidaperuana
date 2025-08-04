@@ -21,12 +21,20 @@ class PayUResponse extends Equatable {
   final String? checkoutUrl;
   final Map<String, dynamic>? rawData;
 
-  factory PayUResponse.fromJson(Map<String, dynamic> json) => _$PayUResponseFromJson(json);
+  factory PayUResponse.fromJson(Map<String, dynamic> json) =>
+      _$PayUResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$PayUResponseToJson(this);
 
   static const PayUResponse empty = PayUResponse(success: false);
 
   @override
-  List<Object?> get props => [success, transactionId, orderId, message, checkoutUrl, rawData];
+  List<Object?> get props => [
+    success,
+    transactionId,
+    orderId,
+    message,
+    checkoutUrl,
+    rawData,
+  ];
 }

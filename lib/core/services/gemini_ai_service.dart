@@ -19,7 +19,8 @@ class GeminiAIService {
   );
   final RemoteConfigService _configService;
   final jsonSchema = Schema.object(
-    description: 'Respuesta estructurada para una receta de cocina enriquecida.',
+    description:
+        'Respuesta estructurada para una receta de cocina enriquecida.',
     properties: {
       'isValidRecipe': Schema.boolean(
         description: 'Indica si la entrada fue válida y se generó una receta.',
@@ -29,19 +30,24 @@ class GeminiAIService {
             'Mensaje de error si no se puede generar una receta válida (por ejemplo, si no es una receta o si solicita más de una a la vez).',
       ),
       'result': Schema.object(
-        description: 'Contiene los datos completos de la receta, solo si la solicitud fue válida.',
+        description:
+            'Contiene los datos completos de la receta, solo si la solicitud fue válida.',
         properties: {
           'title': Schema.string(description: 'Nombre del plato.'),
           'summary': Schema.string(description: 'Resumen breve del plato.'),
           'isVegetarian': Schema.boolean(description: '¿Es vegetariano?'),
           'mealType': Schema.string(description: 'Tipo de comida.'),
           'difficulty': Schema.string(description: 'Nivel de dificultad.'),
-          'isAllergenic': Schema.boolean(description: '¿Contiene alérgenos comunes?'),
+          'isAllergenic': Schema.boolean(
+            description: '¿Contiene alérgenos comunes?',
+          ),
 
           'allergens': Schema.array(
             description: 'Lista de alérgenos presentes.',
             items: Schema.object(
-              properties: {'name': Schema.string(description: 'Nombre del alérgeno.')},
+              properties: {
+                'name': Schema.string(description: 'Nombre del alérgeno.'),
+              },
             ),
           ),
 
@@ -62,7 +68,11 @@ class GeminiAIService {
                 'original': Schema.string(description: 'Ingrediente original.'),
                 'alternativas': Schema.array(
                   items: Schema.object(
-                    properties: {'name': Schema.string(description: 'Ingrediente alternativo.')},
+                    properties: {
+                      'name': Schema.string(
+                        description: 'Ingrediente alternativo.',
+                      ),
+                    },
                   ),
                 ),
               },
@@ -73,8 +83,12 @@ class GeminiAIService {
             description: 'Pasos detallados para la preparación.',
             items: Schema.object(
               properties: {
-                'step': Schema.number(description: 'Número de paso en orden secuencial.'),
-                'text': Schema.string(description: 'Texto descriptivo del paso.'),
+                'step': Schema.number(
+                  description: 'Número de paso en orden secuencial.',
+                ),
+                'text': Schema.string(
+                  description: 'Texto descriptivo del paso.',
+                ),
               },
             ),
           ),
@@ -88,8 +102,12 @@ class GeminiAIService {
               'fiber': Schema.integer(description: 'Fibra en gramos.'),
               'sugar': Schema.integer(description: 'Azúcar en gramos.'),
               'sodium': Schema.integer(description: 'Sodio en miligramos.'),
-              'cholesterol': Schema.integer(description: 'Colesterol en miligramos.'),
-              'vitamin_c': Schema.integer(description: 'Vitamina C en miligramos.'),
+              'cholesterol': Schema.integer(
+                description: 'Colesterol en miligramos.',
+              ),
+              'vitamin_c': Schema.integer(
+                description: 'Vitamina C en miligramos.',
+              ),
               'iron': Schema.integer(description: 'Hierro en miligramos.'),
             },
           ),
@@ -113,7 +131,9 @@ class GeminiAIService {
           'diets': Schema.array(
             description: 'Dietas compatibles.',
             items: Schema.object(
-              properties: {'name': Schema.string(description: 'Nombre de la dieta.')},
+              properties: {
+                'name': Schema.string(description: 'Nombre de la dieta.'),
+              },
             ),
           ),
 
@@ -132,7 +152,9 @@ class GeminiAIService {
           'medical_restrictions': Schema.array(
             description: 'Condiciones médicas incompatibles.',
             items: Schema.object(
-              properties: {'name': Schema.string(description: 'Condición médica.')},
+              properties: {
+                'name': Schema.string(description: 'Condición médica.'),
+              },
             ),
           ),
 
@@ -141,7 +163,9 @@ class GeminiAIService {
 
           'similar_dishes': Schema.array(
             items: Schema.object(
-              properties: {'name': Schema.string(description: 'Nombre del plato similar.')},
+              properties: {
+                'name': Schema.string(description: 'Nombre del plato similar.'),
+              },
             ),
           ),
 
@@ -158,17 +182,23 @@ class GeminiAIService {
             properties: {
               'drinks': Schema.array(
                 items: Schema.object(
-                  properties: {'name': Schema.string(description: 'Bebida recomendada.')},
+                  properties: {
+                    'name': Schema.string(description: 'Bebida recomendada.'),
+                  },
                 ),
               ),
               'sides': Schema.array(
                 items: Schema.object(
-                  properties: {'name': Schema.string(description: 'Guarnición sugerida.')},
+                  properties: {
+                    'name': Schema.string(description: 'Guarnición sugerida.'),
+                  },
                 ),
               ),
               'desserts': Schema.array(
                 items: Schema.object(
-                  properties: {'name': Schema.string(description: 'Postre sugerido.')},
+                  properties: {
+                    'name': Schema.string(description: 'Postre sugerido.'),
+                  },
                 ),
               ),
             },
@@ -176,15 +206,20 @@ class GeminiAIService {
 
           'health_warnings': Schema.array(
             items: Schema.object(
-              properties: {'text': Schema.string(description: 'Advertencia médica.')},
+              properties: {
+                'text': Schema.string(description: 'Advertencia médica.'),
+              },
             ),
           ),
           'plating_instructions': Schema.array(
-            description: 'Instrucciones detalladas sobre cómo servir o emplatar el plato.',
+            description:
+                'Instrucciones detalladas sobre cómo servir o emplatar el plato.',
             items: Schema.object(
               properties: {
                 'step': Schema.number(description: 'Número de paso.'),
-                'description': Schema.string(description: 'Descripción del paso de emplatado.'),
+                'description': Schema.string(
+                  description: 'Descripción del paso de emplatado.',
+                ),
               },
             ),
           ),
@@ -199,7 +234,13 @@ class GeminiAIService {
             'Timestamp de generación (UNIX timestamp en segundos o milisegundos, sin decimales).',
       ),
     },
-    propertyOrdering: ['isValidRecipe', 'errorMessage', 'result', 'cacheTime', 'time'],
+    propertyOrdering: [
+      'isValidRecipe',
+      'errorMessage',
+      'result',
+      'cacheTime',
+      'time',
+    ],
     optionalProperties: ['errorMessage', 'result'], //, 'cacheTime', 'time'
   );
 
@@ -209,7 +250,9 @@ class GeminiAIService {
     SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high, null),
   ];
 
-  Stream<String> generateAudioTextStream({required InlineDataPart audioPart}) async* {
+  Stream<String> generateAudioTextStream({
+    required InlineDataPart audioPart,
+  }) async* {
     final modelName = _configService.getString("model_name");
     final systemInstructions = _configService.getString("system_instructions");
     final promptText = _configService.getString("prompt_audio_text");
@@ -276,7 +319,9 @@ class GeminiAIService {
     return response.text ?? "";
   }
 
-  Stream<String> generateImageTextStream({required InlineDataPart imagePart}) async* {
+  Stream<String> generateImageTextStream({
+    required InlineDataPart imagePart,
+  }) async* {
     final modelName = _configService.getString("model_name");
     final systemInstructions = _configService.getString("system_instructions");
     final promptText = _configService.getString("prompt_image_text");
@@ -322,7 +367,9 @@ class GeminiAIService {
       return "";
     }
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final model = FirebaseAI.vertexAI(
+      appCheck: FirebaseAppCheck.instance,
+    ).generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       safetySettings: safetySettings,
@@ -346,7 +393,9 @@ class GeminiAIService {
     final systemInstructions = _configService.getString("system_instructions");
     final promptText = _configService.getString("prompt_text_to_text");
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final model = FirebaseAI.vertexAI(
+      appCheck: FirebaseAppCheck.instance,
+    ).generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
@@ -354,7 +403,9 @@ class GeminiAIService {
         responseSchema: jsonSchema,
       ),
     );
-    final response = await model.generateContent([Content.text(prompt + promptText)]);
+    final response = await model.generateContent([
+      Content.text(prompt + promptText),
+    ]);
     return response.text ?? "";
   }
 
@@ -362,7 +413,9 @@ class GeminiAIService {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
+    final model = FirebaseAI.vertexAI(
+      appCheck: FirebaseAppCheck.instance,
+    ).imagenModel(
       model: modelName,
       safetySettings: imagenSafetySettings,
       generationConfig: ImagenGenerationConfig(
@@ -381,11 +434,15 @@ class GeminiAIService {
     }
   }
 
-  Future<List<Uint8List?>> generateTextToMoreImage({required String prompt}) async {
+  Future<List<Uint8List?>> generateTextToMoreImage({
+    required String prompt,
+  }) async {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
+    final model = FirebaseAI.vertexAI(
+      appCheck: FirebaseAppCheck.instance,
+    ).imagenModel(
       model: modelName,
       safetySettings: imagenSafetySettings,
       generationConfig: ImagenGenerationConfig(

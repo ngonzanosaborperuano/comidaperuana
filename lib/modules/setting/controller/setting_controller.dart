@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class SettingController extends BaseController {
-  SettingController({required UserRepository userRepository}) : _userRepository = userRepository {
+  SettingController({required UserRepository userRepository})
+    : _userRepository = userRepository {
     _logger.info('SettingController initialized');
   }
 
@@ -37,16 +38,16 @@ class SettingController extends BaseController {
   /// Actualizar configuración de auto-rotación
   Future<void> toggleAutoRotation(bool enabled) async {
     isAutoRotationEnabled.value = enabled;
-    
+
     // Guardar preferencia
     await SharedPreferencesHelper.instance.setBool(
-      CacheConstants.autoRotation, 
+      CacheConstants.autoRotation,
       value: enabled,
     );
-    
+
     // Aplicar configuración inmediatamente
     await _updateDeviceOrientation(enabled);
-    
+
     _logger.info('Auto-rotación ${enabled ? 'habilitada' : 'deshabilitada'}');
   }
 
@@ -71,7 +72,9 @@ class SettingController extends BaseController {
 
   /// Cargar configuración de auto-rotación al inicializar
   void loadAutoRotationSetting() {
-    final enabled = SharedPreferencesHelper.instance.getBool(CacheConstants.autoRotation);
+    final enabled = SharedPreferencesHelper.instance.getBool(
+      CacheConstants.autoRotation,
+    );
     isAutoRotationEnabled.value = enabled;
   }
 }

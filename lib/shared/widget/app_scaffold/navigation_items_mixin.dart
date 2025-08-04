@@ -6,7 +6,10 @@ import 'package:recetasperuanas/shared/widget/app_scaffold/shared_icon_menu.dart
 /// tanto para Android como para iOS
 mixin NavigationItemsMixin {
   /// Construye la lista de items de navegación para Android
-  List<BottomNavigationBarItem> buildAndroidNavigationItems(int currentPage, BuildContext context) {
+  List<BottomNavigationBarItem> buildAndroidNavigationItems(
+    int currentPage,
+    BuildContext context,
+  ) {
     return [
       _buildNavigationItem(
         iconPath: 'assets/svg/home.svg',
@@ -32,7 +35,10 @@ mixin NavigationItemsMixin {
   }
 
   /// Construye la lista de items de navegación para iOS
-  List<BottomNavigationBarItem> buildIOSNavigationItems(int currentPage, [BuildContext? context]) {
+  List<BottomNavigationBarItem> buildIOSNavigationItems(
+    int currentPage, [
+    BuildContext? context,
+  ]) {
     return [
       _buildIOSNavigationItem(
         iconPath: 'assets/svg/home.svg',

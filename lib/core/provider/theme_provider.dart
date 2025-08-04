@@ -22,7 +22,8 @@ class ThemeProvider extends ChangeNotifier with WidgetsBindingObserver {
 
   // Detecta automáticamente el tema del dispositivo
   static ThemeMode _getDeviceTheme() {
-    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
     switch (brightness) {
       case Brightness.dark:

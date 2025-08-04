@@ -9,7 +9,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart'
         InAppWebViewSettings,
         NavigationActionPolicy;
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/modules/checkout/model/payu_checkout_response_model.dart';
+import 'package:recetasperuanas/modules/checkout/models/payu_checkout_response_model.dart';
 import 'package:recetasperuanas/modules/checkout/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -19,7 +19,8 @@ class CheckoutInterface extends StatefulWidget {
   final Map<String, String> checkoutData;
   final double progress;
   final Function(double) onProgressChanged;
-  final Function(PayuCheckoutResponseModel, Map<String, String>) onPaymentSuccess;
+  final Function(PayuCheckoutResponseModel, Map<String, String>)
+  onPaymentSuccess;
 
   const CheckoutInterface({
     super.key,
@@ -55,7 +56,9 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
             duration: const Duration(milliseconds: 300),
             width: MediaQuery.of(context).size.width * widget.progress,
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [context.color.error, context.color.buttonPrimary]),
+              gradient: LinearGradient(
+                colors: [context.color.error, context.color.buttonPrimary],
+              ),
             ),
           ),
         ),
@@ -83,7 +86,10 @@ class _CheckoutInterfaceState extends State<CheckoutInterface> {
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
               body: Uint8List.fromList(
                 widget.checkoutData.entries
-                    .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .map(
+                      (e) =>
+                          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+                    )
                     .join('&')
                     .codeUnits,
               ),

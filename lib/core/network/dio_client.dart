@@ -75,7 +75,10 @@ class DioClient {
 
   // Singleton Factory
   factory DioClient({required String baseUrl, String? initialToken}) {
-    return _instances.putIfAbsent(baseUrl, () => DioClient._internal(baseUrl, initialToken));
+    return _instances.putIfAbsent(
+      baseUrl,
+      () => DioClient._internal(baseUrl, initialToken),
+    );
   }
 
   DioClient._internal(String baseUrl, String? token)
@@ -85,7 +88,10 @@ class DioClient {
           baseUrl: baseUrl,
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
-          headers: {'Content-Type': 'application/json', if (token != null) 'Authorization': token},
+          headers: {
+            'Content-Type': 'application/json',
+            if (token != null) 'Authorization': token,
+          },
         ),
       ) {
     _dio.interceptors.add(AppCheckInterceptor());

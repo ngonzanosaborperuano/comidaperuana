@@ -10,7 +10,8 @@ class CurveTestWidget extends StatefulWidget {
   State<CurveTestWidget> createState() => _CurveTestWidgetState();
 }
 
-class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderStateMixin {
+class _CurveTestWidgetState extends State<CurveTestWidget>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _safeAnimation;
   late Animation<double> _unsafeAnimation;
@@ -18,13 +19,18 @@ class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    );
 
     // Animación con curva segura
-    _safeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeOutBack)));
+    _safeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const SafeCurve(Curves.easeOutBack),
+      ),
+    );
 
     // Animación con curva original (para comparar)
     _unsafeAnimation = Tween<double>(
@@ -129,7 +135,10 @@ class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderSt
                         const SizedBox(width: 16),
                         Text(
                           'Segura',
-                          style: TextStyle(fontSize: 14, color: context.color.textSecondary),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: context.color.textSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -158,7 +167,10 @@ class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderSt
                         const SizedBox(width: 16),
                         Text(
                           'Original',
-                          style: TextStyle(fontSize: 14, color: context.color.textSecondary),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: context.color.textSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -204,7 +216,9 @@ class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderSt
               decoration: BoxDecoration(
                 color: context.color.background,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: context.color.primary.withOpacity(0.3)),
+                border: Border.all(
+                  color: context.color.primary.withOpacity(0.3),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +237,10 @@ class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderSt
                     '• Esto causa errores críticos en Flutter\n'
                     '• SafeCurve garantiza que todos los valores estén en el rango válido\n'
                     '• Mantiene la suavidad de la animación original',
-                    style: TextStyle(fontSize: 14, color: context.color.textSecondary),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: context.color.textSecondary,
+                    ),
                   ),
                 ],
               ),

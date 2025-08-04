@@ -41,7 +41,8 @@ class AppToast {
     String? title,
   ) {
     return OverlayEntry(
-      builder: (context) => _ToastWidget(message: message, type: type, title: title),
+      builder:
+          (context) => _ToastWidget(message: message, type: type, title: title),
     );
   }
 }
@@ -57,7 +58,8 @@ class _ToastWidget extends StatefulWidget {
   State<_ToastWidget> createState() => _ToastWidgetState();
 }
 
-class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderStateMixin {
+class _ToastWidgetState extends State<_ToastWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
@@ -72,7 +74,10 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
       vsync: this,
     );
 
-    _slideAnimation = Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero).animate(
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, -1),
+      end: Offset.zero,
+    ).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.elasticOut,
@@ -81,7 +86,11 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut, reverseCurve: Curves.easeIn),
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+        reverseCurve: Curves.easeIn,
+      ),
     );
 
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
@@ -178,7 +187,10 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
             child: Material(
               color: Colors.transparent,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: _getBackgroundColor(context),
                   borderRadius: BorderRadius.circular(12),
@@ -202,7 +214,11 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
                         color: _getIconColor(context).withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(_getIcon(), color: _getIconColor(context), size: 20),
+                      child: Icon(
+                        _getIcon(),
+                        color: _getIconColor(context),
+                        size: 20,
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -226,7 +242,9 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
-                              color: _getTextColor(context).withValues(alpha: 0.9),
+                              color: _getTextColor(
+                                context,
+                              ).withValues(alpha: 0.9),
                             ),
                           ),
                         ],
@@ -266,7 +284,13 @@ extension AppToastExtension on BuildContext {
     Duration duration = const Duration(seconds: 3),
     String? title,
   }) {
-    AppToast.show(context: this, message: message, type: type, duration: duration, title: title);
+    AppToast.show(
+      context: this,
+      message: message,
+      type: type,
+      duration: duration,
+      title: title,
+    );
   }
 
   void showSuccessToast(String message, {String? title}) {

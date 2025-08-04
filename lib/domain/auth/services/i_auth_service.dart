@@ -6,7 +6,10 @@ import 'package:recetasperuanas/domain/core/value_objects.dart';
 /// Domain service for authentication business logic
 abstract class IAuthService {
   /// Validate login credentials
-  Result<void, DomainException> validateLoginCredentials(Email email, Password password);
+  Result<void, DomainException> validateLoginCredentials(
+    Email email,
+    Password password,
+  );
 
   /// Validate registration data
   Result<void, DomainException> validateRegistrationData({

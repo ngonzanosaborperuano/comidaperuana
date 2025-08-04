@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/domain/auth/entities/user.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
@@ -46,6 +47,38 @@ class LoginController extends BaseController {
       }
     } catch (e) {
       _setError('Error inesperado: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Login method for backward compatibility with existing view
+  Future<(bool success, String message)> loginWithUser({
+    required Map<String, dynamic> user,
+    required LoginWith type,
+  }) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final email = user['email'] as String;
+      final password = user['password'] as String;
+
+      final result = await _loginUseCase.execute(email: email, password: password);
+
+      if (result.isSuccess) {
+        _currentUser.value = result.successValue;
+        _showSuccess('Inicio de sesión exitoso');
+        return (true, 'Inicio de sesión exitoso');
+      } else {
+        final errorMessage = result.failureValue!.message;
+        _setError(errorMessage);
+        return (false, errorMessage);
+      }
+    } catch (e) {
+      final errorMessage = 'Error inesperado: $e';
+      _setError(errorMessage);
+      return (false, errorMessage);
     } finally {
       _setLoading(false);
     }

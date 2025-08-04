@@ -13,26 +13,38 @@ class AppColorScheme extends InheritedWidget {
   });
 
   static AppColorScheme of(BuildContext context) {
-    final inherited = context.dependOnInheritedWidgetOfExactType<AppColorScheme>();
-    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final inherited =
+        context.dependOnInheritedWidgetOfExactType<AppColorScheme>();
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
     final platform = Theme.of(context).platform;
 
     return inherited ??
-        AppColorScheme(brightness: brightness, platform: platform, child: const SizedBox.shrink());
+        AppColorScheme(
+          brightness: brightness,
+          platform: platform,
+          child: const SizedBox.shrink(),
+        );
   }
 
   // === COLORES PRINCIPALES ===
   Color get buttonPrimary {
-    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.primary1;
+    return brightness == Brightness.dark
+        ? AppColors.primary1
+        : AppColors.primary1;
   }
 
   Color get background {
-    return brightness == Brightness.dark ? AppColors.backgroundDark : AppColors.background;
+    return brightness == Brightness.dark
+        ? AppColors.backgroundDark
+        : AppColors.background;
   }
 
   Color get backgroundCard {
-    return brightness == Brightness.dark ? AppColors.backgroundCardDark : AppColors.backgroundCard;
+    return brightness == Brightness.dark
+        ? AppColors.backgroundCardDark
+        : AppColors.backgroundCard;
   }
 
   Color get textSecondary {
@@ -40,11 +52,15 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get textSecondary2 {
-    return brightness == Brightness.dark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+    return brightness == Brightness.dark
+        ? AppColors.textSecondaryDark
+        : AppColors.textSecondary;
   }
 
   Color get textSecondary2Invert {
-    return brightness == Brightness.dark ? AppColors.textSecondary : AppColors.textSecondaryDark;
+    return brightness == Brightness.dark
+        ? AppColors.textSecondary
+        : AppColors.textSecondaryDark;
   }
 
   Color get text {
@@ -52,7 +68,9 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get textNormal {
-    return brightness == Brightness.dark ? AppColors.textDark : AppColors.textDark;
+    return brightness == Brightness.dark
+        ? AppColors.textDark
+        : AppColors.textDark;
   }
 
   Color get error {
@@ -60,7 +78,9 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get errorText {
-    return brightness == Brightness.dark ? AppColors.errorText : AppColors.errorText;
+    return brightness == Brightness.dark
+        ? AppColors.errorText
+        : AppColors.errorText;
   }
 
   Color get border {
@@ -72,7 +92,9 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get secondary {
-    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.slate700;
+    return brightness == Brightness.dark
+        ? AppColors.primary1
+        : AppColors.slate700;
   }
 
   Color get secondaryInvert {
@@ -82,7 +104,9 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get surface {
-    return brightness == Brightness.dark ? AppColors.slate900 : AppColors.backgroundCard;
+    return brightness == Brightness.dark
+        ? AppColors.slate900
+        : AppColors.backgroundCard;
   }
 
   // === COLORES DE TEXTO ===
@@ -94,25 +118,35 @@ class AppColorScheme extends InheritedWidget {
   // === COLORES DE MENÚ ===
 
   Color get menuActive {
-    return brightness == Brightness.dark ? AppColors.primary1 : AppColors.slate700;
+    return brightness == Brightness.dark
+        ? AppColors.primary1
+        : AppColors.slate700;
   }
 
   Color get menuInactive {
-    return brightness == Brightness.dark ? AppColors.slate500 : AppColors.slate400;
+    return brightness == Brightness.dark
+        ? AppColors.slate500
+        : AppColors.slate400;
   }
 
   Color get menuBackground {
-    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.slate200;
+    return brightness == Brightness.dark
+        ? AppColors.slate800
+        : AppColors.slate200;
   }
 
   // === COLORES DE ESTADO ===
 
   Color get success {
-    return brightness == Brightness.dark ? AppColors.emerald200 : AppColors.emerald700;
+    return brightness == Brightness.dark
+        ? AppColors.emerald200
+        : AppColors.emerald700;
   }
 
   Color get successBackground {
-    return brightness == Brightness.dark ? AppColors.emerald900 : AppColors.emerald50;
+    return brightness == Brightness.dark
+        ? AppColors.emerald900
+        : AppColors.emerald50;
   }
 
   Color get errorBackground {
@@ -120,21 +154,29 @@ class AppColorScheme extends InheritedWidget {
   }
 
   Color get warning {
-    return brightness == Brightness.dark ? AppColors.yellow400 : AppColors.amber700;
+    return brightness == Brightness.dark
+        ? AppColors.yellow400
+        : AppColors.amber700;
   }
 
   Color get warningBackground {
-    return brightness == Brightness.dark ? AppColors.amber900 : AppColors.yellow100;
+    return brightness == Brightness.dark
+        ? AppColors.amber900
+        : AppColors.yellow100;
   }
 
   Color get info {
-    return brightness == Brightness.dark ? AppColors.slate400 : AppColors.slate500;
+    return brightness == Brightness.dark
+        ? AppColors.slate400
+        : AppColors.slate500;
   }
 
   // === COLORES DE BORDES ===
 
   Color get borderLight {
-    return brightness == Brightness.dark ? AppColors.slate800 : AppColors.slate200;
+    return brightness == Brightness.dark
+        ? AppColors.slate800
+        : AppColors.slate200;
   }
 
   // === COLORES DE SOMBRAS ===
@@ -184,7 +226,9 @@ class AppColorScheme extends InheritedWidget {
   // === COLORES DE ETIQUETAS ===
 
   Color get labelText {
-    return brightness == Brightness.dark ? AppColors.labelTextDark : AppColors.labelTextLight;
+    return brightness == Brightness.dark
+        ? AppColors.labelTextDark
+        : AppColors.labelTextLight;
   }
 
   Color get labelBackground {

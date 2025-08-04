@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
-import 'package:recetasperuanas/modules/checkout/model/payu_checkout_params_model.dart'
+import 'package:recetasperuanas/core/constants/payu_config.dart'
+    show PayUConfig;
+import 'package:recetasperuanas/modules/checkout/models/payu_checkout_params_model.dart'
     show PayuCheckoutParamsModel;
-import 'package:recetasperuanas/shared/models/payu_response_model.dart' show PayUResponse;
+import 'package:recetasperuanas/shared/models/payu_response_model.dart'
+    show PayUResponse;
 
 import 'subscription_service.dart';
 
@@ -77,7 +79,9 @@ class PayUService extends ChangeNotifier {
           orElse: () => SubscriptionPlanType.monthly,
         );
 
-        final amount = double.tryParse(additionalData?['TX_VALUE']?.toString() ?? '0') ?? 0.0;
+        final amount =
+            double.tryParse(additionalData?['TX_VALUE']?.toString() ?? '0') ??
+            0.0;
 
         await SubscriptionService().activateSubscription(
           planType: planType,
@@ -112,13 +116,19 @@ class PayUService extends ChangeNotifier {
       final requestBody = {
         'language': PayUConfig.language,
         'command': 'ORDER_DETAIL',
-        'merchant': {'apiKey': PayUConfig.apiKey, 'apiLogin': PayUConfig.apiLogin},
+        'merchant': {
+          'apiKey': PayUConfig.apiKey,
+          'apiLogin': PayUConfig.apiLogin,
+        },
         'details': {'orderId': orderId},
       };
 
       final response = await http.post(
         Uri.parse('${PayUConfig.baseUrl}/payments-api/4.0/service.cgi'),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: jsonEncode(requestBody),
       );
 
@@ -130,7 +140,10 @@ class PayUService extends ChangeNotifier {
       }
     } catch (e, stackTrace) {
       debugPrint('StackTrace: $stackTrace');
-      return PayUResponse(success: false, message: 'Error consultando transacción: $e');
+      return PayUResponse(
+        success: false,
+        message: 'Error consultando transacción: $e',
+      );
     }
   }
 

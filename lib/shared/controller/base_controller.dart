@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
+import 'package:recetasperuanas/core/result/app_result.dart';
 import 'package:recetasperuanas/l10n/app_localizations.dart';
 import 'package:recetasperuanas/shared/helpers/modal_view.dart';
 import 'package:recetasperuanas/shared/widget/app_modal_alert.dart';
@@ -30,6 +31,45 @@ class BaseController extends ChangeNotifier with _NotificationsNotifier {
 
   void addError(Object error, [StackTrace? stackTrace]) {
     logger.severe(error, stackTrace);
+  }
+
+  /// Handle AppResult with automatic error handling
+  void handleResult<T>(
+    AppResult<T> result, {
+    void Function(T)? onSuccess,
+    void Function(String)? onError,
+    bool showErrorToast = true,
+  }) {
+    result.onResult(
+      onSuccess: (value) {
+        onSuccess?.call(value);
+      },
+      onFailure: (error) {
+        onError?.call(error);
+        if (showErrorToast) {
+          showError(error);
+        }
+      },
+    );
+  }
+
+  /// Execute async operation with result handling
+  Future<void> executeAsync<T>(
+    Future<AppResult<T>> Function() operation, {
+    void Function(T)? onSuccess,
+    void Function(String)? onError,
+    bool showErrorToast = true,
+  }) async {
+    try {
+      final result = await operation();
+      handleResult(result, onSuccess: onSuccess, onError: onError, showErrorToast: showErrorToast);
+    } catch (e) {
+      final error = e.toString();
+      onError?.call(error);
+      if (showErrorToast) {
+        showError(error);
+      }
+    }
   }
 
   @override

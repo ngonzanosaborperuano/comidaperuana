@@ -14,10 +14,12 @@ class AppGeminiVoiceToTextButton extends StatefulWidget {
   const AppGeminiVoiceToTextButton({super.key, this.onResult});
 
   @override
-  State<AppGeminiVoiceToTextButton> createState() => _AppGeminiVoiceToTextButtonState();
+  State<AppGeminiVoiceToTextButton> createState() =>
+      _AppGeminiVoiceToTextButtonState();
 }
 
-class _AppGeminiVoiceToTextButtonState extends State<AppGeminiVoiceToTextButton> {
+class _AppGeminiVoiceToTextButtonState
+    extends State<AppGeminiVoiceToTextButton> {
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   bool _isRecording = false;
   late final String _filePath;
@@ -107,7 +109,9 @@ class _AppGeminiVoiceToTextButtonState extends State<AppGeminiVoiceToTextButton>
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
-          _isRecording ? '🎙 Grabando... suelta para enviar' : '🎤 Mantén presionado para grabar',
+          _isRecording
+              ? '🎙 Grabando... suelta para enviar'
+              : '🎤 Mantén presionado para grabar',
           style: const TextStyle(color: Colors.white),
         ),
       ),

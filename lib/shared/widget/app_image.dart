@@ -198,7 +198,11 @@ class AppImageIcon extends StatelessWidget {
         width: size,
         height: size,
         child: const Center(
-          child: SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)),
+          child: SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
         ),
       ),
       errorWidget: SizedBox(
@@ -267,7 +271,11 @@ class ImageIconSemantic {
   }
 
   /// Imagen cocinera
-  AppImageIcon cocinera({double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon cocinera({
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     return AppImageIcon(
       assetPath: AppImages.cocinera,
       size: size,
@@ -327,7 +335,11 @@ class ImageIconSemantic {
   }
 
   /// Imagen logo old
-  AppImageIcon logoOld({double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon logoOld({
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     return AppImageIcon(
       assetPath: AppImages.logoOld,
       size: size,
@@ -337,7 +349,11 @@ class ImageIconSemantic {
   }
 
   /// Imagen logo out name
-  AppImageIcon logoOutName({double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon logoOutName({
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     return AppImageIcon(
       assetPath: AppImages.logoOutName,
       size: size,
@@ -347,7 +363,11 @@ class ImageIconSemantic {
   }
 
   /// Imagen logo out name old
-  AppImageIcon logoOutNameOld({double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon logoOutNameOld({
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     return AppImageIcon(
       assetPath: AppImages.logoOutNameOld,
       size: size,
@@ -357,7 +377,11 @@ class ImageIconSemantic {
   }
 
   /// Imagen user avatar
-  AppImageIcon userAvatar({double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon userAvatar({
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     return AppImageIcon(
       assetPath: AppImages.userAvatar,
       size: size,
@@ -367,7 +391,12 @@ class ImageIconSemantic {
   }
 
   /// Método genérico para cualquier imagen por nombre
-  AppImageIcon? byName(String name, {double? size, Color? color, BlendMode? colorBlendMode}) {
+  AppImageIcon? byName(
+    String name, {
+    double? size,
+    Color? color,
+    BlendMode? colorBlendMode,
+  }) {
     final path = AppImages.getPath(name);
     if (path != null) {
       return AppImageIcon(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/modules/login/widget/widget.dart' show LogoWidget;
+import 'package:recetasperuanas/modules/login/widget/widget.dart'
+    show LogoWidget;
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/modules/register/widget/animated_register_button.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -36,13 +37,17 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AnimatedLogoWidget(child: Hero(tag: 'logo', child: LogoWidget())),
+          const AnimatedLogoWidget(
+            child: Hero(tag: 'logo', child: LogoWidget()),
+          ),
           AppVerticalSpace.xlg,
           AppTextField(
             hintText: context.loc.enterFullName,
             textEditingController: widget.controller.fullNameController,
             keyboardType: TextInputType.name,
-            validator: (value) => widget.controller.validateEmpty(value ?? '', context),
+            validator:
+                (value) =>
+                    widget.controller.validateEmpty(value ?? '', context),
             prefixIcon: Icon(Icons.person, color: context.color.textSecondary),
           ),
           AppVerticalSpace.xmd,
@@ -50,13 +55,18 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.loc.enterEmail,
             textEditingController: widget.controller.emailController,
             keyboardType: TextInputType.emailAddress,
-            validator: (value) => widget.controller.validateEmail(value ?? '', context),
+            validator:
+                (value) =>
+                    widget.controller.validateEmail(value ?? '', context),
             prefixIcon: Icon(Icons.email, color: context.color.textSecondary),
           ),
           AppVerticalSpace.xmd,
           _RegisterPasswordField(controller: widget.controller),
           AppVerticalSpace.xmd,
-          AnimatedRegisterButton(isLoading: _isLoading, onPressed: () => _handleRegister(context)),
+          AnimatedRegisterButton(
+            isLoading: _isLoading,
+            onPressed: () => _handleRegister(context),
+          ),
         ],
       ),
     );
@@ -105,18 +115,22 @@ class _RegisterPasswordField extends StatelessWidget {
               textEditingController: controller.passwordController,
               obscureText: value,
               obscuringCharacter: '*',
-              validator: (value) => controller.validatePassword(value ?? '', context),
+              validator:
+                  (value) => controller.validatePassword(value ?? '', context),
               prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
             ),
             TextButton(
               onPressed: () {
-                controller.isObscureText.value = !controller.isObscureText.value;
+                controller.isObscureText.value =
+                    !controller.isObscureText.value;
               },
               child: Text(
                 controller.isObscureText.value
                     ? context.loc.showPassword
                     : context.loc.hidePassword,
-                style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+                style: AppStyles.bodyTextBold.copyWith(
+                  color: context.color.text,
+                ),
               ),
             ),
           ],

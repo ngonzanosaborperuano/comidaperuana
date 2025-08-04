@@ -16,7 +16,8 @@ class Password extends ValueObject<String> {
   @override
   String? get errorMessage {
     if (value.isEmpty) return 'La contraseña no puede estar vacía';
-    if (value.length < 8) return 'La contraseña debe tener al menos 8 caracteres';
+    if (value.length < 8)
+      return 'La contraseña debe tener al menos 8 caracteres';
     if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value)) {
       return 'La contraseña debe contener al menos una mayúscula';
     }
@@ -35,7 +36,9 @@ class Password extends ValueObject<String> {
     if (passwordVO.isValid) {
       return Success(passwordVO);
     }
-    return Failure(ValidationException(passwordVO.errorMessage ?? 'Contraseña inválida'));
+    return Failure(
+      ValidationException(passwordVO.errorMessage ?? 'Contraseña inválida'),
+    );
   }
 
   /// Get password strength level

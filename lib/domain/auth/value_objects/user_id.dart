@@ -25,7 +25,9 @@ class UserId extends ValueObject<String> {
     if (userIdVO.isValid) {
       return Success(userIdVO);
     }
-    return Failure(ValidationException(userIdVO.errorMessage ?? 'ID de usuario inválido'));
+    return Failure(
+      ValidationException(userIdVO.errorMessage ?? 'ID de usuario inválido'),
+    );
   }
 
   /// Create from Firebase UID

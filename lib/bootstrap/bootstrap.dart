@@ -37,13 +37,15 @@ Future<void> _loadEnvironmentVariables() async {
     log('🔧 Cargando variables de entorno...');
     await dotenv.load(fileName: '.env');
     log('✅ Variables de entorno cargadas correctamente');
-    
+
     // Log de configuración PayU (sin mostrar credenciales completas)
     final merchantId = dotenv.env['PAYU_MERCHANT_ID'] ?? 'No configurado';
     final currency = dotenv.env['PAYU_CURRENCY'] ?? 'No configurado';
     final testMode = dotenv.env['PAYU_TEST_MODE'] ?? 'No configurado';
-    
-    log('📋 Configuración PayU: MerchantID=$merchantId, Currency=$currency, TestMode=$testMode');
+
+    log(
+      '📋 Configuración PayU: MerchantID=$merchantId, Currency=$currency, TestMode=$testMode',
+    );
   } catch (e) {
     log('⚠️ No se pudo cargar el archivo .env: $e');
     log('ℹ️ Usando valores por defecto para PayU');
@@ -58,7 +60,9 @@ Future<void> _configureDeviceOrientation() async {
   );
 
   if (isAutoRotationEnabled) {
-    log('📱 Auto-rotación habilitada por el usuario - Permitiendo todas las orientaciones');
+    log(
+      '📱 Auto-rotación habilitada por el usuario - Permitiendo todas las orientaciones',
+    );
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -80,16 +84,22 @@ Future<void> _initializeFirebaseAppCheck() async {
 
     await FirebaseAppCheck.instance.activate(
       // En desarrollo, usar solo debug providers para evitar errores de App Attest
-      androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-      appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.deviceCheck,
+      androidProvider:
+          kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+      appleProvider:
+          kDebugMode ? AppleProvider.debug : AppleProvider.deviceCheck,
     );
 
     log('✅ Firebase App Check activado correctamente');
 
     // Obtener un token inicial para evitar errores en operaciones de autenticación
     try {
-      await Future.delayed(const Duration(seconds: 1)); // Pequeño delay para estabilizar
-      String? token = await FirebaseAppCheck.instance.getToken(true); // forceRefresh = true
+      await Future.delayed(
+        const Duration(seconds: 1),
+      ); // Pequeño delay para estabilizar
+      String? token = await FirebaseAppCheck.instance.getToken(
+        true,
+      ); // forceRefresh = true
       if (token != null) {
         log('✅ Token de App Check obtenido: ${token.substring(0, 20)}...');
       } else {
@@ -97,7 +107,9 @@ Future<void> _initializeFirebaseAppCheck() async {
       }
     } catch (tokenError) {
       log('⚠️ Error al obtener token inicial de App Check: $tokenError');
-      log('ℹ️ La app continuará funcionando - App Check se manejará automáticamente');
+      log(
+        'ℹ️ La app continuará funcionando - App Check se manejará automáticamente',
+      );
     }
   } catch (e, stackTrace) {
     log('❌ Error al inicializar Firebase App Check: $e');

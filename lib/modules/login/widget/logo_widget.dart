@@ -8,7 +8,8 @@ class LogoWidget extends StatefulWidget {
   State<LogoWidget> createState() => _LogoWidgetState();
 }
 
-class _LogoWidgetState extends State<LogoWidget> with SingleTickerProviderStateMixin {
+class _LogoWidgetState extends State<LogoWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
@@ -19,15 +20,16 @@ class _LogoWidgetState extends State<LogoWidget> with SingleTickerProviderStateM
 
     // Solo una animación simple y estable
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 2000), // Más lenta para verla mejor
+      duration: const Duration(
+        milliseconds: 2000,
+      ), // Más lenta para verla mejor
       vsync: this,
     );
 
     // Animación de escala con bounce
-    _scaleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticOut));
+    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
 
     // Animación de fade in
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(

@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/constants/payu_config.dart' show PayUConfig;
+import 'package:recetasperuanas/core/constants/payu_config.dart'
+    show PayUConfig;
 import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/core/services/payu_service.dart' show PayUService;
+import 'package:recetasperuanas/core/services/payu_service.dart'
+    show PayUService;
 import 'package:recetasperuanas/core/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -42,7 +44,8 @@ void showPayUCheckout(
         apiKey: PayUConfig.apiKey,
         amount: planType.basePrice,
         currency: PayUConfig.currency,
-        referenceCode: 'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}',
+        referenceCode:
+            'SUB_${planType.id.toUpperCase()}_${DateTime.now().millisecondsSinceEpoch}',
         description: description,
         buyerEmail: userEmail,
         buyerName: userName,
@@ -57,11 +60,17 @@ void showPayUCheckout(
         // Serializar checkoutData para queryParameters
         final checkoutDataMap = checkoutData.toServiceMap();
         final checkoutDataJson = checkoutDataMap.entries
-            .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .map(
+              (e) =>
+                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+            )
             .join('&');
         context.goNamed(
           Routes.payuCheckout.description,
-          queryParameters: {'checkoutUrl': response.checkoutUrl!, 'checkoutData': checkoutDataJson},
+          queryParameters: {
+            'checkoutUrl': response.checkoutUrl!,
+            'checkoutData': checkoutDataJson,
+          },
         );
       }
     } else {

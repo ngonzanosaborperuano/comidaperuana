@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/modules/checkout/model/payu_checkout_response_model.dart';
-import 'package:recetasperuanas/modules/checkout/view/page_success_view.dart' show PageSuccess;
+import 'package:recetasperuanas/modules/checkout/models/payu_checkout_response_model.dart';
+import 'package:recetasperuanas/modules/checkout/view/page_success_view.dart'
+    show PageSuccess;
 import 'package:recetasperuanas/modules/checkout/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -16,7 +17,11 @@ class PayUCheckoutWebView extends StatefulWidget {
   final String checkoutUrl;
   final Map<String, String> checkoutData;
 
-  const PayUCheckoutWebView({super.key, required this.checkoutUrl, required this.checkoutData});
+  const PayUCheckoutWebView({
+    super.key,
+    required this.checkoutUrl,
+    required this.checkoutData,
+  });
 
   @override
   State<PayUCheckoutWebView> createState() => _PayUCheckoutWebViewState();
@@ -127,7 +132,9 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
               color: transactionState == '7' ? Colors.orange : Colors.red,
               size: 48,
             ),
-            title: Text(transactionState == '7' ? 'Pago Pendiente' : 'Pago Rechazado'),
+            title: Text(
+              transactionState == '7' ? 'Pago Pendiente' : 'Pago Rechazado',
+            ),
             content: Text(message),
             actions: [
               TextButton(
@@ -147,7 +154,9 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
                         urlRequest: URLRequest(
                           url: WebUri(widget.checkoutUrl),
                           method: 'POST',
-                          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                          headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                          },
                           body: Uint8List.fromList(
                             widget.checkoutData.entries
                                 .map(

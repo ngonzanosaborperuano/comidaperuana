@@ -21,7 +21,11 @@ class PageHomeIOS extends StatelessWidget {
                   color: context.color.buttonPrimary,
                   onPressed: widget.onBackPressed,
                   padding: EdgeInsets.zero,
-                  child: Icon(CupertinoIcons.back, size: 30, color: context.color.buttonPrimary),
+                  child: Icon(
+                    CupertinoIcons.back,
+                    size: 30,
+                    color: context.color.buttonPrimary,
+                  ),
                 )
               else
                 const SizedBox.shrink(),

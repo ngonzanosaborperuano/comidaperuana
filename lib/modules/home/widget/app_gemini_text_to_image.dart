@@ -6,7 +6,11 @@ import 'package:recetasperuanas/core/services/gemini_ai_service.dart';
 import 'package:recetasperuanas/core/services/remote_config_service.dart';
 
 class AppGeminiTextToImage extends StatelessWidget {
-  const AppGeminiTextToImage({super.key, this.onResult, required this.namePlato});
+  const AppGeminiTextToImage({
+    super.key,
+    this.onResult,
+    required this.namePlato,
+  });
 
   final void Function(Uint8List img)? onResult;
 
@@ -35,7 +39,11 @@ class AppGeminiTextToImage extends StatelessWidget {
 }
 
 class AppGeminiTextToMoreImage extends StatelessWidget {
-  const AppGeminiTextToMoreImage({super.key, required this.namePlato, this.onResultList});
+  const AppGeminiTextToMoreImage({
+    super.key,
+    required this.namePlato,
+    this.onResultList,
+  });
 
   final void Function(List<Uint8List?> img)? onResultList;
   final String namePlato;
@@ -49,7 +57,9 @@ class AppGeminiTextToMoreImage extends StatelessWidget {
 
         final aiService = GeminiAIService(configService);
 
-        final images = await aiService.generateTextToMoreImage(prompt: namePlato);
+        final images = await aiService.generateTextToMoreImage(
+          prompt: namePlato,
+        );
 
         onResultList!(images);
       },

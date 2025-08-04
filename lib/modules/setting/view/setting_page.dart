@@ -16,9 +16,9 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SettingController>(
       create:
-          (_) =>
-              SettingController(userRepository: UserRepository(apiService: ApiService()))
-                ..getUser(),
+          (_) => SettingController(
+            userRepository: UserRepository(apiService: ApiService()),
+          )..getUser(),
       child: const SettingView(),
     );
   }

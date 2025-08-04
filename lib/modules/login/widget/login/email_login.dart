@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/modules/login/widget/widget.dart' show AnimatedLoginForm;
+import 'package:recetasperuanas/modules/login/widget/widget.dart'
+    show AnimatedLoginForm;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart'
+    show AnimatedEntryWidget;
 import 'package:recetasperuanas/shared/widget/widget.dart' show AppTextField;
 
 class EmailLogin extends StatelessWidget {
@@ -19,7 +21,8 @@ class EmailLogin extends StatelessWidget {
           textEditingController: widget.controller.emailController,
           hintText: context.loc.email,
           keyboardType: TextInputType.emailAddress,
-          validator: (value) => widget.controller.validateEmail(value ?? '', context),
+          validator:
+              (value) => widget.controller.validateEmail(value ?? '', context),
         ),
       ),
     );

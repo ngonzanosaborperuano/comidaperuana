@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class RegisterController extends BaseController {
-  RegisterController({required UserRepository userRepository}) : _userRepository = userRepository;
+  RegisterController({required UserRepository userRepository})
+    : _userRepository = userRepository;
   @override
   String get name => 'RegisterController';
 
@@ -22,7 +23,10 @@ class RegisterController extends BaseController {
 
   Future<bool?> register(AuthUser user) async {
     try {
-      final result = await _userRepository.register(user, type: LoginWith.withUserPassword);
+      final result = await _userRepository.register(
+        user,
+        type: LoginWith.withUserPassword,
+      );
       _logger.info('Resultado del registro: $result');
       if (result == false) {
         return false;

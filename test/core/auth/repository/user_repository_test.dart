@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
@@ -43,78 +43,116 @@ void main() {
   });
 
   group('loginWithGoogle', () {
-    test('returns (true, "Login or registration successful") on success', () async {
-      final mockGoogleSignInAccount = MockGoogleSignInAccount();
-      final mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
-      final mockUserCredential = MockUserCredential();
-      final mockUser = MockUser();
+    test(
+      'returns (true, "Login or registration successful") on success',
+      () async {
+        final mockGoogleSignInAccount = MockGoogleSignInAccount();
+        final mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
+        final mockUserCredential = MockUserCredential();
+        final mockUser = MockUser();
 
-      when(mockGoogleSignIn.signOut()).thenAnswer((_) async => null);
-      when(mockFirebaseAuth.signOut()).thenAnswer((_) async {});
+        when(mockGoogleSignIn.signOut()).thenAnswer((_) async => null);
+        when(mockFirebaseAuth.signOut()).thenAnswer((_) async {});
 
-      when(mockGoogleSignIn.signIn()).thenAnswer((_) async => mockGoogleSignInAccount);
-      when(
-        mockGoogleSignInAccount.authentication,
-      ).thenAnswer((_) async => mockGoogleSignInAuthentication);
-      when(mockGoogleSignInAuthentication.accessToken).thenReturn('test_access_token');
-      when(mockGoogleSignInAuthentication.idToken).thenReturn('test_id_token');
-      when(mockFirebaseAuth.signInWithCredential(any)).thenAnswer((_) async => mockUserCredential);
-      when(mockUserCredential.user).thenReturn(mockUser);
-      when(mockUser.uid).thenReturn('test_uid');
-      when(mockUser.email).thenReturn('test@example.com');
-      when(mockUser.displayName).thenReturn('Test User');
-      when(mockUser.photoURL).thenReturn('http://example.com/photo.jpg');
-      when(
-        mockApiService.get(endpoint: anyNamed('endpoint'), fromJson: anyNamed('fromJson')),
-      ).thenAnswer(
-        (_) async => const ApiResponse<Map<String, dynamic>>(success: true, data: {'id': 1}),
-      );
-      when(
-        mockApiService.post(
-          endpoint: anyNamed('endpoint'),
-          body: anyNamed('body'),
-          fromJson: anyNamed('fromJson'),
-        ),
-      ).thenAnswer((_) async => ApiResponse(success: true, data: AuthUser.empty().toJson()));
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+        when(
+          mockGoogleSignIn.signIn(),
+        ).thenAnswer((_) async => mockGoogleSignInAccount);
+        when(
+          mockGoogleSignInAccount.authentication,
+        ).thenAnswer((_) async => mockGoogleSignInAuthentication);
+        when(
+          mockGoogleSignInAuthentication.accessToken,
+        ).thenReturn('test_access_token');
+        when(
+          mockGoogleSignInAuthentication.idToken,
+        ).thenReturn('test_id_token');
+        when(
+          mockFirebaseAuth.signInWithCredential(any),
+        ).thenAnswer((_) async => mockUserCredential);
+        when(mockUserCredential.user).thenReturn(mockUser);
+        when(mockUser.uid).thenReturn('test_uid');
+        when(mockUser.email).thenReturn('test@example.com');
+        when(mockUser.displayName).thenReturn('Test User');
+        when(mockUser.photoURL).thenReturn('http://example.com/photo.jpg');
+        when(
+          mockApiService.get(
+            endpoint: anyNamed('endpoint'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer(
+          (_) async => const ApiResponse<Map<String, dynamic>>(
+            success: true,
+            data: {'id': 1},
+          ),
+        );
+        when(
+          mockApiService.post(
+            endpoint: anyNamed('endpoint'),
+            body: anyNamed('body'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer(
+          (_) async =>
+              ApiResponse(success: true, data: AuthUser.empty().toJson()),
+        );
+        when(
+          mockSecureStorageService.saveCredentials(any),
+        ).thenAnswer((_) async => Future.value());
 
-      final result = await userRepository.loginWithGoogle();
+        final result = await userRepository.loginWithGoogle();
 
-      expect(result, (true, 'Login or registration successful'));
-    });
+        expect(result, (true, 'Login or registration successful'));
+      },
+    );
   });
 
   group('loginWithEmailPass', () {
-    test('returns (true, "Login or registration successful") on success', () async {
-      final mockUserCredential = MockUserCredential();
-      final mockUser = MockUser();
+    test(
+      'returns (true, "Login or registration successful") on success',
+      () async {
+        final mockUserCredential = MockUserCredential();
+        final mockUser = MockUser();
 
-      when(mockFirebaseAuth.signInWithCredential(any)).thenAnswer((_) async => mockUserCredential);
-      when(mockUserCredential.user).thenReturn(mockUser);
-      when(mockUser.uid).thenReturn('test_uid');
-      when(mockUser.email).thenReturn('test@example.com');
-      when(mockUser.displayName).thenReturn('Test User');
-      when(mockUser.photoURL).thenReturn('http://example.com/photo.jpg');
-      when(
-        mockApiService.get(endpoint: anyNamed('endpoint'), fromJson: anyNamed('fromJson')),
-      ).thenAnswer(
-        (_) async => const ApiResponse<Map<String, dynamic>>(success: true, data: {'id': 1}),
-      );
-      when(
-        mockApiService.post(
-          endpoint: anyNamed('endpoint'),
-          body: anyNamed('body'),
-          fromJson: anyNamed('fromJson'),
-        ),
-      ).thenAnswer((_) async => ApiResponse(success: true, data: AuthUser.empty().toJson()));
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+        when(
+          mockFirebaseAuth.signInWithCredential(any),
+        ).thenAnswer((_) async => mockUserCredential);
+        when(mockUserCredential.user).thenReturn(mockUser);
+        when(mockUser.uid).thenReturn('test_uid');
+        when(mockUser.email).thenReturn('test@example.com');
+        when(mockUser.displayName).thenReturn('Test User');
+        when(mockUser.photoURL).thenReturn('http://example.com/photo.jpg');
+        when(
+          mockApiService.get(
+            endpoint: anyNamed('endpoint'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer(
+          (_) async => const ApiResponse<Map<String, dynamic>>(
+            success: true,
+            data: {'id': 1},
+          ),
+        );
+        when(
+          mockApiService.post(
+            endpoint: anyNamed('endpoint'),
+            body: anyNamed('body'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer(
+          (_) async =>
+              ApiResponse(success: true, data: AuthUser.empty().toJson()),
+        );
+        when(
+          mockSecureStorageService.saveCredentials(any),
+        ).thenAnswer((_) async => Future.value());
 
-      final result = await userRepository.loginWithEmailPass(
-        const AuthUser(email: 'test@example.com', contrasena: 'password'),
-      );
+        final result = await userRepository.loginWithEmailPass(
+          const AuthUser(email: 'test@example.com', contrasena: 'password'),
+        );
 
-      expect(result, (true, 'Login or registration successful'));
-    });
+        expect(result, (true, 'Login or registration successful'));
+      },
+    );
   });
 
   group('login', () {
@@ -133,9 +171,15 @@ void main() {
         when(mockUser.displayName).thenReturn('Test User');
         when(mockUser.photoURL).thenReturn('http://example.com/photo.jpg');
         when(
-          mockApiService.get(endpoint: anyNamed('endpoint'), fromJson: anyNamed('fromJson')),
+          mockApiService.get(
+            endpoint: anyNamed('endpoint'),
+            fromJson: anyNamed('fromJson'),
+          ),
         ).thenAnswer(
-          (_) async => const ApiResponse<Map<String, dynamic>>(success: true, data: {'id': 1}),
+          (_) async => const ApiResponse<Map<String, dynamic>>(
+            success: true,
+            data: {'id': 1},
+          ),
         );
         when(
           mockApiService.post(
@@ -143,11 +187,19 @@ void main() {
             body: anyNamed('body'),
             fromJson: anyNamed('fromJson'),
           ),
-        ).thenAnswer((_) async => ApiResponse(success: true, data: AuthUser.empty().toJson()));
-        when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+        ).thenAnswer(
+          (_) async =>
+              ApiResponse(success: true, data: AuthUser.empty().toJson()),
+        );
+        when(
+          mockSecureStorageService.saveCredentials(any),
+        ).thenAnswer((_) async => Future.value());
 
         final result = await userRepository.login(
-          user: const AuthUser(email: 'test@example.com', contrasena: 'password'),
+          user: const AuthUser(
+            email: 'test@example.com',
+            contrasena: 'password',
+          ),
           type: LoginWith.withUserPassword,
         );
 
@@ -161,9 +213,15 @@ void main() {
       const user = AuthUser(email: 'new@example.com', contrasena: 'password');
 
       when(
-        mockApiService.get(endpoint: anyNamed('endpoint'), fromJson: anyNamed('fromJson')),
+        mockApiService.get(
+          endpoint: anyNamed('endpoint'),
+          fromJson: anyNamed('fromJson'),
+        ),
       ).thenAnswer(
-        (_) async => const ApiResponse<Map<String, dynamic>>(success: true, data: {'id': 0}),
+        (_) async => const ApiResponse<Map<String, dynamic>>(
+          success: true,
+          data: {'id': 0},
+        ),
       );
       when(
         mockApiService.post(
@@ -172,23 +230,38 @@ void main() {
           fromJson: anyNamed('fromJson'),
         ),
       ).thenAnswer((_) async => const ApiResponse(success: true, data: 1));
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+      when(
+        mockSecureStorageService.saveCredentials(any),
+      ).thenAnswer((_) async => Future.value());
 
       final result = await userRepository.signInOrRegister(user);
 
       expect(result, (true, 'Login or registration successful'));
       verify(
-        mockApiService.post(endpoint: 'users', body: user.toJson(), fromJson: anyNamed('fromJson')),
+        mockApiService.post(
+          endpoint: 'users',
+          body: user.toJson(),
+          fromJson: anyNamed('fromJson'),
+        ),
       ).called(1);
     });
 
     test('logs in user if exists', () async {
-      const user = AuthUser(email: 'existing@example.com', contrasena: 'password');
+      const user = AuthUser(
+        email: 'existing@example.com',
+        contrasena: 'password',
+      );
 
       when(
-        mockApiService.get(endpoint: anyNamed('endpoint'), fromJson: anyNamed('fromJson')),
+        mockApiService.get(
+          endpoint: anyNamed('endpoint'),
+          fromJson: anyNamed('fromJson'),
+        ),
       ).thenAnswer(
-        (_) async => const ApiResponse<Map<String, dynamic>>(success: true, data: {'id': 1}),
+        (_) async => const ApiResponse<Map<String, dynamic>>(
+          success: true,
+          data: {'id': 1},
+        ),
       );
       when(
         mockApiService.post(
@@ -196,8 +269,13 @@ void main() {
           body: anyNamed('body'),
           fromJson: anyNamed('fromJson'),
         ),
-      ).thenAnswer((_) async => ApiResponse(success: true, data: AuthUser.empty().toJson()));
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+      ).thenAnswer(
+        (_) async =>
+            ApiResponse(success: true, data: AuthUser.empty().toJson()),
+      );
+      when(
+        mockSecureStorageService.saveCredentials(any),
+      ).thenAnswer((_) async => Future.value());
 
       final result = await userRepository.signInOrRegister(user);
 
@@ -226,7 +304,12 @@ void main() {
     test('returns error code on FirebaseAuthException', () async {
       when(
         mockFirebaseAuth.sendPasswordResetEmail(email: anyNamed('email')),
-      ).thenThrow(FirebaseAuthException(code: 'user-not-found', message: 'User not found'));
+      ).thenThrow(
+        FirebaseAuthException(
+          code: 'user-not-found',
+          message: 'User not found',
+        ),
+      );
 
       final result = await userRepository.recoverCredential('test@example.com');
 
@@ -266,7 +349,9 @@ void main() {
           ),
         ),
       );
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+      when(
+        mockSecureStorageService.saveCredentials(any),
+      ).thenAnswer((_) async => Future.value());
 
       final result = await userRepository.loginWithEmail(user);
 
@@ -292,60 +377,68 @@ void main() {
   });
 
   group('register', () {
-    test('returns true on successful registration with email/password', () async {
-      const user = AuthUser(email: 'new@example.com', contrasena: 'password');
-      final mockUserCredential = MockUserCredential();
-      final mockUser = MockUser();
+    test(
+      'returns true on successful registration with email/password',
+      () async {
+        const user = AuthUser(email: 'new@example.com', contrasena: 'password');
+        final mockUserCredential = MockUserCredential();
+        final mockUser = MockUser();
 
-      when(
-        mockFirebaseAuth.createUserWithEmailAndPassword(
-          email: anyNamed('email'),
-          password: anyNamed('password'),
-        ),
-      ).thenAnswer((_) async => mockUserCredential);
-      when(mockUserCredential.user).thenReturn(mockUser);
-      when(mockUser.uid).thenReturn('test_uid');
-      when(
-        mockApiService.post(
-          endpoint: anyNamed('endpoint'),
-          body: anyNamed('body'),
-          fromJson: anyNamed('fromJson'),
-        ),
-      ).thenAnswer((_) async => const ApiResponse(success: true, data: 1));
-      when(
-        mockApiService.post(
-          endpoint: 'v1/auth/login',
-          body: anyNamed('body'),
-          fromJson: anyNamed('fromJson'),
-        ),
-      ).thenAnswer(
-        (_) async => ApiResponse(
-          success: true,
-          data:
-              const AuthUser(
-                id: 1,
-                nombreCompleto: 'Test User',
-                foto: 'http://example.com/photo.jpg',
-                email: 'test@example.com',
-                contrasena: 'password',
-                sessionToken: 'test_token',
-              ).toJson(),
-        ),
-      );
-      when(mockSecureStorageService.saveCredentials(any)).thenAnswer((_) async => Future.value());
+        when(
+          mockFirebaseAuth.createUserWithEmailAndPassword(
+            email: anyNamed('email'),
+            password: anyNamed('password'),
+          ),
+        ).thenAnswer((_) async => mockUserCredential);
+        when(mockUserCredential.user).thenReturn(mockUser);
+        when(mockUser.uid).thenReturn('test_uid');
+        when(
+          mockApiService.post(
+            endpoint: anyNamed('endpoint'),
+            body: anyNamed('body'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer((_) async => const ApiResponse(success: true, data: 1));
+        when(
+          mockApiService.post(
+            endpoint: 'v1/auth/login',
+            body: anyNamed('body'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).thenAnswer(
+          (_) async => ApiResponse(
+            success: true,
+            data:
+                const AuthUser(
+                  id: 1,
+                  nombreCompleto: 'Test User',
+                  foto: 'http://example.com/photo.jpg',
+                  email: 'test@example.com',
+                  contrasena: 'password',
+                  sessionToken: 'test_token',
+                ).toJson(),
+          ),
+        );
+        when(
+          mockSecureStorageService.saveCredentials(any),
+        ).thenAnswer((_) async => Future.value());
 
-      final result = await userRepository.register(user, type: LoginWith.withUserPassword);
+        final result = await userRepository.register(
+          user,
+          type: LoginWith.withUserPassword,
+        );
 
-      expect(result, true);
-      verify(
-        mockApiService.post(
-          endpoint: 'users',
-          body: anyNamed('body'),
-          fromJson: anyNamed('fromJson'),
-        ),
-      ).called(1);
-      verify(mockSecureStorageService.saveCredentials(any)).called(1);
-    });
+        expect(result, true);
+        verify(
+          mockApiService.post(
+            endpoint: 'users',
+            body: anyNamed('body'),
+            fromJson: anyNamed('fromJson'),
+          ),
+        ).called(1);
+        verify(mockSecureStorageService.saveCredentials(any)).called(1);
+      },
+    );
 
     test('returns false on failed registration', () async {
       const user = AuthUser(email: 'new@example.com', contrasena: 'password');
@@ -368,7 +461,10 @@ void main() {
         ),
       ).thenAnswer((_) async => const ApiResponse(success: false, data: null));
 
-      final result = await userRepository.register(user, type: LoginWith.withUserPassword);
+      final result = await userRepository.register(
+        user,
+        type: LoginWith.withUserPassword,
+      );
 
       expect(result, false);
       verifyNever(mockSecureStorageService.saveCredentials(any));
@@ -377,8 +473,13 @@ void main() {
 
   group('getUser', () {
     test('returns AuthUser if credentials are loaded', () async {
-      const authUser = AuthUser(email: 'test@example.com', contrasena: 'password');
-      when(mockSecureStorageService.loadCredentials()).thenAnswer((_) async => authUser);
+      const authUser = AuthUser(
+        email: 'test@example.com',
+        contrasena: 'password',
+      );
+      when(
+        mockSecureStorageService.loadCredentials(),
+      ).thenAnswer((_) async => authUser);
 
       final result = await userRepository.getUser();
 
@@ -386,7 +487,9 @@ void main() {
     });
 
     test('returns AuthUser.empty() if no credentials are loaded', () async {
-      when(mockSecureStorageService.loadCredentials()).thenAnswer((_) async => null);
+      when(
+        mockSecureStorageService.loadCredentials(),
+      ).thenAnswer((_) async => null);
 
       final result = await userRepository.getUser();
 
@@ -396,10 +499,16 @@ void main() {
 
   group('logout', () {
     test('completes successfully on logout', () async {
-      const authUser = AuthUser(id: 1, email: 'test@example.com', sessionToken: 'test_token');
+      const authUser = AuthUser(
+        id: 1,
+        email: 'test@example.com',
+        sessionToken: 'test_token',
+      );
       when(mockGoogleSignIn.signOut()).thenAnswer((_) async => null);
       when(mockFirebaseAuth.signOut()).thenAnswer((_) async {});
-      when(mockSecureStorageService.loadCredentials()).thenAnswer((_) async => authUser);
+      when(
+        mockSecureStorageService.loadCredentials(),
+      ).thenAnswer((_) async => authUser);
       when(
         mockApiService.post(
           endpoint: anyNamed('endpoint'),
@@ -408,7 +517,9 @@ void main() {
           fromJson: anyNamed('fromJson'),
         ),
       ).thenAnswer((_) async => const ApiResponse(success: true, data: {}));
-      when(mockSecureStorageService.deleteCredentials()).thenAnswer((_) async => Future.value());
+      when(
+        mockSecureStorageService.deleteCredentials(),
+      ).thenAnswer((_) async => Future.value());
 
       await userRepository.logout();
 

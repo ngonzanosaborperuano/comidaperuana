@@ -19,7 +19,11 @@ class AppSwitch extends StatelessWidget {
         activeTrackColor: context.color.buttonPrimary,
       );
     } else {
-      return Switch(value: value, onChanged: onChanged, activeColor: context.color.buttonPrimary);
+      return Switch(
+        value: value,
+        onChanged: onChanged,
+        activeColor: context.color.buttonPrimary,
+      );
     }
   }
 }

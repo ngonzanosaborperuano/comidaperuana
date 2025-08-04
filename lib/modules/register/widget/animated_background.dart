@@ -9,7 +9,8 @@ class AnimatedBackground extends StatefulWidget {
   State<AnimatedBackground> createState() => _AnimatedBackgroundState();
 }
 
-class _AnimatedBackgroundState extends State<AnimatedBackground> with TickerProviderStateMixin {
+class _AnimatedBackgroundState extends State<AnimatedBackground>
+    with TickerProviderStateMixin {
   late AnimationController _rotationController;
   late AnimationController _pulseController;
   late AnimationController _waveController;
@@ -17,14 +18,20 @@ class _AnimatedBackgroundState extends State<AnimatedBackground> with TickerProv
   @override
   void initState() {
     super.initState();
-    _rotationController = AnimationController(duration: const Duration(seconds: 20), vsync: this)
-      ..repeat();
+    _rotationController = AnimationController(
+      duration: const Duration(seconds: 20),
+      vsync: this,
+    )..repeat();
 
-    _pulseController = AnimationController(duration: const Duration(seconds: 3), vsync: this)
-      ..repeat(reverse: true);
+    _pulseController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
 
-    _waveController = AnimationController(duration: const Duration(seconds: 8), vsync: this)
-      ..repeat();
+    _waveController = AnimationController(
+      duration: const Duration(seconds: 8),
+      vsync: this,
+    )..repeat();
   }
 
   @override
@@ -37,7 +44,12 @@ class _AnimatedBackgroundState extends State<AnimatedBackground> with TickerProv
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFF667eea), Color(0xFF764ba2), Color(0xFFf093fb), Color(0xFFf5576c)],
+              colors: [
+                Color(0xFF667eea),
+                Color(0xFF764ba2),
+                Color(0xFFf093fb),
+                Color(0xFFf5576c),
+              ],
             ),
           ),
         ),
@@ -94,7 +106,10 @@ class _AnimatedBackgroundState extends State<AnimatedBackground> with TickerProv
       animation: _waveController,
       builder: (context, child) {
         return CustomPaint(
-          painter: WavePainter(animation: _waveController, color: Colors.white.withOpacity(0.1)),
+          painter: WavePainter(
+            animation: _waveController,
+            color: Colors.white.withOpacity(0.1),
+          ),
           size: Size.infinite,
         );
       },
@@ -142,7 +157,9 @@ class WavePainter extends CustomPainter {
 
     path.moveTo(0, y);
     for (double x = 0; x < size.width; x++) {
-      final waveY = y + amplitude * math.sin(frequency * x + animation.value * 2 * math.pi);
+      final waveY =
+          y +
+          amplitude * math.sin(frequency * x + animation.value * 2 * math.pi);
       path.lineTo(x, waveY);
     }
     path.lineTo(size.width, size.height);

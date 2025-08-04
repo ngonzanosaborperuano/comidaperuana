@@ -27,7 +27,10 @@ abstract class IUserRepository {
 /// Interface for user authentication operations
 abstract class IUserAuthRepository {
   /// Authenticate user with email and password
-  Future<Result<User, DomainException>> authenticate(Email email, String password);
+  Future<Result<User, DomainException>> authenticate(
+    Email email,
+    String password,
+  );
 
   /// Register new user
   Future<Result<User, DomainException>> register(User user);

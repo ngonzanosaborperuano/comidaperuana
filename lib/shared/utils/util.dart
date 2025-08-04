@@ -20,11 +20,20 @@ void showCustomSnackBar({
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: backgroundColor, spreadRadius: 1, blurRadius: 5)],
+                  boxShadow: [
+                    BoxShadow(
+                      color: backgroundColor,
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ],
                 ),
                 child: AppText(text: message, color: foregroundColor),
               ),
@@ -68,14 +77,21 @@ Future<void> showCustomDialog({
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: foregroundColor),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: foregroundColor,
+                ),
               ),
               Text(
                 description,
                 style: TextStyle(fontSize: 16, color: foregroundColor),
                 textAlign: TextAlign.center,
               ),
-              AppButton(text: acceptText ?? context.loc.accept, onPressed: onAccept),
+              AppButton(
+                text: acceptText ?? context.loc.accept,
+                onPressed: onAccept,
+              ),
             ],
           ),
         ),

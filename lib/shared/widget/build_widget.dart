@@ -12,7 +12,12 @@ import 'package:recetasperuanas/l10n/app_localizations.dart';
 
 Widget buildAndroidScreen(BuildContext context, GoRouter appRouter) {
   return Consumer2<LocaleProvider, ThemeProvider>(
-    builder: (_, LocaleProvider localeProvider, ThemeProvider themeProvider, __) {
+    builder: (
+      _,
+      LocaleProvider localeProvider,
+      ThemeProvider themeProvider,
+      __,
+    ) {
       final isDark = themeProvider.themeMode == ThemeMode.dark;
       return AppColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
@@ -35,7 +40,12 @@ Widget buildAndroidScreen(BuildContext context, GoRouter appRouter) {
 
 Widget buildIOSScreen(BuildContext context, GoRouter appRouter) {
   return Consumer2<LocaleProvider, ThemeProvider>(
-    builder: (_, LocaleProvider localeProvider, ThemeProvider themeProvider, __) {
+    builder: (
+      _,
+      LocaleProvider localeProvider,
+      ThemeProvider themeProvider,
+      __,
+    ) {
       final isDark = themeProvider.themeMode == ThemeMode.dark;
       return AppColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
@@ -47,7 +57,9 @@ Widget buildIOSScreen(BuildContext context, GoRouter appRouter) {
             brightness: isDark ? Brightness.dark : Brightness.light,
             primaryColor: AppColors.primary1,
             scaffoldBackgroundColor:
-                isDark ? CupertinoColors.black : CupertinoColors.systemGroupedBackground,
+                isDark
+                    ? CupertinoColors.black
+                    : CupertinoColors.systemGroupedBackground,
             textTheme: CupertinoTextThemeData(
               textStyle: TextStyle(
                 fontSize: 16,
@@ -65,7 +77,8 @@ Widget buildIOSScreen(BuildContext context, GoRouter appRouter) {
                 color: isDark ? CupertinoColors.white : AppColors.primary1,
               ),
               actionTextStyle: TextStyle(
-                color: isDark ? CupertinoColors.activeOrange : AppColors.primary1,
+                color:
+                    isDark ? CupertinoColors.activeOrange : AppColors.primary1,
               ),
             ),
           ),

@@ -35,13 +35,17 @@ class AppConfirmDialog extends StatefulWidget {
   State<AppConfirmDialog> createState() => _AppConfirmDialogState();
 }
 
-class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerProviderStateMixin {
+class _AppConfirmDialogState extends State<AppConfirmDialog>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))..repeat();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat();
   }
 
   @override
@@ -70,7 +74,10 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
             backgroundColor: widget.backgroundColor ?? context.color.background,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSpacing.xmd),
-              side: BorderSide(color: context.color.border, style: BorderStyle.solid),
+              side: BorderSide(
+                color: context.color.border,
+                style: BorderStyle.solid,
+              ),
             ),
             elevation: 0,
             child: Stack(
@@ -83,8 +90,11 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                         builder: (context, child) {
                           return CustomPaint(
                             painter: _BorderBeamPainter(
-                              colorFrom: widget.borderColorFrom ?? context.color.buttonPrimary,
-                              colorTo: widget.borderColorTo ?? context.color.error,
+                              colorFrom:
+                                  widget.borderColorFrom ??
+                                  context.color.buttonPrimary,
+                              colorTo:
+                                  widget.borderColorTo ?? context.color.error,
                               rotation: _controller.value * 2 * 3.1416,
                             ),
                           );
@@ -103,7 +113,11 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.subscriptions, color: context.color.buttonPrimary, size: 28),
+                          Icon(
+                            Icons.subscriptions,
+                            color: context.color.buttonPrimary,
+                            size: 28,
+                          ),
                           AppHorizontalSpace.sm,
                           Expanded(
                             child: Text(
@@ -122,7 +136,9 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                           if (widget.cancelLabel != null) ...[
                             Expanded(
                               child: TextButton(
-                                onPressed: widget.onCancel ?? () => Navigator.of(context).pop(),
+                                onPressed:
+                                    widget.onCancel ??
+                                    () => Navigator.of(context).pop(),
                                 child: Text(
                                   widget.cancelLabel!,
                                   style: TextStyle(color: context.color.text),
@@ -133,7 +149,9 @@ class _AppConfirmDialogState extends State<AppConfirmDialog> with SingleTickerPr
                           ],
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSpacing.md,
+                              ),
                               child: AppButton(
                                 onPressed: widget.onConfirm,
                                 text: widget.confirmLabel,
@@ -158,7 +176,11 @@ class _BorderBeamPainter extends CustomPainter {
   final Color colorFrom;
   final Color colorTo;
   final double rotation;
-  _BorderBeamPainter({required this.colorFrom, required this.colorTo, required this.rotation});
+  _BorderBeamPainter({
+    required this.colorFrom,
+    required this.colorTo,
+    required this.rotation,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -173,7 +195,10 @@ class _BorderBeamPainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 3;
 
-    final rrect = RRect.fromRectAndRadius(rect.deflate(1.5), const Radius.circular(AppSpacing.xmd));
+    final rrect = RRect.fromRectAndRadius(
+      rect.deflate(1.5),
+      const Radius.circular(AppSpacing.xmd),
+    );
     canvas.drawRRect(rrect, paint);
   }
 

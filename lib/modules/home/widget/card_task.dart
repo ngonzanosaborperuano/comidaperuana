@@ -34,7 +34,10 @@ class CardTask extends StatelessWidget {
             AppColorScheme.of(context).warning,
           ],
         ),
-        border: Border.all(width: 1, color: AppColorScheme.of(context).textSecondary),
+        border: Border.all(
+          width: 1,
+          color: AppColorScheme.of(context).textSecondary,
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
@@ -74,7 +77,10 @@ class CardTask extends StatelessWidget {
           onPressed: () async {
             await onPressedUpdate(context, con, itemTask);
           },
-          icon: Icon(Icons.mode_edit_outlined, color: AppColorScheme.of(context).success),
+          icon: Icon(
+            Icons.mode_edit_outlined,
+            color: AppColorScheme.of(context).success,
+          ),
         ),
         IconButton(
           onPressed: () async {
@@ -83,11 +89,18 @@ class CardTask extends StatelessWidget {
             showCustomSnackBar(
               context: context,
               message: '${context.loc.messageDeleteNote} ${itemTask.id}',
-              backgroundColor: result ? AppColors.emerald700 : AppColorScheme.of(context).error,
+              backgroundColor:
+                  result
+                      ? AppColors.emerald700
+                      : AppColorScheme.of(context).error,
               foregroundColor: AppColors.white,
             );
           },
-          icon: const Icon(Icons.delete_outline, size: 30, color: AppColors.red800),
+          icon: const Icon(
+            Icons.delete_outline,
+            size: 30,
+            color: AppColors.red800,
+          ),
         ),
       ],
     );

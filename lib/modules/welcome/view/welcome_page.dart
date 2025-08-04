@@ -12,7 +12,10 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferencesHelper.instance.setBool(CacheConstants.welcome, value: true);
+    SharedPreferencesHelper.instance.setBool(
+      CacheConstants.welcome,
+      value: true,
+    );
     return const AppScaffold(body: WelcomeView());
   }
 }

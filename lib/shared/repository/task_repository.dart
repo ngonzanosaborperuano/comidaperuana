@@ -7,7 +7,8 @@ import 'package:recetasperuanas/modules/home/models/task_model.dart';
 import 'package:recetasperuanas/shared/repository/base_repository.dart';
 
 class TaskRepository extends BaseRepository {
-  TaskRepository(this.dbHelper, {required ApiService apiService}) : _apiService = apiService;
+  TaskRepository(this.dbHelper, {required ApiService apiService})
+    : _apiService = apiService;
 
   final ApiService _apiService;
   final DatabaseHelper dbHelper;
@@ -25,7 +26,10 @@ class TaskRepository extends BaseRepository {
           endpoint: 'todos',
           fromJson: TaskModel.fromJson,
         );
-        await insertTaskListStorage(result.data ?? [], nameTable: TablaStorage.task);
+        await insertTaskListStorage(
+          result.data ?? [],
+          nameTable: TablaStorage.task,
+        );
         await saveLastRequestDate();
         _logger.info(result.data);
         if (result.success) return result.data ?? [];
@@ -53,7 +57,10 @@ class TaskRepository extends BaseRepository {
     }).toList();
   }
 
-  Future<void> insertTaskListStorage(List<TaskModel> listItems, {required String nameTable}) async {
+  Future<void> insertTaskListStorage(
+    List<TaskModel> listItems, {
+    required String nameTable,
+  }) async {
     await dbHelper.deleteTable(nameTable);
     await Future.wait(
       listItems.map((option) {
@@ -107,7 +114,8 @@ class TaskRepository extends BaseRepository {
         final item = {
           ...task.toJson(),
           ColumnsTblTask.operation: '',
-          ColumnsTblTask.completed: task.toJson()[ColumnsTblTask.completed] == true ? 1 : 0,
+          ColumnsTblTask.completed:
+              task.toJson()[ColumnsTblTask.completed] == true ? 1 : 0,
         };
         if (task.idunique != null) {
           await dbHelper.update(data: item, table: TablaStorage.task);
@@ -136,7 +144,8 @@ class TaskRepository extends BaseRepository {
       item.remove('idunique');
       final result = {
         ...item,
-        ColumnsTblTask.completed: item[ColumnsTblTask.completed] == true ? 1 : 0,
+        ColumnsTblTask.completed:
+            item[ColumnsTblTask.completed] == true ? 1 : 0,
       };
       await dbHelper.insertTask(data: result, table: TablaStorage.task);
       return true;
@@ -173,7 +182,8 @@ class TaskRepository extends BaseRepository {
       task.remove('idunique');
       final item = {
         ...task,
-        ColumnsTblTask.completed: task[ColumnsTblTask.completed] == true ? 1 : 0,
+        ColumnsTblTask.completed:
+            task[ColumnsTblTask.completed] == true ? 1 : 0,
       };
       await dbHelper.insertTask(data: item, table: TablaStorage.task);
       return true;
@@ -185,13 +195,17 @@ class TaskRepository extends BaseRepository {
 
     if (hasInternet) {
       try {
-        final result = await _apiService.put(endpoint: 'posts/${task.id}', data: task.toJson());
+        final result = await _apiService.put(
+          endpoint: 'posts/${task.id}',
+          data: task.toJson(),
+        );
 
         if (!result.success) return false;
         final item = {
           ...task.toJson(),
           ColumnsTblTask.operation: '',
-          ColumnsTblTask.completed: task.toJson()[ColumnsTblTask.completed] == true ? 1 : 0,
+          ColumnsTblTask.completed:
+              task.toJson()[ColumnsTblTask.completed] == true ? 1 : 0,
         };
 
         await dbHelper.updateTask(data: item, table: TablaStorage.task);
@@ -215,7 +229,8 @@ class TaskRepository extends BaseRepository {
           ).toJson();
       final item = {
         ...result,
-        ColumnsTblTask.completed: result[ColumnsTblTask.completed] == true ? 1 : 0,
+        ColumnsTblTask.completed:
+            result[ColumnsTblTask.completed] == true ? 1 : 0,
       };
       item.remove('idunique');
 

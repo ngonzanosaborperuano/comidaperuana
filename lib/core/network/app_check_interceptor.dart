@@ -6,13 +6,18 @@ class AppCheckInterceptor extends Interceptor {
   final _logger = Logger('AppCheckInterceptor');
 
   @override
-  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     try {
       String? appCheckToken = await FirebaseAppCheck.instance.getToken();
-      
+
       if (appCheckToken != null) {
         options.headers['X-Firebase-AppCheck'] = appCheckToken;
-        _logger.info('✅ App Check token enviado: ${appCheckToken.substring(0, 20)}...');
+        _logger.info(
+          '✅ App Check token enviado: ${appCheckToken.substring(0, 20)}...',
+        );
       } else {
         _logger.severe('❌ No se pudo obtener el token de App Check');
       }

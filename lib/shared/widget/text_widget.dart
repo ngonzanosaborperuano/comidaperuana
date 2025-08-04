@@ -22,7 +22,11 @@ class AppText extends StatelessWidget {
     return Text(
       text,
       maxLines: 5,
-      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: context.color.text),
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: context.color.text,
+      ),
       textAlign: textAlign,
     );
   }

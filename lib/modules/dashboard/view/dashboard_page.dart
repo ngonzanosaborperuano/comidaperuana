@@ -9,7 +9,10 @@ class DashboardPage extends StatelessWidget {
 
   factory DashboardPage.routeBuilder(_, GoRouterState state) {
     final listTaskModel = state.extra as List<TaskModel>;
-    return DashboardPage(key: const Key('dashboard_page'), listTaskModel: listTaskModel);
+    return DashboardPage(
+      key: const Key('dashboard_page'),
+      listTaskModel: listTaskModel,
+    );
   }
 
   final List<TaskModel> listTaskModel;
@@ -17,7 +20,8 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final completed = listTaskModel.where((t) => t.completed == 1).length;
-    final percent = listTaskModel.isEmpty ? 0.0 : completed / listTaskModel.length;
+    final percent =
+        listTaskModel.isEmpty ? 0.0 : completed / listTaskModel.length;
 
     return AppScaffold(
       title: const Text('Dashboard'),

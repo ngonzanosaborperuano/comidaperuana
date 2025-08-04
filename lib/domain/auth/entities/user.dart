@@ -60,7 +60,9 @@ class User extends Equatable {
 
     // Validate name if provided
     if (name != null && name.trim().isEmpty) {
-      return const Failure(ValidationException('El nombre no puede estar vacío'));
+      return const Failure(
+        ValidationException('El nombre no puede estar vacío'),
+      );
     }
 
     return Success(
@@ -141,8 +143,17 @@ class User extends Equatable {
   bool get hasPhoto => photoUrl != null && photoUrl!.isNotEmpty;
 
   @override
-  List<Object?> get props => [id, email, name, photoUrl, isActive, createdAt, updatedAt];
+  List<Object?> get props => [
+    id,
+    email,
+    name,
+    photoUrl,
+    isActive,
+    createdAt,
+    updatedAt,
+  ];
 
   @override
-  String toString() => 'User(id: ${id.value}, email: ${email.value}, name: $name)';
+  String toString() =>
+      'User(id: ${id.value}, email: ${email.value}, name: $name)';
 }

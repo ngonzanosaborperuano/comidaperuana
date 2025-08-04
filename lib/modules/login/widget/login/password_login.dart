@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/config.dart' show AppStyles;
-import 'package:recetasperuanas/modules/login/widget/widget.dart' show AnimatedLoginForm;
+import 'package:recetasperuanas/modules/login/widget/widget.dart'
+    show AnimatedLoginForm;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart'
+    show AnimatedEntryWidget;
 import 'package:recetasperuanas/shared/widget/widget.dart' show AppTextField;
 
 class PasswordLogin extends StatelessWidget {
@@ -27,7 +29,11 @@ class PasswordLogin extends StatelessWidget {
                   textEditingController: widget.controller.passwordController,
                   hintText: context.loc.password,
                   obscureText: value,
-                  validator: (value) => widget.controller.validatePassword(value ?? '', context),
+                  validator:
+                      (value) => widget.controller.validatePassword(
+                        value ?? '',
+                        context,
+                      ),
                 );
               },
             ),
@@ -36,8 +42,12 @@ class PasswordLogin extends StatelessWidget {
                 isObscureText.value = !isObscureText.value;
               },
               child: Text(
-                isObscureText.value ? context.loc.showPassword : context.loc.hidePassword,
-                style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+                isObscureText.value
+                    ? context.loc.showPassword
+                    : context.loc.hidePassword,
+                style: AppStyles.bodyTextBold.copyWith(
+                  color: context.color.text,
+                ),
               ),
             ),
           ],

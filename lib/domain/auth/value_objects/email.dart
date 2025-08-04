@@ -3,7 +3,8 @@ import 'package:recetasperuanas/domain/core/value_objects.dart';
 class Email extends ValueObject<String> {
   const Email(super.value);
 
-  static const String _emailRegex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  static const String _emailRegex =
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 
   @override
   bool get isValid {
@@ -26,7 +27,9 @@ class Email extends ValueObject<String> {
     if (emailVO.isValid) {
       return Success(emailVO);
     }
-    return Failure(ValidationException(emailVO.errorMessage ?? 'Email inválido'));
+    return Failure(
+      ValidationException(emailVO.errorMessage ?? 'Email inválido'),
+    );
   }
 
   /// Get domain part of email

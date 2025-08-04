@@ -13,15 +13,24 @@ class PageHomeAndroid extends StatelessWidget {
           SizedBox(
             height: widget.toolbarHeight,
             child: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 5),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                top: 0,
+                bottom: 5,
+              ),
               child: Row(
                 children: [
                   if (widget.onBackPressed != null)
                     IconButton(
                       onPressed: widget.onBackPressed,
-                      icon: Icon(Icons.arrow_back, color: context.color.buttonPrimary),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: context.color.buttonPrimary,
+                      ),
                     ),
-                  if (widget.title != null) Expanded(child: widget.title ?? const SizedBox()),
+                  if (widget.title != null)
+                    Expanded(child: widget.title ?? const SizedBox()),
                 ],
               ),
             ),

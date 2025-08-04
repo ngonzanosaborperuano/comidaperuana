@@ -37,12 +37,21 @@ class AppItemRow extends StatelessWidget {
             Flexible(
               child: AppShimmer.light(
                 enabled: subTitle == '' || subTitle == 'null',
-                child: Text(subTitle, overflow: TextOverflow.ellipsis, maxLines: maxLines),
+                child: Text(
+                  subTitle,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: maxLines,
+                ),
               ),
             ),
           ],
         ),
-        if (isDivider) ...[const Padding(padding: EdgeInsets.all(8), child: Divider(height: 0.5))],
+        if (isDivider) ...[
+          const Padding(
+            padding: EdgeInsets.all(8),
+            child: Divider(height: 0.5),
+          ),
+        ],
       ],
     );
   }

@@ -8,9 +8,21 @@ class DividerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Divider(color: context.color.textSecondary, height: 1, thickness: 1)),
+        Expanded(
+          child: Divider(
+            color: context.color.textSecondary,
+            height: 1,
+            thickness: 1,
+          ),
+        ),
         Text(' ${context.loc.or} '),
-        Expanded(child: Divider(color: context.color.textSecondary, height: 1, thickness: 1)),
+        Expanded(
+          child: Divider(
+            color: context.color.textSecondary,
+            height: 1,
+            thickness: 1,
+          ),
+        ),
       ],
     );
   }

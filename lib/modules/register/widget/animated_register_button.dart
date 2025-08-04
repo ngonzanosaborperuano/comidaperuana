@@ -3,7 +3,11 @@ import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class AnimatedRegisterButton extends StatefulWidget {
-  const AnimatedRegisterButton({super.key, required this.onPressed, required this.isLoading});
+  const AnimatedRegisterButton({
+    super.key,
+    required this.onPressed,
+    required this.isLoading,
+  });
 
   final Future<void> Function() onPressed;
   final bool isLoading;
@@ -21,7 +25,10 @@ class _AnimatedRegisterButtonState extends State<AnimatedRegisterButton>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: const Duration(milliseconds: 150), vsync: this);
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
@@ -62,7 +69,10 @@ class _AnimatedRegisterButtonState extends State<AnimatedRegisterButton>
       },
       // Construir el botón una sola vez
       child: AppButton(
-        text: widget.isLoading ? '${context.loc.register}...' : context.loc.register,
+        text:
+            widget.isLoading
+                ? '${context.loc.register}...'
+                : context.loc.register,
         onPressed: widget.isLoading ? null : _handlePress,
         showIcon: false,
       ),

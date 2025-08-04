@@ -22,11 +22,16 @@ class LoginUseCase {
 
     // Validate password
     if (password.isEmpty) {
-      return const Failure(ValidationException('La contraseña no puede estar vacía'));
+      return const Failure(
+        ValidationException('La contraseña no puede estar vacía'),
+      );
     }
 
     // Authenticate user
-    return await _authRepository.authenticate(emailResult.successValue!, password);
+    return await _authRepository.authenticate(
+      emailResult.successValue!,
+      password,
+    );
   }
 
   /// Execute Google login

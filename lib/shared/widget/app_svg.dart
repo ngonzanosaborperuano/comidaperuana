@@ -234,7 +234,11 @@ class AppSvgIcon extends StatelessWidget {
         width: size,
         height: size,
         child: const Center(
-          child: SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)),
+          child: SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
         ),
       ),
       errorWidget: SizedBox(
@@ -256,8 +260,18 @@ extension AppSvgExtension on BuildContext {
     return AppSvgIcon(assetPath: assetPath, size: size, color: color);
   }
 
-  AppSvg svgImage(String assetPath, {double? width, double? height, Color? color}) {
-    return AppSvg(assetPath: assetPath, width: width, height: height, color: color);
+  AppSvg svgImage(
+    String assetPath, {
+    double? width,
+    double? height,
+    Color? color,
+  }) {
+    return AppSvg(
+      assetPath: assetPath,
+      width: width,
+      height: height,
+      color: color,
+    );
   }
 
   /// Extension semántica para íconos SVG usando nombres
@@ -311,7 +325,11 @@ class SvgIconSemantic {
   }
 
   AppSvgIcon coffeeBreakfast({double? size, Color? color}) {
-    return AppSvgIcon(assetPath: SvgIcons.coffeeBreakfast, size: size, color: color);
+    return AppSvgIcon(
+      assetPath: SvgIcons.coffeeBreakfast,
+      size: size,
+      color: color,
+    );
   }
 
   AppSvgIcon dinner({double? size, Color? color}) {
@@ -327,7 +345,11 @@ class SvgIconSemantic {
   }
 
   AppSvgIcon friedChicken({double? size, Color? color}) {
-    return AppSvgIcon(assetPath: SvgIcons.friedChicken, size: size, color: color);
+    return AppSvgIcon(
+      assetPath: SvgIcons.friedChicken,
+      size: size,
+      color: color,
+    );
   }
 
   AppSvgIcon hamburger({double? size, Color? color}) {

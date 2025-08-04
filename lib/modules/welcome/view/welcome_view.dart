@@ -37,15 +37,24 @@ class _WelcomeViewState extends State<WelcomeView> {
     final l10n = context.loc;
     if (_currentPage < 4) {
       if (_currentPage == 1 && _selectedDiets.isEmpty) {
-        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        context.showErrorToast(
+          l10n.pleaseSelectAtLeastOne,
+          title: l10n.selectionRequired,
+        );
         return false;
       }
       if (_currentPage == 2 && _selectedAllergies.isEmpty) {
-        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        context.showErrorToast(
+          l10n.pleaseSelectAtLeastOne,
+          title: l10n.selectionRequired,
+        );
         return false;
       }
       if (_currentPage == 3 && _selectedExperience.isEmpty) {
-        context.showErrorToast(l10n.pleaseSelectAtLeastOne, title: l10n.selectionRequired);
+        context.showErrorToast(
+          l10n.pleaseSelectAtLeastOne,
+          title: l10n.selectionRequired,
+        );
         return false;
       }
 
@@ -54,13 +63,19 @@ class _WelcomeViewState extends State<WelcomeView> {
           context.showInfoToast(l10n.setupDiet, title: l10n.step1Of3);
           break;
         case 1:
-          context.showWarningToast(l10n.allergyInfo, title: l10n.allergyInfoTitle);
+          context.showWarningToast(
+            l10n.allergyInfo,
+            title: l10n.allergyInfoTitle,
+          );
           break;
         case 2:
           context.showInfoToast(l10n.finalStep, title: l10n.finalStepTitle);
           break;
         case 3:
-          context.showSuccessToast(l10n.setupCompleted, title: l10n.welcomeTitle);
+          context.showSuccessToast(
+            l10n.setupCompleted,
+            title: l10n.welcomeTitle,
+          );
           break;
       }
 
@@ -97,10 +112,17 @@ class _WelcomeViewState extends State<WelcomeView> {
           const SizedBox(height: AppSpacing.lg),
           Text(
             l10n.followDietQuestion,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: context.color.text,
+            ),
           ),
           const SizedBox(height: AppSpacing.md),
-          Text(l10n.selectAllThatApply, style: TextStyle(fontSize: 16, color: context.color.text)),
+          Text(
+            l10n.selectAllThatApply,
+            style: TextStyle(fontSize: 16, color: context.color.text),
+          ),
           const SizedBox(height: AppSpacing.lg),
           Expanded(
             child: GridView.builder(
@@ -167,10 +189,17 @@ class _WelcomeViewState extends State<WelcomeView> {
           AppVerticalSpace.lg,
           Text(
             l10n.haveAllergiesQuestion,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: context.color.text,
+            ),
           ),
           AppVerticalSpace.md,
-          Text(l10n.importantForSafety, style: TextStyle(fontSize: 16, color: context.color.text)),
+          Text(
+            l10n.importantForSafety,
+            style: TextStyle(fontSize: 16, color: context.color.text),
+          ),
           AppVerticalSpace.lg,
           Expanded(
             child: GridView.builder(
@@ -218,9 +247,18 @@ class _WelcomeViewState extends State<WelcomeView> {
 
   Widget _buildExperiencePage(AppLocalizations l10n) {
     final experienceLevels = {
-      'beginner': {'title': l10n.beginner, 'description': l10n.beginnerDescription},
-      'intermediate': {'title': l10n.intermediate, 'description': l10n.intermediateDescription},
-      'advanced': {'title': l10n.advanced, 'description': l10n.advancedDescription},
+      'beginner': {
+        'title': l10n.beginner,
+        'description': l10n.beginnerDescription,
+      },
+      'intermediate': {
+        'title': l10n.intermediate,
+        'description': l10n.intermediateDescription,
+      },
+      'advanced': {
+        'title': l10n.advanced,
+        'description': l10n.advancedDescription,
+      },
       'professionalChef': {
         'title': l10n.professionalChef,
         'description': l10n.professionalChefDescription,
@@ -236,7 +274,11 @@ class _WelcomeViewState extends State<WelcomeView> {
           AppVerticalSpace.lg,
           Text(
             l10n.experienceLevelQuestion,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: context.color.text),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: context.color.text,
+            ),
           ),
           AppVerticalSpace.lg,
           Expanded(
@@ -261,7 +303,10 @@ class _WelcomeViewState extends State<WelcomeView> {
                         color: context.color.background,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: isSelected ? context.color.buttonPrimary : context.color.border,
+                          color:
+                              isSelected
+                                  ? context.color.buttonPrimary
+                                  : context.color.border,
                           width: 2,
                         ),
                       ),
@@ -274,14 +319,23 @@ class _WelcomeViewState extends State<WelcomeView> {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color:
-                                    isSelected ? context.color.buttonPrimary : context.color.border,
+                                    isSelected
+                                        ? context.color.buttonPrimary
+                                        : context.color.border,
                                 width: 2,
                               ),
-                              color: isSelected ? context.color.buttonPrimary : Colors.transparent,
+                              color:
+                                  isSelected
+                                      ? context.color.buttonPrimary
+                                      : Colors.transparent,
                             ),
                             child:
                                 isSelected
-                                    ? Icon(Icons.check, size: 16, color: context.color.background)
+                                    ? Icon(
+                                      Icons.check,
+                                      size: 16,
+                                      color: context.color.background,
+                                    )
                                     : null,
                           ),
                           const SizedBox(width: 16),
@@ -328,7 +382,11 @@ class _WelcomeViewState extends State<WelcomeView> {
         const Spacer(flex: 2),
         Text(
           l10n.welcomeToCocinandoIA,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: context.color.text),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: context.color.text,
+          ),
           textAlign: TextAlign.center,
         ),
         AppVerticalSpace.md,
@@ -336,7 +394,11 @@ class _WelcomeViewState extends State<WelcomeView> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             l10n.personalizeExperience,
-            style: TextStyle(fontSize: 16, color: context.color.text, height: 1.5),
+            style: TextStyle(
+              fontSize: 16,
+              color: context.color.text,
+              height: 1.5,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -369,7 +431,11 @@ class _WelcomeViewState extends State<WelcomeView> {
                       colors: context.color.warmGradient.colors,
                     ),
                   ),
-                  child: const Icon(Icons.restaurant_menu, size: 80, color: Colors.white),
+                  child: const Icon(
+                    Icons.restaurant_menu,
+                    size: 80,
+                    color: Colors.white,
+                  ),
                 );
               },
             ),
@@ -413,7 +479,11 @@ class _WelcomeViewState extends State<WelcomeView> {
                       colors: context.color.warmGradient.colors,
                     ),
                   ),
-                  child: const Icon(Icons.restaurant_menu, size: 80, color: Colors.white),
+                  child: const Icon(
+                    Icons.restaurant_menu,
+                    size: 80,
+                    color: Colors.white,
+                  ),
                 );
               },
             ),
@@ -438,7 +508,11 @@ class _WelcomeViewState extends State<WelcomeView> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             l10n.discoverRecipes,
-            style: TextStyle(fontSize: 16, color: context.color.text, height: 1.5),
+            style: TextStyle(
+              fontSize: 16,
+              color: context.color.text,
+              height: 1.5,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -534,7 +608,11 @@ class _WelcomeViewState extends State<WelcomeView> {
 }
 
 class SelectButton extends StatelessWidget {
-  const SelectButton({super.key, required this.isSelected, required this.value});
+  const SelectButton({
+    super.key,
+    required this.isSelected,
+    required this.value,
+  });
 
   final bool isSelected;
   final String value;
@@ -546,7 +624,8 @@ class SelectButton extends StatelessWidget {
         color: isSelected ? context.color.background : context.color.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isSelected ? context.color.buttonPrimary : context.color.border,
+          color:
+              isSelected ? context.color.buttonPrimary : context.color.border,
           width: 2,
         ),
       ),
@@ -554,10 +633,17 @@ class SelectButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (isSelected) ...[
-            Icon(Icons.check_circle, color: context.color.buttonPrimary, size: 20),
+            Icon(
+              Icons.check_circle,
+              color: context.color.buttonPrimary,
+              size: 20,
+            ),
             const SizedBox(width: 8),
           ],
-          Text(value, style: TextStyle(fontSize: 16, color: context.color.text)),
+          Text(
+            value,
+            style: TextStyle(fontSize: 16, color: context.color.text),
+          ),
         ],
       ),
     );

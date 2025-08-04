@@ -20,7 +20,8 @@ class SvgService {
     Color? color,
     BoxFit fit = BoxFit.contain,
   }) async {
-    final cacheKey = '${assetPath}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
+    final cacheKey =
+        '${assetPath}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
 
     if (_svgCache.containsKey(cacheKey)) {
       return _svgCache[cacheKey]!;
@@ -31,7 +32,8 @@ class SvgService {
         assetPath,
         width: width,
         height: height,
-        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         fit: fit,
       );
 
@@ -63,7 +65,8 @@ class SvgService {
         svgString,
         width: width,
         height: height,
-        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         fit: fit,
       );
 
@@ -83,7 +86,8 @@ class SvgService {
     Color? color,
     BoxFit fit = BoxFit.contain,
   }) async {
-    final cacheKey = 'bytes_${bytes.hashCode}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
+    final cacheKey =
+        'bytes_${bytes.hashCode}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
 
     if (_svgCache.containsKey(cacheKey)) {
       return _svgCache[cacheKey]!;
@@ -94,7 +98,8 @@ class SvgService {
         bytes,
         width: width,
         height: height,
-        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         fit: fit,
       );
 
@@ -115,7 +120,8 @@ class SvgService {
     BoxFit fit = BoxFit.contain,
     Map<String, String>? headers,
   }) async {
-    final cacheKey = 'network_${url.hashCode}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
+    final cacheKey =
+        'network_${url.hashCode}_${width}_${height}_${color?.toARGB32()}_${fit.index}';
 
     if (_svgCache.containsKey(cacheKey)) {
       return _svgCache[cacheKey]!;
@@ -126,7 +132,8 @@ class SvgService {
         url,
         width: width,
         height: height,
-        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         fit: fit,
         headers: headers,
       );
@@ -163,7 +170,8 @@ class SvgService {
 
   /// Limpia un SVG específico del cache
   void clearSvgFromCache(String assetPath) {
-    final keysToRemove = _svgCache.keys.where((key) => key.startsWith(assetPath)).toList();
+    final keysToRemove =
+        _svgCache.keys.where((key) => key.startsWith(assetPath)).toList();
     for (final key in keysToRemove) {
       _svgCache.remove(key);
     }
@@ -178,7 +186,10 @@ class SvgService {
     return Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(4)),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(4),
+      ),
       child: Icon(
         Icons.error_outline,
         color: Colors.grey[600],

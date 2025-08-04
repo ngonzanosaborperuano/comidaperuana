@@ -3,7 +3,10 @@ import 'package:recetasperuanas/core/config/color/app_colors.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
 
 class AppDecorations {
-  static InputDecoration textFormFieldDecoration({String? hintText, IconData? suffixIcon}) {
+  static InputDecoration textFormFieldDecoration({
+    String? hintText,
+    IconData? suffixIcon,
+  }) {
     return InputDecoration(
       isDense: true,
       labelStyle: AppStyles.bodyText,

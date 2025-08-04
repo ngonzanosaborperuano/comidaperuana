@@ -31,11 +31,23 @@ class AppModalAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme.of(context).platform == TargetPlatform.iOS
-        ? _buildCupertinoDialog(context, context.color.error, context.color.errorBackground)
-        : _buildMaterialDialog(context, context.color.errorBackground, context.color.error);
+        ? _buildCupertinoDialog(
+          context,
+          context.color.error,
+          context.color.errorBackground,
+        )
+        : _buildMaterialDialog(
+          context,
+          context.color.errorBackground,
+          context.color.error,
+        );
   }
 
-  Widget _buildMaterialDialog(BuildContext context, Color dialogColor, Color textColor) {
+  Widget _buildMaterialDialog(
+    BuildContext context,
+    Color dialogColor,
+    Color textColor,
+  ) {
     return Dialog(
       surfaceTintColor: dialogColor,
       shape: RoundedRectangleBorder(
@@ -58,7 +70,9 @@ class AppModalAlert extends StatelessWidget {
                     child: Text(
                       title!,
                       textAlign: TextAlign.left,
-                      style: AppStyles.h2TextBlack.copyWith(color: context.color.error),
+                      style: AppStyles.h2TextBlack.copyWith(
+                        color: context.color.error,
+                      ),
                     ),
                   ),
                 ],
@@ -67,7 +81,9 @@ class AppModalAlert extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 text,
-                style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
+                style: AppStyles.bodyTextNoOverflow.copyWith(
+                  color: context.color.text,
+                ),
               ),
             ),
             AppButton(
@@ -82,7 +98,11 @@ class AppModalAlert extends StatelessWidget {
     );
   }
 
-  Widget _buildCupertinoDialog(BuildContext context, Color dialogColor, Color textColor) {
+  Widget _buildCupertinoDialog(
+    BuildContext context,
+    Color dialogColor,
+    Color textColor,
+  ) {
     return CupertinoAlertDialog(
       title:
           title != null
@@ -98,7 +118,9 @@ class AppModalAlert extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: Text(
           text,
-          style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
+          style: AppStyles.bodyTextNoOverflow.copyWith(
+            color: context.color.text,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

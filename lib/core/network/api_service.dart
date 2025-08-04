@@ -75,7 +75,10 @@ class ApiService {
       if (authorization != null) {
         dioClient.updateAuthorization(authorization);
       }
-      final result = await dioClient.dio.post<Map<String, dynamic>>(endpoint, data: body);
+      final result = await dioClient.dio.post<Map<String, dynamic>>(
+        endpoint,
+        data: body,
+      );
 
       final data = result.data?['data'];
       dioClient.clearAuthorization();
@@ -172,7 +175,11 @@ class ApiService {
               .join('\n');
         }
       } catch (e, stackTrace) {
-        _logger.severe('Error al mapear el mensaje de error: $data', e, stackTrace);
+        _logger.severe(
+          'Error al mapear el mensaje de error: $data',
+          e,
+          stackTrace,
+        );
       }
     }
     return 'Error desconocido en la respuesta';

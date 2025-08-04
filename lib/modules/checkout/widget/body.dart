@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/config.dart';
-import 'package:recetasperuanas/modules/checkout/view/page_success_view.dart' show PageSuccess;
+import 'package:recetasperuanas/modules/checkout/view/page_success_view.dart'
+    show PageSuccess;
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class Body extends StatelessWidget {
@@ -36,9 +37,16 @@ class Body extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.white.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.white.withValues(alpha: 0.3), width: 2),
+                  border: Border.all(
+                    color: AppColors.white.withValues(alpha: 0.3),
+                    width: 2,
+                  ),
                 ),
-                child: const Icon(Icons.check_circle_outline, size: 70, color: AppColors.white),
+                child: const Icon(
+                  Icons.check_circle_outline,
+                  size: 70,
+                  color: AppColors.white,
+                ),
               ),
             ),
           ),
@@ -99,7 +107,9 @@ class Body extends StatelessWidget {
                     backgroundColor: AppColors.white,
                     foregroundColor: AppColors.payuDarkGray,
                     elevation: 0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 18),
                   ),
                   child: Text(

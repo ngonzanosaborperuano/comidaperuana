@@ -70,14 +70,18 @@ class _HomeViewState extends State<HomeView> {
                                   closeButton: CustomTabsCloseButton(
                                     icon: CustomTabsCloseButtonIcons.back,
                                   ),
-                                  shareState: CustomTabsShareState.browserDefault,
+                                  shareState:
+                                      CustomTabsShareState.browserDefault,
                                 ),
-                                safariVCOptions: const SafariViewControllerOptions(
-                                  preferredBarTintColor: Colors.amber,
-                                  preferredControlTintColor: Colors.white,
-                                  barCollapsingEnabled: false,
-                                  dismissButtonStyle: SafariViewControllerDismissButtonStyle.cancel,
-                                ),
+                                safariVCOptions:
+                                    const SafariViewControllerOptions(
+                                      preferredBarTintColor: Colors.amber,
+                                      preferredControlTintColor: Colors.white,
+                                      barCollapsingEnabled: false,
+                                      dismissButtonStyle:
+                                          SafariViewControllerDismissButtonStyle
+                                              .cancel,
+                                    ),
                               );
                             } catch (e, stackTrace) {
                               debugPrint('Error: $e');
@@ -96,7 +100,9 @@ class _HomeViewState extends State<HomeView> {
                               context,
                               onSelected: () {
                                 if (mounted) {
-                                  context.showSuccessToast(context.loc.payuSuccess);
+                                  context.showSuccessToast(
+                                    context.loc.payuSuccess,
+                                  );
                                 }
                               },
                             );
@@ -108,7 +114,10 @@ class _HomeViewState extends State<HomeView> {
                         // Descripción del botón PayU
                         Text(
                           context.loc.payuDescription,
-                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
                           textAlign: TextAlign.center,
                         ),
 
@@ -134,9 +143,18 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         const SizedBox(height: 10),
                         // Ejemplos adicionales del sistema SVG usando nombres semánticos
-                        context.svgIconSemantic.sparkle(size: 24, color: Colors.amber),
-                        context.svgIconSemantic.gridAll(size: 24, color: Colors.blue),
-                        context.svgIconSemantic.coffeeBreakfast(size: 24, color: Colors.brown),
+                        context.svgIconSemantic.sparkle(
+                          size: 24,
+                          color: Colors.amber,
+                        ),
+                        context.svgIconSemantic.gridAll(
+                          size: 24,
+                          color: Colors.blue,
+                        ),
+                        context.svgIconSemantic.coffeeBreakfast(
+                          size: 24,
+                          color: Colors.brown,
+                        ),
 
                         const SizedBox(height: 10),
                         // Ejemplo con AppSvg para imágenes más grandes usando nombre semántico
@@ -154,7 +172,10 @@ class _HomeViewState extends State<HomeView> {
                         // Ejemplos del sistema de gestión de imágenes
                         const Text(
                           'Sistema de Imágenes:',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 10),
 
@@ -178,7 +199,10 @@ class _HomeViewState extends State<HomeView> {
                                 image['name'] as String,
                                 size: image['size'] as double,
                               ) ??
-                              Icon(Icons.image_not_supported, size: image['size'] as double),
+                              Icon(
+                                Icons.image_not_supported,
+                                size: image['size'] as double,
+                              ),
                         ),
                       ],
                     ),

@@ -3,7 +3,11 @@ import 'package:recetasperuanas/core/services/gemini_ai_service.dart';
 import 'package:recetasperuanas/core/services/remote_config_service.dart';
 
 class AppGeminiTextToTextButton extends StatelessWidget {
-  const AppGeminiTextToTextButton({super.key, required this.prompt, this.onResult});
+  const AppGeminiTextToTextButton({
+    super.key,
+    required this.prompt,
+    this.onResult,
+  });
   final String prompt;
   final void Function(String text)? onResult;
 

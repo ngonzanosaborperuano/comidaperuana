@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/modules/login/widget/logo_widget.dart' show LogoWidget;
+import 'package:recetasperuanas/modules/login/widget/logo_widget.dart'
+    show LogoWidget;
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart'
     show AnimatedScaleWidget, AnimatedLogoWidget;
 
@@ -13,7 +14,9 @@ class LogoLogin extends StatelessWidget {
     return RepaintBoundary(
       child: AnimatedScaleWidget(
         animation: animation,
-        child: const AnimatedLogoWidget(child: Hero(tag: 'logo', child: LogoWidget())),
+        child: const AnimatedLogoWidget(
+          child: Hero(tag: 'logo', child: LogoWidget()),
+        ),
       ),
     );
   }

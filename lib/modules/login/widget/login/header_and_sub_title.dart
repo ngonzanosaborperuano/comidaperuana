@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/modules/login/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
-import 'package:recetasperuanas/shared/widget/spacing/spacing.dart' show AppSpacing;
+import 'package:recetasperuanas/shared/widget/animated_widgets.dart'
+    show AnimatedEntryWidget;
+import 'package:recetasperuanas/shared/widget/spacing/spacing.dart'
+    show AppSpacing;
 import 'package:recetasperuanas/shared/widget/text_widget.dart' show AppText;
 
 class HeaderAndSubTitle extends StatelessWidget {

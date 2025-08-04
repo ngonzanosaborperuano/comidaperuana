@@ -9,9 +9,11 @@ import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
 
 class HomeController extends BaseController {
-  HomeController({required UserRepository userRepository, required TaskRepository taskRepository})
-    : _userRepository = userRepository,
-      _taskRepository = taskRepository;
+  HomeController({
+    required UserRepository userRepository,
+    required TaskRepository taskRepository,
+  }) : _userRepository = userRepository,
+       _taskRepository = taskRepository;
   @override
   String get name => 'HomeController';
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/config/config.dart' show AppColors, AppStyles;
+import 'package:recetasperuanas/core/config/config.dart'
+    show AppColors, AppStyles;
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -52,7 +53,8 @@ class VoiceTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final void Function(String?)? onSaved;
   final void Function(String?)? onFieldSubmitted;
-  final ValueChanged<bool>? onListeningChanged; // Callback para cambios en el estado de grabación
+  final ValueChanged<bool>?
+  onListeningChanged; // Callback para cambios en el estado de grabación
   final Color? fillColor;
   final int? maxLines;
   final bool? enabled;
@@ -72,7 +74,8 @@ class VoiceTextFieldState extends State<VoiceTextField> {
   void initState() {
     Logger('VoiceTextField').info('initState ${widget.controller?.text}');
     super.initState();
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
     _speech = stt.SpeechToText();
     _initSpeech();
   }
@@ -97,8 +100,12 @@ class VoiceTextFieldState extends State<VoiceTextField> {
           onStatus: (status) {
             _logger.info('Speech status: $status');
             // Solo reiniciar si realmente se detuvo inesperadamente
-            if (status == 'notListening' && _isListening && _recordedAudio.isEmpty) {
-              _logger.info('🔄 Reiniciando grabación por detención inesperada...');
+            if (status == 'notListening' &&
+                _isListening &&
+                _recordedAudio.isEmpty) {
+              _logger.info(
+                '🔄 Reiniciando grabación por detención inesperada...',
+              );
               _startListening();
             }
           },
@@ -112,7 +119,8 @@ class VoiceTextFieldState extends State<VoiceTextField> {
         if (_speechEnabled) {
           try {
             final locales = await _speech.locales();
-            final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+            final deviceLocale =
+                WidgetsBinding.instance.platformDispatcher.locale;
             _logger.info(
               '🌍 Idioma del dispositivo: ${deviceLocale.languageCode}_${deviceLocale.countryCode}',
             );
@@ -120,18 +128,26 @@ class VoiceTextFieldState extends State<VoiceTextField> {
             // Buscar idioma del dispositivo
             final deviceLanguageMatch =
                 locales
-                    .where((locale) => locale.localeId.startsWith('${deviceLocale.languageCode}_'))
+                    .where(
+                      (locale) => locale.localeId.startsWith(
+                        '${deviceLocale.languageCode}_',
+                      ),
+                    )
                     .firstOrNull;
 
             if (deviceLanguageMatch != null) {
-              _logger.info('✅ Idioma del dispositivo disponible: ${deviceLanguageMatch.localeId}');
+              _logger.info(
+                '✅ Idioma del dispositivo disponible: ${deviceLanguageMatch.localeId}',
+              );
             } else {
               _logger.warning('⚠️ Idioma del dispositivo no disponible');
             }
 
             // Mostrar idiomas españoles disponibles
             final spanishLocales =
-                locales.where((locale) => locale.localeId.startsWith('es_')).toList();
+                locales
+                    .where((locale) => locale.localeId.startsWith('es_'))
+                    .toList();
             if (spanishLocales.isNotEmpty) {
               _logger.info(
                 '🇪🇸 Idiomas españoles disponibles: ${spanishLocales.map((l) => l.localeId).join(', ')}',
@@ -171,7 +187,9 @@ class VoiceTextFieldState extends State<VoiceTextField> {
     }
 
     if (!_speechEnabled) {
-      _logger.info('El reconocimiento de voz no está habilitado. Solicitando permisos...');
+      _logger.info(
+        'El reconocimiento de voz no está habilitado. Solicitando permisos...',
+      );
       await _initSpeech(); // Solicita permisos automáticamente
       if (!_speechEnabled) {
         _logger.warning('No se pudo habilitar el reconocimiento de voz.');
@@ -189,7 +207,10 @@ class VoiceTextFieldState extends State<VoiceTextField> {
       String? localeToUse;
       try {
         final locales = await _speech.locales();
-        final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+        final localeProvider = Provider.of<LocaleProvider>(
+          context,
+          listen: false,
+        );
         final appLocale = localeProvider.locale;
 
         _logger.info('🌍 Idioma de la app: ${appLocale.languageCode}');
@@ -198,10 +219,22 @@ class VoiceTextFieldState extends State<VoiceTextField> {
         if (appLocale.languageCode == 'es') {
           // Para español, buscar la mejor variante disponible
           localeToUse =
-              locales.where((locale) => locale.localeId == 'es_ES').firstOrNull?.localeId ??
-              locales.where((locale) => locale.localeId == 'es_MX').firstOrNull?.localeId ??
-              locales.where((locale) => locale.localeId == 'es_PE').firstOrNull?.localeId ??
-              locales.where((locale) => locale.localeId.startsWith('es_')).firstOrNull?.localeId;
+              locales
+                  .where((locale) => locale.localeId == 'es_ES')
+                  .firstOrNull
+                  ?.localeId ??
+              locales
+                  .where((locale) => locale.localeId == 'es_MX')
+                  .firstOrNull
+                  ?.localeId ??
+              locales
+                  .where((locale) => locale.localeId == 'es_PE')
+                  .firstOrNull
+                  ?.localeId ??
+              locales
+                  .where((locale) => locale.localeId.startsWith('es_'))
+                  .firstOrNull
+                  ?.localeId;
 
           if (localeToUse != null) {
             _logger.info('🇪🇸 Usando idioma español: $localeToUse');
@@ -209,9 +242,18 @@ class VoiceTextFieldState extends State<VoiceTextField> {
         } else if (appLocale.languageCode == 'en') {
           // Para inglés, buscar la mejor variante disponible
           localeToUse =
-              locales.where((locale) => locale.localeId == 'en_US').firstOrNull?.localeId ??
-              locales.where((locale) => locale.localeId == 'en_GB').firstOrNull?.localeId ??
-              locales.where((locale) => locale.localeId.startsWith('en_')).firstOrNull?.localeId;
+              locales
+                  .where((locale) => locale.localeId == 'en_US')
+                  .firstOrNull
+                  ?.localeId ??
+              locales
+                  .where((locale) => locale.localeId == 'en_GB')
+                  .firstOrNull
+                  ?.localeId ??
+              locales
+                  .where((locale) => locale.localeId.startsWith('en_'))
+                  .firstOrNull
+                  ?.localeId;
 
           if (localeToUse != null) {
             _logger.info('🇺🇸 Usando idioma inglés: $localeToUse');
@@ -224,7 +266,9 @@ class VoiceTextFieldState extends State<VoiceTextField> {
           );
         }
 
-        _logger.info('📋 Idiomas disponibles: ${locales.map((l) => l.localeId).join(', ')}');
+        _logger.info(
+          '📋 Idiomas disponibles: ${locales.map((l) => l.localeId).join(', ')}',
+        );
       } catch (e) {
         _logger.warning('Error al obtener idioma del LocaleProvider: $e');
       }
@@ -235,7 +279,8 @@ class VoiceTextFieldState extends State<VoiceTextField> {
         localeId: localeToUse, // Usar el idioma español detectado
         onResult: (result) {
           _logger.info('Texto reconocido: ${result.recognizedWords}');
-          _recordedAudio = result.recognizedWords; // Acumula pero no transcribe aún
+          _recordedAudio =
+              result.recognizedWords; // Acumula pero no transcribe aún
         },
         listenOptions: stt.SpeechListenOptions(
           listenMode: stt.ListenMode.dictation,
@@ -297,7 +342,10 @@ class VoiceTextFieldState extends State<VoiceTextField> {
             'Para usar el reconocimiento de voz, necesitas habilitarlo en la configuración.',
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancelar')),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -328,7 +376,8 @@ class VoiceTextFieldState extends State<VoiceTextField> {
               onChanged: widget.onChanged,
               onSaved: widget.onSaved,
               onFieldSubmitted: widget.onFieldSubmitted ?? widget.onSaved,
-              textInputAction: TextInputAction.search, // Botón "Buscar" en teclado móvil
+              textInputAction:
+                  TextInputAction.search, // Botón "Buscar" en teclado móvil
               maxLines: widget.maxLines,
               decoration: InputDecoration(
                 hintText: widget.hintText,
@@ -354,7 +403,10 @@ class VoiceTextFieldState extends State<VoiceTextField> {
             onTapCancel: () => _stopListening(),
             child: context.svgIcon(
               SvgIcons.microphone,
-              color: _isListening ? context.color.error : context.color.textSecondary,
+              color:
+                  _isListening
+                      ? context.color.error
+                      : context.color.textSecondary,
             ),
           ),
         ],

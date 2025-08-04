@@ -21,7 +21,10 @@ class DrawerContent extends StatelessWidget {
           ItemMenu(
             title: 'Dashboard',
             onTap: () {
-              context.go(Routes.dashboard.description, extra: con.listTaskDashboard);
+              context.go(
+                Routes.dashboard.description,
+                extra: con.listTaskDashboard,
+              );
             },
           ),
           ItemMenu(
@@ -36,17 +39,25 @@ class DrawerContent extends StatelessWidget {
       return ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: AppColorScheme.of(context).primary),
+            decoration: BoxDecoration(
+              color: AppColorScheme.of(context).primary,
+            ),
             child: Text(
               'Menú',
-              style: TextStyle(color: AppColorScheme.of(context).secondary, fontSize: 24),
+              style: TextStyle(
+                color: AppColorScheme.of(context).secondary,
+                fontSize: 24,
+              ),
             ),
           ),
 
           ItemMenu(
             title: 'Dashboard',
             onTap: () {
-              context.go(Routes.dashboard.description, extra: con.listTaskDashboard);
+              context.go(
+                Routes.dashboard.description,
+                extra: con.listTaskDashboard,
+              );
             },
           ),
           ItemMenu(

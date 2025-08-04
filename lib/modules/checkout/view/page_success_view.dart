@@ -1,6 +1,7 @@
 import 'package:confetti/confetti.dart' show ConfettiController;
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/modules/checkout/widget/widget.dart' show Background, Body;
+import 'package:recetasperuanas/modules/checkout/widget/widget.dart'
+    show Background, Body;
 import 'package:recetasperuanas/shared/widget/widget.dart' show AppConfetti;
 
 class PageSuccess extends StatefulWidget {
@@ -21,7 +22,8 @@ class PageSuccess extends StatefulWidget {
   State<PageSuccess> createState() => _PageSuccessState();
 }
 
-class _PageSuccessState extends State<PageSuccess> with TickerProviderStateMixin {
+class _PageSuccessState extends State<PageSuccess>
+    with TickerProviderStateMixin {
   late ConfettiController _confettiController;
   late AnimationController _scaleController;
   late AnimationController _fadeController;
@@ -57,28 +59,32 @@ class _PageSuccessState extends State<PageSuccess> with TickerProviderStateMixin
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.7,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut));
+    _scaleAnimation = Tween<double>(begin: 0.7, end: 1.0).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut),
+    );
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOutCubic));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeOutCubic),
+    );
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic));
+    ).animate(
+      CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+    );
 
-    _backgroundAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _backgroundController, curve: Curves.easeOutCubic));
+    _backgroundAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _backgroundController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
 
     // Inicializar confeti
-    _confettiController = ConfettiController(duration: const Duration(seconds: 4));
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 4),
+    );
 
     // Iniciar animaciones
     _startAnimations();

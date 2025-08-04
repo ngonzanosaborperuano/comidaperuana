@@ -14,7 +14,7 @@ import 'package:google_sign_in_platform_interface/google_sign_in_platform_interf
     as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i9;
-import 'package:recetasperuanas/core/auth/model/auth_user.dart' as _i12;
+import 'package:recetasperuanas/core/auth/models/auth_user.dart' as _i12;
 import 'package:recetasperuanas/core/network/api_service.dart' as _i7;
 import 'package:recetasperuanas/core/network/models/api_response.dart' as _i2;
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart'

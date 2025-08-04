@@ -18,11 +18,18 @@ class FootPayU extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.lock, size: AppSpacing.md, color: context.color.textSecondary),
+          Icon(
+            Icons.lock,
+            size: AppSpacing.md,
+            color: context.color.textSecondary,
+          ),
           AppHorizontalSpace.xs,
           Text(
             context.loc.processedByPayuSsl,
-            style: TextStyle(fontSize: AppSpacing.sl, color: context.color.textSecondary),
+            style: TextStyle(
+              fontSize: AppSpacing.sl,
+              color: context.color.textSecondary,
+            ),
           ),
         ],
       ),

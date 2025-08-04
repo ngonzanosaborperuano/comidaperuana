@@ -64,7 +64,11 @@ class ModalView extends StatelessWidget {
             ],
             if (child != null) ...[child!, AppVerticalSpace.md],
             if (onSaved != null) ...[
-              AppButton(showIcon: false, text: saveText, onPressed: () => onSaved!(context)),
+              AppButton(
+                showIcon: false,
+                text: saveText,
+                onPressed: () => onSaved!(context),
+              ),
               AppVerticalSpace.md,
             ],
             if (showCancelButton) ...[
@@ -84,12 +88,18 @@ class ModalView extends StatelessWidget {
             if (onSaved != null)
               CupertinoActionSheetAction(
                 onPressed: () => onSaved!(context),
-                child: Text(saveText, style: const TextStyle(color: CupertinoColors.activeBlue)),
+                child: Text(
+                  saveText,
+                  style: const TextStyle(color: CupertinoColors.activeBlue),
+                ),
               ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: context.pop,
-            child: Text(cancelText, style: const TextStyle(color: CupertinoColors.destructiveRed)),
+            child: Text(
+              cancelText,
+              style: const TextStyle(color: CupertinoColors.destructiveRed),
+            ),
           ),
         )
         : content;

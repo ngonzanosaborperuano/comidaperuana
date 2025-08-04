@@ -64,8 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '615495880468',
     projectId: 'recetas-6a516',
     storageBucket: 'recetas-6a516.firebasestorage.app',
-    androidClientId: '615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com',
-    iosClientId: '615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com',
+    androidClientId:
+        '615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com',
+    iosClientId:
+        '615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com',
     iosBundleId: 'com.ngonzano.comidaperuana',
   );
 
@@ -75,8 +77,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '615495880468',
     projectId: 'recetas-6a516',
     storageBucket: 'recetas-6a516.firebasestorage.app',
-    androidClientId: '615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com',
-    iosClientId: '615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com',
+    androidClientId:
+        '615495880468-ppspts5tledjg2qm5qq45duqibv534nm.apps.googleusercontent.com',
+    iosClientId:
+        '615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com',
     iosBundleId: 'com.ngonzano.comidaperuana',
   );
 

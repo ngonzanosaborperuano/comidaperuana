@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -21,7 +21,8 @@ class ModernRegisterForm extends StatefulWidget {
   State<ModernRegisterForm> createState() => _ModernRegisterFormState();
 }
 
-class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProviderStateMixin {
+class _ModernRegisterFormState extends State<ModernRegisterForm>
+    with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late AnimationController _pulseController;
@@ -57,20 +58,20 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
       vsync: this,
     );
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOutCubic));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeOutCubic),
+    );
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.elasticOut));
+    ).animate(
+      CurvedAnimation(parent: _slideController, curve: Curves.elasticOut),
+    );
 
-    _pulseAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.08,
-    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
 
     _fadeController.forward();
     _slideController.forward();
@@ -93,7 +94,10 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
               children: [
                 AnimatedHeaderWidget(pulseAnimation: _pulseAnimation),
                 AppVerticalSpace.xlg,
-                InputFieldsWidget(controller: widget.controller, showPassword: _showPassword),
+                InputFieldsWidget(
+                  controller: widget.controller,
+                  showPassword: _showPassword,
+                ),
                 AppVerticalSpace.xmd,
                 Align(
                   alignment: Alignment.centerRight,
@@ -107,9 +111,16 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
                   ),
                 ),
                 AppVerticalSpace.xlg,
-                AppButton(text: context.loc.register, onPressed: _handleRegister),
+                AppButton(
+                  text: context.loc.register,
+                  onPressed: _handleRegister,
+                ),
                 AppVerticalSpace.sm,
-                AppButton(text: context.loc.login, onPressed: context.pop, isAlternative: true),
+                AppButton(
+                  text: context.loc.login,
+                  onPressed: context.pop,
+                  isAlternative: true,
+                ),
               ],
             ),
           ),
@@ -171,7 +182,11 @@ class AnimatedHeaderWidget extends StatelessWidget {
         AppVerticalSpace.sm,
         Text(
           context.loc.createAccount,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: context.color.text),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: context.color.text,
+          ),
         ),
         AppVerticalSpace.xs,
         Text(
@@ -185,7 +200,11 @@ class AnimatedHeaderWidget extends StatelessWidget {
 }
 
 class InputFieldsWidget extends StatelessWidget {
-  const InputFieldsWidget({super.key, required this.controller, required this.showPassword});
+  const InputFieldsWidget({
+    super.key,
+    required this.controller,
+    required this.showPassword,
+  });
 
   final RegisterController controller;
   final bool showPassword;
@@ -199,7 +218,9 @@ class InputFieldsWidget extends StatelessWidget {
           textEditingController: controller.fullNameController,
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-            child: context.svgIconSemantic.user(color: context.color.textSecondary),
+            child: context.svgIconSemantic.user(
+              color: context.color.textSecondary,
+            ),
           ),
           validator: (value) => controller.validateEmpty(value ?? '', context),
           keyboardType: TextInputType.name,
@@ -210,7 +231,9 @@ class InputFieldsWidget extends StatelessWidget {
           textEditingController: controller.emailController,
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-            child: context.svgIconSemantic.email(color: context.color.textSecondary),
+            child: context.svgIconSemantic.email(
+              color: context.color.textSecondary,
+            ),
           ),
           validator: (value) => controller.validateEmail(value ?? '', context),
           keyboardType: TextInputType.emailAddress,
@@ -221,9 +244,12 @@ class InputFieldsWidget extends StatelessWidget {
           textEditingController: controller.passwordController,
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-            child: context.svgIconSemantic.lock(color: context.color.textSecondary),
+            child: context.svgIconSemantic.lock(
+              color: context.color.textSecondary,
+            ),
           ),
-          validator: (value) => controller.validatePassword(value ?? '', context),
+          validator:
+              (value) => controller.validatePassword(value ?? '', context),
           keyboardType: TextInputType.visiblePassword,
           obscureText: !showPassword,
         ),
@@ -233,7 +259,11 @@ class InputFieldsWidget extends StatelessWidget {
 }
 
 class PasswordToggleWidget extends StatelessWidget {
-  const PasswordToggleWidget({super.key, required this.showPassword, required this.onToggle});
+  const PasswordToggleWidget({
+    super.key,
+    required this.showPassword,
+    required this.onToggle,
+  });
 
   final bool showPassword;
   final VoidCallback onToggle;
@@ -258,7 +288,9 @@ class PasswordToggleWidget extends StatelessWidget {
             ),
             AppHorizontalSpace.sm,
             Text(
-              showPassword ? context.loc.hidePassword : context.loc.showPassword,
+              showPassword
+                  ? context.loc.hidePassword
+                  : context.loc.showPassword,
               style: TextStyle(
                 color: context.color.buttonPrimary,
                 fontSize: 14,

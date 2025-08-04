@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/core/network/network.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
@@ -18,7 +18,8 @@ class UserRepository extends BaseRepository {
     ISecureStorageService? secureStorage,
   }) : _apiService = apiService,
        _auth = firebaseAuth ?? FirebaseAuth.instance,
-       _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
+       _googleSignIn =
+           googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
        secureStorageService = secureStorage ?? SecurityStorageService();
 
   final ApiService _apiService;
@@ -32,7 +33,10 @@ class UserRepository extends BaseRepository {
   static const String usuario = 'v1/users';
   final _logger = Logger('UserRepository');
 
-  Future<(bool, String)> login({required AuthUser user, required int type}) async {
+  Future<(bool, String)> login({
+    required AuthUser user,
+    required int type,
+  }) async {
     try {
       if (type == LoginWith.withGoogle) {
         return loginWithGoogle();
@@ -49,7 +53,10 @@ class UserRepository extends BaseRepository {
   Future<(bool, String)> loginWithEmailPass(AuthUser user) async {
     try {
       final response = await _auth.signInWithCredential(
-        EmailAuthProvider.credential(email: user.email, password: user.contrasena!),
+        EmailAuthProvider.credential(
+          email: user.email,
+          password: user.contrasena!,
+        ),
       );
       user = AuthUser(
         email: user.email,
@@ -60,10 +67,18 @@ class UserRepository extends BaseRepository {
 
       return await signInOrRegister(user);
     } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
+      _logger.severe(
+        'Error al iniciar sesión con email y contraseña: $e',
+        e,
+        stackTrace,
+      );
       return (false, e.code);
     } catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
+      _logger.severe(
+        'Error al iniciar sesión con email y contraseña: $e',
+        e,
+        stackTrace,
+      );
       return (false, 'An error occurred during email/password login: $e');
     }
   }
@@ -82,7 +97,10 @@ class UserRepository extends BaseRepository {
       //   contrasena: user.contrasena,
       // );
       if (!isExists.success) {
-        return (false, 'Error al iniciar sesión o registrar: ${isExists.message}');
+        return (
+          false,
+          'Error al iniciar sesión o registrar: ${isExists.message}',
+        );
       }
 
       if (isExists.data!['id'] == 0) {
@@ -193,12 +211,12 @@ class UserRepository extends BaseRepository {
       }
 
       // Obtener detalles de autenticación con manejo de errores
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication.catchError((
-        error,
-      ) {
-        log('Error en autenticación de Google: $error');
-        throw error;
-      });
+      final GoogleSignInAuthentication googleAuth = await googleUser
+          .authentication
+          .catchError((error) {
+            log('Error en autenticación de Google: $error');
+            throw error;
+          });
 
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
         log('No se pudieron obtener los tokens necesarios');

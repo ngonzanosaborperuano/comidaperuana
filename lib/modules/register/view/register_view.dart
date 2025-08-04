@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/auth/model/auth_user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
 import 'package:recetasperuanas/modules/register/widget/modern_register_form.dart';
@@ -75,10 +75,10 @@ class _RegisterViewState extends State<RegisterView>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                context.color.buttonPrimary.withAlpha(50),
+                context.color.buttonPrimary.withAlpha(150),
                 context.color.error.withAlpha(50),
                 context.color.buttonPrimary.withAlpha(50),
-                context.color.error.withAlpha(50),
+                context.color.error.withAlpha(150),
               ],
             ),
           ),

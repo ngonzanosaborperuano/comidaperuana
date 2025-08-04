@@ -8,13 +8,18 @@ import 'package:recetasperuanas/core/services/gemini_ai_service.dart';
 import 'package:recetasperuanas/core/services/remote_config_service.dart';
 
 class AppGeminiImageTextButton extends StatefulWidget {
-  const AppGeminiImageTextButton({super.key, this.onResult, required this.isCamera});
+  const AppGeminiImageTextButton({
+    super.key,
+    this.onResult,
+    required this.isCamera,
+  });
 
   final void Function(String text)? onResult;
   final bool isCamera;
 
   @override
-  State<AppGeminiImageTextButton> createState() => _AppGeminiImageTextButtonState();
+  State<AppGeminiImageTextButton> createState() =>
+      _AppGeminiImageTextButtonState();
 }
 
 class _AppGeminiImageTextButtonState extends State<AppGeminiImageTextButton> {
@@ -52,7 +57,8 @@ class _AppGeminiImageTextButtonState extends State<AppGeminiImageTextButton> {
         final file = File(pickedFile.path);
         final bytes = await file.readAsBytes();
 
-        final mimeType = lookupMimeType(file.path) ?? 'application/octet-stream';
+        final mimeType =
+            lookupMimeType(file.path) ?? 'application/octet-stream';
 
         final imagePart = InlineDataPart(mimeType, bytes);
         final response = await runFeatureFlagFlow(imagePart: imagePart);

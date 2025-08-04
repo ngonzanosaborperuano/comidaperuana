@@ -1,0 +1,21 @@
+targets:
+  $default:
+    builders:
+      json_serializable:json_serializable:
+        options:
+          # Options for json_serializable
+          explicit_to_json: true
+          include_if_null: false
+          field_rename: snake
+        generate_for:
+          - lib/domain/**.dart
+          - lib/infrastructure/**.dart
+          - lib/shared/models/**.dart
+          - lib/modules/*/models/**.dart
+          - lib/core/*/models/**.dart
+
+      mockito:mockBuilder:
+        options:
+          # Options for mockito
+          generate_for:
+            - test/**.dart

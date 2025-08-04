@@ -7,7 +7,7 @@ part of 'task_model.dart';
 // **************************************************************************
 
 TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
-  userId: (json['userId'] as num).toInt(),
+  userId: (json['user_id'] as num).toInt(),
   id: (json['id'] as num?)?.toInt(),
   completed: boolIntConverter.fromJson(json['completed']),
   title: json['title'] as String,
@@ -18,12 +18,13 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
 );
 
 Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
-  'idunique': instance.idunique,
-  'userId': instance.userId,
-  'id': instance.id,
-  'synced': instance.synced,
+  if (instance.idunique case final value?) 'idunique': value,
+  'user_id': instance.userId,
+  if (instance.id case final value?) 'id': value,
+  if (instance.synced case final value?) 'synced': value,
   'title': instance.title,
-  'operation': instance.operation,
-  'body': instance.body,
-  'completed': boolIntConverter.toJson(instance.completed),
+  if (instance.operation case final value?) 'operation': value,
+  if (instance.body case final value?) 'body': value,
+  if (boolIntConverter.toJson(instance.completed) case final value?)
+    'completed': value,
 };
