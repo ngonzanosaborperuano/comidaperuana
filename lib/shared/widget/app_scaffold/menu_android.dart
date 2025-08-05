@@ -21,43 +21,33 @@ class _MenuAndroidState extends State<MenuAndroid> with NavigationItemsMixin {
   Widget build(BuildContext context) {
     return Consumer<PagesProvider>(
       builder: (BuildContext context, PagesProvider value, Widget? child) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: context.color.textSecondary,
-                  boxShadow: [
-                    BoxShadow(
-                      color: context.color.menuActive,
-                      blurRadius: _shadowBlurRadius,
-                      spreadRadius: _shadowSpreadRadius,
-                      offset: const Offset(0, _shadowOffsetY),
-                    ),
-                  ],
-                ),
-                child: BottomNavigationBar(
-                  backgroundColor: context.color.background,
-                  selectedItemColor: context.color.textSecondary2,
-                  unselectedItemColor: context.color.textSecondary,
-                  currentIndex: value.selectPage,
-                  iconSize: _bottomNavIconSize,
-                  type: BottomNavigationBarType.fixed,
-                  showUnselectedLabels: true,
-                  showSelectedLabels: true,
-                  enableFeedback: false,
-                  items: buildAndroidNavigationItems(value.selectPage, context),
-                  onTap: (index) {
-                    context.read<PagesProvider>().togglePage(index);
-                  },
-                ),
+        return Container(
+          decoration: BoxDecoration(
+            color: context.color.backgroundCard,
+            boxShadow: [
+              BoxShadow(
+                color: context.color.menuActive,
+                blurRadius: _shadowBlurRadius,
+                spreadRadius: _shadowSpreadRadius,
+                offset: const Offset(0, _shadowOffsetY),
               ),
-            ),
-          ],
+            ],
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: context.color.backgroundCard,
+            selectedItemColor: context.color.textSecondary2,
+            unselectedItemColor: context.color.textSecondary,
+            currentIndex: value.selectPage,
+            iconSize: _bottomNavIconSize,
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: true,
+            showSelectedLabels: true,
+            enableFeedback: false,
+            items: buildAndroidNavigationItems(value.selectPage, context),
+            onTap: (index) {
+              context.read<PagesProvider>().togglePage(index);
+            },
+          ),
         );
       },
     );

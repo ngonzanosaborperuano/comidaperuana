@@ -5,7 +5,7 @@ import 'package:recetasperuanas/core/provider/pages_provider.dart';
 import 'package:recetasperuanas/modules/setting/view/setting_page.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/menu_android.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold/menu_ios.dart';
+import 'package:recetasperuanas/shared/widget/app_scaffold/menu_ios.dart' show MenuIOS;
 import 'package:recetasperuanas/shared/widget/app_scaffold/page_home_android.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/page_home_ios.dart';
 
@@ -37,65 +37,70 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
 
-    return isIOS
-        ? _buildCupertinoScaffold(context)
-        : _buildMaterialScaffold(context);
+    return isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context);
   }
 
   Widget _buildCupertinoScaffold(BuildContext context) {
-    final List<Widget> pagesIOS = [
-      PageHomeIOS(widget: widget),
-      const SettingPage(),
-    ];
+    final List<Widget> pagesIOS = [PageHomeIOS(widget: widget), const SettingPage()];
     return ChangeNotifierProvider<PagesProvider>(
       create: (BuildContext context) => PagesProvider(),
       child: Consumer<PagesProvider>(
         builder: (BuildContext context, PagesProvider value, Widget? child) {
-          return CupertinoPageScaffold(
-            backgroundColor: context.color.background,
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Positioned.fill(
-                  top: widget.toolbarHeight,
-                  child: IndexedStack(
-                    index: value.selectPage,
-                    children: pagesIOS,
-                  ),
-                ),
-                if (widget.showMenu) ...[const MenuIOS()],
-              ],
-            ),
-          );
+          if (widget.showMenu) {
+            return CupertinoTabScaffold(
+              backgroundColor: context.color.background,
+              tabBar: MenuIOS(
+                currentIndex: value.selectPage,
+                onTap: (index) => context.read<PagesProvider>().togglePage(index),
+                backgroundColor: context.color.backgroundCard,
+                activeColor: context.color.textSecondary2,
+                inactiveColor: context.color.textSecondary,
+              ),
+              tabBuilder: (context, index) {
+                return CupertinoTabView(
+                  builder:
+                      (context) => Column(
+                        children: [
+                          SizedBox(height: widget.toolbarHeight),
+                          Expanded(
+                            child: IndexedStack(index: value.selectPage, children: pagesIOS),
+                          ),
+                        ],
+                      ),
+                );
+              },
+            );
+          } else {
+            return CupertinoPageScaffold(
+              backgroundColor: context.color.background,
+              child: Column(
+                children: [
+                  SizedBox(height: widget.toolbarHeight),
+                  Expanded(child: IndexedStack(index: value.selectPage, children: pagesIOS)),
+                ],
+              ),
+            );
+          }
         },
       ),
     );
   }
 
   Widget _buildMaterialScaffold(BuildContext context) {
-    final List<Widget> pageAndroid = [
-      PageHomeAndroid(widget: widget),
-      const SettingPage(),
-    ];
+    final List<Widget> pageAndroid = [PageHomeAndroid(widget: widget), const SettingPage()];
     return ChangeNotifierProvider<PagesProvider>(
       create: (BuildContext context) => PagesProvider(),
       child: Consumer<PagesProvider>(
         builder: (BuildContext context, PagesProvider value, Widget? child) {
           return Scaffold(
             backgroundColor: context.color.background,
-            body: Stack(
-              alignment: Alignment.bottomCenter,
+            body: Column(
               children: [
-                Positioned.fill(
-                  top: widget.toolbarHeight,
-                  child: IndexedStack(
-                    index: value.selectPage,
-                    children: pageAndroid,
-                  ),
-                ),
-                if (widget.showMenu) ...[const MenuAndroid()],
+                SizedBox(height: widget.toolbarHeight),
+                Expanded(child: IndexedStack(index: value.selectPage, children: pageAndroid)),
               ],
             ),
+            bottomNavigationBar: widget.showMenu ? const MenuAndroid() : null,
           );
         },
       ),
