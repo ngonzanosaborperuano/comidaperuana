@@ -6,8 +6,8 @@ import 'package:recetasperuanas/core/result/app_result.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
-class LoginController extends BaseController {
-  LoginController({required UserRepository userRepository}) : _userRepository = userRepository {
+class LoginControllerOld extends BaseController {
+  LoginControllerOld({required UserRepository userRepository}) : _userRepository = userRepository {
     _logger.info('LoginController initialized');
   }
 

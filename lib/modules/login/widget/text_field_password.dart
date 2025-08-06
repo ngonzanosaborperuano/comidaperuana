@@ -7,7 +7,7 @@ import 'package:recetasperuanas/shared/widget/widget.dart';
 class TextFieldPassword extends StatelessWidget {
   const TextFieldPassword({super.key, required this.con});
 
-  final LoginController con;
+  final LoginControllerOld con;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,7 @@ class TextFieldPassword extends StatelessWidget {
               },
               child: Text(
                 context.loc.showPassword,
-                style: AppStyles.bodyTextBold.copyWith(
-                  color: context.color.secondary,
-                ),
+                style: AppStyles.bodyTextBold.copyWith(color: context.color.secondary),
               ),
             ),
           ],

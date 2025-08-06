@@ -12,14 +12,11 @@ import 'package:recetasperuanas/shared/utils/util.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginUserPass extends StatelessWidget {
-  const LoginUserPass({
-    super.key,
-    required GlobalKey<FormState> formKeyLogin,
-    required this.con,
-  }) : _formKeyLogin = formKeyLogin;
+  const LoginUserPass({super.key, required GlobalKey<FormState> formKeyLogin, required this.con})
+    : _formKeyLogin = formKeyLogin;
 
   final GlobalKey<FormState> _formKeyLogin;
-  final LoginController con;
+  final LoginControllerOld con;
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +27,18 @@ class LoginUserPass extends StatelessWidget {
           leading: Icon(Icons.person_3_rounded, color: context.color.secondary),
           title: Text(
             context.loc.userPass,
-            style: AppStyles.bodyTextBold.copyWith(
-              color: context.color.secondary,
-            ),
+            style: AppStyles.bodyTextBold.copyWith(color: context.color.secondary),
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           expandedAlignment: Alignment.centerLeft,
           trailing: Icon(Icons.arrow_drop_down, color: context.color.secondary),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
           collapsedShape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           collapsedBackgroundColor: context.color.textSecondary,
           backgroundColor: context.color.textSecondary,
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
+          childrenPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           children: [
             AppVerticalSpace.sm,
             AppText(text: context.loc.email),
@@ -57,9 +47,7 @@ class LoginUserPass extends StatelessWidget {
               hintText: context.loc.enterEmail,
               textEditingController: con.emailController,
               keyboardType: TextInputType.emailAddress,
-              inputFormatters: [
-                FilteringTextInputFormatter.deny(RegExp(r'[^a-zA-Z0-9@.]')),
-              ],
+              inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[^a-zA-Z0-9@.]'))],
 
               validator: (value) => con.validateEmail(value ?? '', context),
             ),
@@ -106,10 +94,8 @@ class LoginUserPass extends StatelessWidget {
                         mensageUser = context.loc.userDisabled;
                       } else if (msg == 'operation-not-allowed') {
                         mensageUser = context.loc.operationNotAllowed;
-                      } else if (msg ==
-                          'account-exists-with-different-credential') {
-                        mensageUser =
-                            context.loc.accountExistsWithDifferentCredential;
+                      } else if (msg == 'account-exists-with-different-credential') {
+                        mensageUser = context.loc.accountExistsWithDifferentCredential;
                       } else if (msg == 'invalid-credential') {
                         mensageUser = context.loc.invalidCredential;
                       } else {
@@ -143,8 +129,7 @@ class LoginUserPass extends StatelessWidget {
                   isScrollControlled: true,
                   backgroundColor: context.color.textSecondary,
                   builder: (context) {
-                    TextEditingController textEditingController =
-                        TextEditingController();
+                    TextEditingController textEditingController = TextEditingController();
                     return Padding(
                       padding: EdgeInsets.only(
                         left: 15,
@@ -170,10 +155,7 @@ class LoginUserPass extends StatelessWidget {
                                 textEditingController: textEditingController,
                               ),
                               AppVerticalSpace.xmd,
-                              _buttonRecoveriPass(
-                                context,
-                                textEditingController,
-                              ),
+                              _buttonRecoveriPass(context, textEditingController),
                             ],
                           ),
                         ),
@@ -201,10 +183,7 @@ class LoginUserPass extends StatelessWidget {
     );
   }
 
-  AppButton _buttonRecoveriPass(
-    BuildContext context,
-    TextEditingController textEditingController,
-  ) {
+  AppButton _buttonRecoveriPass(BuildContext context, TextEditingController textEditingController) {
     return AppButton(
       text: context.loc.send,
       onPressed: () async {

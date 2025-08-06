@@ -3,9 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/constants/option.dart' show LoginWith;
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart'
-    show LoginController;
-import 'package:recetasperuanas/modules/login/widget/widget.dart'
-    show AnimatedLoginForm;
+    show LoginControllerOld;
+import 'package:recetasperuanas/modules/login/widget/widget.dart' show AnimatedLoginForm;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart'
     show LoadingDialog, AppToastExtension, AppModalAlert, AppSpacing, AppText;
@@ -24,7 +23,7 @@ class FormLogin extends StatelessWidget {
   final double maxWidth;
   final GlobalKey<FormState> _formKeyLogin;
   final Animation<double> formAnimation;
-  final LoginController con;
+  final LoginControllerOld con;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -64,9 +63,7 @@ class FormLogin extends StatelessWidget {
                         if (!context.mounted) {
                           return (false, 'Context is not mounted.');
                         }
-                        context.showSuccessToast(
-                          context.loc.welcomeToCocinandoIA,
-                        );
+                        context.showSuccessToast(context.loc.welcomeToCocinandoIA);
                         context.go(Routes.home.description);
                       } else {
                         if (!context.mounted) {
@@ -84,10 +81,8 @@ class FormLogin extends StatelessWidget {
                           mensageUser = context.loc.userDisabled;
                         } else if (msg == 'operation-not-allowed') {
                           mensageUser = context.loc.operationNotAllowed;
-                        } else if (msg ==
-                            'account-exists-with-different-credential') {
-                          mensageUser =
-                              context.loc.accountExistsWithDifferentCredential;
+                        } else if (msg == 'account-exists-with-different-credential') {
+                          mensageUser = context.loc.accountExistsWithDifferentCredential;
                         } else if (msg == 'invalid-credential') {
                           mensageUser = context.loc.invalidCredential;
                         } else {

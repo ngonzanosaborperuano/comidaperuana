@@ -40,7 +40,7 @@ List<SingleChildWidget> globalProviders(BuildContext context) {
     Provider<LogoutUseCase>.value(value: logoutUseCase),
 
     // Controllers
-    ChangeNotifierProvider(create: (_) => LoginController(userRepository: userRepository)),
+    ChangeNotifierProvider(create: (_) => LoginControllerOld(userRepository: userRepository)),
 
     // UI Providers
     ChangeNotifierProvider(create: (_) => LocaleProvider()),

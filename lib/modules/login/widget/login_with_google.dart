@@ -9,7 +9,7 @@ import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginWithGoogle extends StatelessWidget {
   const LoginWithGoogle({super.key, required this.con});
-  final LoginController con;
+  final LoginControllerOld con;
 
   @override
   Widget build(BuildContext context) {

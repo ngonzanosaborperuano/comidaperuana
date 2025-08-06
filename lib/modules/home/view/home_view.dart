@@ -117,7 +117,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
 
                         AppGeminiTextToTextButton(
-                          prompt: 'tamales, para 2 personas',
+                          prompt: 'tamales, para 1 persona',
                           onResult: (text) {
                             log(text);
                           },

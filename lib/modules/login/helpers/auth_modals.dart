@@ -7,7 +7,7 @@ import 'package:recetasperuanas/shared/widget/widget.dart';
 
 Future<void> showRecoverPasswordDialog({
   required BuildContext context,
-  required LoginController controller,
+  required LoginControllerOld controller,
 }) {
   final textEditingController = TextEditingController();
   return showDialog(
@@ -38,9 +38,7 @@ Future<void> showRecoverPasswordDialog({
             await const LoadingDialog().show(
               context,
               future: () async {
-                final msg = await controller.recoverCredential(
-                  textEditingController.text,
-                );
+                final msg = await controller.recoverCredential(textEditingController.text);
                 if (!context.mounted) return;
                 switch (msg) {
                   case 'success':

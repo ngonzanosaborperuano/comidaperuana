@@ -33,8 +33,8 @@ class _LoginViewState extends State<LoginView>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginController>(
-      builder: (_, LoginController con, _) {
+    return Consumer<LoginControllerOld>(
+      builder: (_, LoginControllerOld con, _) {
         return Center(
           child: SingleChildScrollView(
             child: Padding(

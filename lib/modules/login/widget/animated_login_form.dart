@@ -3,8 +3,7 @@ import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
 import 'package:recetasperuanas/modules/login/helpers/auth_modals.dart'
     show showRecoverPasswordDialog;
-import 'package:recetasperuanas/modules/login/utils/auth_utils.dart'
-    show handleLogin;
+import 'package:recetasperuanas/modules/login/utils/auth_utils.dart' show handleLogin;
 import 'package:recetasperuanas/modules/login/widget/login/login.dart';
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -19,7 +18,7 @@ class AnimatedLoginForm extends StatefulWidget {
   });
 
   final GlobalKey<FormState> formKey;
-  final LoginController controller;
+  final LoginControllerOld controller;
   final Function(AuthUser) onLogin;
   final Animation<double> animation;
 
@@ -56,18 +55,14 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                         controller: widget.controller,
                         onLogin: widget.onLogin,
                         setLoadingTrue: () => setState(() => _isLoading = true),
-                        setLoadingFalse:
-                            () => setState(() => _isLoading = false),
+                        setLoadingFalse: () => setState(() => _isLoading = false),
                       ),
               context: context,
             ),
             RecoverPassword(
               animation: widget.animation,
               onTap:
-                  () => showRecoverPasswordDialog(
-                    context: context,
-                    controller: widget.controller,
-                  ),
+                  () => showRecoverPasswordDialog(context: context, controller: widget.controller),
               context: context,
             ),
           ],

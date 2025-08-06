@@ -5,7 +5,7 @@ import 'package:recetasperuanas/modules/login/controller/login_controller_old.da
 Future<void> handleLogin({
   required BuildContext context,
   required GlobalKey<FormState> formKey,
-  required LoginController controller,
+  required LoginControllerOld controller,
   required Function(AuthUser) onLogin,
   required VoidCallback setLoadingTrue,
   required VoidCallback setLoadingFalse,

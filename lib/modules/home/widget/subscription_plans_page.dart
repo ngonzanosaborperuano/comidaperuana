@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/core/services/subscription_service.dart'
-    show SubscriptionPlanType;
+import 'package:recetasperuanas/core/services/subscription_service.dart' show SubscriptionPlanType;
 import 'package:recetasperuanas/modules/checkout/helper/show_payu_checkout.dart'
     show showPayUCheckout;
 import 'package:recetasperuanas/modules/home/models/subscription_plan.dart'
@@ -58,10 +57,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    _pulseAnimation = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
+    _pulseAnimation = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
     _rippleAnimation = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: this,
@@ -74,24 +70,25 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _selectionAnimation, curve: Curves.elasticOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _selectionAnimation, curve: Curves.elasticOut));
 
-    _borderAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _selectionAnimation, curve: Curves.easeInOut),
-    );
+    _borderAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _selectionAnimation, curve: Curves.easeInOut));
 
     _backgroundColorAnimation = ColorTween(
       begin: context.color.background,
       end: context.color.background.withValues(alpha: 0.1),
-    ).animate(
-      CurvedAnimation(parent: _selectionAnimation, curve: Curves.easeInOut),
-    );
+    ).animate(CurvedAnimation(parent: _selectionAnimation, curve: Curves.easeInOut));
 
-    _pulseScaleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
-      CurvedAnimation(parent: _pulseAnimation, curve: Curves.easeInOut),
-    );
+    _pulseScaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _pulseAnimation, curve: Curves.easeInOut));
 
     _rippleScaleAnimation = Tween<double>(
       begin: 0.0,
@@ -191,10 +188,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(
-                  text: context.loc.planLabel(selectedPlan!.name),
-                  fontSize: AppSpacing.md,
-                ),
+                AppText(text: context.loc.planLabel(selectedPlan!.name), fontSize: AppSpacing.md),
                 AppText(
                   text: context.loc.durationLabel(
                     selectedPlan!.durationMonths,
@@ -209,19 +203,14 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                   fontSize: AppSpacing.md,
                 ),
                 AppText(
-                  text: context.loc.totalToPayLabel(
-                    selectedPlan!.totalPrice.toStringAsFixed(2),
-                  ),
+                  text: context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
                   fontSize: AppSpacing.md,
                   fontWeight: FontWeight.bold,
                 ),
                 if (selectedPlan!.discountPercentage > 0) ...[
                   AppVerticalSpace.sm,
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: context.color.buttonPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
@@ -242,19 +231,12 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
                 AppVerticalSpace.md,
                 Row(
                   children: [
-                    Icon(
-                      Icons.security,
-                      color: context.color.buttonPrimary,
-                      size: 16,
-                    ),
+                    Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
                     AppHorizontalSpace.sm,
                     Expanded(
                       child: Text(
                         context.loc.payuSafe,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.color.buttonPrimary,
-                        ),
+                        style: TextStyle(fontSize: 12, color: context.color.buttonPrimary),
                       ),
                     ),
                   ],
@@ -284,9 +266,7 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
       userName: widget.userName ?? 'Usuario',
       onSuccess: () {
         widget.onSubscriptionSelected?.call();
-        context.showSuccessToast(
-          context.loc.subscriptionActivated(selectedPlan!.name),
-        );
+        context.showSuccessToast(context.loc.subscriptionActivated(selectedPlan!.name));
       },
       onFailure: () {
         context.showErrorToast(context.loc.paymentError);
@@ -318,17 +298,11 @@ class DescriptionBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sl,
-        vertical: AppSpacing.sm,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sl, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
         color: context.color.background,
         borderRadius: BorderRadius.circular(AppSpacing.md),
-        border: Border.all(
-          color: context.color.textSecondary.withValues(alpha: 0.2),
-          width: 1,
-        ),
+        border: Border.all(color: context.color.textSecondary.withValues(alpha: 0.2), width: 1),
         boxShadow: [
           BoxShadow(
             color: context.color.textSecondary.withValues(alpha: 0.1),
@@ -346,11 +320,7 @@ class DescriptionBanner extends StatelessWidget {
               color: context.color.buttonPrimary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSpacing.sl),
             ),
-            child: Icon(
-              Icons.flag,
-              color: context.color.buttonPrimary,
-              size: AppSpacing.xmd,
-            ),
+            child: Icon(Icons.flag, color: context.color.buttonPrimary, size: AppSpacing.xmd),
           ),
           AppHorizontalSpace.sl,
           Expanded(
@@ -385,12 +355,8 @@ class HeaderPlanes extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: IconButton(
-                onPressed: context.pop,
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: context.color.text,
-                  size: 20,
-                ),
+                onPressed: Navigator.of(context).pop,
+                icon: Icon(Icons.arrow_back_ios_new, color: context.color.text, size: 20),
                 style: IconButton.styleFrom(padding: const EdgeInsets.all(12)),
               ),
             ),
@@ -422,10 +388,7 @@ class PagoSeguro extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.color.background,
         borderRadius: BorderRadius.circular(AppSpacing.md),
-        border: Border.all(
-          color: context.color.buttonPrimary.withValues(alpha: 0.2),
-          width: 1,
-        ),
+        border: Border.all(color: context.color.buttonPrimary.withValues(alpha: 0.2), width: 1),
         boxShadow: [
           BoxShadow(
             color: context.color.textSecondary.withValues(alpha: 0.1),
@@ -442,11 +405,7 @@ class PagoSeguro extends StatelessWidget {
               color: context.color.buttonPrimary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSpacing.sl),
             ),
-            child: Icon(
-              Icons.security,
-              color: context.color.buttonPrimary,
-              size: AppSpacing.xmd,
-            ),
+            child: Icon(Icons.security, color: context.color.buttonPrimary, size: AppSpacing.xmd),
           ),
           AppHorizontalSpace.md,
           Expanded(
@@ -484,8 +443,7 @@ void showSubscriptionModal(BuildContext context, {VoidCallback? onSelected}) {
     context: context,
     isScrollControlled: true,
     backgroundColor: context.color.background,
-    builder:
-        (context) => SubscriptionPlansPage(onSubscriptionSelected: onSelected),
+    builder: (context) => SubscriptionPlansPage(onSubscriptionSelected: onSelected),
   );
 }
 
@@ -493,11 +451,7 @@ class PlanesPremiumListWidget extends StatelessWidget {
   final Widget Function(SubscriptionPlan) buildPlanCard;
   final BuildContext context;
 
-  const PlanesPremiumListWidget({
-    super.key,
-    required this.buildPlanCard,
-    required this.context,
-  });
+  const PlanesPremiumListWidget({super.key, required this.buildPlanCard, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -554,19 +508,13 @@ class PlanCardWidget extends StatelessWidget {
       child: Stack(
         children: [
           AnimatedBuilder(
-            animation:
-                isSelected
-                    ? selectionAnimation
-                    : const AlwaysStoppedAnimation(0.0),
+            animation: isSelected ? selectionAnimation : const AlwaysStoppedAnimation(0.0),
             builder: (context, child) {
               return Transform.scale(
                 scale: isSelected ? scaleAnimation.value : 1.0,
                 child: Container(
                   decoration: BoxDecoration(
-                    color:
-                        isSelected
-                            ? backgroundColorAnimation.value
-                            : context.color.background,
+                    color: isSelected ? backgroundColorAnimation.value : context.color.background,
                     borderRadius: BorderRadius.circular(AppSpacing.xmd),
                     border: Border.all(
                       color:
@@ -574,21 +522,15 @@ class PlanCardWidget extends StatelessWidget {
                               ? context.color.buttonPrimary.withValues(
                                 alpha: 0.6 * borderAnimation.value,
                               )
-                              : context.color.textSecondary.withValues(
-                                alpha: 0.2,
-                              ),
+                              : context.color.textSecondary.withValues(alpha: 0.2),
                       width: isSelected ? 3.0 : 1.0,
                     ),
                     boxShadow: [
                       BoxShadow(
                         color:
                             isSelected
-                                ? context.color.buttonPrimary.withValues(
-                                  alpha: 0.5,
-                                )
-                                : context.color.textSecondary.withValues(
-                                  alpha: 0.2,
-                                ),
+                                ? context.color.buttonPrimary.withValues(alpha: 0.5)
+                                : context.color.textSecondary.withValues(alpha: 0.2),
                         blurRadius: isSelected ? AppSpacing.xmd : AppSpacing.md,
                         offset: const Offset(0, 4),
                       ),
@@ -633,8 +575,7 @@ class PlanCardWidget extends StatelessWidget {
                         width: 1.0,
                       ),
                     ),
-                    transform:
-                        Matrix4.identity()..scale(rippleScaleAnimation.value),
+                    transform: Matrix4.identity()..scale(rippleScaleAnimation.value),
                   ),
                 );
               },
@@ -662,9 +603,7 @@ class PlanCardWidget extends StatelessWidget {
                       color:
                           plan.isBestValue
                               ? context.color.success.withValues(alpha: 0.9)
-                              : context.color.buttonPrimary.withValues(
-                                alpha: 0.9,
-                              ),
+                              : context.color.buttonPrimary.withValues(alpha: 0.9),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -674,17 +613,13 @@ class PlanCardWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      plan.isBestValue
-                          ? Icons.diamond
-                          : Icons.local_fire_department,
+                      plan.isBestValue ? Icons.diamond : Icons.local_fire_department,
                       color: context.color.background,
                       size: 12,
                     ),
                     AppHorizontalSpace.xs,
                     Text(
-                      plan.isBestValue
-                          ? context.loc.bestValue
-                          : context.loc.popular,
+                      plan.isBestValue ? context.loc.bestValue : context.loc.popular,
                       style: TextStyle(
                         color: context.color.background,
                         fontSize: AppSpacing.sl,
@@ -886,10 +821,7 @@ class BottomSectionWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: context.color.backgroundCard,
-        border: Border.all(
-          color: context.color.textSecondary.withValues(alpha: 0.3),
-          width: 1,
-        ),
+        border: Border.all(color: context.color.textSecondary.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         children: [
@@ -903,16 +835,12 @@ class BottomSectionWidget extends StatelessWidget {
             onPressed: onContinue,
             enabledButton: selectedPlan != null,
             showIcon: selectedPlan != null,
-            iconWidget:
-                selectedPlan != null ? const Icon(Icons.arrow_forward) : null,
+            iconWidget: selectedPlan != null ? const Icon(Icons.arrow_forward) : null,
             iconAtStart: false,
           ),
           AppVerticalSpace.sm,
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md,
-              vertical: AppSpacing.xs,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
             child: Text(
               context.loc.acceptTerms,
               style: TextStyle(
