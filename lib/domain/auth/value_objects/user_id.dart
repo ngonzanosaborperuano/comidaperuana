@@ -6,15 +6,15 @@ class UserId extends ValueObject<String> {
   @override
   bool get isValid {
     if (value.isEmpty) return false;
-    // Firebase UID validation (28 characters, alphanumeric)
-    return RegExp(r'^[a-zA-Z0-9]{28}$').hasMatch(value);
+    // Allow integer IDs (1, 2, 465, etc.)
+    return RegExp(r'^\d+$').hasMatch(value);
   }
 
   @override
   String? get errorMessage {
     if (value.isEmpty) return 'El ID de usuario no puede estar vacío';
-    if (!RegExp(r'^[a-zA-Z0-9]{28}$').hasMatch(value)) {
-      return 'El formato del ID de usuario no es válido';
+    if (!RegExp(r'^\d+$').hasMatch(value)) {
+      return 'El ID de usuario debe ser un número entero';
     }
     return null;
   }
@@ -25,9 +25,7 @@ class UserId extends ValueObject<String> {
     if (userIdVO.isValid) {
       return Success(userIdVO);
     }
-    return Failure(
-      ValidationException(userIdVO.errorMessage ?? 'ID de usuario inválido'),
-    );
+    return Failure(ValidationException(userIdVO.errorMessage ?? 'ID de usuario inválido'));
   }
 
   /// Create from Firebase UID

@@ -70,38 +70,6 @@ class LoginController extends BaseController {
     }
   }
 
-  /// Login method for backward compatibility with existing view
-  Future<(bool success, String message)> loginWithUser({
-    required Map<String, dynamic> user,
-    required int type,
-  }) async {
-    _setLoading(true);
-    _clearError();
-
-    try {
-      final email = user['email'] as String;
-      final password = user['password'] as String;
-
-      final result = await _loginUseCase.execute(email: email, password: password, type: type);
-
-      if (result.isSuccess) {
-        _currentUser.value = result.successValue;
-        _showSuccess('Inicio de sesión exitoso');
-        return (true, 'Inicio de sesión exitoso');
-      } else {
-        final errorMessage = result.failureValue!.message;
-        _setError(errorMessage);
-        return (false, errorMessage);
-      }
-    } catch (e) {
-      final errorMessage = 'Error inesperado: $e';
-      _setError(errorMessage);
-      return (false, errorMessage);
-    } finally {
-      _setLoading(false);
-    }
-  }
-
   /// Register new user
   Future<void> register({required String email, required String password, String? name}) async {
     _setLoading(true);

@@ -116,34 +116,61 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   //
   //  return const Failure(ValidationException('Credenciales inválidas'));
   //}
-
   @override
   Future<Result<AuthUser, DomainException>> register(User user) async {
-    // Mock implementation
-    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      final response = await _auth.createUserWithEmailAndPassword(
+        email: user.email.value,
+        password: user.password!.value,
+      );
 
-    final createdUser = User.createWithoutPassword(
-      id: 'mock-user-id-${DateTime.now().millisecondsSinceEpoch}',
-      email: user.email.value,
-      name: user.name,
-      photoUrl: user.photoUrl,
-    );
+      final firebaseUser = response.user!;
 
-    if (createdUser.isFailure) {
-      return Failure(createdUser.failureValue!);
+      final authUser = AuthUser(
+        email: firebaseUser.email!,
+        contrasena: firebaseUser.uid,
+        nombreCompleto: user.name,
+        foto:
+            user.photoUrl ??
+            'https://cdn-icons-png.freepik.com/256/12894/12894535.png?semt=ais_hybrid',
+      );
+
+      return Success(authUser);
+    } on FirebaseAuthException catch (e, stackTrace) {
+      _logger.severe('Error al registrar usuario: $e', e, stackTrace);
+      return Failure(ValidationException(e.code));
+    } catch (e, stackTrace) {
+      _logger.severe('Error inesperado al registrar: $e', e, stackTrace);
+      return const Failure(ValidationException('Error inesperado al registrar usuario'));
     }
-
-    return Success(
-      AuthUser(
-        email: createdUser.successValue!.email.value,
-        contrasena: createdUser.successValue!.id.value,
-        nombreCompleto: createdUser.successValue!.name,
-        foto: createdUser.successValue!.photoUrl,
-      ),
-    );
   }
 
- 
+  //@override
+  //Future<Result<AuthUser, DomainException>> register(User user) async {
+  //  // Mock implementation
+  //  await Future.delayed(const Duration(milliseconds: 500));
+  //
+  //  final createdUser = User.createWithoutPassword(
+  //    id: 'mock-user-id-${DateTime.now().millisecondsSinceEpoch}',
+  //    email: user.email.value,
+  //    name: user.name,
+  //    photoUrl: user.photoUrl,
+  //  );
+  //
+  //  if (createdUser.isFailure) {
+  //    return Failure(createdUser.failureValue!);
+  //  }
+  //
+  //  return Success(
+  //    AuthUser(
+  //      email: createdUser.successValue!.email.value,
+  //      contrasena: createdUser.successValue!.id.value,
+  //      nombreCompleto: createdUser.successValue!.name,
+  //      foto: createdUser.successValue!.photoUrl,
+  //    ),
+  //  );
+  //}
+
   @override
   Future<Result<void, DomainException>> signOut() async {
     // Mock implementation

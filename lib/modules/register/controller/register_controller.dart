@@ -1,17 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
+import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart'
+    show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
-import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class RegisterController extends BaseController {
-  RegisterController({required UserRepository userRepository})
-    : _userRepository = userRepository;
+  RegisterController({
+    required RegisterUseCase registerUseCase,
+    required UserRepository userRepository,
+  }) : _registerUseCase = registerUseCase,
+       _userRepository = userRepository;
   @override
   String get name => 'RegisterController';
 
   final UserRepository _userRepository;
+  final RegisterUseCase _registerUseCase;
 
   final _logger = Logger('RegisterController');
   TextEditingController emailController = TextEditingController();
@@ -21,21 +26,65 @@ class RegisterController extends BaseController {
 
   ValueNotifier<bool> isReObscureText = ValueNotifier<bool>(true);
 
-  Future<bool?> register(AuthUser user) async {
+  // State
+  final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+  final ValueNotifier<AuthUser?> _currentUser = ValueNotifier<AuthUser?>(null);
+  final ValueNotifier<String?> _errorMessage = ValueNotifier<String?>(null);
+  // Getters
+  ValueNotifier<bool> get isLoading => _isLoading;
+  ValueNotifier<AuthUser?> get currentUser => _currentUser;
+  ValueNotifier<String?> get errorMessage => _errorMessage;
+  Future<bool> register(AuthUser user) async {
+    _setLoading(true);
+    _clearError();
     try {
-      final result = await _userRepository.register(
-        user,
-        type: LoginWith.withUserPassword,
+      final result = await _registerUseCase.execute(
+        email: emailController.text,
+        password: passwordController.text,
+        name: fullNameController.text,
       );
-      _logger.info('Resultado del registro: $result');
-      if (result == false) {
+
+      if (result.isSuccess) {
+        _currentUser.value = result.successValue;
+        _userRepository.register(user);
+        _showSuccess('Registro exitoso');
+        return true;
+      } else {
+        _setError(result.failureValue!.message);
         return false;
       }
-      return true;
+
+      //final result = await _userRepository.register(user, type: LoginWith.withUserPassword);
+      //_logger.info('Resultado del registro: $result');
+      //if (result == false) {
+      //  return false;
+      //}
+      //return true;
     } catch (e, stackTrace) {
       _logger.severe('Error al registrar: $e', e, stackTrace);
       addError(e, stackTrace);
-      return null;
+      return false;
     }
+  }
+
+  // Private methods
+  void _setLoading(bool loading) {
+    _isLoading.value = loading;
+    notifyListeners();
+  }
+
+  void _setError(String message) {
+    _errorMessage.value = message;
+    notifyListeners();
+  }
+
+  void _clearError() {
+    _errorMessage.value = null;
+    notifyListeners();
+  }
+
+  void _showSuccess(String message) {
+    // This would typically show a success toast
+    logger.info(message);
   }
 }

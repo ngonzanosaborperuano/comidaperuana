@@ -1,9 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/email.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/password.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/user_id.dart';
 import 'package:recetasperuanas/domain/core/value_objects.dart';
 
+part 'user.g.dart';
+
+@JsonSerializable()
 class User extends Equatable {
   const User({
     required this.id,
@@ -16,8 +20,13 @@ class User extends Equatable {
     this.updatedAt,
   });
 
+  @JsonKey(fromJson: _userIdFromJson, toJson: _userIdToJson)
   final UserId id;
+
+  @JsonKey(fromJson: _emailFromJson, toJson: _emailToJson)
   final Email email;
+
+  @JsonKey(fromJson: _passwordFromJson, toJson: _passwordToJson)
   final Password? password;
   final String? name;
   final String? photoUrl;
@@ -27,7 +36,7 @@ class User extends Equatable {
 
   /// Factory constructor with validation
   static Result<User, ValidationException> create({
-    required String id,
+    String? id,
     required String email,
     String? password,
     String? name,
@@ -36,10 +45,17 @@ class User extends Equatable {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    // Validate ID
-    final userIdResult = UserId.create(id);
-    if (userIdResult.isFailure) {
-      return Failure(userIdResult.failureValue!);
+    // Validate ID if provided
+    UserId? userIdVO;
+    if (id != null) {
+      final userIdResult = UserId.create(id);
+      if (userIdResult.isFailure) {
+        return Failure(userIdResult.failureValue!);
+      }
+      userIdVO = userIdResult.successValue;
+    } else {
+      // Use 0 as default ID for registration
+      userIdVO = const UserId('0');
     }
 
     // Validate email
@@ -60,14 +76,12 @@ class User extends Equatable {
 
     // Validate name if provided
     if (name != null && name.trim().isEmpty) {
-      return const Failure(
-        ValidationException('El nombre no puede estar vacío'),
-      );
+      return const Failure(ValidationException('El nombre no puede estar vacío'));
     }
 
     return Success(
       User(
-        id: userIdResult.successValue!,
+        id: userIdVO!,
         email: emailResult.successValue!,
         password: passwordVO,
         name: name?.trim(),
@@ -76,27 +90,6 @@ class User extends Equatable {
         createdAt: createdAt ?? DateTime.now(),
         updatedAt: updatedAt ?? DateTime.now(),
       ),
-    );
-  }
-
-  /// Create user without password (for existing users)
-  static Result<User, ValidationException> createWithoutPassword({
-    required String id,
-    required String email,
-    String? name,
-    String? photoUrl,
-    bool isActive = true,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) {
-    return create(
-      id: id,
-      email: email,
-      name: name,
-      photoUrl: photoUrl,
-      isActive: isActive,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
     );
   }
 
@@ -123,37 +116,25 @@ class User extends Equatable {
     );
   }
 
-  /// Deactivate user
-  User deactivate() {
-    return copyWith(isActive: false);
-  }
-
-  /// Activate user
-  User activate() {
-    return copyWith(isActive: true);
-  }
-
-  /// Check if user can login
-  bool get canLogin => isActive && email.isValid;
-
-  /// Get display name
-  String get displayName => name ?? email.localPart;
-
-  /// Check if user has profile photo
-  bool get hasPhoto => photoUrl != null && photoUrl!.isNotEmpty;
+  @override
+  List<Object?> get props => [id, email, name, photoUrl, isActive, createdAt, updatedAt];
 
   @override
-  List<Object?> get props => [
-    id,
-    email,
-    name,
-    photoUrl,
-    isActive,
-    createdAt,
-    updatedAt,
-  ];
+  String toString() => 'User(id: ${id.value}, email: ${email.value}, name: $name)';
 
-  @override
-  String toString() =>
-      'User(id: ${id.value}, email: ${email.value}, name: $name)';
+  /// Create User from JSON
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  /// Convert User to JSON
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  // JSON conversion helpers
+  static UserId _userIdFromJson(String value) => UserId(value);
+  static String _userIdToJson(UserId userId) => userId.value;
+
+  static Email _emailFromJson(String value) => Email(value);
+  static String _emailToJson(Email email) => email.value;
+
+  static Password? _passwordFromJson(String? value) => value != null ? Password(value) : null;
+  static String? _passwordToJson(Password? password) => password?.value;
 }
