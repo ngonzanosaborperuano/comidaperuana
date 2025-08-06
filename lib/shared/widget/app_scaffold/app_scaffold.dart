@@ -5,7 +5,7 @@ import 'package:recetasperuanas/core/provider/pages_provider.dart';
 import 'package:recetasperuanas/modules/setting/view/setting_page.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/menu_android.dart';
-import 'package:recetasperuanas/shared/widget/app_scaffold/menu_ios.dart' show MenuIOS;
+import 'package:recetasperuanas/shared/widget/app_scaffold/menu_ios.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/page_home_android.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/page_home_ios.dart';
 
@@ -47,29 +47,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       child: Consumer<PagesProvider>(
         builder: (BuildContext context, PagesProvider value, Widget? child) {
           if (widget.showMenu) {
-            return CupertinoTabScaffold(
-              backgroundColor: context.color.background,
-              tabBar: MenuIOS(
-                currentIndex: value.selectPage,
-                onTap: (index) => context.read<PagesProvider>().togglePage(index),
-                backgroundColor: context.color.backgroundCard,
-                activeColor: context.color.textSecondary2,
-                inactiveColor: context.color.textSecondary,
-              ),
-              tabBuilder: (context, index) {
-                return CupertinoTabView(
-                  builder:
-                      (context) => Column(
-                        children: [
-                          SizedBox(height: widget.toolbarHeight),
-                          Expanded(
-                            child: IndexedStack(index: value.selectPage, children: pagesIOS),
-                          ),
-                        ],
-                      ),
-                );
-              },
-            );
+            return MenuIOS(pagesIOS: pagesIOS, toolbarHeight: widget.toolbarHeight);
           } else {
             return CupertinoPageScaffold(
               backgroundColor: context.color.background,
