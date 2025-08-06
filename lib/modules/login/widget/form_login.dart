@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/constants/option.dart' show LoginWith;
 import 'package:recetasperuanas/core/constants/routes.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart'
-    show LoginControllerOld;
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart'
+    show LoginController;
 import 'package:recetasperuanas/modules/login/widget/widget.dart' show AnimatedLoginForm;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart'
@@ -23,7 +23,7 @@ class FormLogin extends StatelessWidget {
   final double maxWidth;
   final GlobalKey<FormState> _formKeyLogin;
   final Animation<double> formAnimation;
-  final LoginControllerOld con;
+  final LoginController con;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -56,7 +56,8 @@ class FormLogin extends StatelessWidget {
                     future: () async {
                       var mensageUser = '';
                       final (isSuccess, msg) = await con.login(
-                        user: user,
+                        email: con.emailController.text,
+                        password: con.passwordController.text,
                         type: LoginWith.withUserPassword,
                       );
                       if (isSuccess) {

@@ -1,10 +1,11 @@
+import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/domain/auth/entities/user.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/email.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/user_id.dart';
 import 'package:recetasperuanas/domain/core/value_objects.dart';
 
 /// Interface for user repository operations
-abstract class IUserRepository {
+abstract class IUserRepositoryOLD {
   /// Find user by ID
   Future<Result<User?, DomainException>> findById(UserId id);
 
@@ -27,10 +28,7 @@ abstract class IUserRepository {
 /// Interface for user authentication operations
 abstract class IUserAuthRepository {
   /// Authenticate user with email and password
-  Future<Result<User, DomainException>> authenticate(
-    Email email,
-    String password,
-  );
+  Future<Result<User, DomainException>> authenticate(Email email, String password);
 
   /// Register new user
   Future<Result<User, DomainException>> register(User user);
@@ -46,4 +44,35 @@ abstract class IUserAuthRepository {
 
   /// Check if user is authenticated
   Future<Result<bool, DomainException>> isAuthenticated();
+}
+
+/// Interface for the current UserRepository implementation
+/// This interface reflects the actual methods used in the UserRepository class
+abstract class IUserRepository {
+  /// Login with different authentication methods
+  Future<(bool, String)> login({required AuthUser user, required int type});
+
+  /// Login with email and password
+  Future<(bool, String)> loginWithEmailPass(AuthUser user);
+
+  /// Sign in or register user
+  Future<(bool, String)> signInOrRegister(AuthUser user, {int? type});
+
+  /// Recover credentials (password reset)
+  Future<String?> recoverCredential(String email);
+
+  /// Login with email
+  Future<bool> loginWithEmail(AuthUser user);
+
+  /// Login with Google
+  Future<(bool, String)> loginWithGoogle();
+
+  /// Register new user
+  Future<bool> register(AuthUser user, {int? type});
+
+  /// Get current user
+  Future<AuthUser> getUser();
+
+  /// Logout user
+  Future<void> logout();
 }

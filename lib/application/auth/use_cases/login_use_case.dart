@@ -1,3 +1,5 @@
+import 'package:recetasperuanas/core/auth/models/auth_user.dart' show AuthUser;
+import 'package:recetasperuanas/core/constants/option.dart' show LoginWith, withGoogle;
 import 'package:recetasperuanas/domain/auth/entities/user.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_auth_repository.dart';
 import 'package:recetasperuanas/domain/auth/value_objects/email.dart';
@@ -10,33 +12,24 @@ class LoginUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute login with email and password
-  Future<Result<User, DomainException>> execute({
+  Future<Result<AuthUser, DomainException>> execute({
     required String email,
     required String password,
+    required int type,
   }) async {
-    // Validate email
-    final emailResult = Email.create(email);
-    if (emailResult.isFailure) {
-      return Failure(emailResult.failureValue!);
+    if (type == LoginWith.withGoogle) {
+      return await _authRepository.authenticateGoogle();
+    } else if (type == LoginWith.withUserPassword) {
+      final emailResult = Email.create(email);
+      if (emailResult.isFailure) {
+        return Failure(emailResult.failureValue!);
+      }
+      if (password.isEmpty) {
+        return const Failure(ValidationException('La contraseña no puede estar vacía'));
+      }
+      return await _authRepository.authenticateEmail(emailResult.successValue!, password);
     }
-
-    // Validate password
-    if (password.isEmpty) {
-      return const Failure(
-        ValidationException('La contraseña no puede estar vacía'),
-      );
-    }
-
-    // Authenticate user
-    return await _authRepository.authenticate(
-      emailResult.successValue!,
-      password,
-    );
-  }
-
-  /// Execute Google login
-  Future<Result<User, DomainException>> executeWithGoogle() async {
-    return await _authRepository.authenticateWithGoogle();
+    return const Failure(ValidationException('Tipo de inicio de sesión no soportado'));
   }
 }
 
@@ -47,7 +40,7 @@ class RegisterUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute user registration
-  Future<Result<User, DomainException>> execute({
+  Future<Result<AuthUser, DomainException>> execute({
     required String email,
     required String password,
     String? name,

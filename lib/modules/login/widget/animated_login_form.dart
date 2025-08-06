@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart'
+    show LoginController;
 import 'package:recetasperuanas/modules/login/helpers/auth_modals.dart'
     show showRecoverPasswordDialog;
 import 'package:recetasperuanas/modules/login/utils/auth_utils.dart' show handleLogin;
@@ -18,7 +19,7 @@ class AnimatedLoginForm extends StatefulWidget {
   });
 
   final GlobalKey<FormState> formKey;
-  final LoginControllerOld controller;
+  final LoginController controller;
   final Function(AuthUser) onLogin;
   final Animation<double> animation;
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart'
+    show LoginController;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginWithGoogle extends StatelessWidget {
   const LoginWithGoogle({super.key, required this.con});
-  final LoginControllerOld con;
+  final LoginController con;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,8 @@ class LoginWithGoogle extends StatelessWidget {
           context,
           future: () async {
             final (isSuccess, msg) = await con.login(
-              user: AuthUser(
-                email: con.emailController.text,
-                contrasena: con.passwordController.text,
-              ),
+              email: con.emailController.text,
+              password: con.passwordController.text,
               type: LoginWith.withGoogle,
             );
 

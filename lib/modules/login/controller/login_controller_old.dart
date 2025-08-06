@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/result/app_result.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class LoginControllerOld extends BaseController {
-  LoginControllerOld({required UserRepository userRepository}) : _userRepository = userRepository {
+  LoginControllerOld({required IUserRepository userRepository}) : _userRepository = userRepository {
     _logger.info('LoginController initialized');
   }
 
   @override
   String get name => 'LoginController';
 
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
 
   final _logger = Logger('LoginController');
   TextEditingController emailController = TextEditingController();

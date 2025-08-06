@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart'
+    show LoginController;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_confirm_dialog.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 Future<void> showRecoverPasswordDialog({
   required BuildContext context,
-  required LoginControllerOld controller,
+  required LoginController controller,
 }) {
   final textEditingController = TextEditingController();
   return showDialog(

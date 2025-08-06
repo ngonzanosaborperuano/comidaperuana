@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
-import 'package:recetasperuanas/core/constants/option.dart';
-import 'package:recetasperuanas/domain/auth/entities/user.dart';
+import 'package:recetasperuanas/core/auth/models/auth_user.dart' show AuthUser;
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 /// Enhanced login controller using DDD architecture
@@ -10,9 +10,11 @@ class LoginController extends BaseController {
     required LoginUseCase loginUseCase,
     required RegisterUseCase registerUseCase,
     required LogoutUseCase logoutUseCase,
+    required IUserRepository userRepository,
   }) : _loginUseCase = loginUseCase,
        _registerUseCase = registerUseCase,
-       _logoutUseCase = logoutUseCase;
+       _logoutUseCase = logoutUseCase,
+       _userRepository = userRepository;
 
   @override
   String get name => 'LoginController';
@@ -20,33 +22,49 @@ class LoginController extends BaseController {
   final LoginUseCase _loginUseCase;
   final RegisterUseCase _registerUseCase;
   final LogoutUseCase _logoutUseCase;
+  final IUserRepository _userRepository;
 
   // State
   final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
-  final ValueNotifier<User?> _currentUser = ValueNotifier<User?>(null);
+  final ValueNotifier<AuthUser?> _currentUser = ValueNotifier<AuthUser?>(null);
   final ValueNotifier<String?> _errorMessage = ValueNotifier<String?>(null);
 
   // Getters
   ValueNotifier<bool> get isLoading => _isLoading;
-  ValueNotifier<User?> get currentUser => _currentUser;
+  ValueNotifier<AuthUser?> get currentUser => _currentUser;
   ValueNotifier<String?> get errorMessage => _errorMessage;
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   /// Login with email and password
-  Future<void> login({required String email, required String password}) async {
+  Future<(bool, String)> login({
+    required String email,
+    required String password,
+    required int type,
+  }) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final result = await _loginUseCase.execute(email: email, password: password);
+      final result = await _loginUseCase.execute(email: email, password: password, type: type);
 
       if (result.isSuccess) {
         _currentUser.value = result.successValue;
-        _showSuccess('Inicio de sesión exitoso');
+        final (isSuccess, msg) = await _userRepository.signInOrRegister(result.successValue!);
+        if (isSuccess) {
+          _showSuccess('Inicio de sesión exitoso');
+        } else {
+          _setError(msg);
+        }
+        return (isSuccess, msg);
       } else {
         _setError(result.failureValue!.message);
+        return (false, result.failureValue!.message);
       }
     } catch (e) {
       _setError('Error inesperado: $e');
+      return (false, 'Error inesperado: $e');
     } finally {
       _setLoading(false);
     }
@@ -55,7 +73,7 @@ class LoginController extends BaseController {
   /// Login method for backward compatibility with existing view
   Future<(bool success, String message)> loginWithUser({
     required Map<String, dynamic> user,
-    required LoginWith type,
+    required int type,
   }) async {
     _setLoading(true);
     _clearError();
@@ -64,7 +82,7 @@ class LoginController extends BaseController {
       final email = user['email'] as String;
       final password = user['password'] as String;
 
-      final result = await _loginUseCase.execute(email: email, password: password);
+      final result = await _loginUseCase.execute(email: email, password: password, type: type);
 
       if (result.isSuccess) {
         _currentUser.value = result.successValue;
@@ -79,27 +97,6 @@ class LoginController extends BaseController {
       final errorMessage = 'Error inesperado: $e';
       _setError(errorMessage);
       return (false, errorMessage);
-    } finally {
-      _setLoading(false);
-    }
-  }
-
-  /// Login with Google
-  Future<void> loginWithGoogle() async {
-    _setLoading(true);
-    _clearError();
-
-    try {
-      final result = await _loginUseCase.executeWithGoogle();
-
-      if (result.isSuccess) {
-        _currentUser.value = result.successValue;
-        _showSuccess('Inicio de sesión con Google exitoso');
-      } else {
-        _setError(result.failureValue!.message);
-      }
-    } catch (e) {
-      _setError('Error inesperado: $e');
     } finally {
       _setLoading(false);
     }
@@ -145,6 +142,10 @@ class LoginController extends BaseController {
     } finally {
       _setLoading(false);
     }
+  }
+
+  Future<String?> recoverCredential(String email) async {
+    return await _userRepository.recoverCredential(email);
   }
 
   /// Validate email format
@@ -214,6 +215,8 @@ class LoginController extends BaseController {
     _isLoading.dispose();
     _currentUser.dispose();
     _errorMessage.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 }
