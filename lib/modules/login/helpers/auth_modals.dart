@@ -63,6 +63,8 @@ Future<void> showRecoverPasswordDialog({
                 }
               },
             );
+            if (!context.mounted) return;
+            context.pop();
           },
           onCancel: context.pop,
           confirmColor: context.color.buttonPrimary,

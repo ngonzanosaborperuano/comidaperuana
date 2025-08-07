@@ -102,6 +102,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
     }
   }
 
+  @Deprecated('Use recoverCredential from IUserAuthRepository instead')
   @override
   Future<String?> recoverCredential(String email) async {
     try {

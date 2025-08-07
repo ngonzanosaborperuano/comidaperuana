@@ -5,7 +5,6 @@ import 'package:recetasperuanas/domain/auth/repositories/i_user_auth_repository.
 import 'package:recetasperuanas/domain/auth/value_objects/email.dart';
 import 'package:recetasperuanas/domain/core/value_objects.dart';
 
-/// Use case for user login
 class LoginUseCase {
   const LoginUseCase(this._authRepository);
 
@@ -31,47 +30,10 @@ class LoginUseCase {
     }
     return const Failure(ValidationException('Tipo de inicio de sesión no soportado'));
   }
-}
 
-/// Use case for user registration
-class RegisterUseCase {
-  const RegisterUseCase(this._authRepository);
-
-  final IUserAuthRepository _authRepository;
-
-  /// Execute user registration
-  Future<Result<AuthUser, DomainException>> execute({
-    required String email,
-    required String password,
-    String? name,
-    String? photoUrl,
-  }) async {
-    // Create user entity with validation
-    final userResult = User.create(
-      email: email,
-      password: password,
-      name: name,
-      photoUrl: photoUrl,
-    );
-
-    if (userResult.isFailure) {
-      return Failure(userResult.failureValue!);
-    }
-
-    // Register user
-    return await _authRepository.register(userResult.successValue!);
-  }
-}
-
-/// Use case for user logout
-class LogoutUseCase {
-  const LogoutUseCase(this._authRepository);
-
-  final IUserAuthRepository _authRepository;
-
-  /// Execute user logout
-  Future<Result<void, DomainException>> execute() async {
-    return await _authRepository.signOut();
+  /// Execute recover credential
+  Future<Result<String, DomainException>> executeRecoverCredential(String email) async {
+    return await _authRepository.recoverCredential(email);
   }
 }
 

@@ -172,6 +172,20 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   //}
 
   @override
+  Future<Result<String, DomainException>> recoverCredential(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return const Success('success');
+    } on FirebaseAuthException catch (e, stackTrace) {
+      _logger.severe('Error al recuperar credenciales: $e', e, stackTrace);
+      return Failure(ValidationException(e.code));
+    } catch (e, stackTrace) {
+      _logger.severe('Error al recuperar credenciales: $e', e, stackTrace);
+      return const Failure(ValidationException('Ocurrió un error inesperado.'));
+    }
+  }
+
+  @override
   Future<Result<void, DomainException>> signOut() async {
     // Mock implementation
     await Future.delayed(const Duration(milliseconds: 300));

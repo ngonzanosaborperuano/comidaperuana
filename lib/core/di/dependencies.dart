@@ -4,6 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart' show GoogleSignIn;
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart' show LogoutUseCase;
+import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart'
+    show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/cqrs/command_bus.dart';
 import 'package:recetasperuanas/core/events/domain_event.dart';

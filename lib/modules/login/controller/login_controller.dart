@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart' show LogoutUseCase;
+import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart'
+    show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/models/auth_user.dart' show AuthUser;
 import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -113,7 +116,14 @@ class LoginController extends BaseController {
   }
 
   Future<String?> recoverCredential(String email) async {
-    return await _userRepository.recoverCredential(email);
+    final result = await _loginUseCase.executeRecoverCredential(email);
+    if (result.isSuccess) {
+      _showSuccess('Correo de recuperación enviado');
+      return result.successValue;
+    } else {
+      _setError(result.failureValue!.message);
+      return result.failureValue!.message;
+    }
   }
 
   /// Validate email format
@@ -174,7 +184,6 @@ class LoginController extends BaseController {
   }
 
   void _showSuccess(String message) {
-    // This would typically show a success toast
     logger.info(message);
   }
 

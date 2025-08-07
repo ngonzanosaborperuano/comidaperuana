@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart'
+import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart'
     show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';

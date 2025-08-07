@@ -20,4 +20,7 @@ abstract class IUserAuthRepository {
 
   /// Check if user is authenticated
   Future<Result<bool, DomainException>> isAuthenticated();
+
+  /// Recover credentials (password reset)
+  Future<Result<String, DomainException>> recoverCredential(String email);
 }

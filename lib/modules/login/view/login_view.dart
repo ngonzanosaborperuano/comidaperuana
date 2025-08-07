@@ -93,7 +93,7 @@ class _LoginViewState extends State<LoginView>
                           Row(
                             children: [
                               Expanded(child: Divider(color: context.color.border, thickness: 1)),
-                              AppText(text: ' ${context.loc.or} '),
+                              AppText(text: ' ${context.loc.or} ', fontSize: 14),
                               Expanded(child: Divider(color: context.color.border, thickness: 1)),
                             ],
                           ),

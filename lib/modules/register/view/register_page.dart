@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart'
+    show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
 import 'package:recetasperuanas/infrastructure/auth/repositories/firebase_user_auth_repository.dart';
