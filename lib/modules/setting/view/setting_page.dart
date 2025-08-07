@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
-import 'package:recetasperuanas/core/network/api_service.dart';
+import 'package:provider/provider.dart' show ChangeNotifierProvider, MultiProvider, ReadContext;
+import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/modules/setting/controller/setting_controller.dart';
+import 'package:recetasperuanas/modules/setting/di/setting_dependencies.dart';
 import 'package:recetasperuanas/modules/setting/view/setting_view.dart';
 
 class SettingPage extends StatelessWidget {
@@ -14,11 +15,17 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SettingController>(
-      create:
-          (_) => SettingController(
-            userRepository: UserRepository(apiService: ApiService()),
-          )..getUser(),
+    return MultiProvider(
+      providers: [
+        ...settingModuleProviders(context),
+        ChangeNotifierProvider(
+          create:
+              (context) => SettingController(
+                userRepository: context.read<IUserRepository>(),
+                logoutUseCase: context.read<LogoutUseCase>(),
+              )..getUser(),
+        ),
+      ],
       child: const SettingView(),
     );
   }

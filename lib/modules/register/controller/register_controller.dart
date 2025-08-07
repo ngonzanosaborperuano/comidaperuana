@@ -3,19 +3,19 @@ import 'package:logging/logging.dart';
 import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart'
     show RegisterUseCase;
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class RegisterController extends BaseController {
   RegisterController({
     required RegisterUseCase registerUseCase,
-    required UserRepository userRepository,
+    required IUserRepository userRepository,
   }) : _registerUseCase = registerUseCase,
        _userRepository = userRepository;
   @override
   String get name => 'RegisterController';
 
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
   final RegisterUseCase _registerUseCase;
 
   final _logger = Logger('RegisterController');
@@ -53,13 +53,6 @@ class RegisterController extends BaseController {
         _setError(result.failureValue!.message);
         return false;
       }
-
-      //final result = await _userRepository.register(user, type: LoginWith.withUserPassword);
-      //_logger.info('Resultado del registro: $result');
-      //if (result == false) {
-      //  return false;
-      //}
-      //return true;
     } catch (e, stackTrace) {
       _logger.severe('Error al registrar: $e', e, stackTrace);
       addError(e, stackTrace);

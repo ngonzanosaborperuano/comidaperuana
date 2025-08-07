@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/provider/app_state_provider.dart';
 import 'package:recetasperuanas/core/provider/locale_provider.dart';
 import 'package:recetasperuanas/core/provider/theme_provider.dart';
 import 'package:recetasperuanas/domain/auth/entities/user.dart';
@@ -17,7 +16,6 @@ class ProviderTestHelpers {
   }) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AppStateProvider()),
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ...additionalProviders,
@@ -102,23 +100,6 @@ class ProviderTestData {
     return User(id: UserId(id), name: name, email: Email(email));
   }
 
-  /// Create mock app state provider
-  static AppStateProvider createMockAppStateProvider({
-    User? user,
-    bool isLoading = false,
-    String? error,
-    String theme = 'light',
-    String locale = 'es',
-  }) {
-    final provider = AppStateProvider();
-    if (user != null) provider.updateUser(user);
-    if (isLoading) provider.setLoading(true);
-    if (error != null) provider.setError(error);
-    provider.setTheme(theme);
-    provider.setLocale(locale);
-    return provider;
-  }
-
   /// Create mock locale provider
   static LocaleProvider createMockLocaleProvider({String locale = 'es'}) {
     final provider = LocaleProvider();
@@ -139,25 +120,6 @@ class ProviderTestMatchers {
   /// Matcher for provider state
   static Matcher isProviderState<T>(T expectedState) {
     return isA<T>().having((state) => state, 'state', expectedState);
-  }
-
-  /// Matcher for loading state
-  static Matcher isLoadingState() {
-    return isA<AppStateProvider>().having((provider) => provider.isLoading, 'isLoading', true);
-  }
-
-  /// Matcher for error state
-  static Matcher hasError(String errorMessage) {
-    return isA<AppStateProvider>().having((provider) => provider.error, 'error', errorMessage);
-  }
-
-  /// Matcher for authenticated state
-  static Matcher isAuthenticated() {
-    return isA<AppStateProvider>().having(
-      (provider) => provider.isAuthenticated,
-      'isAuthenticated',
-      true,
-    );
   }
 }
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/modules/login/controller/login_controller_old.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart' show LoginController;
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class TextFieldPassword extends StatelessWidget {
   const TextFieldPassword({super.key, required this.con});
 
-  final LoginControllerOld con;
+  final LoginController con;
 
   @override
   Widget build(BuildContext context) {

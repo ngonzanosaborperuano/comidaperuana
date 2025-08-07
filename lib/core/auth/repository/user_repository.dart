@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
@@ -34,44 +31,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
   final _logger = Logger('UserRepository');
 
   @override
-  Future<(bool, String)> login({required AuthUser user, required int type}) async {
-    try {
-      if (type == LoginWith.withGoogle) {
-        return loginWithGoogle();
-      } else if (type == LoginWith.withUserPassword) {
-        return loginWithEmailPass(user);
-      }
-    } catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión: $e', e, stackTrace);
-      addError(e, stackTrace);
-    }
-    return (false, 'Tipo de inicio de sesión no soportado');
-  }
-
-  @override
-  Future<(bool, String)> loginWithEmailPass(AuthUser user) async {
-    try {
-      final response = await _auth.signInWithCredential(
-        EmailAuthProvider.credential(email: user.email, password: user.contrasena!),
-      );
-      user = AuthUser(
-        email: user.email,
-        contrasena: response.user!.uid,
-        foto: response.user!.photoURL,
-        nombreCompleto: response.user!.displayName,
-      );
-
-      return await signInOrRegister(user);
-    } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
-      return (false, e.code);
-    } catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
-      return (false, 'An error occurred during email/password login: $e');
-    }
-  }
-
-  @override
   Future<(bool, String)> signInOrRegister(AuthUser user, {int? type}) async {
     try {
       final isExists = await _apiService.get(
@@ -79,12 +38,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
         fromJson: (id) => id,
       );
 
-      // final userModel = AuthUser(
-      //   nombreCompleto: user.nombreCompleto,
-      //   foto: user.foto,
-      //   email: user.email,
-      //   contrasena: user.contrasena,
-      // );
       if (!isExists.success) {
         return (false, 'Error al iniciar sesión o registrar: ${isExists.message}');
       }
@@ -102,21 +55,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
     }
   }
 
-  @Deprecated('Use recoverCredential from IUserAuthRepository instead')
-  @override
-  Future<String?> recoverCredential(String email) async {
-    try {
-      await _auth.sendPasswordResetEmail(email: email);
-      return 'success';
-    } on FirebaseAuthException catch (e) {
-      return e.code;
-    } catch (e, stackTrace) {
-      debugPrint('StackTrace: $stackTrace');
-      return 'Ocurrió un error inesperado.';
-    }
-  }
-
-  @override
   Future<bool> loginWithEmail(AuthUser user) async {
     try {
       final result = await _apiService.post<AuthUser>(
@@ -144,59 +82,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
       addError(e, stackTrace);
     }
     return false;
-  }
-
-  @override
-  Future<(bool, String)> loginWithGoogle() async {
-    try {
-      await _googleSignIn.signOut();
-      await _auth.signOut();
-
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-
-      if (googleUser == null) {
-        log('Google Sign In fue cancelado por el usuario');
-        return (false, 'Google sign-in aborted by user');
-      }
-
-      // Obtener detalles de autenticación con manejo de errores
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication.catchError((
-        error,
-      ) {
-        log('Error en autenticación de Google: $error');
-        throw error;
-      });
-
-      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
-        log('No se pudieron obtener los tokens necesarios');
-        return (false, 'Google sign-in aborted by user');
-      }
-
-      // Crear credencial
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      // Iniciar sesión en Firebase
-      final result = await _auth.signInWithCredential(credential);
-      final data = result.user!;
-      AuthUser user = AuthUser(
-        email: data.email!,
-        contrasena: data.uid,
-        foto: data.photoURL,
-        nombreCompleto: data.displayName,
-      );
-      return await signInOrRegister(user, type: LoginWith.withGoogle);
-    } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con Google: $e', e, stackTrace);
-      return (false, e.code);
-    } catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con Google: $e', e, stackTrace);
-      return (false, e.toString());
-    }
   }
 
   @override
@@ -234,19 +119,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
       return false;
     }
   }
-
-  /// Asegura que hay un token válido de App Check antes de operaciones de autenticación
-  // Future<void> _ensureAppCheckToken() async {
-  //   try {
-  //     // Intentar obtener un token de App Check
-  //     await FirebaseAppCheck.instance.getToken(true); // forceRefresh = true
-  //     log('✅ Token de App Check obtenido para operación de autenticación');
-  //   } catch (e) {
-  //     log('⚠️ No se pudo obtener token de App Check: $e');
-  //     log('ℹ️ Continuando con la operación...');
-  //     // No lanzar el error para permitir que la operación continúe
-  //   }
-  // }
 
   @override
   Future<AuthUser> getUser() async {

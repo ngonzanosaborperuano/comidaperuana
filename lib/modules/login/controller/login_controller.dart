@@ -37,6 +37,9 @@ class LoginController extends BaseController {
   ValueNotifier<AuthUser?> get currentUser => _currentUser;
   ValueNotifier<String?> get errorMessage => _errorMessage;
 
+  final ValueNotifier<bool> _isObscureText = ValueNotifier<bool>(true);
+  ValueNotifier<bool> get isObscureText => _isObscureText;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 

@@ -270,8 +270,8 @@ graph LR
 graph TB
     subgraph "🔧 DEPENDENCY INJECTION"
         subgraph "📦 PROVIDERS"
-            AppStateProvider[AppStateProvider]
             LocaleProvider[LocaleProvider]
+            ThemeProvider[ThemeProvider]
             PagesProvider[PagesProvider]
         end
 
@@ -288,9 +288,7 @@ graph TB
         end
     end
 
-    AppStateProvider --> AuthService
-    AppStateProvider --> RecipeService
-    AppStateProvider --> PaymentService
+
     LocaleProvider --> NotificationService
     Dependencies --> GlobalProviders
 ```

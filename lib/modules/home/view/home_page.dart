@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/color/app_colors.dart';
 import 'package:recetasperuanas/core/config/config.dart' show AppStyles;
 import 'package:recetasperuanas/core/database/database_helper.dart';
-import 'package:recetasperuanas/core/network/network.dart';
+import 'package:recetasperuanas/core/network/api_service.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/view/home_view.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -40,9 +40,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
       create: (BuildContext context) {
+        final userRepository = context.read<IUserRepository>();
+        final apiService = context.read<ApiService>();
+        final taskRepository = TaskRepository(DatabaseHelper.instance, apiService: apiService);
+
         return HomeController(
-          userRepository: context.read<UserRepository>(),
-          taskRepository: TaskRepository(DatabaseHelper.instance, apiService: ApiService()),
+          userRepository: userRepository,
+          taskRepository: taskRepository,
         ); //..allRecipes();
       },
       child: Consumer<HomeController>(

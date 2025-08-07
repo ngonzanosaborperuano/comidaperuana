@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
+import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 
 class SettingController extends BaseController {
-  SettingController({required UserRepository userRepository})
-    : _userRepository = userRepository {
+  SettingController({required IUserRepository userRepository, required LogoutUseCase logoutUseCase})
+    : _userRepository = userRepository,
+      _logoutUseCase = logoutUseCase {
     _logger.info('SettingController initialized');
   }
 
   @override
   String get name => 'SettingController';
 
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
+  final LogoutUseCase _logoutUseCase;
 
   final _logger = Logger('LoginController');
 
@@ -32,7 +35,12 @@ class SettingController extends BaseController {
   }
 
   Future<void> logout() async {
-    await _userRepository.logout();
+    final result = await _logoutUseCase.execute();
+    if (result.isSuccess) {
+      await _userRepository.logout();
+    } else {
+      _logger.severe('Error al cerrar sesión: ${result.failureValue?.message}');
+    }
   }
 
   /// Actualizar configuración de auto-rotación
@@ -40,10 +48,7 @@ class SettingController extends BaseController {
     isAutoRotationEnabled.value = enabled;
 
     // Guardar preferencia
-    await SharedPreferencesHelper.instance.setBool(
-      CacheConstants.autoRotation,
-      value: enabled,
-    );
+    await SharedPreferencesHelper.instance.setBool(CacheConstants.autoRotation, value: enabled);
 
     // Aplicar configuración inmediatamente
     await _updateDeviceOrientation(enabled);
@@ -72,9 +77,7 @@ class SettingController extends BaseController {
 
   /// Cargar configuración de auto-rotación al inicializar
   void loadAutoRotationSetting() {
-    final enabled = SharedPreferencesHelper.instance.getBool(
-      CacheConstants.autoRotation,
-    );
+    final enabled = SharedPreferencesHelper.instance.getBool(CacheConstants.autoRotation);
     isAutoRotationEnabled.value = enabled;
   }
 }

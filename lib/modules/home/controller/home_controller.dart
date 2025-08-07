@@ -1,23 +1,21 @@
 import 'dart:async' show Timer;
 
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/core/auth/repository/user_repository.dart';
 import 'package:recetasperuanas/core/constants/storage.dart';
 import 'package:recetasperuanas/core/secure_storage/securete_storage_service.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/modules/home/models/task_model.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
 
 class HomeController extends BaseController {
-  HomeController({
-    required UserRepository userRepository,
-    required TaskRepository taskRepository,
-  }) : _userRepository = userRepository,
-       _taskRepository = taskRepository;
+  HomeController({required IUserRepository userRepository, required TaskRepository taskRepository})
+    : _userRepository = userRepository,
+      _taskRepository = taskRepository;
   @override
   String get name => 'HomeController';
 
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
   final TaskRepository _taskRepository;
 
   TextEditingController titleController = TextEditingController();
