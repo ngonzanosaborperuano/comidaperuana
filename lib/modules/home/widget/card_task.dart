@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/color/app_colors.dart';
-import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
 import 'package:recetasperuanas/modules/home/models/task_model.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/utils/util.dart';
@@ -14,10 +13,16 @@ import 'package:recetasperuanas/shared/widget/spacing/app_spacing.dart';
 import 'package:recetasperuanas/shared/widget/text_widget.dart';
 
 class CardTask extends StatelessWidget {
-  const CardTask({super.key, required this.itemTask, required this.con});
+  const CardTask({
+    super.key,
+    required this.itemTask,
+    required this.onUpdateTask,
+    required this.onDeleteTask,
+  });
 
   final TaskModel itemTask;
-  final HomeController con;
+  final Function(int, String, String) onUpdateTask;
+  final Function(int) onDeleteTask;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +39,7 @@ class CardTask extends StatelessWidget {
             AppColorScheme.of(context).warning,
           ],
         ),
-        border: Border.all(
-          width: 1,
-          color: AppColorScheme.of(context).textSecondary,
-        ),
+        border: Border.all(width: 1, color: AppColorScheme.of(context).textSecondary),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
@@ -75,44 +77,32 @@ class CardTask extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () async {
-            await onPressedUpdate(context, con, itemTask);
+            await onPressedUpdate(context, itemTask);
           },
-          icon: Icon(
-            Icons.mode_edit_outlined,
-            color: AppColorScheme.of(context).success,
-          ),
+          icon: Icon(Icons.mode_edit_outlined, color: AppColorScheme.of(context).success),
         ),
         IconButton(
           onPressed: () async {
-            final result = await con.deleteTask(itemTask.id!);
+            final result = await onDeleteTask(itemTask.id!);
             if (!context.mounted) return;
             showCustomSnackBar(
               context: context,
               message: '${context.loc.messageDeleteNote} ${itemTask.id}',
-              backgroundColor:
-                  result
-                      ? AppColors.emerald700
-                      : AppColorScheme.of(context).error,
+              backgroundColor: result ? AppColors.emerald700 : AppColorScheme.of(context).error,
               foregroundColor: AppColors.white,
             );
           },
-          icon: const Icon(
-            Icons.delete_outline,
-            size: 30,
-            color: AppColors.red800,
-          ),
+          icon: const Icon(Icons.delete_outline, size: 30, color: AppColors.red800),
         ),
       ],
     );
   }
 
-  Future<void> onPressedUpdate(
-    BuildContext context,
-    HomeController con,
-    TaskModel taskModel,
-  ) async {
+  Future<void> onPressedUpdate(BuildContext context, TaskModel taskModel) async {
     GlobalKey<FormState> formKeyNote = GlobalKey<FormState>();
-    con.titleController.text = taskModel.title;
+    final titleController = TextEditingController(text: taskModel.title);
+    final bodyController = TextEditingController(text: taskModel.body ?? '');
+
     final result = await AppDialog(
       titleColor: AppColorScheme.of(context).text,
       title: context.loc.updateTask,
@@ -128,8 +118,8 @@ class CardTask extends StatelessWidget {
                 color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.insertTitle,
-                  textEditingController: con.titleController,
-                  validator: (p0) => con.validateEmpty(p0, context),
+                  textEditingController: titleController,
+                  validator: (p0) => p0 == null || p0.isEmpty ? context.loc.validateEmpty : null,
                 ),
               ),
             ),
@@ -141,8 +131,8 @@ class CardTask extends StatelessWidget {
                 color: AppColorScheme.of(context).textSecondary,
                 child: AppTextField(
                   hintText: context.loc.writeNote,
-                  textEditingController: con.bodyController,
-                  validator: (p0) => con.validateEmpty(p0, context),
+                  textEditingController: bodyController,
+                  validator: (p0) => p0 == null || p0.isEmpty ? context.loc.validateEmpty : null,
                 ),
               ),
             ),
@@ -163,24 +153,27 @@ class CardTask extends StatelessWidget {
           showIcon: false,
           onPressed: () async {
             if (!formKeyNote.currentState!.validate()) return;
-            final result = await con.updateTask(taskModel.id!);
-            con.titleController.clear();
-            con.bodyController.clear();
+            onUpdateTask(taskModel.id!, titleController.text, bodyController.text);
+            titleController.clear();
+            bodyController.clear();
             if (!context.mounted) return;
-            context.pop(result);
+            context.pop(true);
           },
         ),
       ],
     ).show(context);
 
-    if (result!) {
+    if (result ?? false) {
       if (!context.mounted) return;
       showCustomSnackBar(
         context: context,
-        message: '${context.loc.messageUpdateNote} ${taskModel.id}',
+        message: context.loc.messageUpdateNote,
         backgroundColor: AppColorScheme.of(context).success,
         foregroundColor: AppColors.white,
       );
     }
+
+    titleController.dispose();
+    bodyController.dispose();
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' show ChangeNotifierProvider, MultiProvider, ReadContext;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
+import 'package:recetasperuanas/modules/register/bloc/register_bloc.dart';
 import 'package:recetasperuanas/modules/register/di/register_dependencies.dart';
 import 'package:recetasperuanas/modules/register/view/register_view.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/app_scaffold.dart';
@@ -16,18 +16,16 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ...registerModuleProviders(context),
-        ChangeNotifierProvider(
-          create:
-              (_) => RegisterController(
-                userRepository: context.read<IUserRepository>(),
-                registerUseCase: context.read<RegisterUseCase>(),
-              ),
-        ),
-      ],
-      child: const AppScaffold(toolbarHeight: 0, body: RegisterView()),
+    return MultiRepositoryProvider(
+      providers: registerModuleProviders(context),
+      child: BlocProvider<RegisterBloc>(
+        create:
+            (context) => RegisterBloc(
+              registerUseCase: context.read<RegisterUseCase>(),
+              userRepository: context.read<IUserRepository>(),
+            ),
+        child: const AppScaffold(toolbarHeight: 0, body: RegisterView()),
+      ),
     );
   }
 }

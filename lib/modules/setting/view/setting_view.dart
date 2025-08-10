@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:recetasperuanas/core/bloc/locale_bloc.dart';
+import 'package:recetasperuanas/core/bloc/theme_bloc.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
 import 'package:recetasperuanas/core/constants/routes.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
-import 'package:recetasperuanas/core/provider/locale_provider.dart';
-import 'package:recetasperuanas/core/provider/theme_provider.dart';
-import 'package:recetasperuanas/modules/setting/controller/setting_controller.dart';
+import 'package:recetasperuanas/modules/setting/bloc/setting_bloc.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/models/user_model.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -17,21 +17,42 @@ class SettingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SettingController>(
-      builder: (_, SettingController con, _) {
-        final loading = con.userModel == UserModel.empty;
+    return BlocConsumer<SettingBloc, SettingState>(
+      listener: (context, state) async {
+        if (state is SettingLoggedOut) {
+          if (!context.mounted) return;
+          context.go(Routes.splash.description);
+        } else if (state is SettingError) {
+          if (!context.mounted) return;
+          await showAdaptiveDialog(
+            context: context,
+            builder:
+                (context) => AppModalAlert(
+                  text: state.message,
+                  title: context.loc.error,
+                  maxHeight: 200,
+                  icon: Icons.error,
+                  labelButton: context.loc.accept,
+                  onPressed: context.pop,
+                ),
+          );
+        }
+      },
+      builder: (context, state) {
+        final loading = state is SettingLoading || state is SettingInitial;
+        final user = state is SettingLoaded ? state.user : UserModel.empty;
         return Column(
           children: [
-            MiPerfil(loading: loading, con: con),
+            MiPerfil(loading: loading, user: user),
             AppVerticalSpace.sm,
             const Divider(height: 20, endIndent: 20, indent: 20),
-            Language(con: con),
+            const Language(),
             AppVerticalSpace.sm,
-            DarkMode(con: con),
+            const DarkMode(),
             AppVerticalSpace.sm,
-            AutoRotation(con: con),
+            const AutoRotation(),
             AppVerticalSpace.sm,
-            LogOutButton(con: con),
+            const LogOutButton(),
           ],
         );
       },
@@ -40,8 +61,7 @@ class SettingView extends StatelessWidget {
 }
 
 class DarkMode extends StatelessWidget {
-  const DarkMode({super.key, required this.con});
-  final SettingController con;
+  const DarkMode({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,16 +70,13 @@ class DarkMode extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AppText(text: context.loc.darkMode),
-          ValueListenableBuilder(
-            valueListenable: con.isDark,
-            builder: (_, bool isDark, _) {
-              final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-              con.isDark.value = themeProvider.themeMode == ThemeMode.dark;
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (_, state) {
+              final themeMode = state is ThemeLoaded ? state.themeMode : ThemeMode.system;
               return AppSwitch(
-                value: isDark,
+                value: themeMode == ThemeMode.dark,
                 onChanged: (bool value) {
-                  con.isDark.value = value;
-                  context.read<ThemeProvider>().toggleTheme(value);
+                  context.read<ThemeBloc>().add(ThemeToggleRequested(value));
                   SharedPreferencesHelper.instance.setBool(CacheConstants.darkMode, value: value);
                 },
               );
@@ -72,8 +89,7 @@ class DarkMode extends StatelessWidget {
 }
 
 class Language extends StatelessWidget {
-  const Language({super.key, required this.con});
-  final SettingController con;
+  const Language({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,20 +98,14 @@ class Language extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AppText(text: context.loc.changeLanguage),
-          ValueListenableBuilder(
-            valueListenable: con.isSpanish,
-            builder: (_, bool isSpanish, _) {
-              final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
-              con.isSpanish.value = localeProvider.locale.languageCode == 'es';
+          BlocBuilder<LocaleBloc, LocaleState>(
+            builder: (_, state) {
+              final currentLocale = state is LocaleLoaded ? state.locale : const Locale('es');
               return AppSwitch(
-                value: isSpanish,
+                value: currentLocale.languageCode == 'es',
                 onChanged: (bool value) {
-                  con.isSpanish.value = value;
-                  if (value) {
-                    context.read<LocaleProvider>().setLocale(const Locale('es'));
-                  } else {
-                    context.read<LocaleProvider>().setLocale(const Locale('en'));
-                  }
+                  final newLocale = value ? const Locale('es') : const Locale('en');
+                  context.read<LocaleBloc>().add(LocaleChanged(newLocale));
                   SharedPreferencesHelper.instance.setBool(CacheConstants.spanish, value: !value);
                 },
               );
@@ -108,8 +118,7 @@ class Language extends StatelessWidget {
 }
 
 class LogOutButton extends StatelessWidget {
-  const LogOutButton({super.key, required this.con});
-  final SettingController con;
+  const LogOutButton({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -119,9 +128,7 @@ class LogOutButton extends StatelessWidget {
         text: context.loc.logOut,
         showIcon: false,
         onPressed: () async {
-          await con.logout();
-          if (!context.mounted) return;
-          context.go(Routes.splash.description);
+          context.read<SettingBloc>().add(SettingLogoutRequested());
         },
       ),
     );
@@ -129,8 +136,7 @@ class LogOutButton extends StatelessWidget {
 }
 
 class AutoRotation extends StatelessWidget {
-  const AutoRotation({super.key, required this.con});
-  final SettingController con;
+  const AutoRotation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -150,13 +156,13 @@ class AutoRotation extends StatelessWidget {
               ),
             ],
           ),
-          ValueListenableBuilder(
-            valueListenable: con.isAutoRotationEnabled,
-            builder: (_, bool isEnabled, _) {
+          BlocBuilder<SettingBloc, SettingState>(
+            builder: (context, state) {
+              final isEnabled = state is SettingLoaded ? state.isAutoRotationEnabled : false;
               return AppSwitch(
                 value: isEnabled,
                 onChanged: (bool value) async {
-                  await con.toggleAutoRotation(value);
+                  context.read<SettingBloc>().add(SettingAutoRotationToggled(value));
                 },
               );
             },
@@ -168,10 +174,10 @@ class AutoRotation extends StatelessWidget {
 }
 
 class MiPerfil extends StatelessWidget {
-  const MiPerfil({super.key, required this.loading, required this.con});
+  const MiPerfil({super.key, required this.loading, required this.user});
 
   final bool loading;
-  final SettingController con;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -191,32 +197,30 @@ class MiPerfil extends StatelessWidget {
               ),
               child: ClipOval(
                 child:
-                    con.userModel.foto == null || con.userModel.foto!.isEmpty
+                    user.avatar.isEmpty
                         ? Image.asset(
                           'assets/img/avatar.png',
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
                         )
-                        : Image.network(
-                          con.userModel.foto!,
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        ),
+                        : Image.network(user.avatar, width: 80, height: 80, fit: BoxFit.cover),
               ),
             ),
           ),
           AppVerticalSpace.lg,
           AppItemRow(
             title: context.loc.user,
-            subTitle: con.userModel.nombreCompleto ?? 'No disponible',
+            subTitle:
+                '${user.firstName} ${user.lastName}'.trim().isEmpty
+                    ? 'No disponible'
+                    : '${user.firstName} ${user.lastName}',
             icon: Icons.person,
             maxWidth: 100,
           ),
           AppItemRow(
             title: context.loc.email,
-            subTitle: con.userModel.email,
+            subTitle: user.email,
             icon: Icons.email,
             maxWidth: 100,
           ),

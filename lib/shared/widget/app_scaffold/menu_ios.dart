@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/provider/pages_provider.dart';
+import '../../../core/bloc/pages_bloc.dart';
 import '../../controller/base_controller.dart';
 import '../../widget/app_svg.dart';
 
@@ -13,13 +13,14 @@ class MenuIOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PagesProvider>(
-      builder: (context, value, child) {
+    return BlocBuilder<PagesBloc, PagesState>(
+      builder: (context, state) {
+        final selectedPage = state is PagesLoaded ? state.selectedPage : 0;
         return CupertinoTabScaffold(
           backgroundColor: context.color.background,
           tabBar: CupertinoTabBar(
-            currentIndex: value.selectPage,
-            onTap: (index) => context.read<PagesProvider>().togglePage(index),
+            currentIndex: selectedPage,
+            onTap: (index) => context.read<PagesBloc>().add(PageChanged(index)),
             backgroundColor: context.color.backgroundCard.withAlpha(100),
             activeColor: context.color.textSecondary2,
             inactiveColor: context.color.textSecondary,
@@ -29,7 +30,7 @@ class MenuIOS extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: context.svgIconSemantic.home(
                     color:
-                        value.selectPage == 0
+                        selectedPage == 0
                             ? context.color.textSecondary2
                             : context.color.textSecondary,
                   ),
@@ -41,7 +42,7 @@ class MenuIOS extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: context.svgIconSemantic.analysis(
                     color:
-                        value.selectPage == 1
+                        selectedPage == 1
                             ? context.color.textSecondary2
                             : context.color.textSecondary,
                   ),
@@ -53,7 +54,7 @@ class MenuIOS extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: context.svgIconSemantic.plan(
                     color:
-                        value.selectPage == 2
+                        selectedPage == 2
                             ? context.color.textSecondary2
                             : context.color.textSecondary,
                   ),
@@ -65,7 +66,7 @@ class MenuIOS extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: context.svgIconSemantic.profile(
                     color:
-                        value.selectPage == 3
+                        selectedPage == 3
                             ? context.color.textSecondary2
                             : context.color.textSecondary,
                   ),
@@ -82,7 +83,7 @@ class MenuIOS extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: toolbarHeight),
-                        Expanded(child: IndexedStack(index: value.selectPage, children: pagesIOS)),
+                        Expanded(child: IndexedStack(index: selectedPage, children: pagesIOS)),
                       ],
                     ),
                   ),

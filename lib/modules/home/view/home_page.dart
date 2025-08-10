@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/core/config/color/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recetasperuanas/core/config/config.dart' show AppStyles;
 import 'package:recetasperuanas/core/database/database_helper.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/modules/home/controller/home_controller.dart';
+import 'package:recetasperuanas/modules/home/bloc/home_bloc.dart';
 import 'package:recetasperuanas/modules/home/view/home_view.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/repository/task_repository.dart';
-import 'package:recetasperuanas/shared/utils/util.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,24 +34,21 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeController>(
+    return BlocProvider<HomeBloc>(
       create: (BuildContext context) {
         final userRepository = context.read<IUserRepository>();
         final apiService = context.read<ApiService>();
         final taskRepository = TaskRepository(DatabaseHelper.instance, apiService: apiService);
 
-        return HomeController(
-          userRepository: userRepository,
-          taskRepository: taskRepository,
-        ); //..allRecipes();
+        return HomeBloc(userRepository: userRepository, taskRepository: taskRepository);
       },
-      child: Consumer<HomeController>(
-        builder: (_, HomeController con, _) {
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
           final ValueNotifier<bool> isListening = ValueNotifier(false);
           return AppScaffold(
             toolbarHeight: kToolbarHeight,
             title: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
               child: Column(
                 children: [
                   ValueListenableBuilder(
@@ -67,10 +60,10 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               color: context.color.background,
                               borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(10),
-                                topRight: const Radius.circular(10),
-                                bottomLeft: Radius.circular(value ? 0 : 10),
-                                bottomRight: Radius.circular(value ? 0 : 10),
+                                topLeft: const Radius.circular(AppSpacing.sm),
+                                topRight: const Radius.circular(AppSpacing.sm),
+                                bottomLeft: Radius.circular(value ? 0 : AppSpacing.sm),
+                                bottomRight: Radius.circular(value ? 0 : AppSpacing.sm),
                               ),
                               border: Border.all(color: context.color.border, width: 0.3),
                             ),
@@ -87,6 +80,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     onChanged: (value) {
                                       print('onChanged: $value');
+                                      // Usar el BLoC para buscar
+                                      context.read<HomeBloc>().add(HomeSearchTask(value));
                                     },
                                     maxLines: 1,
                                     onListeningChanged: (value) {
@@ -132,15 +127,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          AppShimmer.progress(
-                            child: Divider(
-                              indent: 10,
-                              endIndent: 10,
-                              color: context.color.buttonPrimary,
-                              thickness: 2,
-                              height: 1,
-                            ),
-                          ),
                         ],
                       );
                     },
@@ -148,86 +134,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            body: Column(children: [Expanded(child: HomeView(con: con))]),
-            onPressed: () async {
-              onPressedSave(context, con);
-            },
+            body: const HomeView(),
             showMenu: true,
           );
         },
       ),
     );
-  }
-
-  Future<void> onPressedSave(BuildContext context, HomeController con) async {
-    GlobalKey<FormState> formKeyNote = GlobalKey<FormState>();
-    con.titleController.clear();
-    con.bodyController.clear();
-    final result = await AppDialog(
-      titleColor: AppColorScheme.of(context).text,
-      title: context.loc.addNote,
-      body: Form(
-        key: formKeyNote,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.loc.title),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: ColoredBox(
-                color: AppColorScheme.of(context).textSecondary,
-                child: AppTextField(
-                  hintText: context.loc.insertTitle,
-                  textEditingController: con.titleController,
-                  validator: (p0) => con.validateEmpty(p0, context),
-                ),
-              ),
-            ),
-            AppVerticalSpace.sl,
-            Text(context.loc.body),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: ColoredBox(
-                color: AppColorScheme.of(context).textSecondary,
-                child: AppTextField(
-                  hintText: context.loc.writeNote,
-                  textEditingController: con.bodyController,
-                  validator: (p0) => con.validateEmpty(p0, context),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      buttons: [
-        AppButton(
-          isCancel: true,
-          text: context.loc.back,
-          showIcon: false,
-          onPressed: () {
-            context.pop(false);
-          },
-        ),
-        AppButton(
-          text: context.loc.save,
-          showIcon: false,
-          onPressed: () {
-            if (!formKeyNote.currentState!.validate()) return;
-            con.insertTask();
-            context.pop(true);
-          },
-        ),
-      ],
-    ).show(context);
-
-    if (result ?? false) {
-      if (!context.mounted) return;
-      showCustomSnackBar(
-        context: context,
-        message: context.loc.messageAddNote,
-        backgroundColor: AppColorScheme.of(context).success,
-        foregroundColor: AppColors.white,
-      );
-    }
   }
 }

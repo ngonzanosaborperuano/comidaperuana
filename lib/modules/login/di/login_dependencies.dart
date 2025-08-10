@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
 import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart';
 import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
+import 'package:recetasperuanas/modules/login/bloc/login_bloc.dart';
 
 /// Dependencias específicas del módulo de login
-List<SingleChildWidget> loginModuleProviders(BuildContext context) {
-  final userAuthRepository = context.read<IUserAuthRepository>();
-
+List<BlocProvider> loginModuleProviders(BuildContext context) {
   return [
-    // Use Cases específicos del módulo de login
-    Provider<LoginUseCase>.value(value: LoginUseCase(userAuthRepository)),
-    Provider<RegisterUseCase>.value(value: RegisterUseCase(userAuthRepository)),
-    Provider<LogoutUseCase>.value(value: LogoutUseCase(userAuthRepository)),
+    // Login BLoC
+    BlocProvider<LoginBloc>(
+      create:
+          (context) => LoginBloc(
+            loginUseCase: LoginUseCase(context.read<IUserAuthRepository>()),
+            registerUseCase: RegisterUseCase(context.read<IUserAuthRepository>()),
+            logoutUseCase: LogoutUseCase(context.read<IUserAuthRepository>()),
+            userRepository: context.read<IUserRepository>(),
+          ),
+    ),
   ];
 }

@@ -28,18 +28,11 @@ class AppTextFieldSearch extends StatelessWidget {
     return Theme.of(context).platform == TargetPlatform.iOS
         ? CupertinoSearchTextField(
           prefixIcon: prefixIcon,
-          suffixIcon: Icon(
-            Icons.close,
-            size: 15,
-            color: context.color.textSecondary,
-          ),
+          suffixIcon: Icon(Icons.close, size: 15, color: context.color.textSecondary),
           onChanged: onChanged,
           controller: textController,
           placeholder: placeholder,
-          placeholderStyle: const TextStyle(
-            fontSize: 14,
-            color: AppColors.slate400,
-          ),
+          placeholderStyle: const TextStyle(fontSize: 14, color: AppColors.slate400),
           style: const TextStyle(fontSize: 18),
           cursorColor: context.color.menuActive,
           decoration: BoxDecoration(
@@ -58,7 +51,7 @@ class AppTextFieldSearch extends StatelessWidget {
               filled: true,
               fillColor: AppColors.transparent,
               prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(AppSpacing.sm),
                 child: context.svgIcon(
                   SvgIcons.search,
                   color: context.color.textSecondary,
@@ -70,23 +63,14 @@ class AppTextFieldSearch extends StatelessWidget {
                 icon: Icon(Icons.close, color: context.color.textSecondary),
               ),
               hintText: placeholder,
-              hintStyle: const TextStyle(
-                fontSize: 14,
-                color: AppColors.slate400,
-              ),
+              hintStyle: const TextStyle(fontSize: 14, color: AppColors.slate400),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: const BorderSide(
-                  width: 2.0,
-                  color: AppColors.transparent,
-                ),
+                borderSide: const BorderSide(width: 2.0, color: AppColors.transparent),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
-                borderSide: const BorderSide(
-                  width: 0.1,
-                  color: AppColors.transparent,
-                ),
+                borderSide: const BorderSide(width: 0.1, color: AppColors.transparent),
               ),
             ),
             style: TextStyle(fontSize: 16, color: context.color.text),

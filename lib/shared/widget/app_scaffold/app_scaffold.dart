@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/provider/pages_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recetasperuanas/core/bloc/pages_bloc.dart';
 import 'package:recetasperuanas/modules/setting/view/setting_page.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/menu_android.dart';
@@ -42,46 +42,44 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   Widget _buildCupertinoScaffold(BuildContext context) {
     final List<Widget> pagesIOS = [PageHomeIOS(widget: widget), const SettingPage()];
-    return ChangeNotifierProvider<PagesProvider>(
-      create: (BuildContext context) => PagesProvider(),
-      child: Consumer<PagesProvider>(
-        builder: (BuildContext context, PagesProvider value, Widget? child) {
-          if (widget.showMenu) {
-            return MenuIOS(pagesIOS: pagesIOS, toolbarHeight: widget.toolbarHeight);
-          } else {
-            return CupertinoPageScaffold(
-              backgroundColor: context.color.background,
-              child: Column(
-                children: [
-                  SizedBox(height: widget.toolbarHeight),
-                  Expanded(child: IndexedStack(index: value.selectPage, children: pagesIOS)),
-                ],
-              ),
-            );
-          }
-        },
-      ),
+    return BlocBuilder<PagesBloc, PagesState>(
+      builder: (context, state) {
+        final selectedPage = state is PagesLoaded ? state.selectedPage : 0;
+
+        if (widget.showMenu) {
+          return MenuIOS(pagesIOS: pagesIOS, toolbarHeight: widget.toolbarHeight);
+        } else {
+          return CupertinoPageScaffold(
+            backgroundColor: context.color.background,
+            child: Column(
+              children: [
+                SizedBox(height: widget.toolbarHeight),
+                Expanded(child: IndexedStack(index: selectedPage, children: pagesIOS)),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 
   Widget _buildMaterialScaffold(BuildContext context) {
     final List<Widget> pageAndroid = [PageHomeAndroid(widget: widget), const SettingPage()];
-    return ChangeNotifierProvider<PagesProvider>(
-      create: (BuildContext context) => PagesProvider(),
-      child: Consumer<PagesProvider>(
-        builder: (BuildContext context, PagesProvider value, Widget? child) {
-          return Scaffold(
-            backgroundColor: context.color.background,
-            body: Column(
-              children: [
-                SizedBox(height: widget.toolbarHeight),
-                Expanded(child: IndexedStack(index: value.selectPage, children: pageAndroid)),
-              ],
-            ),
-            bottomNavigationBar: widget.showMenu ? const MenuAndroid() : null,
-          );
-        },
-      ),
+    return BlocBuilder<PagesBloc, PagesState>(
+      builder: (context, state) {
+        final selectedPage = state is PagesLoaded ? state.selectedPage : 0;
+
+        return Scaffold(
+          backgroundColor: context.color.background,
+          body: Column(
+            children: [
+              SizedBox(height: widget.toolbarHeight),
+              Expanded(child: IndexedStack(index: selectedPage, children: pageAndroid)),
+            ],
+          ),
+          bottomNavigationBar: widget.showMenu ? const MenuAndroid() : null,
+        );
+      },
     );
   }
 }

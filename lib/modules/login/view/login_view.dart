@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:recetasperuanas/application/auth/use_cases/login_use_case.dart';
+import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart';
+import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart';
 import 'package:recetasperuanas/core/constants/option.dart' show LoginWith;
 import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/modules/login/controller/login_controller.dart'
-    show LoginController;
+import 'package:recetasperuanas/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
+import 'package:recetasperuanas/modules/login/bloc/login_bloc.dart';
+import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
 import 'package:recetasperuanas/modules/login/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
@@ -34,90 +39,114 @@ class _LoginViewState extends State<LoginView>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginController>(
-      builder: (_, LoginController con, _) {
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                context.color.buttonPrimary.withAlpha(50),
-                context.color.error.withAlpha(50),
-                context.color.buttonPrimary.withAlpha(150),
-                context.color.buttonPrimary.withAlpha(50),
-              ],
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccess) {
+          context.showSuccessToast('Bienvenido a CocinandoIA');
+          context.go(Routes.home.description);
+        } else if (state is LoginError) {
+          context.showErrorToast(state.message);
+        }
+      },
+      child: BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  context.color.buttonPrimary.withAlpha(50),
+                  context.color.error.withAlpha(50),
+                  context.color.error.withAlpha(50),
+                  context.color.buttonPrimary.withAlpha(50),
+                ],
+              ),
             ),
-          ),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                child: ResponsiveConstrainedBox(
-                  child: Card(
-                    elevation: 2,
-                    color: context.color.background,
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      side: BorderSide(
-                        color: context.color.border.withAlpha(50),
-                        style: BorderStyle.solid,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                  child: ResponsiveConstrainedBox(
+                    child: Card(
+                      elevation: 2,
+                      color: context.color.background,
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        side: BorderSide(
+                          color: context.color.border.withAlpha(100),
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                      child: Column(
-                        spacing: AppSpacing.md,
-                        children: [
-                          AnimatedLoginForm(
-                            formKey: _formKeyLogin,
-                            controller: con,
-                            animation: formAnimation,
-                            onLogin: (user) async {
-                              final (success, msg) = await con.login(
-                                email: con.emailController.text,
-                                password: con.passwordController.text,
-                                type: LoginWith.withUserPassword,
-                              );
-                              if (success) {
-                                if (!context.mounted) return;
-                                context.showSuccessToast(context.loc.welcomeToCocinandoIA);
-                                context.go(Routes.home.description);
-                              } else {
-                                if (!context.mounted) return;
-                                context.showErrorToast(context.loc.authError);
-                              }
-                            },
-                          ),
-                          Row(
-                            children: [
-                              Expanded(child: Divider(color: context.color.border, thickness: 1)),
-                              AppText(text: ' ${context.loc.or} ', fontSize: 14),
-                              Expanded(child: Divider(color: context.color.border, thickness: 1)),
-                            ],
-                          ),
-                          LoginWithGoogle(con: con),
-                          Row(
-                            children: [
-                              AppText(text: context.loc.dontHaveAccount, fontSize: AppSpacing.md),
-                              TextButton(
-                                child: AppText(text: context.loc.register, fontSize: AppSpacing.md),
-                                onPressed: () => context.push(Routes.register.description),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                        child: Column(
+                          spacing: AppSpacing.md,
+                          children: [
+                            AnimatedLoginForm(
+                              formKey: _formKeyLogin,
+                              animation: formAnimation,
+                              controller: LoginController(
+                                loginUseCase: LoginUseCase(context.read<IUserAuthRepository>()),
+                                registerUseCase: RegisterUseCase(
+                                  context.read<IUserAuthRepository>(),
+                                ),
+                                logoutUseCase: LogoutUseCase(context.read<IUserAuthRepository>()),
+                                userRepository: context.read<IUserRepository>(),
                               ),
-                              AppVerticalSpace.md,
-                            ],
-                          ),
-                        ],
+                              onLogin: (user) async {
+                                context.read<LoginBloc>().add(
+                                  LoginRequested(
+                                    email: user.email,
+                                    password: user.contrasena ?? '',
+                                    type: LoginWith.withUserPassword,
+                                  ),
+                                );
+                              },
+                            ),
+                            const Row(
+                              children: [
+                                Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                                AppText(text: ' O ', fontSize: 14),
+                                Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                              ],
+                            ),
+                            LoginWithGoogle(
+                              con: LoginController(
+                                loginUseCase: LoginUseCase(context.read<IUserAuthRepository>()),
+                                registerUseCase: RegisterUseCase(
+                                  context.read<IUserAuthRepository>(),
+                                ),
+                                logoutUseCase: LogoutUseCase(context.read<IUserAuthRepository>()),
+                                userRepository: context.read<IUserRepository>(),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const AppText(text: '¿No tienes cuenta?', fontSize: AppSpacing.md),
+                                TextButton(
+                                  child: const AppText(
+                                    text: 'Registrarse',
+                                    fontSize: AppSpacing.md,
+                                  ),
+                                  onPressed: () => context.push(Routes.register.description),
+                                ),
+                                AppVerticalSpace.md,
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

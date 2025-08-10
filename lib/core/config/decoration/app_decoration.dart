@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/color/app_colors.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
+import 'package:recetasperuanas/shared/widget/spacing/spacing.dart' show AppSpacing;
 
 class AppDecorations {
-  static InputDecoration textFormFieldDecoration({
-    String? hintText,
-    IconData? suffixIcon,
-  }) {
+  static InputDecoration textFormFieldDecoration({String? hintText, IconData? suffixIcon}) {
     return InputDecoration(
       isDense: true,
       labelStyle: AppStyles.bodyText,
@@ -32,7 +30,7 @@ class AppDecorations {
       filled: true,
       fillColor: AppColors.backgroundCard,
       suffixIcon: Icon(suffixIcon, size: 24, color: AppColors.text),
-      contentPadding: const EdgeInsets.all(10),
+      contentPadding: const EdgeInsets.all(AppSpacing.sm),
     );
   }
 }

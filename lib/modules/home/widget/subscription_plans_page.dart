@@ -367,7 +367,7 @@ class HeaderPlanes extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(width: 56),
+            const SizedBox(width: AppSpacing.lg + AppSpacing.sl),
           ],
         ),
         AppVerticalSpace.xmd,
@@ -456,7 +456,7 @@ class PlanesPremiumListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xmd, vertical: 0),
       child: Column(
         children: [
           DescriptionBanner(context: this.context),

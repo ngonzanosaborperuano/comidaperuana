@@ -38,7 +38,10 @@ class LoginUserPass extends StatelessWidget {
           ),
           collapsedBackgroundColor: context.color.textSecondary,
           backgroundColor: context.color.textSecondary,
-          childrenPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: AppSpacing.sm,
+          ),
           children: [
             AppVerticalSpace.sm,
             AppText(text: context.loc.email),
@@ -130,10 +133,10 @@ class LoginUserPass extends StatelessWidget {
                     TextEditingController textEditingController = TextEditingController();
                     return Padding(
                       padding: EdgeInsets.only(
-                        left: 15,
-                        right: 15,
-                        top: 15,
-                        bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+                        left: AppSpacing.sl,
+                        right: AppSpacing.sl,
+                        top: AppSpacing.sl,
+                        bottom: MediaQuery.of(context).viewInsets.bottom + AppSpacing.sl,
                       ),
                       child: SingleChildScrollView(
                         child: SizedBox(

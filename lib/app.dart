@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/di/dependencies.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recetasperuanas/core/di/bloc_dependencies.dart';
 import 'package:recetasperuanas/core/router/app_router.dart';
 import 'package:recetasperuanas/shared/widget/platform_app_builder.dart';
 
@@ -9,9 +9,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: globalProviders(context),
-      child: PlatformAppBuilder(appRouter: appRouter),
+    return MultiRepositoryProvider(
+      providers: globalRepositoryProviders(context),
+      child: MultiBlocProvider(
+        providers: globalBlocProviders(context),
+        child: PlatformAppBuilder(appRouter: appRouter),
+      ),
     );
   }
 }

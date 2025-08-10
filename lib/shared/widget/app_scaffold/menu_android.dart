@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:recetasperuanas/core/provider/pages_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recetasperuanas/core/bloc/pages_bloc.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_scaffold/navigation_items_mixin.dart';
 
@@ -19,8 +19,9 @@ class _MenuAndroidState extends State<MenuAndroid> with NavigationItemsMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PagesProvider>(
-      builder: (BuildContext context, PagesProvider value, Widget? child) {
+    return BlocBuilder<PagesBloc, PagesState>(
+      builder: (BuildContext context, PagesState state) {
+        final selectedPage = state is PagesLoaded ? state.selectedPage : 0;
         return Container(
           decoration: BoxDecoration(
             color: context.color.backgroundCard,
@@ -37,15 +38,15 @@ class _MenuAndroidState extends State<MenuAndroid> with NavigationItemsMixin {
             backgroundColor: context.color.backgroundCard,
             selectedItemColor: context.color.textSecondary2,
             unselectedItemColor: context.color.textSecondary,
-            currentIndex: value.selectPage,
+            currentIndex: selectedPage,
             iconSize: _bottomNavIconSize,
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
             showSelectedLabels: true,
             enableFeedback: false,
-            items: buildAndroidNavigationItems(value.selectPage, context),
+            items: buildAndroidNavigationItems(selectedPage, context),
             onTap: (index) {
-              context.read<PagesProvider>().togglePage(index);
+              context.read<PagesBloc>().add(PageChanged(index));
             },
           ),
         );

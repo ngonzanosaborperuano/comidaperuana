@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/animated_widgets.dart';
+import 'package:recetasperuanas/shared/widget/spacing/spacing.dart' show AppHorizontalSpace;
+import 'package:recetasperuanas/shared/widget/widget.dart' show AppVerticalSpace;
 
 /// Widget de prueba para verificar curvas seguras
 class CurveTestWidget extends StatefulWidget {
@@ -10,8 +12,7 @@ class CurveTestWidget extends StatefulWidget {
   State<CurveTestWidget> createState() => _CurveTestWidgetState();
 }
 
-class _CurveTestWidgetState extends State<CurveTestWidget>
-    with TickerProviderStateMixin {
+class _CurveTestWidgetState extends State<CurveTestWidget> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _safeAnimation;
   late Animation<double> _unsafeAnimation;
@@ -19,18 +20,13 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
-      vsync: this,
-    );
+    _controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
 
     // Animación con curva segura
-    _safeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const SafeCurve(Curves.easeOutBack),
-      ),
-    );
+    _safeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeOutBack)));
 
     // Animación con curva original (para comparar)
     _unsafeAnimation = Tween<double>(
@@ -70,7 +66,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                 color: context.color.text,
               ),
             ),
-            const SizedBox(height: 16),
+            AppVerticalSpace.md,
 
             // Mostrar valores en tiempo real
             AnimatedBuilder(
@@ -90,7 +86,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    AppVerticalSpace.sm,
                     Text(
                       'Curva Original: ${unsafeValue.toStringAsFixed(4)}',
                       style: TextStyle(
@@ -99,7 +95,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    AppVerticalSpace.sm,
                     Text(
                       'Controlador: ${_controller.value.toStringAsFixed(4)}',
                       style: TextStyle(
@@ -108,7 +104,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    AppVerticalSpace.md,
 
                     // Indicadores visuales
                     Row(
@@ -132,17 +128,14 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        AppHorizontalSpace.md,
                         Text(
                           'Segura',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: context.color.textSecondary,
-                          ),
+                          style: TextStyle(fontSize: 14, color: context.color.textSecondary),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    AppVerticalSpace.sm,
                     Row(
                       children: [
                         Expanded(
@@ -164,13 +157,10 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        AppHorizontalSpace.md,
                         Text(
                           'Original',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: context.color.textSecondary,
-                          ),
+                          style: TextStyle(fontSize: 14, color: context.color.textSecondary),
                         ),
                       ],
                     ),
@@ -179,7 +169,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
               },
             ),
 
-            const SizedBox(height: 32),
+            AppVerticalSpace.lg,
 
             // Controles
             Row(
@@ -190,7 +180,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                   },
                   child: const Text('Repetir'),
                 ),
-                const SizedBox(width: 16),
+                AppHorizontalSpace.md,
                 ElevatedButton(
                   onPressed: () {
                     _controller.stop();
@@ -198,7 +188,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                   },
                   child: const Text('Reset'),
                 ),
-                const SizedBox(width: 16),
+                AppHorizontalSpace.md,
                 ElevatedButton(
                   onPressed: () {
                     _controller.forward();
@@ -208,7 +198,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
               ],
             ),
 
-            const SizedBox(height: 32),
+            AppVerticalSpace.lg,
 
             // Información sobre curvas seguras
             Container(
@@ -216,9 +206,7 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
               decoration: BoxDecoration(
                 color: context.color.background,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: context.color.primary.withOpacity(0.3),
-                ),
+                border: Border.all(color: context.color.primary.withOpacity(0.3)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,16 +219,13 @@ class _CurveTestWidgetState extends State<CurveTestWidget>
                       color: context.color.text,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  AppVerticalSpace.sm,
                   Text(
                     '• Algunas curvas como Curves.elasticOut pueden producir valores fuera del rango [0, 1]\n'
                     '• Esto causa errores críticos en Flutter\n'
                     '• SafeCurve garantiza que todos los valores estén en el rango válido\n'
                     '• Mantiene la suavidad de la animación original',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: context.color.textSecondary,
-                    ),
+                    style: TextStyle(fontSize: 14, color: context.color.textSecondary),
                   ),
                 ],
               ),

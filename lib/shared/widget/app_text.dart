@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/app_svg.dart';
+import 'package:recetasperuanas/shared/widget/widget.dart' show AppSpacing;
 
 class AppLabel extends StatelessWidget {
   final String text;
@@ -21,32 +22,20 @@ class AppLabel extends StatelessWidget {
     this.icon,
   });
 
-  const AppLabel.facil({
-    super.key,
-    this.textAlign,
-    this.maxLines,
-    this.overflow,
-  }) : text = 'difficultyEasy',
-       style = null,
-       icon = null;
+  const AppLabel.facil({super.key, this.textAlign, this.maxLines, this.overflow})
+    : text = 'difficultyEasy',
+      style = null,
+      icon = null;
 
-  const AppLabel.media({
-    super.key,
-    this.textAlign,
-    this.maxLines,
-    this.overflow,
-  }) : text = 'difficultyMedium',
-       style = null,
-       icon = null;
+  const AppLabel.media({super.key, this.textAlign, this.maxLines, this.overflow})
+    : text = 'difficultyMedium',
+      style = null,
+      icon = null;
 
-  const AppLabel.dificil({
-    super.key,
-    this.textAlign,
-    this.maxLines,
-    this.overflow,
-  }) : text = 'difficultyHard',
-       style = null,
-       icon = null;
+  const AppLabel.dificil({super.key, this.textAlign, this.maxLines, this.overflow})
+    : text = 'difficultyHard',
+      style = null,
+      icon = null;
 
   // Constructor para etiquetas con icono
   const AppLabel.etiqueta({
@@ -76,26 +65,16 @@ class AppLabel extends StatelessWidget {
     final colors = _getColors(colorScheme);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: colors.background,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sl, vertical: AppSpacing.xs),
+      decoration: BoxDecoration(color: colors.background, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
             if (icon is AppSvgIcon)
-              AppSvgIcon(
-                assetPath: (icon as AppSvgIcon).assetPath,
-                size: 16,
-                color: colors.text,
-              )
+              AppSvgIcon(assetPath: (icon as AppSvgIcon).assetPath, size: 16, color: colors.text)
             else
-              IconTheme(
-                data: IconThemeData(color: colors.text, size: 16),
-                child: icon!,
-              ),
+              IconTheme(data: IconThemeData(color: colors.text, size: 16), child: icon!),
             const SizedBox(width: 6),
           ],
           Flexible(
@@ -104,10 +83,7 @@ class AppLabel extends StatelessWidget {
               style: (style ?? const TextStyle()).copyWith(
                 color: colors.text,
                 fontSize: 14,
-                fontWeight:
-                    text == 'difficultyHard'
-                        ? FontWeight.w600
-                        : FontWeight.w500,
+                fontWeight: text == 'difficultyHard' ? FontWeight.w600 : FontWeight.w500,
               ),
               textAlign: textAlign ?? TextAlign.center,
               maxLines: maxLines,
@@ -151,10 +127,7 @@ class AppLabel extends StatelessWidget {
         );
       default:
         // Para etiquetas personalizadas, usar colores de etiqueta
-        return _LabelColors(
-          text: colorScheme.labelText,
-          background: colorScheme.labelBackground,
-        );
+        return _LabelColors(text: colorScheme.labelText, background: colorScheme.labelBackground);
     }
   }
 }
@@ -170,6 +143,5 @@ extension AppDifficultyTextExtension on BuildContext {
   AppLabel get facil => const AppLabel.facil();
   AppLabel get media => const AppLabel.media();
   AppLabel get dificil => const AppLabel.dificil();
-  AppLabel etiqueta(String text, {Widget? icon}) =>
-      AppLabel.etiqueta(text: text, icon: icon);
+  AppLabel etiqueta(String text, {Widget? icon}) => AppLabel.etiqueta(text: text, icon: icon);
 }

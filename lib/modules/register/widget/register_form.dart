@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/modules/login/widget/widget.dart'
-    show LogoWidget;
-import 'package:recetasperuanas/modules/register/controller/register_controller.dart';
+import 'package:recetasperuanas/modules/login/widget/widget.dart' show LogoWidget;
+// Controller eliminado tras migración a BLoC
 import 'package:recetasperuanas/modules/register/widget/animated_register_button.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/shared/widget/widget.dart';
@@ -11,15 +10,9 @@ import 'package:recetasperuanas/shared/widget/widget.dart';
 import '../../../shared/widget/animated_widgets.dart' show AnimatedLogoWidget;
 
 class RegisterForm extends StatefulWidget {
-  const RegisterForm({
-    super.key,
-    required this.formKey,
-    required this.controller,
-    required this.onRegister,
-  });
+  const RegisterForm({super.key, required this.formKey, required this.onRegister});
 
   final GlobalKey<FormState> formKey;
-  final RegisterController controller;
   final Future<void> Function(AuthUser user) onRegister;
 
   @override
@@ -28,6 +21,9 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   bool _isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,39 +33,42 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AnimatedLogoWidget(
-            child: Hero(tag: 'logo', child: LogoWidget()),
-          ),
+          const AnimatedLogoWidget(child: Hero(tag: 'logo', child: LogoWidget())),
           AppVerticalSpace.xlg,
           AppTextField(
             hintText: context.loc.enterFullName,
-            textEditingController: widget.controller.fullNameController,
+            textEditingController: _fullNameController,
             keyboardType: TextInputType.name,
-            validator:
-                (value) =>
-                    widget.controller.validateEmpty(value ?? '', context),
+            validator: (value) => _validateNotEmpty(value, context),
             prefixIcon: Icon(Icons.person, color: context.color.textSecondary),
           ),
           AppVerticalSpace.xmd,
           AppTextField(
             hintText: context.loc.enterEmail,
-            textEditingController: widget.controller.emailController,
+            textEditingController: _emailController,
             keyboardType: TextInputType.emailAddress,
-            validator:
-                (value) =>
-                    widget.controller.validateEmail(value ?? '', context),
+            validator: (value) => _validateEmail(value, context),
             prefixIcon: Icon(Icons.email, color: context.color.textSecondary),
           ),
           AppVerticalSpace.xmd,
-          _RegisterPasswordField(controller: widget.controller),
+          _RegisterPasswordField(passwordController: _passwordController),
           AppVerticalSpace.xmd,
-          AnimatedRegisterButton(
-            isLoading: _isLoading,
-            onPressed: () => _handleRegister(context),
-          ),
+          AnimatedRegisterButton(isLoading: _isLoading, onPressed: () => _handleRegister(context)),
         ],
       ),
     );
+  }
+
+  String? _validateNotEmpty(String? value, BuildContext context) {
+    if (value == null || value.trim().isEmpty) return context.loc.validateEmpty;
+    return null;
+  }
+
+  String? _validateEmail(String? value, BuildContext context) {
+    if (value == null || value.isEmpty) return context.loc.validateEmpty;
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    if (!emailRegex.hasMatch(value)) return 'El formato del email no es válido';
+    return null;
   }
 
   Future<void> _handleRegister(BuildContext context) async {
@@ -81,9 +80,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
     try {
       final user = AuthUser(
-        email: widget.controller.emailController.text,
-        contrasena: widget.controller.passwordController.text,
-        nombreCompleto: widget.controller.fullNameController.text,
+        email: _emailController.text,
+        contrasena: _passwordController.text,
+        nombreCompleto: _fullNameController.text,
       );
 
       await widget.onRegister(user);
@@ -97,45 +96,48 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 }
 
-class _RegisterPasswordField extends StatelessWidget {
-  const _RegisterPasswordField({required this.controller});
+class _RegisterPasswordField extends StatefulWidget {
+  const _RegisterPasswordField({required this.passwordController});
 
-  final RegisterController controller;
+  final TextEditingController passwordController;
+
+  @override
+  State<_RegisterPasswordField> createState() => _RegisterPasswordFieldState();
+}
+
+class _RegisterPasswordFieldState extends State<_RegisterPasswordField> {
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: controller.isObscureText,
-      builder: (BuildContext context, value, Widget? child) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppTextField(
-              hintText: context.loc.enterPassword,
-              textEditingController: controller.passwordController,
-              obscureText: value,
-              obscuringCharacter: '*',
-              validator:
-                  (value) => controller.validatePassword(value ?? '', context),
-              prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
-            ),
-            TextButton(
-              onPressed: () {
-                controller.isObscureText.value =
-                    !controller.isObscureText.value;
-              },
-              child: Text(
-                controller.isObscureText.value
-                    ? context.loc.showPassword
-                    : context.loc.hidePassword,
-                style: AppStyles.bodyTextBold.copyWith(
-                  color: context.color.text,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextField(
+          hintText: context.loc.enterPassword,
+          textEditingController: widget.passwordController,
+          obscureText: _isObscure,
+          obscuringCharacter: '*',
+          validator: (value) => _validatePassword(value, context),
+          prefixIcon: Icon(Icons.lock, color: context.color.textSecondary),
+        ),
+        TextButton(
+          onPressed: () => setState(() => _isObscure = !_isObscure),
+          child: Text(
+            _isObscure ? context.loc.showPassword : context.loc.hidePassword,
+            style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+          ),
+        ),
+      ],
     );
+  }
+
+  String? _validatePassword(String? value, BuildContext context) {
+    if (value == null || value.isEmpty) return context.loc.validateEmpty;
+    if (value.length < 8) return 'La contraseña debe tener al menos 8 caracteres';
+    if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value)) return 'Debe contener al menos una mayúscula';
+    if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) return 'Debe contener al menos una minúscula';
+    if (!RegExp(r'^(?=.*\\d)').hasMatch(value)) return 'Debe contener al menos un número';
+    return null;
   }
 }
