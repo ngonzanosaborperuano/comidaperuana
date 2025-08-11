@@ -5,7 +5,7 @@ import 'package:recetasperuanas/core/bloc/locale_bloc.dart';
 import 'package:recetasperuanas/core/bloc/theme_bloc.dart';
 import 'package:recetasperuanas/core/config/color/app_color_scheme.dart';
 import 'package:recetasperuanas/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/core/constants/routes.dart';
+import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/modules/setting/bloc/setting_bloc.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -19,9 +19,22 @@ class SettingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SettingBloc, SettingState>(
       listener: (context, state) async {
-        if (state is SettingLoggedOut) {
-          if (!context.mounted) return;
+        if (state is SettingLogoutSuccess) {
           context.go(Routes.splash.description);
+        } else if (state is SettingLogoutFailure) {
+          if (!context.mounted) return;
+          await showAdaptiveDialog(
+            context: context,
+            builder:
+                (context) => AppModalAlert(
+                  text: state.message,
+                  title: context.loc.error,
+                  maxHeight: 200,
+                  icon: Icons.error,
+                  labelButton: context.loc.accept,
+                  onPressed: context.pop,
+                ),
+          );
         } else if (state is SettingError) {
           if (!context.mounted) return;
           await showAdaptiveDialog(
@@ -39,7 +52,8 @@ class SettingView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final loading = state is SettingLoading || state is SettingInitial;
+        final loading =
+            state is SettingLoading || state is SettingInitial || state is SettingLogoutInProgress;
         final user = state is SettingLoaded ? state.user : UserModel.empty;
         return Column(
           children: [

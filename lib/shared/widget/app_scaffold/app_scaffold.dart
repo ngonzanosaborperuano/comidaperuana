@@ -37,7 +37,10 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
 
-    return isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context);
+    return BlocProvider<PagesBloc>(
+      create: (_) => PagesBloc(),
+      child: isIOS ? _buildCupertinoScaffold(context) : _buildMaterialScaffold(context),
+    );
   }
 
   Widget _buildCupertinoScaffold(BuildContext context) {

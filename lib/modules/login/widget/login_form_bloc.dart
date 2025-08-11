@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recetasperuanas/core/constants/option.dart';
 import 'package:recetasperuanas/modules/login/bloc/login_bloc.dart';
+import 'package:recetasperuanas/modules/login/bloc/login_event.dart' show LoginRequested;
 import 'package:recetasperuanas/shared/widget/widget.dart';
 
 class LoginFormBloc extends StatefulWidget {

@@ -7,7 +7,6 @@ import 'package:recetasperuanas/core/bloc/app_bloc.dart';
 import 'package:recetasperuanas/core/bloc/auth_bloc.dart';
 import 'package:recetasperuanas/core/bloc/config_bloc.dart';
 import 'package:recetasperuanas/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/core/bloc/pages_bloc.dart';
 import 'package:recetasperuanas/core/bloc/theme_bloc.dart';
 import 'package:recetasperuanas/core/bloc/user_bloc.dart';
 import 'package:recetasperuanas/core/network/api_service.dart';
@@ -45,8 +44,7 @@ List<BlocProvider> globalBlocProviders(BuildContext context) {
     // Locale BLoC
     BlocProvider<LocaleBloc>(create: (context) => LocaleBloc()),
 
-    // Pages BLoC
-    BlocProvider<PagesBloc>(create: (context) => PagesBloc()),
+    // Pages BLoC ahora es local al shell (Home/AppScaffold) para evitar persistencia entre sesiones
   ];
 }
 

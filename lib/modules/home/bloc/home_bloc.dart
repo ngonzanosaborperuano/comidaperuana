@@ -123,7 +123,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _onHomeInitialized(HomeInitialized event, Emitter<HomeState> emit) async {
     emit(HomeLoading());
     try {
-      final listTask = await _taskRepository.getListTask();
+      final listTask = <TaskModel>[]; //await _taskRepository.getListTask();
       final listTaskDashboard = listTask;
       emit(HomeLoaded(listTask: listTask, listTaskDashboard: listTaskDashboard));
     } catch (e) {

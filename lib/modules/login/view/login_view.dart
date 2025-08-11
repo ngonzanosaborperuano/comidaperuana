@@ -9,6 +9,7 @@ import 'package:recetasperuanas/core/constants/routes.dart' show Routes;
 import 'package:recetasperuanas/domain/auth/repositories/i_user_auth_repository.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/modules/login/bloc/login_bloc.dart';
+import 'package:recetasperuanas/modules/login/bloc/login_event.dart' show LoginRequested;
 import 'package:recetasperuanas/modules/login/controller/login_controller.dart';
 import 'package:recetasperuanas/modules/login/widget/widget.dart';
 import 'package:recetasperuanas/shared/controller/base_controller.dart';
@@ -56,10 +57,10 @@ class _LoginViewState extends State<LoginView>
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  context.color.buttonPrimary.withAlpha(50),
-                  context.color.error.withAlpha(50),
-                  context.color.error.withAlpha(50),
-                  context.color.buttonPrimary.withAlpha(50),
+                  context.color.buttonPrimary.withAlpha(100),
+                  context.color.error.withAlpha(100),
+                  context.color.error.withAlpha(100),
+                  context.color.buttonPrimary.withAlpha(100),
                 ],
               ),
             ),

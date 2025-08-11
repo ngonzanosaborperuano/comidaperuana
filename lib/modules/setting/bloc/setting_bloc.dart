@@ -55,7 +55,17 @@ class SettingError extends SettingState {
   List<Object?> get props => [message];
 }
 
-class SettingLoggedOut extends SettingState {}
+class SettingLogoutInProgress extends SettingState {}
+
+class SettingLogoutSuccess extends SettingState {}
+
+class SettingLogoutFailure extends SettingState {
+  final String message;
+  const SettingLogoutFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
 
 // Bloc
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
@@ -98,16 +108,22 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   }
 
   Future<void> _onLogoutRequested(SettingLogoutRequested event, Emitter<SettingState> emit) async {
+    emit(SettingLogoutInProgress());
     try {
       final result = await _logoutUseCase.execute();
+
+      // Cerrar sesión local SIEMPRE
+      await _userRepository.logout();
+
       if (result.isSuccess) {
-        await _userRepository.logout();
-        emit(SettingLoggedOut());
+        emit(SettingLogoutSuccess());
       } else {
-        emit(SettingError(result.failureValue!.message));
+        emit(SettingLogoutFailure(result.failureValue!.message));
       }
     } catch (e) {
-      emit(SettingError(e.toString()));
+      // Garantizar logout local ante cualquier excepción
+      await _userRepository.logout();
+      emit(SettingLogoutFailure(e.toString()));
     }
   }
 

@@ -239,5 +239,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-// HomeBody eliminado; la lógica de estado vive en HomeView

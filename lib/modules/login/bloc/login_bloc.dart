@@ -5,38 +5,8 @@ import 'package:recetasperuanas/application/auth/use_cases/logout_use_case.dart'
 import 'package:recetasperuanas/application/auth/use_cases/register_use_case.dart';
 import 'package:recetasperuanas/core/auth/models/auth_user.dart';
 import 'package:recetasperuanas/domain/auth/repositories/i_user_repository.dart';
-
-// Events
-abstract class LoginEvent extends Equatable {
-  const LoginEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class LoginRequested extends LoginEvent {
-  final String email;
-  final String password;
-  final int type;
-
-  const LoginRequested({required this.email, required this.password, required this.type});
-
-  @override
-  List<Object?> get props => [email, password, type];
-}
-
-class RegisterRequested extends LoginEvent {
-  final String email;
-  final String password;
-  final String? name;
-
-  const RegisterRequested({required this.email, required this.password, this.name});
-
-  @override
-  List<Object?> get props => [email, password, name];
-}
-
-class LogoutRequested extends LoginEvent {}
+import 'package:recetasperuanas/modules/login/bloc/login_event.dart'
+    show LoginEvent, LoginRequested, RegisterRequested, LogoutRequested;
 
 class RecoverCredentialRequested extends LoginEvent {
   final String email;
