@@ -77,41 +77,13 @@
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>Necesitamos tu ubicación incluso en segundo plano para enviarte alertas de ingredientes cercanos.</string>
 
-		<!-- Permisos de red local para evitar error del observatorio -->
-		<key>NSLocalNetworkUsageDescription</key>
-		<string>Esta aplicación requiere acceso a la red local para funciones de desarrollo y depuración.</string>
-		<key>NSBonjourServices</key>
-		<array>
-			<string>_dartobservatory._tcp</string>
-		</array>
-
-		<!-- Red arbitraria (desarrollo) -->
-		<key>NSAppTransportSecurity</key>
-		<dict>
-			<key>NSAllowsArbitraryLoads</key>
-			<true/>
-		</dict>
-
 		<!-- Notificaciones -->
 		<key>UIBackgroundModes</key>
 		<array>
 			<string>fetch</string>
 			<string>remote-notification</string>
-		</array>
-
-		<!-- Orientaciones -->
-		<key>UISupportedInterfaceOrientations</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
-		</array>
-		<key>UISupportedInterfaceOrientations~ipad</key>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
+			<string>audio</string>
+			<string>voip</string>
 		</array>
 
 		<key>UILaunchStoryboardName</key>
@@ -119,27 +91,17 @@
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
 
-		<!-- Consultas de esquema -->
-		<key>LSApplicationQueriesSchemes</key>
-		<array>
-			<string>pulsesecure</string>
-		</array>
-
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 
-		<!-- Permisos de notificación (legacy, opcional) -->
-		<key>UIUserNotificationType</key>
-		<dict>
-			<key>UIUserNotificationTypeAlert</key>
-			<string>YES</string>
-			<key>UIUserNotificationTypeBadge</key>
-			<string>YES</string>
-			<key>UIUserNotificationTypeSound</key>
-			<string>YES</string>
-		</dict>
+
+
+		<!-- Configuración de privacidad moderna -->
+		<key>NSUserTrackingUsageDescription</key>
+		<string>Esta aplicación no rastrea tu actividad entre apps ni sitios web.</string>
+
 
 		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-	</dict>
+	<true/>
+</dict>
 </plist>
