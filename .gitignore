@@ -13,6 +13,26 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
+# Flutter generated files and caches
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/GeneratedPluginRegistrant.*
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/ServiceDefinitions.json
+
+# Android generated files
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+**/android/app/src/main/kotlin/io/flutter/plugins/GeneratedPluginRegistrant.kt
+**/android/app/src/main/AndroidManifest.xml.bak
+**/android/app/src/main/res/values-night/styles.xml.bak
+
 # Flutter build artifacts
 **/build/
 **/ios/build/
@@ -61,24 +81,41 @@ unlinked_spec.ds
 # macOS
 **/macos/Flutter/GeneratedPluginRegistrant.swift
 
-# Generated files
+# Generated files (NO subir archivos generados automáticamente)
 **/generated_plugin_registrant.dart
 **/GeneratedPluginRegistrant.java
 **/GeneratedPluginRegistrant.swift
 **/lib/generated/
 
-# Firebase configuration
+# Dart/Flutter generated files (CRÍTICO: NO subir estos archivos)
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.config.dart
+*.gr.dart
+*.chopper.dart
+*.retrofit.dart
+*.json_serializable.g.dart
+*.json_serializable.g.part
+*.json_serializable.g.dart.part
+
+# Generated part files
+*.part
+*.g.part
+
+# Firebase configuration (pero permitir firebase_options.dart si es necesario)
 **/google-services.json
 **/GoogleService-Info.plist
-**/firebase_options.dart
+# **/firebase_options.dart  # Comentado para permitir este archivo si es necesario
 
-# Environment and secrets
+# Environment and secrets (pero permitir .env.example)
 .env
 .env.local
 .env.development
 .env.production
 .env.staging
 *.env
+!.env.example
 
 # API keys and certificates
 **/key.properties
@@ -136,10 +173,11 @@ coverage/
 *.trace
 *.timeline
 
-# Database
+# Database (pero permitir esquemas SQL)
 *.db
 *.sqlite
 *.sqlite3
+!*.sql  # Permitir archivos SQL de esquemas
 
 # Backups
 *.bak
@@ -153,7 +191,7 @@ coverage/
 *.rar
 *.7z
 
-# Media (if not needed)
+# Media (pero permitir imágenes y assets importantes)
 *.mp4
 *.avi
 *.mov
@@ -164,6 +202,7 @@ coverage/
 *.wav
 *.flac
 *.aac
+# NO ignorar assets/img/, assets/svg/, assets/json/ ya que son importantes para la app
 
 # Binaries
 *.bin
@@ -177,23 +216,39 @@ docs/_build/
 docs/build/
 site/
 
-# Local config
+# Local config (pero permitir configs de ejemplo)
 local.properties
 local.settings.json
 local.config.js
+!local.example.properties
+!local.example.settings.json
 
 # FVM
 .fvm/
 
-# Analysis
-.analysis_options.yaml
+# Analysis (pero permitir analysis_options.yaml del proyecto)
+# .analysis_options.yaml  # Comentado para permitir este archivo importante
 .analysis_options.yml
 dart_code_metrics.yaml
 dart_code_metrics.yml
 
-# Test
+# Test and development files
 test_runner.dart
 test_runner.dart.bak
+**/test/**/*.g.dart
+**/test/**/*.mocks.dart
+**/test/**/test_*.dart
+**/test/**/mock_*.dart
+**/test/**/fake_*.dart
+**/test/**/stub_*.dart
+
+# Development and debugging
+*.dart_tool/
+*.flutter-plugins
+*.flutter-plugins-dependencies
+*.packages
+*.lock
+!pubspec.lock
 
 # Exceptions to above rules
 !**/ios/**/default.mode1v3
@@ -209,8 +264,67 @@ sonar-project.properties
 tests.output
 .metadata
 
-# Platform specific
+# Platform specific (pero permitir archivos de configuración importantes)
 /windows
 /linux
 /web
 /macos
+
+# IMPORTANTE: Archivos que SÍ deben incluirse en el repositorio
+!pubspec.yaml
+!pubspec.lock
+!l10n.yaml
+!analysis_options.yaml
+!build.yaml
+!devtools_options.yaml
+!firebase.json
+!README.md
+!README_RECIPE.md
+!schema_recipes.sql
+!scripts/
+!assets/
+!lib/
+!test/
+!ios/Runner/Info.plist
+!ios/Runner/AppDelegate.swift
+!ios/Runner/Base.lproj/
+!android/app/src/main/AndroidManifest.xml
+!android/app/build.gradle.kts
+!android/build.gradle.kts
+!android/settings.gradle.kts
+!android/gradle.properties
+
+# ========================================
+# MEJORES PRÁCTICAS PARA FLUTTER/DART
+# ========================================
+# 
+# ✅ ARCHIVOS QUE SÍ SE INCLUYEN:
+# - pubspec.yaml: Dependencias del proyecto
+# - lib/: Código fuente principal
+# - test/: Tests del proyecto
+# - assets/: Recursos estáticos (imágenes, JSON, SVG)
+# - analysis_options.yaml: Configuración de análisis de código
+# - l10n.yaml: Configuración de internacionalización
+# - README.md: Documentación del proyecto
+# - schema_recipes.sql: Esquemas de base de datos
+# 
+# 🚫 ARCHIVOS QUE NO SE INCLUYEN:
+# - *.g.dart: Archivos generados por json_serializable, freezed, etc.
+# - *.mocks.dart: Archivos generados por mockito
+# - build/: Directorio de build generado
+# - .dart_tool/: Cache de herramientas de Dart
+# - .flutter-plugins: Configuración de plugins generada
+# - ios/Flutter/: Archivos generados de iOS
+# - android/build/: Archivos de build de Android
+# 
+# 🔒 ARCHIVOS DE SEGURIDAD:
+# - .env: Variables de entorno con secretos
+# - google-services.json: Configuración de Firebase
+# - key.properties: Claves de Android
+# - *.keystore: Certificados de Android
+# 
+# 💡 RECOMENDACIONES:
+# - Ejecutar 'flutter clean' antes de commits
+# - Usar 'flutter pub run build_runner build' para generar archivos
+# - Verificar que no se incluyan archivos .g.dart en commits
+# - Mantener actualizado el .gitignore según nuevas dependencias

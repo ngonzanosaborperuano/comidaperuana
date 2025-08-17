@@ -18,9 +18,9 @@ PayUResponse _$PayUResponseFromJson(Map<String, dynamic> json) => PayUResponse(
 Map<String, dynamic> _$PayUResponseToJson(PayUResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
-      if (instance.transactionId case final value?) 'transaction_id': value,
-      if (instance.orderId case final value?) 'order_id': value,
-      if (instance.message case final value?) 'message': value,
-      if (instance.checkoutUrl case final value?) 'checkout_url': value,
-      if (instance.rawData case final value?) 'raw_data': value,
+      'transaction_id': ?instance.transactionId,
+      'order_id': ?instance.orderId,
+      'message': ?instance.message,
+      'checkout_url': ?instance.checkoutUrl,
+      'raw_data': ?instance.rawData,
     };

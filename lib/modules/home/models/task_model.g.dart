@@ -18,13 +18,12 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
 );
 
 Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
-  if (instance.idunique case final value?) 'idunique': value,
+  'idunique': ?instance.idunique,
   'user_id': instance.userId,
-  if (instance.id case final value?) 'id': value,
-  if (instance.synced case final value?) 'synced': value,
+  'id': ?instance.id,
+  'synced': ?instance.synced,
   'title': instance.title,
-  if (instance.operation case final value?) 'operation': value,
-  if (instance.body case final value?) 'body': value,
-  if (boolIntConverter.toJson(instance.completed) case final value?)
-    'completed': value,
+  'operation': ?instance.operation,
+  'body': ?instance.body,
+  'completed': ?boolIntConverter.toJson(instance.completed),
 };

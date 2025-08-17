@@ -16,10 +16,10 @@ AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => AuthUser(
 );
 
 Map<String, dynamic> _$AuthUserToJson(AuthUser instance) => <String, dynamic>{
-  if (instance.id case final value?) 'id': value,
-  if (instance.nombreCompleto case final value?) 'nombre_completo': value,
+  'id': ?instance.id,
+  'nombre_completo': ?instance.nombreCompleto,
   'email': instance.email,
-  if (instance.contrasena case final value?) 'contrasena': value,
-  if (instance.sessionToken case final value?) 'session_token': value,
-  if (instance.foto case final value?) 'foto': value,
+  'contrasena': ?instance.contrasena,
+  'session_token': ?instance.sessionToken,
+  'foto': ?instance.foto,
 };
