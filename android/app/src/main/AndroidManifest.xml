@@ -1,21 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" package="com.ngonzano.comidaperuana">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permisos básicos -->
+    <!-- Permisos esenciales para Android 15+ -->
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- Permisos específicos para reconocimiento de voz y micrófono -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-
-    <!-- Permisos adicionales necesarios -->
+    <!-- Permisos de medios para Android 15+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_PHOTOS"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
 
-    <!-- Permisos para Android 13+ (API 33+) -->
+    <!-- Permisos de notificaciones para Android 15+ -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <!-- Permisos de ubicación -->
@@ -25,9 +23,8 @@
     <!-- Permisos de red -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-    <!-- Permisos para reconocimiento de voz y servicios de Google -->
+    <!-- Permisos para reconocimiento de voz -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
@@ -35,7 +32,7 @@
     <!-- Características del dispositivo requeridas -->
     <uses-feature android:name="android.hardware.microphone" android:required="true"/>
 
-    <application android:label="CocinandoIA" android:name="${applicationName}" tools:replace="android:label" android:icon="@mipmap/ic_launcher" android:requestLegacyExternalStorage="true">
+    <application android:label="CocinandoIA" android:name="${applicationName}" tools:replace="android:label" android:icon="@mipmap/ic_launcher" android:enableOnBackInvokedCallback="true">
 
         <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:taskAffinity="" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
 
