@@ -1,49 +1,4 @@
-# Miscellaneous
-*.class
-*.lock
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# Visual Studio Code related
-.classpath
-.project
-.settings/
-.vscode/
-
-# Flutter repo-specific
-/bin/cache/
-/bin/internal/bootstrap.bat
-/bin/internal/bootstrap.sh
-/bin/mingit/
-/dev/benchmarks/mega_gallery/
-/dev/bots/.recipe_deps
-/dev/bots/android_tools/
-/dev/devicelab/ABresults*.json
-/dev/docs/doc/
-/dev/docs/flutter.docs.zip
-/dev/docs/lib/
-/dev/docs/pubspec.yaml
-/dev/integration_tests/**/xcuserdata
-/dev/integration_tests/**/Pods
-/packages/flutter/coverage/
-version
-analysis_benchmark.json
-
-# packages file containing multi-root paths
-.packages.generated
-
-# Flutter/Dart/Pub related
+# Flutter/Dart specific
 **/doc/api/
 .dart_tool/
 .flutter-plugins
@@ -58,20 +13,22 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
-# Android related
-**/android/**/gradle-wrapper.jar
-**/android/.gradle
+# Flutter build artifacts
+**/build/
+**/ios/build/
+**/android/build/
+**/android/app/build/
+**/android/.gradle/
 **/android/captures/
 **/android/gradlew
-**/android/gradle/wrapper
 **/android/gradlew.bat
 **/android/local.properties
-**/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
-**/android/theory_challenge.keystore
-*.jks
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
 
-# iOS/XCode related
+# iOS build artifacts
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
 **/ios/**/*.moved-aside
@@ -83,8 +40,8 @@ unlinked_spec.ds
 **/ios/**/.vagrant/
 **/ios/**/DerivedData/
 **/ios/**/Icon?
-**/ios/**/Pods/
-**/ios/**/.symlinks/
+**/ios/Pods/
+**/ios/.symlinks/
 **/ios/**/profile
 **/ios/**/xcuserdata
 **/ios/.generated/
@@ -104,13 +61,141 @@ unlinked_spec.ds
 # macOS
 **/macos/Flutter/GeneratedPluginRegistrant.swift
 
-# Coverage
+# Generated files
+**/generated_plugin_registrant.dart
+**/GeneratedPluginRegistrant.java
+**/GeneratedPluginRegistrant.swift
+**/lib/generated/
+
+# Firebase configuration
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase_options.dart
+
+# Environment and secrets
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+*.env
+
+# API keys and certificates
+**/key.properties
+**/*.keystore
+**/*.jks
+**/*.p12
+**/*.pem
+
+# IDE and editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.atom/
+.brackets.json
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+*.log.*
+logs/
+debug/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+vendor/
+.pnpm-store/
+
+# Coverage and reports
 coverage/
+.nyc_output/
+*.lcov
+*.coverage
+*.gcov
 
-# Symbols
-app.*.symbols
+# Performance
+*.trace
+*.timeline
 
-# Exceptions to above rules.
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Media (if not needed)
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mp3
+*.wav
+*.flac
+*.aac
+
+# Binaries
+*.bin
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Documentation builds
+docs/_build/
+docs/build/
+site/
+
+# Local config
+local.properties
+local.settings.json
+local.config.js
+
+# FVM
+.fvm/
+
+# Analysis
+.analysis_options.yaml
+.analysis_options.yml
+dart_code_metrics.yaml
+dart_code_metrics.yml
+
+# Test
+test_runner.dart
+test_runner.dart.bak
+
+# Exceptions to above rules
 !**/ios/**/default.mode1v3
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
@@ -118,35 +203,14 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 
-# Firebase options
-# **/lib/firebase_options.dart
-
-# FVM Version Cache
-.fvm/
+# Additional Flutter ignores
 .scannerwork/
 sonar-project.properties
 tests.output
-
-#txt
-apuntes.txt
-
-#sonarqube
-/coverage
-.scannerwork
-# .env
-sonar-project.properties
-tests.output
-
-#Windows
-/windows
-
-#linux
-/linux
-
-#web
-/web
-
-#macos
-/macos
-
 .metadata
+
+# Platform specific
+/windows
+/linux
+/web
+/macos
