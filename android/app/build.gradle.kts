@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.ngonzano.comidaperuana"
-    compileSdk = 35 // o flutter.compileSdkVersion si está disponible
+    compileSdk = 36 // o flutter.compileSdkVersion si está disponible
 
     defaultConfig {
         applicationId = "com.ngonzano.comidaperuana"
