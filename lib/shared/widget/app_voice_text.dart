@@ -89,7 +89,15 @@ class VoiceTextFieldState extends State<VoiceTextField> {
       // Si no está concedido, solicitar permiso
       if (!status.isGranted) {
         _logger.info('Solicitando permiso de micrófono...');
-        status = await Permission.microphone.request();
+
+        // En iOS, es mejor solicitar el permiso directamente
+        if (Theme.of(context).platform == TargetPlatform.iOS) {
+          _logger.info('Solicitando permiso en iOS...');
+          status = await Permission.microphone.request();
+        } else {
+          status = await Permission.microphone.request();
+        }
+
         _logger.info('Resultado de la solicitud: $status');
       }
 
@@ -160,7 +168,13 @@ class VoiceTextFieldState extends State<VoiceTextField> {
       } else if (status.isPermanentlyDenied) {
         _logger.warning('Permiso de micrófono denegado permanentemente');
         _speechEnabled = false;
-        _showMicrophoneSettingsDialog();
+
+        // En iOS, mostrar instrucciones específicas
+        if (Theme.of(context).platform == TargetPlatform.iOS) {
+          _showIOSMicrophoneSettingsDialog();
+        } else {
+          _showMicrophoneSettingsDialog();
+        }
       } else {
         _logger.warning('Permiso de micrófono denegado: $status');
         _speechEnabled = false;
@@ -333,7 +347,7 @@ class VoiceTextFieldState extends State<VoiceTextField> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('com.ngonzano.comidaperuanahabilitado'),
+          title: const Text('Micrófono Deshabilitado'),
           content: const Text(
             'El micrófono está deshabilitado en tu dispositivo. '
             'Para usar el reconocimiento de voz, necesitas habilitarlo en la configuración.',
@@ -349,6 +363,55 @@ class VoiceTextFieldState extends State<VoiceTextField> {
                 openAppSettings(); // Abre la configuración de la app
               },
               child: const Text('Abrir Configuración'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showIOSMicrophoneSettingsDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Permiso de Micrófono Requerido'),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Esta aplicación necesita acceso al micrófono para grabar audio. '
+                'En iOS, debes habilitar manualmente este permiso.',
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Pasos para habilitar:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text('1. Ve a Configuración > Privacidad y Seguridad'),
+              Text('2. Toca en "Micrófono"'),
+              Text('3. Busca "Cocinando" en la lista'),
+              Text('4. Habilita el interruptor'),
+              SizedBox(height: 16),
+              Text(
+                'Después de habilitar, reinicia la aplicación.',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Entendido'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                openAppSettings();
+              },
+              child: const Text('Ir a Configuración'),
             ),
           ],
         );
