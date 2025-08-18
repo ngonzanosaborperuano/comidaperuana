@@ -1,35 +1,48 @@
 import 'dart:developer';
 
 import 'package:clarity_flutter/clarity_flutter.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recetasperuanas/app.dart';
+import 'package:recetasperuanas/core/config/firebase_config.dart';
 import 'package:recetasperuanas/core/error/error_handler.dart';
 import 'package:recetasperuanas/core/init/app_initializer.dart';
 import 'package:recetasperuanas/core/logger/logger.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/services/clarity.dart';
-import 'package:recetasperuanas/firebase_options.dart';
+import 'package:recetasperuanas/flavors/flavor_config.dart';
 
-Future<void> bootstrap() async {
+Future<void> bootstrap(Flavor flavor) async {
   initLogger();
   setupGlobalErrorHandlers();
-
-  // Cargar variables de entorno
+  _initSystemUI();
+  _initializeFlavorConfig(flavor);
   await _loadEnvironmentVariables();
-
-  // Configurar orientación inteligente basada en el dispositivo
   await _configureDeviceOrientation();
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await _initializeFirebaseAppCheck();
+  await _initializeFirebase();
   await initializeApp();
 
   runApp(ClarityWidget(app: const MyApp(), clarityConfig: clarity()));
+}
+
+Future<void> _initializeFirebase() async {
+  try {
+    log('🔧 Inicializando Firebase...');
+
+    // Usar FirebaseConfig que ya maneja la lógica de flavors
+    await FirebaseConfig.initializeFirebase();
+    log('✅ Firebase inicializado correctamente usando FirebaseConfig');
+  } catch (e) {
+    log('❌ Error al inicializar Firebase: $e');
+    // En desarrollo, podemos continuar sin Firebase
+    if (kDebugMode) {
+      log('ℹ️ Continuando sin Firebase en modo debug');
+    } else {
+      rethrow; // En producción, es crítico
+    }
+  }
 }
 
 Future<void> _loadEnvironmentVariables() async {
@@ -78,42 +91,49 @@ Future<void> _configureDeviceOrientation() async {
   }
 }
 
-Future<void> _initializeFirebaseAppCheck() async {
-  try {
-    log('🔧 Inicializando Firebase App Check...');
+void _initSystemUI() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+}
 
-    await FirebaseAppCheck.instance.activate(
-      // En desarrollo, usar solo debug providers para evitar errores de App Attest
-      androidProvider:
-          kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-      appleProvider:
-          kDebugMode ? AppleProvider.debug : AppleProvider.deviceCheck,
-    );
-
-    log('✅ Firebase App Check activado correctamente');
-
-    // Obtener un token inicial para evitar errores en operaciones de autenticación
-    try {
-      await Future.delayed(
-        const Duration(seconds: 1),
-      ); // Pequeño delay para estabilizar
-      String? token = await FirebaseAppCheck.instance.getToken(
-        true,
-      ); // forceRefresh = true
-      if (token != null) {
-        log('✅ Token de App Check obtenido: ${token.substring(0, 20)}...');
-      } else {
-        log('⚠️ No se pudo obtener el token de App Check inicial');
-      }
-    } catch (tokenError) {
-      log('⚠️ Error al obtener token inicial de App Check: $tokenError');
-      log(
-        'ℹ️ La app continuará funcionando - App Check se manejará automáticamente',
+void _initializeFlavorConfig(Flavor flavor) {
+  switch (flavor) {
+    case Flavor.dev:
+      FlavorConfig(
+        flavor: Flavor.dev,
+        appName: 'CocinandoIA Dev',
+        apiBaseUrl: 'http://192.168.0.101:3000/api/',
+        enableLogging: true,
+        appId: 'com.ngonzano.comidaperuana.dev',
+        appVersion: '1.0.0',
+        buildNumber: '1',
       );
-    }
-  } catch (e, stackTrace) {
-    log('❌ Error al inicializar Firebase App Check: $e');
-    log('Stack trace: $stackTrace');
-    // No lanzar el error para que la app pueda continuar funcionando
+      break;
+    case Flavor.staging:
+      FlavorConfig(
+        flavor: Flavor.staging,
+        appName: 'CocinandoIA Staging',
+        apiBaseUrl: 'http://192.168.0.101:3000/api/',
+        enableLogging: true,
+        appId: 'com.ngonzano.comidaperuana.staging',
+        appVersion: '1.0.0',
+        buildNumber: '1',
+      );
+      break;
+    case Flavor.prod:
+      FlavorConfig(
+        flavor: Flavor.prod,
+        appName: 'CocinandoIA',
+        apiBaseUrl: 'http://192.168.0.101:3000/api/',
+        enableLogging: false,
+        appId: 'com.ngonzano.comidaperuana',
+        appVersion: '1.0.0',
+        buildNumber: '1',
+      );
+      break;
   }
 }

@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/bootstrap/bootstrap.dart';
+
+import 'bootstrap/bootstrap.dart';
+import 'flavors/flavor_config.dart';
 
 void main() async {
+  final flavor = _determineFlavor();
+  await mainCommon(flavor);
+}
+
+Flavor _determineFlavor() {
+  return Flavor.prod;
+}
+
+Future<void> mainCommon(Flavor flavor) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await bootstrap();
+  await bootstrap(flavor);
 }

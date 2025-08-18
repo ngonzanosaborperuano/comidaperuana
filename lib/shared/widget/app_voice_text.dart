@@ -87,10 +87,8 @@ class VoiceTextFieldState extends State<VoiceTextField> {
       _logger.info('Estado inicial del micrófono: $status');
 
       // Si no está concedido, solicitar permiso
-      if (!status.isGranted) {
+      if (status.isGranted) {
         _logger.info('Solicitando permiso de micrófono...');
-
-        // En iOS, es mejor solicitar el permiso directamente
         if (Theme.of(context).platform == TargetPlatform.iOS) {
           _logger.info('Solicitando permiso en iOS...');
           status = await Permission.microphone.request();
