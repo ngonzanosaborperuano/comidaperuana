@@ -1,7 +1,11 @@
 import 'dart:developer' show log;
 
 import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, GoogleAuthProvider, EmailAuthProvider, FirebaseAuthException;
+    show
+        FirebaseAuth,
+        GoogleAuthProvider,
+        EmailAuthProvider,
+        FirebaseAuthException;
 import 'package:google_sign_in/google_sign_in.dart'
     show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
 import 'package:logging/logging.dart' show Logger;
@@ -12,9 +16,12 @@ import 'package:recetasperuanas/domain/auth/value_objects/email.dart';
 import 'package:recetasperuanas/domain/core/value_objects.dart';
 
 class FirebaseUserAuthRepository implements IUserAuthRepository {
-  FirebaseUserAuthRepository(FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn)
-    : _auth = firebaseAuth ?? FirebaseAuth.instance,
-      _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']);
+  FirebaseUserAuthRepository(
+    FirebaseAuth? firebaseAuth,
+    GoogleSignIn? googleSignIn,
+  ) : _auth = firebaseAuth ?? FirebaseAuth.instance,
+      _googleSignIn =
+          googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']);
 
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
@@ -32,20 +39,24 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
 
       if (googleUser == null) {
         log('Google Sign In fue cancelado por el usuario');
-        return const Failure(ValidationException('Google sign-in aborted by user'));
+        return const Failure(
+          ValidationException('Google sign-in aborted by user'),
+        );
       }
 
       // Obtener detalles de autenticación con manejo de errores
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication.catchError((
-        error,
-      ) {
-        log('Error en autenticación de Google: $error');
-        throw error;
-      });
+      final GoogleSignInAuthentication googleAuth = await googleUser
+          .authentication
+          .catchError((error) {
+            log('Error en autenticación de Google: $error');
+            throw error;
+          });
 
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
         log('No se pudieron obtener los tokens necesarios');
-        return const Failure(ValidationException('Google sign-in aborted by user'));
+        return const Failure(
+          ValidationException('Google sign-in aborted by user'),
+        );
       }
 
       // Crear credencial
@@ -66,13 +77,20 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
 
       return Success(user);
     } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
+      _logger.severe(
+        'Error al iniciar sesión con email y contraseña: $e',
+        e,
+        stackTrace,
+      );
       return Failure(ValidationException(e.code));
     }
   }
 
   @override
-  Future<Result<AuthUser, DomainException>> authenticateEmail(Email email, String password) async {
+  Future<Result<AuthUser, DomainException>> authenticateEmail(
+    Email email,
+    String password,
+  ) async {
     try {
       final response = await _auth.signInWithCredential(
         EmailAuthProvider.credential(email: email.value, password: password),
@@ -85,7 +103,11 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
       );
       return Success(user);
     } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
+      _logger.severe(
+        'Error al iniciar sesión con email y contraseña: $e',
+        e,
+        stackTrace,
+      );
       return Failure(ValidationException(e.code));
     }
   }
@@ -141,7 +163,9 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
       return Failure(ValidationException(e.code));
     } catch (e, stackTrace) {
       _logger.severe('Error inesperado al registrar: $e', e, stackTrace);
-      return const Failure(ValidationException('Error inesperado al registrar usuario'));
+      return const Failure(
+        ValidationException('Error inesperado al registrar usuario'),
+      );
     }
   }
 
@@ -172,7 +196,9 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   //}
 
   @override
-  Future<Result<String, DomainException>> recoverCredential(String email) async {
+  Future<Result<String, DomainException>> recoverCredential(
+    String email,
+  ) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
       return const Success('success');
@@ -201,7 +227,6 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
 
   @override
   Future<Result<bool, DomainException>> isAuthenticated() async {
-    // Mock implementation
     await Future.delayed(const Duration(milliseconds: 100));
     return const Success(false);
   }

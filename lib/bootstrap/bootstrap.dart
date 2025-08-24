@@ -12,13 +12,11 @@ import 'package:recetasperuanas/core/init/app_initializer.dart';
 import 'package:recetasperuanas/core/logger/logger.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/services/clarity.dart';
-import 'package:recetasperuanas/flavors/flavor_config.dart';
 
-Future<void> bootstrap(Flavor flavor) async {
+Future<void> bootstrap() async {
   initLogger();
   setupGlobalErrorHandlers();
   _initSystemUI();
-  _initializeFlavorConfig(flavor);
   await _loadEnvironmentVariables();
   await _configureDeviceOrientation();
   await _initializeFirebase();
@@ -98,42 +96,4 @@ void _initSystemUI() {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-}
-
-void _initializeFlavorConfig(Flavor flavor) {
-  switch (flavor) {
-    case Flavor.dev:
-      FlavorConfig(
-        flavor: Flavor.dev,
-        appName: 'CocinandoIA Dev',
-        apiBaseUrl: 'http://192.168.0.101:3000/api/',
-        enableLogging: true,
-        appId: 'com.ngonzano.comidaperuana.dev',
-        appVersion: '1.0.0',
-        buildNumber: '1',
-      );
-      break;
-    case Flavor.staging:
-      FlavorConfig(
-        flavor: Flavor.staging,
-        appName: 'CocinandoIA Staging',
-        apiBaseUrl: 'http://192.168.0.101:3000/api/',
-        enableLogging: true,
-        appId: 'com.ngonzano.comidaperuana.staging',
-        appVersion: '1.0.0',
-        buildNumber: '1',
-      );
-      break;
-    case Flavor.prod:
-      FlavorConfig(
-        flavor: Flavor.prod,
-        appName: 'CocinandoIA',
-        apiBaseUrl: 'http://192.168.0.101:3000/api/',
-        enableLogging: false,
-        appId: 'com.ngonzano.comidaperuana',
-        appVersion: '1.0.0',
-        buildNumber: '1',
-      );
-      break;
-  }
 }

@@ -40,27 +40,26 @@ android {
         manifestPlaceholders["usesSpeechRecognition"] = "true"
     }
 
-    flavorDimensions += "environment"
+    flavorDimensions += "app"
     
     productFlavors {
         create("dev") {
-            dimension = "environment"
-            applicationId = "com.ngonzano.comidaperuana.dev"
+            dimension = "app"
+            applicationIdSuffix = ".Dev"
             versionNameSuffix = "-dev"
-            resValue("string", "app_name", "CocinandoIA Dev")
+            resValue("string", "app_name", "CookingIA Dev")
         }
         
         create("staging") {
-            dimension = "environment"
-            applicationId = "com.ngonzano.comidaperuana.staging"
+            dimension = "app"
+            applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
-            resValue("string", "app_name", "CocinandoIA Staging")
+            resValue("string", "app_name", "CookingIA Staging")
         }
         
         create("prod") {
-            dimension = "environment"
-            applicationId = "com.ngonzano.comidaperuana"
-            resValue("string", "app_name", "CocinandoIA")
+            dimension = "app"
+            resValue("string", "app_name", "CookingIA")
         }
     }
 
