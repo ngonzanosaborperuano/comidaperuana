@@ -12,6 +12,7 @@ import 'package:recetasperuanas/core/init/app_initializer.dart';
 import 'package:recetasperuanas/core/logger/logger.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
 import 'package:recetasperuanas/core/services/clarity.dart';
+import 'package:recetasperuanas/flavors/flavors_config.dart';
 
 Future<void> bootstrap() async {
   initLogger();
@@ -46,17 +47,14 @@ Future<void> _initializeFirebase() async {
 Future<void> _loadEnvironmentVariables() async {
   try {
     log('🔧 Cargando variables de entorno...');
-    await dotenv.load(fileName: '.env');
-    log('✅ Variables de entorno cargadas correctamente');
 
-    // Log de configuración PayU (sin mostrar credenciales completas)
-    final merchantId = dotenv.env['PAYU_MERCHANT_ID'] ?? 'No configurado';
-    final currency = dotenv.env['PAYU_CURRENCY'] ?? 'No configurado';
-    final testMode = dotenv.env['PAYU_TEST_MODE'] ?? 'No configurado';
+    await dotenv.load(fileName: ".env"); // lo común
+    log('🔧 Cargando variables de entorno... ${FlavorsConfig.instance.flavor.name}');
+    log('🔧 Cargando variables de entorno... ${Flavors.dev.name}');
 
-    log(
-      '📋 Configuración PayU: MerchantID=$merchantId, Currency=$currency, TestMode=$testMode',
-    );
+    final enviroment = ".env.${FlavorsConfig.instance.flavor.name}";
+
+    await dotenv.load(fileName: enviroment, mergeWith: {...dotenv.env});
   } catch (e) {
     log('⚠️ No se pudo cargar el archivo .env: $e');
     log('ℹ️ Usando valores por defecto para PayU');
@@ -71,9 +69,7 @@ Future<void> _configureDeviceOrientation() async {
   );
 
   if (isAutoRotationEnabled) {
-    log(
-      '📱 Auto-rotación habilitada por el usuario - Permitiendo todas las orientaciones',
-    );
+    log('📱 Auto-rotación habilitada por el usuario - Permitiendo todas las orientaciones');
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

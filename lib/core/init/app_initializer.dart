@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recetasperuanas/core/config/permission/permission.dart';
 import 'package:recetasperuanas/core/database/database_helper.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
@@ -7,7 +6,6 @@ import 'package:recetasperuanas/core/preferences/preferences.dart';
 //import 'package:recetasperuanas/core/network/api_service.dart';
 
 Future<void> initializeApp() async {
-  await dotenv.load(fileName: ".env");
   await SharedPreferencesHelper.init();
   await DatabaseHelper.init();
 

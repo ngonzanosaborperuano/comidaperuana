@@ -79,6 +79,9 @@ flutter:
 
   assets:
     - .env
+    - .env.dev
+    - .env.staging
+    - .env.prod
     - lib/l10n/
     - assets/img/
     - assets/json/
