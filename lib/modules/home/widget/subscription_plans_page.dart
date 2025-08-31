@@ -118,20 +118,19 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
           HeaderPlanes(context: context),
           Expanded(
             child: PlanesPremiumListWidget(
-              buildPlanCard:
-                  (plan) => PlanCardWidget(
-                    plan: plan,
-                    isSelected: selectedPlan?.id == plan.id,
-                    onTap: () => _selectPlan(plan),
-                    selectionAnimation: _selectionAnimation,
-                    pulseAnimation: _pulseAnimation,
-                    rippleAnimation: _rippleAnimation,
-                    scaleAnimation: _scaleAnimation,
-                    borderAnimation: _borderAnimation,
-                    backgroundColorAnimation: _backgroundColorAnimation,
-                    pulseScaleAnimation: _pulseScaleAnimation,
-                    rippleScaleAnimation: _rippleScaleAnimation,
-                  ),
+              buildPlanCard: (plan) => PlanCardWidget(
+                plan: plan,
+                isSelected: selectedPlan?.id == plan.id,
+                onTap: () => _selectPlan(plan),
+                selectionAnimation: _selectionAnimation,
+                pulseAnimation: _pulseAnimation,
+                rippleAnimation: _rippleAnimation,
+                scaleAnimation: _scaleAnimation,
+                borderAnimation: _borderAnimation,
+                backgroundColorAnimation: _backgroundColorAnimation,
+                pulseScaleAnimation: _pulseScaleAnimation,
+                rippleScaleAnimation: _rippleScaleAnimation,
+              ),
               context: context,
             ),
           ),
@@ -140,6 +139,8 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
             onContinue: selectedPlan != null ? _handleSubscription : null,
             context: context,
           ),
+          AppVerticalSpace.md,
+          const SizedBox(height: kBottomNavigationBarHeight),
         ],
       ),
     );
@@ -182,79 +183,76 @@ class _SubscriptionPlansPageState extends State<SubscriptionPlansPage>
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder:
-          (context) => AppConfirmDialog(
-            title: context.loc.confirmSubscription,
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      builder: (context) => AppConfirmDialog(
+        title: context.loc.confirmSubscription,
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(text: context.loc.planLabel(selectedPlan!.name), fontSize: AppSpacing.md),
+            AppText(
+              text: context.loc.durationLabel(
+                selectedPlan!.durationMonths,
+                selectedPlan!.durationMonths > 1 ? 'es' : '',
+              ),
+              fontSize: AppSpacing.md,
+            ),
+            AppText(
+              text: context.loc.monthlyPriceLabel(selectedPlan!.monthlyPrice.toStringAsFixed(2)),
+              fontSize: AppSpacing.md,
+            ),
+            AppText(
+              text: context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
+              fontSize: AppSpacing.md,
+              fontWeight: FontWeight.bold,
+            ),
+            if (selectedPlan!.discountPercentage > 0) ...[
+              AppVerticalSpace.sm,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: context.color.buttonPrimary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  context.loc.saveLabel(
+                    selectedPlan!.discountPercentage,
+                    selectedPlan!.totalSavings.toStringAsFixed(2),
+                  ),
+                  style: TextStyle(
+                    color: context.color.buttonPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+            AppVerticalSpace.md,
+            Row(
               children: [
-                AppText(text: context.loc.planLabel(selectedPlan!.name), fontSize: AppSpacing.md),
-                AppText(
-                  text: context.loc.durationLabel(
-                    selectedPlan!.durationMonths,
-                    selectedPlan!.durationMonths > 1 ? 'es' : '',
+                Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
+                AppHorizontalSpace.sm,
+                Expanded(
+                  child: Text(
+                    context.loc.payuSafe,
+                    style: TextStyle(fontSize: 12, color: context.color.buttonPrimary),
                   ),
-                  fontSize: AppSpacing.md,
                 ),
-                AppText(
-                  text: context.loc.monthlyPriceLabel(
-                    selectedPlan!.monthlyPrice.toStringAsFixed(2),
-                  ),
-                  fontSize: AppSpacing.md,
-                ),
-                AppText(
-                  text: context.loc.totalToPayLabel(selectedPlan!.totalPrice.toStringAsFixed(2)),
-                  fontSize: AppSpacing.md,
-                  fontWeight: FontWeight.bold,
-                ),
-                if (selectedPlan!.discountPercentage > 0) ...[
-                  AppVerticalSpace.sm,
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: context.color.buttonPrimary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      context.loc.saveLabel(
-                        selectedPlan!.discountPercentage,
-                        selectedPlan!.totalSavings.toStringAsFixed(2),
-                      ),
-                      style: TextStyle(
-                        color: context.color.buttonPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ],
-                AppVerticalSpace.md,
-                Row(
-                  children: [
-                    Icon(Icons.security, color: context.color.buttonPrimary, size: 16),
-                    AppHorizontalSpace.sm,
-                    Expanded(
-                      child: Text(
-                        context.loc.payuSafe,
-                        style: TextStyle(fontSize: 12, color: context.color.buttonPrimary),
-                      ),
-                    ),
-                  ],
-                ),
-                AppVerticalSpace.md,
               ],
             ),
-            confirmLabel: context.loc.confirmLabel,
-            cancelLabel: context.loc.cancel,
-            onConfirm: () {
-              context.pop();
-              _proceedToPayment();
-            },
-            onCancel: context.pop,
-            confirmColor: context.color.buttonPrimary,
-            borderColorFrom: context.color.buttonPrimary,
-            borderColorTo: context.color.error,
-          ),
+            AppVerticalSpace.md,
+          ],
+        ),
+        confirmLabel: context.loc.confirmLabel,
+        cancelLabel: context.loc.cancel,
+        onConfirm: () {
+          context.pop();
+          _proceedToPayment();
+        },
+        onCancel: context.pop,
+        confirmColor: context.color.buttonPrimary,
+        borderColorFrom: context.color.buttonPrimary,
+        borderColorTo: context.color.error,
+      ),
     );
   }
 
@@ -517,20 +515,18 @@ class PlanCardWidget extends StatelessWidget {
                     color: isSelected ? backgroundColorAnimation.value : context.color.background,
                     borderRadius: BorderRadius.circular(AppSpacing.xmd),
                     border: Border.all(
-                      color:
-                          isSelected
-                              ? context.color.buttonPrimary.withValues(
-                                alpha: 0.6 * borderAnimation.value,
-                              )
-                              : context.color.textSecondary.withValues(alpha: 0.2),
+                      color: isSelected
+                          ? context.color.buttonPrimary.withValues(
+                              alpha: 0.6 * borderAnimation.value,
+                            )
+                          : context.color.textSecondary.withValues(alpha: 0.2),
                       width: isSelected ? 3.0 : 1.0,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color:
-                            isSelected
-                                ? context.color.buttonPrimary.withValues(alpha: 0.5)
-                                : context.color.textSecondary.withValues(alpha: 0.2),
+                        color: isSelected
+                            ? context.color.buttonPrimary.withValues(alpha: 0.5)
+                            : context.color.textSecondary.withValues(alpha: 0.2),
                         blurRadius: isSelected ? AppSpacing.xmd : AppSpacing.md,
                         offset: const Offset(0, 4),
                       ),
@@ -593,17 +589,15 @@ class PlanCardWidget extends StatelessWidget {
                   vertical: AppSpacing.xxs,
                 ),
                 decoration: BoxDecoration(
-                  color:
-                      plan.isBestValue
-                          ? context.color.success.withValues(alpha: 0.9)
-                          : context.color.buttonPrimary.withValues(alpha: 0.9),
+                  color: plan.isBestValue
+                      ? context.color.success.withValues(alpha: 0.9)
+                      : context.color.buttonPrimary.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color:
-                          plan.isBestValue
-                              ? context.color.success.withValues(alpha: 0.9)
-                              : context.color.buttonPrimary.withValues(alpha: 0.9),
+                      color: plan.isBestValue
+                          ? context.color.success.withValues(alpha: 0.9)
+                          : context.color.buttonPrimary.withValues(alpha: 0.9),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -828,10 +822,9 @@ class BottomSectionWidget extends StatelessWidget {
           PagoSeguro(context: this.context),
           AppVerticalSpace.sm,
           AppButton(
-            text:
-                selectedPlan != null
-                    ? context.loc.continueWith(selectedPlan!.name)
-                    : context.loc.selectPlan,
+            text: selectedPlan != null
+                ? context.loc.continueWith(selectedPlan!.name)
+                : context.loc.selectPlan,
             onPressed: onContinue,
             enabledButton: selectedPlan != null,
             showIcon: selectedPlan != null,
