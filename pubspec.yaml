@@ -55,6 +55,7 @@ dependencies:
   confetti: ^0.7.0
   flutter_animate: ^4.5.2
   speech_to_text: ^7.2.0
+  dynatrace_flutter_plugin: ^3.319.1
 
 dev_dependencies:
   mockito: ^5.4.5

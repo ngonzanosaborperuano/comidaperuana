@@ -1,107 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true/>
-		<key>CFBundleDevelopmentRegion</key>
-		<string>$(DEVELOPMENT_LANGUAGE)</string>
-		<key>CFBundleDisplayName</key>
-		<string>$(APP_DISPLAY_NAME)</string>
-		<key>CFBundleExecutable</key>
-		<string>$(EXECUTABLE_NAME)</string>
-		<key>CFBundleIdentifier</key>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
-		<key>CFBundleName</key>
-		<string>Cocinando</string>
-		<key>CFBundlePackageType</key>
-		<string>APPL</string>
-		<key>CFBundleShortVersionString</key>
-		<string>$(FLUTTER_BUILD_NAME)</string>
-		<key>CFBundleSignature</key>
-		<string>????</string>
-		<key>CFBundleVersion</key>
-		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key>FLTEnableImpeller</key>
-		<false/>
-		<key>FlutterDeepLinkingEnabled</key>
-		<true/>
-
-		<!-- URL Schemes (Google Sign-In, etc.) -->
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleURLName</key>
-				<string>cocinando.shop</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>ricope</string>
-				</array>
-			</dict>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLName</key>
-				<string></string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
-				</array>
-			</dict>
-		</array>
-
-		<!-- Google Sign-In -->
-		<key>GIDClientID</key>
-		<string>615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com</string>
-		<key>GoogleSignIn</key>
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(APP_DISPLAY_NAME)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Cocinando</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
 		<dict>
-			<key>ClientID</key>
-			<string>615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com</string>
-			<key>ReversedClientID</key>
-			<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
+			<key>CFBundleURLName</key>
+			<string>cocinando.shop</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ricope</string>
+			</array>
 		</dict>
-
-		<!-- Permisos del sistema -->
-		<key>NSCameraUsageDescription</key>
-		<string>Esta aplicación necesita acceso a la cámara para tomar fotos a los platos o ingredientes.</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Esta aplicación necesita acceso a las fotos para guardar o cargar imágenes de tus platos.</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Esta aplicación necesita acceso al micrófono para grabar instrucciones o audios de recetas.</string>
-		<key>NSSpeechRecognitionUsageDescription</key>
-		<string>Esta aplicación necesita acceso al reconocimiento de voz para transcribir instrucciones o audios de recetas.</string>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Necesitamos tu ubicación para sugerirte ingredientes o platos cercanos.</string>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>Necesitamos tu ubicación incluso en segundo plano para enviarte alertas de ingredientes cercanos.</string>
-
-		<!-- Notificaciones -->
-		<key>UIBackgroundModes</key>
-		<array>
-			<string>fetch</string>
-			<string>remote-notification</string>
-			<string>audio</string>
-			<string>voip</string>
-		</array>
-
-		<key>UILaunchStoryboardName</key>
-		<string>LaunchScreen</string>
-		<key>UIMainStoryboardFile</key>
-		<string>Main</string>
-
-		<key>LSRequiresIPhoneOS</key>
-		<true/>
-
-
-
-		<!-- Configuración de privacidad moderna -->
-		<key>NSUserTrackingUsageDescription</key>
-		<string>Esta aplicación no rastrea tu actividad entre apps ni sitios web.</string>
-
-
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>DTXApplicationID</key>
+	<string>c83c5ac6-902b-4f26-94e7-4a3fc2746f5d</string>
+	<key>DTXBeaconURL</key>
+	<string>https://bf87797vgl.bf.dynatrace.com/mbeacon</string>
+	<key>DTXFlavor</key>
+	<string>flutter</string>
+	<key>DTXStartupLoadBalancing</key>
+	<true/>
+	<key>DTXStartupWithGrailEnabled</key>
+	<true/>
+	<key>DTXUserOptIn</key>
+	<true/>
+	<key>FLTEnableImpeller</key>
+	<false/>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+	<key>GIDClientID</key>
+	<string>615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com</string>
+	<key>GoogleSignIn</key>
+	<dict>
+		<key>ClientID</key>
+		<string>615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu.apps.googleusercontent.com</string>
+		<key>ReversedClientID</key>
+		<string>com.googleusercontent.apps.615495880468-vaqqmb8h3ihto2np80mbhthuvtovjilu</string>
 	</dict>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Esta aplicación necesita acceso a la cámara para tomar fotos a los platos o ingredientes.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Necesitamos tu ubicación incluso en segundo plano para enviarte alertas de ingredientes cercanos.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesitamos tu ubicación para sugerirte ingredientes o platos cercanos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Esta aplicación necesita acceso al micrófono para grabar instrucciones o audios de recetas.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Esta aplicación necesita acceso a las fotos para guardar o cargar imágenes de tus platos.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Esta aplicación necesita acceso al reconocimiento de voz para transcribir instrucciones o audios de recetas.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Esta aplicación no rastrea tu actividad entre apps ni sitios web.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+		<string>audio</string>
+		<string>voip</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+</dict>
 </plist>

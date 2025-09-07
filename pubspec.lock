@@ -305,6 +305,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  dynatrace_flutter_plugin:
+    dependency: "direct main"
+    description:
+      name: dynatrace_flutter_plugin
+      sha256: "61ea721a9d30ca72a11313c3cf90abc0053ca6bb1cb56b77e932bdeadc9f9230"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.319.1"
   encrypt:
     dependency: "direct main"
     description:

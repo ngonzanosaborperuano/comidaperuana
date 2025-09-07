@@ -11,7 +11,9 @@ import 'package:recetasperuanas/core/error/error_handler.dart';
 import 'package:recetasperuanas/core/init/app_initializer.dart';
 import 'package:recetasperuanas/core/logger/logger.dart';
 import 'package:recetasperuanas/core/preferences/preferences.dart';
+import 'package:recetasperuanas/core/services/audio/audio_service.dart';
 import 'package:recetasperuanas/core/services/clarity.dart';
+import 'package:recetasperuanas/core/services/monitoring/monitoring_service_factory.dart';
 import 'package:recetasperuanas/flavors/flavors_config.dart';
 
 Future<void> bootstrap() async {
@@ -22,17 +24,45 @@ Future<void> bootstrap() async {
   await _configureDeviceOrientation();
   await _initializeFirebase();
   await initializeApp();
+  await _initializeMonitoring();
+  await _initializeAudio();
 
-  runApp(ClarityWidget(app: const MyApp(), clarityConfig: clarity()));
+  // Crear la app
+  final app = ClarityWidget(app: const MyApp(), clarityConfig: clarity());
+
+  // Siempre usar runApp para evitar problemas de zona
+  runApp(app);
+}
+
+Future<void> _initializeMonitoring() async {
+  try {
+    final monitoringService = MonitoringServiceFactory.create();
+    await monitoringService.initialize();
+  } catch (e) {
+    log('❌ Error al inicializar servicio de monitoreo: $e');
+    // En desarrollo, podemos continuar sin monitoreo
+    if (kDebugMode) {
+      log('ℹ️ Continuando sin monitoreo en modo debug');
+    } else {
+      rethrow; // En producción, es crítico
+    }
+  }
+}
+
+Future<void> _initializeAudio() async {
+  try {
+    await AudioService.initialize();
+  } catch (e) {
+    log('❌ Error al inicializar servicio de audio: $e');
+    // Continuar sin audio - no es crítico para el funcionamiento de la app
+    log('ℹ️ Continuando sin funcionalidad de audio');
+  }
 }
 
 Future<void> _initializeFirebase() async {
   try {
-    log('🔧 Inicializando Firebase...');
-
     // Usar FirebaseConfig que ya maneja la lógica de flavors
     await FirebaseConfig.initializeFirebase();
-    log('✅ Firebase inicializado correctamente usando FirebaseConfig');
   } catch (e) {
     log('❌ Error al inicializar Firebase: $e');
     // En desarrollo, podemos continuar sin Firebase
@@ -46,11 +76,7 @@ Future<void> _initializeFirebase() async {
 
 Future<void> _loadEnvironmentVariables() async {
   try {
-    log('🔧 Cargando variables de entorno...');
-
     await dotenv.load(fileName: ".env"); // lo común
-    log('🔧 Cargando variables de entorno... ${FlavorsConfig.instance.flavor.name}');
-    log('🔧 Cargando variables de entorno... ${Flavors.dev.name}');
 
     final enviroment = ".env.${FlavorsConfig.instance.flavor.name}";
 

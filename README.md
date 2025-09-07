@@ -106,3 +106,7 @@ npm install -g @google/gemini-cli
 gemini
 
 
+============================================
+DynaTrace
+============================================
+dart run dynatrace_flutter_plugin
