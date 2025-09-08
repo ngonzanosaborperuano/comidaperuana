@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/core/di/bloc_dependencies.dart';
-import 'package:recetasperuanas/core/router/app_router.dart';
-import 'package:recetasperuanas/shared/widget/platform_app_builder.dart';
+import 'package:recetasperuanas/src/presentation/core/router/app_router.dart';
+import 'package:recetasperuanas/src/shared/core/di/bloc_dependencies.dart';
+import 'package:recetasperuanas/src/shared/widget/platform_app_builder.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

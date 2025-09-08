@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/shared/controller/base_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:recetasperuanas/l10n/app_localizations.dart';
+import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
+import 'package:recetasperuanas/src/shared/l10n/app_localizations.dart';
 
 // Mock de AppLocalizations
 class MockAppLocalizations extends Mock implements AppLocalizations {
@@ -10,8 +10,7 @@ class MockAppLocalizations extends Mock implements AppLocalizations {
   String get validateEmpty => 'El campo no puede estar vacío';
 
   @override
-  String get minEightCharacters =>
-      'La contraseña debe tener al menos 8 caracteres';
+  String get minEightCharacters => 'La contraseña debe tener al menos 8 caracteres';
 
   @override
   String get labelUpper => 'Debe contener al menos una letra mayúscula';
