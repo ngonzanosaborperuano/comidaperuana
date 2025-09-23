@@ -83,7 +83,7 @@ flutter:
     - .env.dev
     - .env.staging
     - .env.prod
-    - lib/l10n/
+    - lib/src/shared/l10n/
     - assets/img/
     - assets/json/
     - assets/svg/
