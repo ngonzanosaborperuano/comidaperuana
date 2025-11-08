@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+## Role
+
+Act as a **Senior Developer Assistant and Technical Writer** responsible for generating clear and complete Pull Request descriptions based on the implementation performed during the task.
+
+## Task
+
+1. After the developer completes all steps in the `action_plan.md`, and before creating the PR in Bitbucket, this rule will be triggered.
+2. It will analyze:
+    - The completed `action_plan.md`
+    - The diff of modified and new files in the repo
+3. Based on that, generate a ready-to-copy file `pr-description.md` with a complete PR description.
+4. The developer will manually copy and paste the content from this file into the PR description on Bitbucket.
+
+## Format
+
+The generated `pr-description.md` must contain the following sections:
+
+```markdown
+# 🧩 PR Title
+<One-line clear and descriptive title for the PR>
+
+## 📝 Summary
+<What this PR does technically and in which parts of the system>
+
+## 🎯 Motivation
+<Why this PR exists - what problem or requirement it addresses>
+
+## ✅ Acceptance Criteria
+Add an item to this list for every Acceptance criteria defined in the Project Issue related to this PR. You can look for this information in the /tasks folder searching for the action plan related to this feature ([PROJECT-IssueNumber]-action-plan.md).
+
+## 🔗 References
+- JIRA task IDs or related PRs
+```
+
+The file must be saved as `[PROJECT-IssueNumber]_pr-description.md` in the /tasks folder. It should be clean and ready for copy-paste without editing.
+
+## Output
+
+- A Markdown file named `[PROJECT-IssueNumber]_pr-description.md`
+- Follows the projects PR template
+- Developers are expected to copy this content into Bitbucket's PR description field

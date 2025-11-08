@@ -1,0 +1,141 @@
+---
+alwaysApply: true
+---
+## 🔄 Proceso de Actualización
+
+Cuando implementes algo NUEVO:
+
+### Durante la Implementación
+1. **Usar componentes existentes** identificados en la documentación
+2. **Seguir patrones establecidos** documentados
+3. **No duplicar funcionalidad** que ya existe
+
+### Después de la Implementación
+1. **Actualizar el archivo .md correspondiente** con el nuevo componente
+2. **Actualizar `docs/README.md`** si es necesario
+3. **Considerar si se necesitan nuevas utilidades/constantes**
+
+---
+
+## 🚨 Ejemplos de Aplicación
+### ❌ INCORRECTO (No consultar docs):
+```dart
+// Crear BLoC sin verificar patrones existentes
+class UserBloc extends Bloc<UserEvent, UserState> {
+  // ❌ No seguir Clean Architecture documentada
+  // ❌ No usar fpdart para errores
+}
+
+// Usar colores hardcodeados sin verificar AppTheme
+Container(
+  color: Colors.black, // ¡Ya está en AppTheme!
+  child: Text(
+    'Hello',
+    style: TextStyle(color: Colors.white), // ¡Usar textTheme!
+  ),
+)
+
+// Crear widgets sin verificar shared/widgets/
+class CustomButton extends StatelessWidget {
+  // ¡Puede que ya exista un ButtonWidget similar!
+}
+```
+
+### ✅ CORRECTO (Consultar docs primero):
+```dart
+// 1. Leer docs/README.md y bloc_data_flow.md
+// 2. Ver patrones establecidos de BLoC con fpdart
+// 3. Implementar siguiendo el patrón:
+class UserBloc extends Bloc<UserEvent, UserState> {
+  final GetUserUseCase getUserUseCase;
+  
+  UserBloc({required this.getUserUseCase}) : super(const UserState.initial()) {
+    on<GetUserEvent>(_onGetUser);
+  }
+  
+  Future<void> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
+    emit(const UserState.loading());
+    
+    final result = await getUserUseCase(event.userId);
+    
+    result.fold(
+      (failure) {
+        logger.e('Failed to get user', error: failure);
+        emit(UserState.error(failure));
+      },
+      (user) {
+        logger.i('User loaded successfully');
+        emit(UserState.loaded(user));
+      },
+    );
+  }
+}
+
+// 1. Consultar docs/README.md sobre theme system
+// 2. Ver que AppTheme debe usarse siempre
+// 3. Usar theme correctamente:
+Container(
+  color: Theme.of(context).colorScheme.surface,
+  child: Text(
+    'Hello',
+    style: Theme.of(context).textTheme.bodyLarge,
+  ),
+)
+
+// 1. Revisar shared/widgets/ antes de crear
+// 2. Si no existe, crear siguiendo patrones
+// 3. Documentar en docs/README.md después
+```
+
+---
+
+## 📋 Checklist Obligatorio
+
+Antes de escribir código, confirmar:
+
+- [ ] **He leído `docs/README.md`**
+- [ ] **He consultado el archivo .md relevante**
+- [ ] **He verificado que no estoy duplicando funcionalidad**
+- [ ] **Estoy usando componentes/utilidades existentes**
+- [ ] **Seguiré los patrones documentados**
+
+Después de escribir código:
+
+- [ ] **He actualizado la documentación correspondiente**
+- [ ] **He verificado que sigo las reglas de flutter_code_basics**
+
+---
+
+## 🎯 Beneficios de Seguir Esta Regla
+
+1. **Evitar duplicación** de código y esfuerzo
+2. **Mantener consistencia** arquitectural
+3. **Reutilizar validaciones** y utilidades robustas
+4. **Acelerar desarrollo** usando componentes existentes
+5. **Facilitar mantenimiento** con documentación actualizada
+
+---
+
+## ⚠️ Consecuencias de NO Seguir
+
+- Código duplicado difícil de mantener
+- Inconsistencias en validaciones y formatos
+- Pérdida de tiempo recreando funcionalidad existente
+- Bugs por no usar utilidades probadas
+- Documentación desactualizada
+
+---
+
+## @todo
+
+- Revisar y actualizar esta regla cuando se agreguen nuevas categorías de componentes
+- Considerar automatización de verificación de duplicación
+- Evaluar agregar templates de documentación para nuevos componentes
+
+---
+
+**Última actualización:** Creación de sistema de documentación técnica en Paso 2
+description:
+globs:
+alwaysApply: false
+---

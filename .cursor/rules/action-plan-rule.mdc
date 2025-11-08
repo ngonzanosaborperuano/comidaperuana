@@ -1,0 +1,89 @@
+
+---
+description: Genera un plan de acción paso a paso para una feature o bug reportado en Jira, siguiendo la arquitectura definida del proyecto.
+globs:
+alwaysApply: false
+---
+
+## Role
+You are a senior software engineer with extensive experience in problem solving, code development, and architectural design. You are also skilled in design patterns and efficient implementation strategies.
+
+## Task
+Based on a Jira issue, generate a detailed action plan that guides the developer through step-by-step implementation of the bugfix or feature. The goal is to encourage developers to follow a structured approach by interacting with the AI incrementally, rather than asking the AI to solve the entire task from the Jira description alone.
+
+**Important:**  
+You must always take into account the architecture and folder structure defined in the project's file:  
+`/docs/architecture-design.md`.  
+Design decisions, technologies, and file placement must align with that document.
+
+## State Management & Architecture Rules
+
+### ❌ PROHIBIDO - setState ni ningun otro que no sea BLoC/Cubit
+- **NUNCA uses `setState`** en ningún widget o componente
+- este proyecto usa BLoC/Cubit exclusivamente
+
+### ✅ OBLIGATORIO - BLoC/Cubit Pattern
+- Usa **BLoC** para lógica compleja y eventos múltiples
+- Usa **Cubit** para estados simples y cambios directos
+- Implementa **Equatable** en todos los States y Events
+- Usa **Freezed** para States immutables cuando sea apropiado
+- Separa la lógica de negocio en Cubits/BLoCs específicos
+- Usa `BlocBuilder`, `BlocListener`, `BlocConsumer` para escuchar cambios
+- Implementa el patrón Clean Architecture: Presentation → Domain → Data
+
+### ✅ OBLIGATORIO - Functional Programming con fpdart
+- Usa **Either<Failure, Success>** para manejo de errores
+- Implementa **Option<T>** para valores opcionales
+- Usa **Task<T>** para operaciones asíncronas
+- Evita excepciones, usa tipos de retorno funcionales
+- Implementa el patrón Repository con Either
+
+### ✅ OBLIGATORIO - Dependency Injection con GetIt
+- Registra todas las dependencias en `@injection.dart`
+- Usa **Lazy Singletons** para servicios
+- Usa **Factories** para BLoCs/Cubits
+- Registra por capas: Data → Domain → Presentation
+- Inyecta dependencias siguiendo SOLID principles
+
+### ✅ OBLIGATORIO - Logging con LogService
+- Usa **`@log_service.dart`** SIEMPRE en lugar de `print()`
+- Usa niveles apropiados: `logger.d()`, `logger.i()`, `logger.w()`, `logger.e()`
+- Logea errores con contexto completo
+- Logea estado changes en BLoCs/Cubits para debugging
+
+### ✅ OBLIGATORIO - Navigation con GoRouter
+- Usa el sistema de rutas definido en `@router/`
+- Define rutas en `AppRoutes` siguiendo el patrón existente
+- Navega con `context.go()` y `context.push()`
+- Implementa redirects para autenticación
+
+### ✅ OBLIGATORIO - Theme System
+- Usa **SIEMPRE** `@app_theme.dart` para colores y estilos
+- **PROHIBIDO** usar `Colors.black`, `Colors.white`, etc.
+- Usa `Theme.of(context).colorScheme.primary` etc.
+- Usa `Theme.of(context).textTheme.bodyLarge` etc.
+- Define nuevos colores en AppTheme si es necesario
+
+### ✅ OBLIGATORIO - Seguir flutter_code_basics
+- Revisa y cumple todas las reglas definidas en `flutter_code_basics`
+- Usa la clase `Assets` para acceso a recursos (cuando se implemente)
+- Usa `@env_config.dart` para variables de entorno (cuando se implemente)
+- Revisa `docs/` antes de crear widgets para evitar duplicación
+
+## Format
+Generate a Markdown file named `[PROJECT-IssueNumber]-action-plan.md` with the following sections:
+
+- A clear description of the task
+- Acceptance criteria
+- A list of implementation steps. Each step should include:
+  - A title
+  - A detailed description
+  - Any notes, suggestions, or code patterns to use
+  - **Specific guidance on Provider implementation when applicable**
+
+❗ **Do not include any step related to testing or writing tests.** Testing will be handled separately.
+
+Also, if clarification is needed to improve the action plan, ask follow-up questions to the developer, but **do not include those questions in the generated Markdown file**.
+
+## Output
+A single `.md` file placed under `/tasks` with the filename `[PROJECT-IssueNumber]-action-plan.md`.

@@ -1,0 +1,589 @@
+---
+description: Uso obligatorio de fpdart para programación funcional en Clean Architecture
+globs:
+alwaysApply: true
+---
+
+# Rule: fpdart_functional_programming
+
+## Objective
+
+**OBLIGATORIO**: Usar fpdart para programación funcional en todo el proyecto. Este package es fundamental para implementar Clean Architecture de manera robusta y mantener el código libre de excepciones no controladas.
+
+---
+
+## ¿Por qué fpdart es Obligatorio?
+
+### Beneficios Clave
+1. **Control de errores explícito**: Sin excepciones inesperadas
+2. **Código más robusto**: Manejo de errores predecible
+3. **Estados claros**: Estados de error y éxito claramente definidos
+4. **Clean Architecture**: Integración perfecta con el patrón Repository
+5. **Programación funcional**: Operaciones puras y predecibles
+
+---
+
+## Core Types de fpdart
+
+### Either<L, R> - Manejo de Errores
+
+**OBLIGATORIO**: Usar `Either<Failure, T>` para todas las operaciones que pueden fallar.
+
+```dart
+// ✅ CORRECTO: Either para operaciones que pueden fallar
+abstract class UserRepository {
+  Future<Either<Failure, User>> getUser(String id);
+  Future<Either<Failure, List<User>>> getUsers();
+  Future<Either<Failure, Unit>> deleteUser(String id);
+}
+
+// ✅ CORRECTO: Implementation con Either
+class UserRepositoryImpl implements UserRepository {
+  @override
+  Future<Either<Failure, User>> getUser(String id) async {
+    try {
+      final user = await remoteDataSource.getUser(id);
+      logger.i('User retrieved successfully: $id');
+      return Right(user);
+    } on ServerException catch (e) {
+      logger.e('Server error getting user', error: e);
+      return Left(ServerFailure('Failed to get user: ${e.message}'));
+    } on NetworkException catch (e) {
+      logger.e('Network error getting user', error: e);
+      return Left(NetworkFailure('Network error occurred'));
+    } catch (e) {
+      logger.e('Unexpected error getting user', error: e);
+      return Left(UnknownFailure('Unexpected error occurred'));
+    }
+  }
+}
+
+// ✅ CORRECTO: Use Case con Either
+class GetUserUseCase implements UseCase<User, String> {
+  final UserRepository repository;
+  
+  GetUserUseCase({required this.repository});
+  
+  @override
+  Future<Either<Failure, User>> call(String userId) async {
+    if (userId.isEmpty) {
+      logger.w('GetUserUseCase called with empty userId');
+      return Left(ValidationFailure('User ID cannot be empty'));
+    }
+    
+    logger.d('Getting user: $userId');
+    return await repository.getUser(userId);
+  }
+}
+
+// ❌ INCORRECTO: Usar excepciones
+Future<User> getUser(String id) async {
+  if (id.isEmpty) {
+    throw ArgumentError('ID cannot be empty'); // ❌ NO hacer esto
+  }
+  
+  final user = await api.getUser(id); // ❌ Puede fallar sin control
+  return user;
+}
+```
+
+### Option<T> - Valores Opcionales
+
+**OBLIGATORIO**: Usar `Option<T>` en lugar de valores nullable cuando el contexto lo requiera.
+
+```dart
+// ✅ CORRECTO: Option para valores que pueden no existir
+class UserPreferences {
+  Option<String> getStoredUsername() {
+    final username = secureStorage.getString('username');
+    return username != null ? Some(username) : None();
+  }
+  
+  Option<Theme> getSelectedTheme() {
+    final themeIndex = preferences.getInt('theme');
+    return themeIndex != null && themeIndex < Theme.values.length
+        ? Some(Theme.values[themeIndex])
+        : None();
+  }
+}
+
+// ✅ CORRECTO: Usando Option en el UI
+class UserProfileWidget extends StatelessWidget {
+  final Option<String> username;
+  
+  const UserProfileWidget({super.key, required this.username});
+  
+  @override
+  Widget build(BuildContext context) {
+    return username.match(
+      () => Text(
+        'Guest User',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      (name) => Text(
+        'Welcome, $name',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+    );
+  }
+}
+
+// ❌ INCORRECTO: Usar nullable sin context
+String? getUsername() {
+  return preferences.getString('username'); // ❌ Confuso, puede ser null
+}
+```
+
+### Task<T> - Operaciones Asíncronas Complejas
+
+**RECOMENDADO**: Usar `Task<T>` para operaciones asíncronas que requieren composición compleja.
+
+```dart
+// ✅ CORRECTO: Task para operaciones complejas
+class DataSyncService {
+  Task<Either<Failure, SyncResult>> syncAllData() {
+    return Task(() async {
+      logger.i('Starting data sync process');
+      
+      final userResult = await syncUsers();
+      if (userResult.isLeft()) {
+        logger.e('User sync failed');
+        return userResult.fold(
+          (failure) => Left(failure),
+          (_) => throw StateError('Impossible'),
+        );
+      }
+      
+      final settingsResult = await syncSettings();
+      if (settingsResult.isLeft()) {
+        logger.e('Settings sync failed');
+        return settingsResult.fold(
+          (failure) => Left(failure),
+          (_) => throw StateError('Impossible'),
+        );
+      }
+      
+      logger.i('Data sync completed successfully');
+      return Right(SyncResult(
+        usersCount: userResult.getOrElse(() => []).length,
+        settingsSynced: true,
+      ));
+    });
+  }
+}
+```
+
+---
+
+## Failure Hierarchy
+
+**OBLIGATORIO**: Definir una jerarquía clara de errores usando Equatable.
+
+```dart
+// ✅ CORRECTO: Base Failure class
+abstract class Failure extends Equatable {
+  final String message;
+  final String? code;
+  
+  const Failure(this.message, {this.code});
+  
+  @override
+  List<Object?> get props => [message, code];
+}
+
+// ✅ CORRECTO: Specific failures
+class NetworkFailure extends Failure {
+  const NetworkFailure([
+    String message = 'Network error occurred',
+    String? code,
+  ]) : super(message, code: code);
+}
+
+class ServerFailure extends Failure {
+  final int? statusCode;
+  
+  const ServerFailure(
+    String message, {
+    this.statusCode,
+    String? code,
+  }) : super(message, code: code);
+  
+  @override
+  List<Object?> get props => [message, code, statusCode];
+}
+
+class ValidationFailure extends Failure {
+  final Map<String, String>? fieldErrors;
+  
+  const ValidationFailure(
+    String message, {
+    this.fieldErrors,
+    String? code,
+  }) : super(message, code: code);
+  
+  @override
+  List<Object?> get props => [message, code, fieldErrors];
+}
+
+class CacheFailure extends Failure {
+  const CacheFailure([
+    String message = 'Cache error occurred',
+    String? code,
+  ]) : super(message, code: code);
+}
+
+class AuthFailure extends Failure {
+  const AuthFailure([
+    String message = 'Authentication failed',
+    String? code,
+  ]) : super(message, code: code);
+}
+
+class UnknownFailure extends Failure {
+  const UnknownFailure([
+    String message = 'An unknown error occurred',
+    String? code,
+  ]) : super(message, code: code);
+}
+```
+
+---
+
+## Extension Methods para Convenience
+
+**RECOMENDADO**: Crear extensions para simplificar el uso de Either.
+
+```dart
+// ✅ CORRECTO: Extensions útiles
+extension EitherExtensions<L, R> on Either<L, R> {
+  /// Obtiene el valor Right o lanza excepción en caso de error
+  R getRight() => fold(
+    (l) => throw StateError('Expected Right but got Left: $l'),
+    (r) => r,
+  );
+  
+  /// Obtiene el valor Left o lanza excepción en caso de éxito
+  L getLeft() => fold(
+    (l) => l,
+    (r) => throw StateError('Expected Left but got Right: $r'),
+  );
+  
+  /// Para uso en UI - mapea a widgets basado en success/failure
+  Widget when({
+    required Widget Function(L failure) failure,
+    required Widget Function(R data) success,
+  }) {
+    return fold(
+      (l) => failure(l),
+      (r) => success(r),
+    );
+  }
+  
+  /// Transforma Right value, mantiene Left
+  Either<L, T> mapRight<T>(T Function(R r) f) {
+    return fold(
+      (l) => Left(l),
+      (r) => Right(f(r)),
+    );
+  }
+  
+  /// Transforma Left value, mantiene Right  
+  Either<T, R> mapLeft<T>(T Function(L l) f) {
+    return fold(
+      (l) => Left(f(l)),
+      (r) => Right(r),
+    );
+  }
+  
+  /// Encadena operaciones que pueden fallar
+  Either<L, T> flatMap<T>(Either<L, T> Function(R r) f) {
+    return fold(
+      (l) => Left(l),
+      (r) => f(r),
+    );
+  }
+  
+  /// Ejecuta side effect solo si es Right
+  Either<L, R> onRight(void Function(R r) f) {
+    return fold(
+      (l) => Left(l),
+      (r) {
+        f(r);
+        return Right(r);
+      },
+    );
+  }
+  
+  /// Ejecuta side effect solo si es Left
+  Either<L, R> onLeft(void Function(L l) f) {
+    return fold(
+      (l) {
+        f(l);
+        return Left(l);
+      },
+      (r) => Right(r),
+    );
+  }
+}
+
+extension OptionExtensions<T> on Option<T> {
+  /// Para uso en UI - mapea a widgets
+  Widget when({
+    required Widget Function() none,
+    required Widget Function(T value) some,
+  }) {
+    return match(
+      () => none(),
+      (value) => some(value),
+    );
+  }
+}
+```
+
+---
+
+## Integration con BLoC
+
+**OBLIGATORIO**: Integrar fpdart correctamente con BLoC/Cubit.
+
+```dart
+// ✅ CORRECTO: BLoC que maneja Either
+class UserBloc extends Bloc<UserEvent, UserState> {
+  final GetUserUseCase getUserUseCase;
+  
+  UserBloc({required this.getUserUseCase}) : super(const UserState.initial()) {
+    on<GetUserEvent>(_onGetUser);
+  }
+  
+  Future<void> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
+    emit(const UserState.loading());
+    
+    logger.d('Getting user: ${event.userId}');
+    final result = await getUserUseCase(event.userId);
+    
+    result.fold(
+      (failure) {
+        logger.e('Failed to get user: ${failure.message}');
+        emit(UserState.error(failure));
+      },
+      (user) {
+        logger.i('User loaded successfully: ${user.id}');
+        emit(UserState.loaded(user));
+      },
+    );
+  }
+}
+
+// ✅ CORRECTO: UI que usa Either extensions
+class UserPage extends StatelessWidget {
+  const UserPage({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'User Profile',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () => const SizedBox(),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loaded: (user) => UserProfileWidget(user: user),
+            error: (failure) => ErrorWidget(failure: failure),
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+---
+
+## Data Layer Implementation
+
+**OBLIGATORIO**: Implementar todas las capas de datos con fpdart.
+
+```dart
+// ✅ CORRECTO: Remote Data Source con Either
+abstract class UserRemoteDataSource {
+  Future<Either<DataSourceFailure, UserModel>> getUser(String id);
+  Future<Either<DataSourceFailure, List<UserModel>>> getUsers();
+}
+
+class UserRemoteDataSourceImpl implements UserRemoteDataSource {
+  final Dio client;
+  
+  UserRemoteDataSourceImpl({required this.client});
+  
+  @override
+  Future<Either<DataSourceFailure, UserModel>> getUser(String id) async {
+    try {
+      logger.d('Fetching user from API: $id');
+      final response = await client.get('/users/$id');
+      
+      final user = UserModel.fromJson(response.data);
+      logger.i('User fetched successfully from API: $id');
+      return Right(user);
+    } on DioException catch (e) {
+      logger.e('API error getting user', error: e);
+      
+      if (e.response?.statusCode == 404) {
+        return Left(DataSourceFailure.notFound('User not found'));
+      } else if (e.response?.statusCode == 401) {
+        return Left(DataSourceFailure.unauthorized('Invalid credentials'));
+      } else {
+        return Left(DataSourceFailure.server('Server error occurred'));
+      }
+    } catch (e) {
+      logger.e('Unexpected error getting user', error: e);
+      return Left(DataSourceFailure.unknown('Unexpected error occurred'));
+    }
+  }
+}
+
+// ✅ CORRECTO: Local Data Source con Option
+abstract class UserLocalDataSource {
+  Future<Option<UserModel>> getCachedUser(String id);
+  Future<Either<DataSourceFailure, Unit>> cacheUser(UserModel user);
+}
+
+class UserLocalDataSourceImpl implements UserLocalDataSource {
+  final SharedPreferences prefs;
+  
+  UserLocalDataSourceImpl({required this.prefs});
+  
+  @override
+  Future<Option<UserModel>> getCachedUser(String id) async {
+    try {
+      final userData = prefs.getString('user_$id');
+      if (userData == null) {
+        logger.d('No cached user found: $id');
+        return None();
+      }
+      
+      final user = UserModel.fromJson(jsonDecode(userData));
+      logger.d('Cached user found: $id');
+      return Some(user);
+    } catch (e) {
+      logger.e('Error reading cached user', error: e);
+      return None();
+    }
+  }
+  
+  @override
+  Future<Either<DataSourceFailure, Unit>> cacheUser(UserModel user) async {
+    try {
+      final userData = jsonEncode(user.toJson());
+      await prefs.setString('user_${user.id}', userData);
+      logger.d('User cached successfully: ${user.id}');
+      return Right(unit);
+    } catch (e) {
+      logger.e('Error caching user', error: e);
+      return Left(DataSourceFailure.cache('Failed to cache user'));
+    }
+  }
+}
+```
+
+---
+
+## Common Patterns & Best Practices
+
+### Pattern: Repository with Cache Fallback
+```dart
+// ✅ CORRECTO: Repository con cache fallback usando fpdart
+@override
+Future<Either<Failure, User>> getUser(String id) async {
+  // Intentar obtener de red primero
+  final remoteResult = await remoteDataSource.getUser(id);
+  
+  return remoteResult.fold(
+    (dataSourceFailure) async {
+      // Si falla la red, intentar cache
+      logger.w('Remote fetch failed, trying cache: ${dataSourceFailure.message}');
+      
+      final cachedUser = await localDataSource.getCachedUser(id);
+      return cachedUser.match(
+        () => Left(CacheFailure('No cached data available')),
+        (user) => Right(user.toDomain()),
+      );
+    },
+    (user) async {
+      // Si la red funciona, cache el resultado
+      logger.i('Remote fetch successful, caching user');
+      
+      // Cache en background, no bloquear el resultado
+      localDataSource.cacheUser(user).then(
+        (cacheResult) => cacheResult.fold(
+          (failure) => logger.w('Failed to cache user: ${failure.message}'),
+          (_) => logger.d('User cached successfully'),
+        ),
+      );
+      
+      return Right(user.toDomain());
+    },
+  );
+}
+```
+
+### Pattern: Validation with Either
+```dart
+// ✅ CORRECTO: Validation usando Either
+class UserValidator {
+  static Either<ValidationFailure, String> validateEmail(String email) {
+    if (email.isEmpty) {
+      return Left(ValidationFailure('Email cannot be empty'));
+    }
+    
+    if (!email.contains('@')) {
+      return Left(ValidationFailure('Invalid email format'));
+    }
+    
+    return Right(email);
+  }
+  
+  static Either<ValidationFailure, String> validatePassword(String password) {
+    if (password.isEmpty) {
+      return Left(ValidationFailure('Password cannot be empty'));
+    }
+    
+    if (password.length < 6) {
+      return Left(ValidationFailure('Password must be at least 6 characters'));
+    }
+    
+    return Right(password);
+  }
+  
+  static Either<ValidationFailure, LoginRequest> validateLoginRequest({
+    required String email,
+    required String password,
+  }) {
+    final emailResult = validateEmail(email);
+    final passwordResult = validatePassword(password);
+    
+    return emailResult.flatMap((validEmail) =>
+      passwordResult.mapRight((validPassword) =>
+        LoginRequest(email: validEmail, password: validPassword)
+      )
+    );
+  }
+}
+```
+
+---
+
+## @todo
+
+- Crear templates de código para Either/Option patterns
+- Documentar más patterns avanzados con Task
+- Establecer guidelines para error recovery strategies
+- Definir métricas para medir usage de fpdart vs exceptions
+
+---
+
+**Última actualización:** Implementación obligatoria de fpdart para programación funcional

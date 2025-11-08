@@ -3,6 +3,7 @@ import 'dart:io' show InternetAddress;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+//TODO: solo usar para sincronizacion con datos
 class ConnectionObserver {
   static final ConnectionObserver instance = ConnectionObserver._();
   final _controller = StreamController<bool>.broadcast();

@@ -1,0 +1,307 @@
+---
+description: Configuración principal del workspace para Whitelabel App con Clean Architecture y BLoC
+globs:
+alwaysApply: true
+---
+
+# Whitelabel App - Workspace Configuration
+
+## 🎯 Overview
+
+Este workspace está configurado para desarrollo Flutter con **Clean Architecture**, **BLoC/Cubit**, **fpdart** y **mejores prácticas de la industria**.
+
+---
+
+## 📚 Sistema de Documentación
+
+### 📖 Documentación Obligatoria
+- **ANTES de cualquier implementación**: Leer `docs/README.md`
+- **Consultar documentación específica** según el tipo de componente
+- **Actualizar documentación** después de implementar
+
+### 🗂️ Estructura de Documentación
+```
+docs/
+├── README.md                     # 📖 Índice principal
+├── bloc_data_flow.md            # 🔄 Flujo de datos BLoC
+├── bloc_good_practices.md       # ✅ Mejores prácticas BLoC
+├── error_handling_flow.md       # ⚠️ Manejo de errores
+├── feature_architecture.md     # 🏗️ Arquitectura por features
+├── folder_architecture.md      # 📁 Organización de carpetas
+└── next_steps/                 # 🚀 Implementaciones futuras
+```
+
+---
+
+## 🏗️ Architecture Stack
+
+### 🔧 Core Technologies
+- **State Management**: BLoC/Cubit con Equatable
+- **Functional Programming**: fpdart (`Either<Failure, T>`, `Option<T>`)
+- **Dependency Injection**: GetIt service locator
+- **Navigation**: GoRouter con sistema de rutas propio
+- **Logging**: Logger service centralizado
+- **HTTP**: Dio con interceptors
+- **Theme**: Sistema centralizado AppTheme
+
+### 🚫 Tecnologías PROHIBIDAS
+- **setState** - Usar BLoC/Cubit exclusivamente
+- **Provider** - Este proyecto usa BLoC
+- **print()** - Usar logger service
+- **Colors.*** hardcodeados - Usar theme system
+- **Asset paths directos** - Usar Assets class (cuando se implemente)
+
+---
+
+## 📋 Workflow Automático
+
+### ✅ Pre-Implementation Checklist
+```bash
+1. [ ] Leer docs/README.md
+2. [ ] Consultar arquitectura establecida
+3. [ ] Verificar componentes existentes
+4. [ ] Revisar shared/widgets/ para evitar duplicación
+5. [ ] Confirmar patrones a seguir
+```
+
+### 🔄 During Implementation
+```bash
+1. [ ] Usar BLoC/Cubit (NUNCA setState/Provider)
+2. [ ] Implementar Either<Failure, T> para errores
+3. [ ] Usar logger.d/i/w/e (NUNCA print)
+4. [ ] Aplicar theme system (NUNCA Colors.*)
+5. [ ] Registrar dependencies en injection.dart
+6. [ ] Seguir Clean Architecture (Presentation → Domain → Data)
+```
+
+### 📝 Post-Implementation
+```bash
+1. [ ] Actualizar docs/README.md si es necesario
+2. [ ] Documentar inline código complejo
+3. [ ] Verificar cumplimiento de flutter_code_basics
+```
+
+---
+
+## 🎨 Theme & UI Standards
+
+### 🎨 Theme System
+```dart
+// ✅ ALWAYS USE
+Theme.of(context).colorScheme.primary
+Theme.of(context).textTheme.bodyLarge
+AppTheme.primaryColor
+
+// ❌ NEVER USE
+Colors.black
+Colors.white
+TextStyle(color: Colors.red)
+```
+
+### 🧩 Widget Creation Guidelines
+```dart
+// ✅ CORRECT: const constructors, theme usage
+class CustomWidget extends StatelessWidget {
+  final String text;
+  
+  const CustomWidget({super.key, required this.text});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+    );
+  }
+}
+```
+
+---
+
+## 🔄 BLoC/Cubit Patterns
+
+### 📊 State Management Rules
+```dart
+// ✅ CORRECT: BLoC with Equatable and fpdart
+class UserBloc extends Bloc<UserEvent, UserState> {
+  final GetUserUseCase getUserUseCase;
+  
+  UserBloc({required this.getUserUseCase}) : super(const UserState.initial()) {
+    on<GetUserEvent>(_onGetUser);
+  }
+  
+  Future<void> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
+    emit(const UserState.loading());
+    
+    final result = await getUserUseCase(event.userId);
+    
+    result.fold(
+      (failure) {
+        logger.e('Failed to get user', error: failure);
+        emit(UserState.error(failure));
+      },
+      (user) {
+        logger.i('User loaded successfully: ${user.id}');
+        emit(UserState.loaded(user));
+      },
+    );
+  }
+}
+
+// ✅ CORRECT: States with Equatable
+abstract class UserState extends Equatable {
+  const UserState();
+  
+  @override
+  List<Object> get props => [];
+}
+```
+
+---
+
+## 🔧 Dependency Injection Pattern
+
+### 💉 GetIt Configuration
+```dart
+// En lib/core/injection.dart
+Future<void> configureDependencies() async {
+  // Data Layer - Singletons
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(remoteDataSource: getIt()),
+  );
+  
+  // Domain Layer - Singletons
+  getIt.registerLazySingleton<GetUserUseCase>(
+    () => GetUserUseCase(repository: getIt()),
+  );
+  
+  // Presentation Layer - Factories
+  getIt.registerFactory<UserBloc>(
+    () => UserBloc(getUserUseCase: getIt()),
+  );
+}
+```
+
+---
+
+## 📝 Logging Standards
+
+### 🔍 Logger Usage
+```dart
+// ✅ ALWAYS USE logger service
+logger.d('Debug information');
+logger.i('Information message');
+logger.w('Warning message');
+logger.e('Error occurred', error: e, stackTrace: StackTrace.current);
+
+// ❌ NEVER USE print
+print('Debug message'); // PROHIBITED
+```
+
+---
+
+## 🚨 Error Handling
+
+### ⚠️ fpdart Error Management
+```dart
+// ✅ CORRECT: Repository with Either
+abstract class UserRepository {
+  Future<Either<Failure, User>> getUser(String id);
+}
+
+// ✅ CORRECT: Failure hierarchy
+abstract class Failure extends Equatable {
+  final String message;
+  const Failure(this.message);
+  
+  @override
+  List<Object> get props => [message];
+}
+
+class ServerFailure extends Failure {
+  const ServerFailure(String message) : super(message);
+}
+```
+
+---
+
+## 🎯 Code Quality Rules
+
+### 📏 Standards
+- **Line length**: Máximo 80 caracteres
+- **Function size**: Máximo 30 líneas
+- **SOLID principles**: Aplicar en todas las capas
+- **Naming**: camelCase para variables, PascalCase para classes
+- **Documentation**: JSDoc para public APIs
+
+### 🔍 Performance Guidelines
+- Usar `const` constructors
+- Implementar `ListView.builder` para listas grandes
+- Aplicar `BlocBuilder` con `buildWhen` para rebuilds selectivos
+- Usar `precacheImage` para imágenes críticas
+
+---
+
+## 📱 Platform Configuration
+
+### 🔧 Development Environment
+- **Flutter Version**: Latest stable
+- **Dart Version**: Latest stable
+- **IDE**: VS Code / Android Studio con extensiones Flutter
+- **Linting**: flutter_lints + custom rules
+
+### 📦 Core Dependencies
+```yaml
+dependencies:
+  flutter_bloc: ^8.x.x
+  equatable: ^2.x.x
+  fpdart: ^1.x.x
+  get_it: ^7.x.x
+  go_router: ^13.x.x
+  dio: ^5.x.x
+  logger: ^2.x.x
+```
+
+---
+
+## 🔄 Development Cycle
+
+### 🎯 Feature Development Flow
+1. **Análisis**: Leer requisitos y documentación
+2. **Diseño**: Seguir Clean Architecture patterns
+3. **Implementación**: BLoC + fpdart + logging
+5. **Documentation**: Actualizar docs si es necesario
+6. **Review**: Verificar compliance con reglas
+
+---
+
+## 📞 Support & Resources
+
+### 🔗 Quick References
+- **Internal Docs**: `docs/README.md`
+- **BLoC Patterns**: `docs/bloc_good_practices.md`
+- **Error Handling**: `docs/error_handling_flow.md`
+- **Architecture**: `docs/feature_architecture.md`
+
+### 📚 External Links
+- [Flutter Docs](https://docs.flutter.dev/)
+- [BLoC Library](https://bloclibrary.dev/)
+- [fpdart Package](https://pub.dev/packages/fpdart)
+- [GetIt Package](https://pub.dev/packages/get_it)
+
+---
+
+## @todo
+
+- [ ] Implementar Assets management system
+- [ ] Crear shared widgets library
+- [ ] Establecer CI/CD pipeline
+- [ ] Implementar performance monitoring
+
+---
+
+**Configuración mantenida por**: Equipo Whitelabel App  
+**Última actualización**: Setup completo de workspace con Clean Architecture

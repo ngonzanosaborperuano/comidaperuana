@@ -1,0 +1,411 @@
+---
+description: Mejores prácticas específicas de Flutter para Clean Architecture con BLoC/Cubit y fpdart
+globs:
+alwaysApply: true
+---
+
+# Rule: flutter_best_practices
+
+## Objective
+
+Asegurar que todo el código Flutter siga las mejores prácticas de la industria, optimizado para Clean Architecture, BLoC/Cubit y programación funcional.
+
+---
+
+## Core Architecture Principles
+
+### Clean Architecture & Feature-First Organization
+- **OBLIGATORIO**: Organizar código por features en lugar de capas técnicas
+- **OBLIGATORIO**: Cada feature debe ser auto-contenida con todas las capas
+- **OBLIGATORIO**: Minimizar dependencias entre features
+- **OBLIGATORIO**: Código compartido va en `core/` o `shared/`
+
+### Estructura por Feature
+```
+lib/
+├── core/                          # Código compartido
+│   ├── constants/                 # Constantes globales
+│   ├── services/                  # Servicios (logging, etc.)
+│   ├── theme/                     # Sistema de tema
+│   └── injection.dart             # Dependency injection
+├── features/                      # Todas las features
+│   ├── auth/                      # Feature de autenticación
+│   │   ├── data/                  # Capa de datos
+│   │   │   ├── datasources/       # Data sources (remote/local)
+│   │   │   ├── models/            # DTOs y modelos de datos
+│   │   │   └── repositories/      # Implementaciones de repositorios
+│   │   ├── domain/                # Capa de dominio
+│   │   │   ├── entities/          # Objetos de negocio
+│   │   │   ├── repositories/      # Interfaces de repositorios
+│   │   │   └── usecases/          # Casos de uso
+│   │   └── presentation/          # Capa de presentación
+│   │       ├── blocs/             # BLoCs y Cubits
+│   │       ├── pages/             # Pantallas
+│   │       └── widgets/           # Widgets específicos
+└── shared/                        # Widgets y utilities compartidos
+    ├── widgets/                   # Widgets reutilizables
+    └── constants/                 # Assets, etc.
+```
+
+---
+
+## State Management Best Practices
+
+### BLoC/Cubit Guidelines
+- **Usa BLoC** para lógica compleja y eventos múltiples
+- **Usa Cubit** para estados simples y cambios directos
+- **OBLIGATORIO**: Implementar `Equatable` en todos los States y Events
+- **OBLIGATORIO**: Usar `Freezed` para states immutables cuando sea apropiado
+- **OBLIGATORIO**: Manejar loading, error y success states explícitamente
+
+### Event/State Design
+```dart
+// ✅ CORRECTO: Estados granulares y descriptivos
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.initial() = _Initial;
+  const factory AuthState.loading() = _Loading;
+  const factory AuthState.authenticated(User user) = _Authenticated;
+  const factory AuthState.unauthenticated() = _Unauthenticated;
+  const factory AuthState.error(Failure failure) = _Error;
+}
+
+// ✅ CORRECTO: Eventos claros y tipados
+@freezed
+class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.login(String email, String password) = _Login;
+  const factory AuthEvent.logout() = _Logout;
+  const factory AuthEvent.checkAuthStatus() = _CheckAuthStatus;
+}
+```
+
+### BLoC Optimization
+```dart
+// ✅ CORRECTO: BlocBuilder con buildWhen para rebuilds selectivos
+BlocBuilder<WalletCubit, WalletState>(
+  buildWhen: (previous, current) {
+    // Solo rebuild cuando balance cambia
+    return previous.maybeWhen(
+      loaded: (prevWallet) => current.maybeWhen(
+        loaded: (currWallet) => prevWallet.balance != currWallet.balance,
+        orElse: () => true,
+      ),
+      orElse: () => true,
+    );
+  },
+  builder: (context, state) => state.when(
+    loading: () => const CircularProgressIndicator(),
+    loaded: (wallet) => BalanceWidget(balance: wallet.balance),
+    error: (failure) => ErrorWidget(failure: failure),
+    orElse: () => const SizedBox(),
+  ),
+)
+
+// ✅ CORRECTO: BlocListener para side effects
+BlocListener<AuthCubit, AuthState>(
+  listenWhen: (previous, current) => 
+    current.maybeWhen(
+      unauthenticated: () => true,
+      orElse: () => false,
+    ),
+  listener: (context, state) {
+    context.go(AppRoutes.login);
+  },
+  child: child,
+)
+```
+
+---
+
+## Functional Programming with fpdart
+
+### Error Handling
+- **OBLIGATORIO**: Usar `Either<Failure, T>` para operaciones que pueden fallar
+- **OBLIGATORIO**: Usar `Option<T>` para valores opcionales
+- **OBLIGATORIO**: Usar `Task<T>` para operaciones asíncronas complejas
+- **PROHIBIDO**: Usar excepciones para control de flujo
+
+### Repository Pattern con fpdart
+```dart
+// ✅ CORRECTO: Repository interface
+abstract class UserRepository {
+  Future<Either<Failure, User>> getUser(String id);
+  Future<Either<Failure, List<User>>> getUsers();
+  Future<Either<Failure, Unit>> saveUser(User user);
+}
+
+// ✅ CORRECTO: Repository implementation
+class UserRepositoryImpl implements UserRepository {
+  final UserRemoteDataSource remoteDataSource;
+  final UserLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
+
+  @override
+  Future<Either<Failure, User>> getUser(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final user = await remoteDataSource.getUser(id);
+        await localDataSource.cacheUser(user);
+        return Right(user.toDomain());
+      } on ServerException catch (e) {
+        logger.e('Server error getting user', error: e);
+        return Left(ServerFailure('Failed to get user: ${e.message}'));
+      }
+    } else {
+      try {
+        final user = await localDataSource.getLastUser();
+        return Right(user.toDomain());
+      } on CacheException catch (e) {
+        logger.e('Cache error getting user', error: e);
+        return Left(CacheFailure('No cached user available'));
+      }
+    }
+  }
+}
+```
+
+### Use Cases con fpdart
+```dart
+// ✅ CORRECTO: Use Case base
+abstract class UseCase<Type, Params> {
+  Future<Either<Failure, Type>> call(Params params);
+}
+
+// ✅ CORRECTO: Use Case implementation
+class GetUserUseCase implements UseCase<User, String> {
+  final UserRepository repository;
+
+  GetUserUseCase({required this.repository});
+
+  @override
+  Future<Either<Failure, User>> call(String userId) async {
+    return await repository.getUser(userId);
+  }
+}
+```
+
+---
+
+## Performance & Code Quality
+
+### Widget Best Practices
+```dart
+// ✅ CORRECTO: const constructors para widgets immutables
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  
+  const CustomButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: Theme.of(context).elevatedButtonTheme.style,
+      child: Text(text),
+    );
+  }
+}
+
+// ✅ CORRECTO: Widgets privados en lugar de métodos
+class _LoadingIndicator extends StatelessWidget {
+  const _LoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+// ❌ INCORRECTO: Métodos que retornan widgets
+Widget _buildLoadingIndicator() {
+  return const Center(child: CircularProgressIndicator());
+}
+```
+
+### List Performance
+```dart
+// ✅ CORRECTO: ListView.builder para listas grandes
+ListView.builder(
+  itemCount: items.length,
+  itemBuilder: (context, index) {
+    final item = items[index];
+    return ItemWidget(
+      key: ValueKey(item.id), // ✅ Key para performance
+      item: item,
+    );
+  },
+)
+
+// ✅ CORRECTO: Separated para listas con separadores
+ListView.separated(
+  itemCount: items.length,
+  separatorBuilder: (context, index) => const Divider(),
+  itemBuilder: (context, index) => ItemWidget(item: items[index]),
+)
+```
+
+### Image Optimization
+```dart
+// ✅ CORRECTO: Cached network images con placeholder
+CachedNetworkImage(
+  imageUrl: user.avatarUrl,
+  placeholder: (context, url) => const CircularProgressIndicator(),
+  errorWidget: (context, url, error) => const Icon(Icons.person),
+  fit: BoxFit.cover,
+  memCacheWidth: 200, // Resize para eficiencia de memoria
+  memCacheHeight: 200,
+)
+
+// ✅ CORRECTO: Precargar imágenes críticas
+void preloadImages(BuildContext context) {
+  precacheImage(const AssetImage('assets/images/logo.png'), context);
+  precacheImage(const AssetImage('assets/images/background.png'), context);
+}
+```
+
+---
+
+## UI/UX Best Practices
+
+### Responsive Design
+```dart
+// ✅ CORRECTO: Responsive layout
+class ResponsiveWidget extends StatelessWidget {
+  final Widget mobile;
+  final Widget tablet;
+  final Widget desktop;
+  
+  const ResponsiveWidget({
+    super.key,
+    required this.mobile,
+    required this.tablet,
+    required this.desktop,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          return mobile;
+        } else if (constraints.maxWidth < 1200) {
+          return tablet;
+        } else {
+          return desktop;
+        }
+      },
+    );
+  }
+}
+```
+
+### Form Handling
+```dart
+// ✅ CORRECTO: Form con validation
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            validator: (value) => value?.isEmpty ?? true ? 'Email required' : null,
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              hintText: 'Enter your email',
+            ),
+          ),
+          TextFormField(
+            controller: _passwordController,
+            obscureText: true,
+            textInputAction: TextInputAction.done,
+            validator: (value) => value?.isEmpty ?? true ? 'Password required' : null,
+            decoration: const InputDecoration(
+              labelText: 'Password',
+              hintText: 'Enter your password',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+---
+
+## Code Quality Standards
+
+### Naming Conventions
+- **Classes**: PascalCase (UserBloc, AuthService)
+- **Variables/Methods**: camelCase (getUserData, isLoading)
+- **Constants**: SCREAMING_SNAKE_CASE (API_BASE_URL)
+- **Files**: snake_case (user_bloc.dart, auth_service.dart)
+
+### Documentation
+```dart
+// ✅ CORRECTO: Documentación clara y concisa
+/// Service responsible for managing user authentication state.
+/// 
+/// Handles login, logout, and token refresh operations.
+/// Integrates with Firebase Auth for authentication flow.
+class AuthService {
+  /// Authenticates user with email and password.
+  /// 
+  /// Returns [Either] with [AuthFailure] on error or [User] on success.
+  /// Automatically stores auth tokens in secure storage.
+  Future<Either<AuthFailure, User>> login({
+    required String email,
+    required String password,
+  }) async {
+    // Implementation
+  }
+}
+```
+
+### Line Length & Formatting
+- **Máximo 80 caracteres por línea**
+- **Usar trailing commas** para mejor formatting
+- **Mantener funciones pequeñas** (máximo 30 líneas)
+- **Aplicar SOLID principles** en toda la base de código
+
+---
+
+## @todo
+
+- Documentar patrones de navegación complejos
+- Establecer guidelines para manejo de assets
+- Definir estrategias de caching
+
+---
+
+**Última actualización:** Creación de mejores prácticas para Clean Architecture con BLoC/fpdart

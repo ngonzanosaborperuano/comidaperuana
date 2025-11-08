@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:recetasperuanas/src/shared/core/result/app_result.dart';
 
 /// Base saga step
@@ -83,7 +84,7 @@ abstract class Saga {
       try {
         await steps[i].compensate();
       } catch (e) {
-        print('Error compensating step: $e');
+        Logger('Saga').severe('Error compensating step', e);
       }
     }
   }
@@ -139,27 +140,28 @@ class LoggingSagaStep implements SagaStep {
 
   final SagaStep _step;
   final String _name;
+  static final Logger _logger = Logger('LoggingSagaStep');
 
   @override
   Future<AppResult<void>> execute() async {
-    print('Executing saga step: $_name');
+    _logger.info('Executing saga step: $_name');
     final result = await _step.execute();
     if (result.isSuccess) {
-      print('Saga step $_name executed successfully');
+      _logger.info('Saga step $_name executed successfully');
     } else {
-      print('Saga step $_name failed: ${result.errorMessage}');
+      _logger.severe('Saga step $_name failed: ${result.errorMessage}');
     }
     return result;
   }
 
   @override
   Future<AppResult<void>> compensate() async {
-    print('Compensating saga step: $_name');
+    _logger.info('Compensating saga step: $_name');
     final result = await _step.compensate();
     if (result.isSuccess) {
-      print('Saga step $_name compensated successfully');
+      _logger.info('Saga step $_name compensated successfully');
     } else {
-      print('Saga step $_name compensation failed: ${result.errorMessage}');
+      _logger.severe('Saga step $_name compensation failed: ${result.errorMessage}');
     }
     return result;
   }

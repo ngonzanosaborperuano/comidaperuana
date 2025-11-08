@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:logging/logging.dart';
 
 /// Base domain event
 abstract class DomainEvent extends Equatable {
@@ -107,11 +108,12 @@ class LoggingEventHandler<T extends DomainEvent> implements EventHandler<T> {
   const LoggingEventHandler(this._handler);
 
   final EventHandler<T> _handler;
+  static final Logger _logger = Logger('LoggingEventHandler');
 
   @override
   Future<void> handle(T event) async {
-    print('Handling event: ${event.runtimeType} for aggregate: ${event.aggregateId}');
+    _logger.info('Handling event: ${event.runtimeType} for aggregate: ${event.aggregateId}');
     await _handler.handle(event);
-    print('Event handled successfully');
+    _logger.info('Event handled successfully');
   }
 }

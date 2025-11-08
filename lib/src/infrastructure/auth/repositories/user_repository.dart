@@ -10,7 +10,7 @@ import 'package:recetasperuanas/src/shared/storage/secure_storage/securete_stora
 
 class UserRepository extends BaseRepository implements IUserRepository {
   UserRepository({
-    required ApiService apiService,
+    required ApiServiceImpl apiService,
     FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
     ISecureStorageService? secureStorage,
@@ -19,7 +19,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: <String>['email', 'profile']),
        secureStorageService = secureStorage ?? SecurityStorageService();
 
-  final ApiService _apiService;
+  final ApiServiceImpl _apiService;
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
   final ISecureStorageService secureStorageService;

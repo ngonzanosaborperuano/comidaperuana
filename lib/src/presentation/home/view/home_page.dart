@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
 import 'package:recetasperuanas/src/infrastructure/shared/database/database_helper.dart';
 import 'package:recetasperuanas/src/infrastructure/shared/network/api_service.dart';
@@ -10,11 +11,20 @@ import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
 import 'package:recetasperuanas/src/shared/repository/task_repository.dart';
 import 'package:recetasperuanas/src/shared/widget/widget.dart';
 
+/// Pantalla principal del inicio de la aplicación.
+///
+/// Usa BLoC para la lógica de búsqueda y muestra un `AppScaffold` con
+/// barra de búsqueda por voz. Esta vista no debe contener lógica de
+/// negocio; delega en `HomeBloc`.
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  /// Creador de ruta para sistemas de navegación declarativa.
   factory HomePage.routeBuilder(_, _) {
     return const HomePage(key: Key('home_page'));
   }
+
+  /// Muestra la vista como un diálogo adaptativo y retorna el resultado.
   Future<bool?> show(BuildContext context) async {
     return showAdaptiveDialog<bool>(context: context, builder: (context) => this);
   }
@@ -24,6 +34,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static final Logger _logger = Logger('HomePage');
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -76,16 +87,16 @@ class _HomePageState extends State<HomePage> {
                                     hintText: context.loc.searchRecipe,
                                     controller: searchController,
                                     onSaved: (value) {
-                                      print('onSaved: $value');
+                                      _logger.info('onSaved: $value');
                                     },
                                     onChanged: (value) {
-                                      print('onChanged: $value');
+                                      _logger.fine('onChanged: $value');
                                       // Usar el BLoC para buscar
                                       context.read<HomeBloc>().add(HomeSearchTask(value));
                                     },
                                     maxLines: 1,
                                     onListeningChanged: (value) {
-                                      print('onListeningChanged: $value');
+                                      _logger.fine('onListeningChanged: $value');
                                       isListening.value = value;
                                     },
                                   ),

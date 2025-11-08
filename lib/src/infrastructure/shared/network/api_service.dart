@@ -178,3 +178,52 @@ class ApiService {
     return 'Error desconocido en la respuesta';
   }
 }
+
+// falta sus clases abstractas y sus implementaciones
+abstract class ApiServiceImpl extends ApiService {
+  @override
+  Future<ApiResponse<List<T>>> getList<T>({
+    required String endpoint,
+    required FromJson<T> fromJson,
+    Map<String, dynamic>? queryParameters,
+    String? authorization,
+  });
+
+  @override
+  Future<ApiResponse<T?>> get<T>({
+    required String endpoint,
+    required FromJson<T> fromJson,
+    Map<String, dynamic>? queryParameters,
+    String? authorization,
+  });
+
+  @override
+  Future<ApiResponse<T?>> post<T>({
+    required String endpoint,
+    Map<String, dynamic>? body,
+    String? authorization,
+    required FromJson<T> fromJson,
+    bool isLogout = false,
+  });
+
+  @override
+  Future<ApiResponse<dynamic>> put({
+    required String endpoint,
+    Map<String, dynamic>? data,
+    String? authorization,
+  });
+
+  @override
+  Future<ApiResponse<dynamic>> putList({
+    required String endpoint,
+    required List<Map<String, dynamic>> data,
+    String? authorization,
+  });
+
+  @override
+  Future<ApiResponse<dynamic>> delete({
+    required String endpoint,
+    Map<String, dynamic>? data,
+    String? authorization,
+  });
+}

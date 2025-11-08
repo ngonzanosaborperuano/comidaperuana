@@ -1,0 +1,443 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Rule: flutter_code_basics
+
+## Objective
+
+Ensure that all Flutter/Dart code written in this project follows these fundamental best practices:
+
+---
+
+### 0. OBLIGATORIO: Consultar Documentación Técnica PRIMERO
+
+- **ANTES de crear CUALQUIER componente, servicio, utilidad o widget**, SIEMPRE consultar la documentación técnica en `docs/`:
+  - **`docs/README.md`** - Índice general de todos los componentes
+  - **Archivos específicos** según lo que necesites implementar
+- **Verificar si ya existe funcionalidad similar** y reutilizar en lugar de duplicar
+- **Usar utilidades existentes** como ValidationUtils, DateUtils, AppConstants, etc.
+- **Seguir patrones establecidos** documentados en cada archivo .md
+
+---
+
+### 1. Architecture & State Management
+
+- **OBLIGATORIO**: Usar **Clean Architecture** con capas Presentation → Domain → Data
+- **OBLIGATORIO**: Usar **BLoC/Cubit** para manejo de estado (NUNCA setState o Provider)
+- **OBLIGATORIO**: Implementar **Equatable** en States y Events
+- **OBLIGATORIO**: Usar **fpdart** para programación funcional:
+  - `Either<Failure, Success>` para manejo de errores
+  - `Option<T>` para valores opcionales
+  - `Task<T>` para operaciones asíncronas
+- **OBLIGATORIO**: **NO mezclar state managers** - usar SOLO Cubit o BLoC, nunca ambos en la misma feature
+
+### 2. Widget Structure & File Management
+
+- **OBLIGATORIO**: **Evitar StatefulWidgets** siempre que sea posible para optimizar operaciones de la app
+- **OBLIGATORIO**: Usar **BLoC/Cubit** para manejar cambios de estado cuando sea necesario
+- **OBLIGATORIO**: **Mantener archivos entre 350-400 líneas de código** máximo
+- **OBLIGATORIO**: **Mantener archivos limpios** y dividir secciones de una vista en diferentes StatelessWidgets
+- **OBLIGATORIO**: Hacer widgets **privados** si es necesario y **separar en archivos** si es requerido
+- **OBLIGATORIO**: **NO mezclar state managers** - usar SOLO Cubit o BLoC
+
+### 3. Dependency Injection
+
+- **OBLIGATORIO**: Registrar todas las dependencias en `@injection.dart`
+- Usar **Lazy Singletons** para servicios compartidos
+- Usar **Factories** para BLoCs/Cubits
+- Seguir el orden: Data → Domain → Presentation
+
+### 4. Logging
+
+- **OBLIGATORIO**: Usar **`@log_service.dart`** SIEMPRE en lugar de `print()`
+- Usar niveles apropiados: `logger.d()`, `logger.i()`, `logger.w()`, `logger.e()`
+- Logear errores con contexto completo en try-catch blocks
+- Logear cambios de estado en BLoCs/Cubits para debugging
+
+### 5. Navigation & Routing
+
+- **OBLIGATORIO**: Usar el sistema de rutas definido en `@router/`
+- Definir nuevas rutas en `AppRoutes` siguiendo el patrón existente
+- Navegar con `context.go()` y `context.push()` de GoRouter
+- Implementar redirects para autenticación cuando sea necesario
+
+### 6. Theme System
+
+- **OBLIGATORIO**: Usar **SIEMPRE** `@app_theme.dart` para colores y estilos
+- **PROHIBIDO**: Usar `Colors.black`, `Colors.white`, `Colors.red`, etc.
+- **CORRECTO**: Usar `Theme.of(context).colorScheme.primary`, `AppTheme.primaryColor`, etc.
+- **CORRECTO**: Usar `Theme.of(context).textTheme.bodyLarge`, `AppTheme.textTheme`, etc.
+- Si necesitas un nuevo color, agrégalo a `AppTheme` en lugar de hardcodearlo
+
+### 7. Asset Centralization
+
+- **OBLIGATORIO**: Todos los assets (imágenes, iconos, etc.) deben accederse SOLO a través de la clase `Assets`
+- **PROHIBIDO**: Uso directo de paths de archivos en widgets (`'assets/images/logo.png'`)
+- **OBLIGATORIO**: Cada nuevo asset debe declararse como constante en la clase `Assets`
+- Ubicación: `lib/shared/constants/assets.dart` (cuando se implemente)
+
+### 8. Environment Variables
+
+- **OBLIGATORIO**: Agregar nuevas variables a `.env` y `.env.example`
+- **OBLIGATORIO**: Declararlas en `@env_config.dart` para acceso centralizado (cuando se implemente)
+
+## Compliance Examples
+
+### ✅ CORRECTO - BLoC/Cubit con fpdart
+
+```dart
+// BLoC con Equatable y fpdart
+class UserBloc extends Bloc<UserEvent, UserState> {
+  final GetUserUseCase getUserUseCase;
+  
+  UserBloc({required this.getUserUseCase}) : super(const UserState.initial()) {
+    on<GetUserEvent>(_onGetUser);
+  }
+  
+  Future<void> _onGetUser(UserEvent event, Emitter<UserState> emit) async {
+    emit(const UserState.loading());
+    
+    final result = await getUserUseCase(event.userId);
+    
+    result.fold(
+      (failure) {
+        logger.e('Failed to get user', error: failure);
+        emit(UserState.error(failure));
+      },
+      (user) {
+        logger.i('User loaded successfully: ${user.id}');
+        emit(UserState.loaded(user));
+      },
+    );
+  }
+}
+
+// State con Equatable
+abstract class UserState extends Equatable {
+  const UserState();
+  
+  @override
+  List<Object> get props => [];
+}
+
+class UserInitial extends UserState {
+  const UserInitial();
+}
+
+class UserLoading extends UserState {
+  const UserLoading();
+}
+
+class UserLoaded extends UserState {
+  final User user;
+  
+  const UserLoaded(this.user);
+  
+  @override
+  List<Object> get props => [user];
+}
+
+class UserError extends UserState {
+  final Failure failure;
+  
+  const UserError(this.failure);
+  
+  @override
+  List<Object> get props => [failure];
+}
+
+// Repository con fpdart
+abstract class UserRepository {
+  Future<Either<Failure, User>> getUser(String id);
+}
+
+class UserRepositoryImpl implements UserRepository {
+  final UserRemoteDataSource remoteDataSource;
+  
+  UserRepositoryImpl({required this.remoteDataSource});
+  
+  @override
+  Future<Either<Failure, User>> getUser(String id) async {
+    try {
+      final user = await remoteDataSource.getUser(id);
+      return Right(user);
+    } on ServerException catch (e) {
+      logger.e('Server error getting user', error: e);
+      return Left(ServerFailure('Failed to get user: ${e.message}'));
+    } catch (e) {
+      logger.e('Unexpected error getting user', error: e);
+      return Left(UnknownFailure('Unexpected error occurred'));
+    }
+  }
+}
+```
+
+### ✅ CORRECTO - Widget Structure & File Management
+
+```dart
+// ✅ CORRECTO: Dividir vistas complejas en widgets separados
+class UserProfileScreen extends StatelessWidget {
+  const UserProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _UserProfileAppBar(),
+      body: Column(
+        children: [
+          _UserProfileHeader(),
+          _UserProfileDetails(),
+          _UserProfileActions(),
+        ],
+      ),
+    );
+  }
+}
+
+// ✅ CORRECTO: Widgets privados separados en el mismo archivo
+class _UserProfileHeader extends StatelessWidget {
+  const _UserProfileHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          _ProfileAvatar(),
+          _ProfileName(),
+        ],
+      ),
+    );
+  }
+}
+
+// ✅ CORRECTO: Form usando StatelessWidget con BLoC
+class LoginForm extends StatelessWidget {
+  const LoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        return Form(
+          child: Column(
+            children: [
+              _EmailField(),
+              _PasswordField(),
+              _LoginButton(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ✅ CORRECTO: Campos separados en widgets privados
+class _EmailField extends StatelessWidget {
+  const _EmailField();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      buildWhen: (previous, current) => 
+        previous.email != current.email,
+      builder: (context, state) {
+        return TextFormField(
+          onChanged: (email) => context.read<AuthBloc>().add(
+            AuthEvent.emailChanged(email),
+          ),
+          decoration: const InputDecoration(
+            labelText: 'Email',
+            hintText: 'Enter your email',
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+### ✅ CORRECTO - UI con Theme System
+
+```dart
+// Usando theme system correctamente
+class UserProfileWidget extends StatelessWidget {
+  final User user;
+  
+  const UserProfileWidget({super.key, required this.user});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // ✅ CORRECTO: Usar theme
+      color: Theme.of(context).colorScheme.surface,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Text(
+            user.name,
+            // ✅ CORRECTO: Usar textTheme
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          Text(
+            user.email,
+            // ✅ CORRECTO: Usar textTheme
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          // ✅ CORRECTO: Usar Assets cuando se implemente
+          // Image.asset(Assets.userPlaceholder),
+        ],
+      ),
+    );
+  }
+}
+```
+
+### ✅ CORRECTO - Dependency Injection
+
+```dart
+// En injection.dart
+Future<void> configureDependencies() async {
+  // Data Layer
+  getIt.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(client: getIt()),
+  );
+  
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(remoteDataSource: getIt()),
+  );
+  
+  // Domain Layer
+  getIt.registerLazySingleton<GetUserUseCase>(
+    () => GetUserUseCase(repository: getIt()),
+  );
+  
+  // Presentation Layer
+  getIt.registerFactory<UserBloc>(
+    () => UserBloc(getUserUseCase: getIt()),
+  );
+}
+```
+
+### ❌ INCORRECTO - Qué NO hacer
+
+```dart
+// ❌ NO usar setState
+setState(() {
+  _counter++;
+});
+
+// ❌ NO usar Provider
+Provider.of<MyProvider>(context);
+
+// ❌ NO usar colors hardcodeados
+Container(color: Colors.black);
+Text('Hello', style: TextStyle(color: Colors.red));
+
+// ❌ NO usar print
+print('Debug message');
+
+// ❌ NO usar asset paths directos
+Image.asset('assets/images/logo.png');
+
+// ❌ NO usar excepciones sin Either
+throw Exception('Something went wrong');
+
+// ❌ NO usar StatefulWidget cuando se puede usar StatelessWidget + BLoC
+class BadWidget extends StatefulWidget {
+  @override
+  _BadWidgetState createState() => _BadWidgetState();
+}
+
+// ❌ NO crear widgets extremadamente grandes en un solo archivo
+// ❌ NO mezclar StatefulWidget con BLoC/Cubit
+// ❌ NO exceder 400 líneas por archivo
+```
+
+---
+
+## File Structure Guidelines
+
+### Widget Separation Strategy
+```dart
+// ✅ CORRECTO: Archivo principal con widgets separados
+// user_profile_screen.dart (máximo 400 líneas)
+
+class UserProfileScreen extends StatelessWidget {
+  // Main screen logic
+}
+
+class _UserProfileHeader extends StatelessWidget {
+  // Header widget
+}
+
+class _UserProfileDetails extends StatelessWidget {
+  // Details widget
+}
+
+// Si el archivo excede 400 líneas, separar en archivos:
+// _user_profile_header.dart
+// _user_profile_details.dart
+// _user_profile_actions.dart
+```
+
+### State Manager Consistency
+```dart
+// ✅ CORRECTO: Usar SOLO BLoC en toda la feature
+class UserFeature {
+  // UserBloc para lógica compleja
+  // UserRepository para datos
+  // UserUseCase para operaciones
+}
+
+// ✅ CORRECTO: Usar SOLO Cubit en toda la feature
+class SettingsFeature {
+  // SettingsCubit para lógica simple
+  // SettingsRepository para datos
+  // SettingsUseCase para operaciones
+}
+
+// ❌ INCORRECTO: Mezclar BLoC y Cubit
+class MixedFeature {
+  // UserBloc para usuarios
+  // SettingsCubit para configuraciones
+  // ❌ NO hacer esto
+}
+```
+
+---
+
+### 5. Actualización de Documentación (OBLIGATORIO)
+
+- **Después de implementar CUALQUIER componente nuevo**:
+  - Actualizar el archivo .md correspondiente en `docs/`
+  - Actualizar `docs/README.md` si es necesario
+  - Documentar ubicación, descripción y ejemplos de uso
+
+## Workflow Best Practices
+
+- **Keep going until the job is completely solved before ending your turn.**
+- **If you are unsure about code or files, open them – do not hallucinate.**
+- **Plan thoroughly before every tool call and reflect on the outcome after.**
+- **SIEMPRE consultar `docs/` antes de crear código nuevo.**
+- **SIEMPRE actualizar documentación después de implementar.**
+- **SIEMPRE mantener archivos entre 350-400 líneas.**
+- **SIEMPRE evitar StatefulWidgets cuando sea posible.**
+- **SIEMPRE usar SOLO un tipo de state manager por feature.**
+
+---
+
+## @todo
+
+Review and update this rule if new global utilities are added or the configuration architecture changes.
+- Implementar sistema de métricas para calidad de código
+- Crear templates para widgets separados
+- Establecer guidelines para separación de archivos
+- Documentar patrones de widget composition
