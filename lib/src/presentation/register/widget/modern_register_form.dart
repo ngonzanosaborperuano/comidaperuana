@@ -267,12 +267,15 @@ class InputFieldsWidget extends StatelessWidget {
   String? _validatePassword(String? value, BuildContext context) {
     if (value == null || value.isEmpty) return context.loc.validateEmpty;
     if (value.length < 8) return 'La contraseña debe tener al menos 8 caracteres';
-    if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value))
+    if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value)) {
       return 'La contraseña debe contener al menos una mayúscula';
-    if (!RegExp(r'^(?=.*[a-z])').hasMatch(value))
+    }
+    if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
       return 'La contraseña debe contener al menos una minúscula';
-    if (!RegExp(r'^(?=.*\d)').hasMatch(value))
+    }
+    if (!RegExp(r'^(?=.*\d)').hasMatch(value)) {
       return 'La contraseña debe contener al menos un número';
+    }
     return null;
   }
 }
