@@ -18,6 +18,34 @@ class GeminiAIService {
     ImagenPersonFilterLevel.allowAdult,
   );
   final RemoteConfigService _configService;
+
+  /// Obtiene el cliente de AI (Vertex AI o Google AI) según la configuración.
+  ///
+  /// Vertex AI requiere:
+  /// 1. Facturación habilitada en Google Cloud
+  /// 2. API de Vertex AI habilitada
+  /// 3. Configuración de location (ej: "us-central1")
+  ///
+  /// Google AI es gratuito pero tiene limitaciones.
+  FirebaseAI _getAIClient() {
+    final useVertexAI = _configService.getString("use_vertex_ai").toLowerCase() == "true";
+
+    if (useVertexAI) {
+      final location = _configService.getString("vertex_location");
+      if (location.isEmpty) {
+        log(
+          "⚠️ Vertex AI configurado pero vertex_location está vacío. Usando us-central1 por defecto.",
+        );
+        return FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: "us-central1");
+      }
+      log("✅ Usando Vertex AI con location: $location");
+      return FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: location);
+    } else {
+      log("ℹ️ Usando Google AI (gratis, sin facturación)");
+      return FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
+    }
+  }
+
   final jsonSchema = Schema.object(
     description: 'Respuesta estructurada para una receta de cocina enriquecida.',
     properties: {
@@ -220,7 +248,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
+    final ai = _getAIClient();
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
@@ -255,7 +283,7 @@ class GeminiAIService {
       return "";
     }
 
-    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
+    final ai = _getAIClient();
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
@@ -287,7 +315,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
+    final ai = _getAIClient();
     final model = ai.generativeModel(
       model: modelName,
       safetySettings: safetySettings,
@@ -322,7 +350,8 @@ class GeminiAIService {
       return "";
     }
 
-    final model = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final ai = _getAIClient();
+    final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       safetySettings: safetySettings,
@@ -346,7 +375,8 @@ class GeminiAIService {
     final systemInstructions = _configService.getString("system_instructions");
     final promptText = _configService.getString("prompt_text_to_text");
 
-    final model = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final ai = _getAIClient();
+    final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
@@ -358,27 +388,33 @@ class GeminiAIService {
     return response.text ?? "";
   }
 
-  /// ⚠️ NOTA: Esta función requiere Vertex AI (facturación habilitada).
-  /// Para usar sin facturación, considera usar una alternativa de generación de imágenes.
+  /// Genera una imagen a partir de texto usando Vertex AI Imagen.
   ///
-  /// Alternativas:
+  /// ⚠️ NOTA: Esta función requiere Vertex AI (facturación habilitada).
+  /// imagenModel solo está disponible en Vertex AI, no en Google AI.
+  ///
+  /// Para habilitar:
   /// 1. Habilitar facturación en Google Cloud Console
-  /// 2. Usar un servicio de generación de imágenes diferente
-  /// 3. Deshabilitar esta funcionalidad temporalmente
+  /// 2. Habilitar API de Vertex AI
+  /// 3. Configurar "use_vertex_ai": "true" en Remote Config
   Future<Uint8List?> generateTextToImage({required String prompt}) async {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
-    // ⚠️ imagenModel solo está disponible en Vertex AI (requiere facturación)
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
-      model: modelName,
-      safetySettings: imagenSafetySettings,
-      generationConfig: ImagenGenerationConfig(
-        numberOfImages: 1,
-        aspectRatio: ImagenAspectRatio.landscape16x9,
-        negativePrompt: 'baja calidad, borroso, marca de agua, texto',
-      ),
-    );
+    // imagenModel solo está disponible en Vertex AI
+    final location = _configService.getString("vertex_location");
+    final vertexLocation = location.isEmpty ? "us-central1" : location;
+
+    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: vertexLocation)
+        .imagenModel(
+          model: modelName,
+          safetySettings: imagenSafetySettings,
+          generationConfig: ImagenGenerationConfig(
+            numberOfImages: 1,
+            aspectRatio: ImagenAspectRatio.landscape16x9,
+            negativePrompt: 'baja calidad, borroso, marca de agua, texto',
+          ),
+        );
     final response = await model.generateImages(prompt + promptText);
     if (response.images.isNotEmpty) {
       final image = response.images[0];
@@ -389,22 +425,28 @@ class GeminiAIService {
     }
   }
 
+  /// Genera múltiples imágenes a partir de texto usando Vertex AI Imagen.
+  ///
   /// ⚠️ NOTA: Esta función requiere Vertex AI (facturación habilitada).
-  /// Para usar sin facturación, considera usar una alternativa de generación de imágenes.
+  /// imagenModel solo está disponible en Vertex AI, no en Google AI.
   Future<List<Uint8List?>> generateTextToMoreImage({required String prompt}) async {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
-    // ⚠️ imagenModel solo está disponible en Vertex AI (requiere facturación)
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
-      model: modelName,
-      safetySettings: imagenSafetySettings,
-      generationConfig: ImagenGenerationConfig(
-        numberOfImages: 4,
-        aspectRatio: ImagenAspectRatio.landscape16x9,
-        negativePrompt: 'baja calidad, borroso, marca de agua, texto',
-      ),
-    );
+    // imagenModel solo está disponible en Vertex AI
+    final location = _configService.getString("vertex_location");
+    final vertexLocation = location.isEmpty ? "us-central1" : location;
+
+    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: vertexLocation)
+        .imagenModel(
+          model: modelName,
+          safetySettings: imagenSafetySettings,
+          generationConfig: ImagenGenerationConfig(
+            numberOfImages: 4,
+            aspectRatio: ImagenAspectRatio.landscape16x9,
+            negativePrompt: 'baja calidad, borroso, marca de agua, texto',
+          ),
+        );
     final response = await model.generateImages(prompt + promptText);
     if (response.filteredReason != null) {
       log(response.filteredReason!);
@@ -430,7 +472,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
+    final ai = _getAIClient();
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),

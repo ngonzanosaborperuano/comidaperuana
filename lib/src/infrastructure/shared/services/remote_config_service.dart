@@ -16,7 +16,8 @@ class RemoteConfigService {
       "system_instructions":
           "¡Eres un asistente útil que sabe todo lo que hay que saber sobre recetas de comida!",
       "prompt": "",
-      // "vertex_location": "us-central1",
+      "vertex_location": "us-central1", // Región para Vertex AI (requiere facturación)
+      "use_vertex_ai": "false", // Cambiar a "true" cuando se habilite facturación
     });
 
     await _remoteConfig.fetchAndActivate();
