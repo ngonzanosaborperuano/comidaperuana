@@ -63,7 +63,7 @@ List<RepositoryProvider> globalRepositoryProviders(BuildContext context) {
 
     // User Repository
     RepositoryProvider<IUserRepository>(
-      create: (context) => UserRepository(apiService: context.read<ApiServiceImpl>()),
+      create: (context) => UserRepository(apiService: context.read<ApiService>()),
     ),
   ];
 }

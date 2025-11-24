@@ -220,7 +220,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance);
+    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
@@ -255,7 +255,7 @@ class GeminiAIService {
       return "";
     }
 
-    final ai = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance);
+    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
@@ -287,7 +287,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance);
+    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
     final model = ai.generativeModel(
       model: modelName,
       safetySettings: safetySettings,
@@ -322,7 +322,7 @@ class GeminiAIService {
       return "";
     }
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final model = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance).generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       safetySettings: safetySettings,
@@ -346,7 +346,7 @@ class GeminiAIService {
     final systemInstructions = _configService.getString("system_instructions");
     final promptText = _configService.getString("prompt_text_to_text");
 
-    final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).generativeModel(
+    final model = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance).generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
@@ -358,10 +358,18 @@ class GeminiAIService {
     return response.text ?? "";
   }
 
+  /// ⚠️ NOTA: Esta función requiere Vertex AI (facturación habilitada).
+  /// Para usar sin facturación, considera usar una alternativa de generación de imágenes.
+  ///
+  /// Alternativas:
+  /// 1. Habilitar facturación en Google Cloud Console
+  /// 2. Usar un servicio de generación de imágenes diferente
+  /// 3. Deshabilitar esta funcionalidad temporalmente
   Future<Uint8List?> generateTextToImage({required String prompt}) async {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
+    // ⚠️ imagenModel solo está disponible en Vertex AI (requiere facturación)
     final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
       model: modelName,
       safetySettings: imagenSafetySettings,
@@ -381,10 +389,13 @@ class GeminiAIService {
     }
   }
 
+  /// ⚠️ NOTA: Esta función requiere Vertex AI (facturación habilitada).
+  /// Para usar sin facturación, considera usar una alternativa de generación de imágenes.
   Future<List<Uint8List?>> generateTextToMoreImage({required String prompt}) async {
     final modelName = _configService.getString("model_name_image");
     final promptText = _configService.getString("prompt_text_image");
 
+    // ⚠️ imagenModel solo está disponible en Vertex AI (requiere facturación)
     final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance).imagenModel(
       model: modelName,
       safetySettings: imagenSafetySettings,
@@ -419,7 +430,7 @@ class GeminiAIService {
       return;
     }
 
-    final ai = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance);
+    final ai = FirebaseAI.googleAI(appCheck: FirebaseAppCheck.instance);
     final model = ai.generativeModel(
       model: modelName,
       systemInstruction: Content.system(systemInstructions),

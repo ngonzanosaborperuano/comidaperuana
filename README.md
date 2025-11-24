@@ -44,7 +44,8 @@ actualizar si es que fuera necesario
 dart pub global activate flutterfire_cli --overwrite
 
 Agrega Firebase a tu proyecto
-123654flutterfire configure
+123654
+flutterfire configure
 
 # //
 

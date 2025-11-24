@@ -1,4 +1,4 @@
-package com.ngonzano.recetasperuanas
+package com.ngonzano.comidaperuana
 
 import io.flutter.embedding.android.FlutterActivity
 
