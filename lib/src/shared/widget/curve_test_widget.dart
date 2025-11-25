@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/spacing.dart' show AppHorizontalSpace;
-import 'package:recetasperuanas/src/shared/widget/widget.dart' show AppVerticalSpace;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart';
+import 'package:goncook/src/shared/widget/spacing/spacing.dart' show AppHorizontalSpace;
+import 'package:goncook/src/shared/widget/widget.dart' show AppVerticalSpace;
 
 /// Widget de prueba para verificar curvas seguras
 class CurveTestWidget extends StatefulWidget {

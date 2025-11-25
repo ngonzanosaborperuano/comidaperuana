@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/subscription_service.dart'
+import 'package:goncook/src/infrastructure/shared/services/subscription_service.dart'
     show SubscriptionPlanType;
-import 'package:recetasperuanas/src/presentation/checkout/helper/show_payu_checkout.dart'
+import 'package:goncook/src/presentation/checkout/helper/show_payu_checkout.dart'
     show showPayUCheckout;
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/src/presentation/home/models/subscription_plan.dart'
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/presentation/home/models/subscription_plan.dart'
     show SubscriptionPlan, SubscriptionPlans;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_confirm_dialog.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_confirm_dialog.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class SubscriptionPlansPage extends StatefulWidget {
   final String? userEmail;

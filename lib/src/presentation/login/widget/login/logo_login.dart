@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/login/widget/logo_widget.dart' show LogoWidget;
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart'
+import 'package:goncook/src/presentation/login/widget/logo_widget.dart' show LogoWidget;
+import 'package:goncook/src/shared/widget/animated_widgets.dart'
     show AnimatedScaleWidget, AnimatedLogoWidget;
 
 class LogoLogin extends StatelessWidget {

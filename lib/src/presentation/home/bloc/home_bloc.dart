@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/constants/storage.dart';
-import 'package:recetasperuanas/src/shared/repository/task_repository.dart';
-import 'package:recetasperuanas/src/shared/storage/secure_storage/securete_storage_service.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/constants/storage.dart';
+import 'package:goncook/src/shared/repository/task_repository.dart';
+import 'package:goncook/src/shared/storage/secure_storage/securete_storage_service.dart';
 
 // Events
 abstract class HomeEvent extends Equatable {

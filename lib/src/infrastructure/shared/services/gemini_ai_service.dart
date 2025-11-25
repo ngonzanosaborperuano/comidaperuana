@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/remote_config_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/remote_config_service.dart';
 
 class GeminiAIService {
   GeminiAIService(this._configService);

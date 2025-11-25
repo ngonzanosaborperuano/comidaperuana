@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
 
 class AppTextField<T extends Object> extends StatelessWidget {
   const AppTextField({

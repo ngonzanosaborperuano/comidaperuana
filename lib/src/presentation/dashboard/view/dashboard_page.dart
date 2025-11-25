@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/dashboard/view/dashboard_view.dart'
+import 'package:goncook/src/presentation/dashboard/view/dashboard_view.dart'
     show DashboardView;
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/app_scaffold.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key, required this.listTaskModel});

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:goncook/src/domain/auth/value_objects/email.dart';
+import 'package:goncook/src/domain/auth/value_objects/password.dart';
+import 'package:goncook/src/domain/auth/value_objects/user_id.dart';
+import 'package:goncook/src/shared/shared.dart' show AppResult;
 import 'package:json_annotation/json_annotation.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/email.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/password.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/user_id.dart';
-import 'package:recetasperuanas/src/shared/shared.dart' show AppResult;
 
 part 'user.g.dart';
 

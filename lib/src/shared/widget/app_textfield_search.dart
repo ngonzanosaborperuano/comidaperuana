@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_colors.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/core/config/color/app_colors.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class AppTextFieldSearch extends StatelessWidget {
   final String placeholder;

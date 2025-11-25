@@ -1,9 +1,9 @@
-import 'package:recetasperuanas/src/infrastructure/shared/database/database_helper.dart';
-import 'package:recetasperuanas/src/shared/services/permission/permission.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
-//import 'package:recetasperuanas/shared/repository/task_repository.dart';
-//import 'package:recetasperuanas/core/sync/sync_service.dart';
-//import 'package:recetasperuanas/core/network/api_service.dart';
+import 'package:goncook/src/infrastructure/shared/database/database_helper.dart';
+import 'package:goncook/src/shared/services/permission/permission.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
+//import 'package:goncook/shared/repository/task_repository.dart';
+//import 'package:goncook/core/sync/sync_service.dart';
+//import 'package:goncook/core/network/api_service.dart';
 
 Future<void> initializeApp() async {
   await SharedPreferencesHelper.init();

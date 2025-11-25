@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/presentation/home/controller/home_controller.dart';
-import 'package:recetasperuanas/src/presentation/home/widget/item_menu.dart' show ItemMenu;
-import 'package:recetasperuanas/src/shared/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/presentation/home/controller/home_controller.dart';
+import 'package:goncook/src/presentation/home/widget/item_menu.dart' show ItemMenu;
+import 'package:goncook/src/shared/constants/routes.dart' show Routes;
+import 'package:goncook/src/shared/controller/base_controller.dart';
 
 class DrawerContent extends StatelessWidget {
   const DrawerContent({super.key, required this.con});

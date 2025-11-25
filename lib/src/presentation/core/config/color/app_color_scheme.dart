@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
 
 class AppColorScheme extends InheritedWidget {
   final Brightness brightness;

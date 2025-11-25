@@ -1,4 +1,4 @@
-import 'package:recetasperuanas/src/shared/core/config/flavors_config.dart';
+import 'package:goncook/src/shared/core/config/flavors_config.dart';
 
 class DynatraceConfig {
   static DynatraceEnvironmentConfig get currentConfig {

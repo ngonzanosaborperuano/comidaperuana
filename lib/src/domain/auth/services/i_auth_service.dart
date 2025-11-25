@@ -1,7 +1,7 @@
-import 'package:recetasperuanas/src/domain/auth/entities/user.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/email.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/password.dart';
-import 'package:recetasperuanas/src/shared/shared.dart' show AppResult;
+import 'package:goncook/src/domain/auth/entities/user.dart';
+import 'package:goncook/src/domain/auth/value_objects/email.dart';
+import 'package:goncook/src/domain/auth/value_objects/password.dart';
+import 'package:goncook/src/shared/shared.dart' show AppResult;
 
 /// Domain service for authentication business logic
 abstract class IAuthService {

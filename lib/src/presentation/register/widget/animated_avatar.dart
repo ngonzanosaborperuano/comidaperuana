@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
 
 class AnimatedAvatar extends StatefulWidget {
   const AnimatedAvatar({super.key, this.radius = 30, this.iconSize = 30, this.onTap});

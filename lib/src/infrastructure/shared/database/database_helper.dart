@@ -1,8 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:goncook/src/infrastructure/shared/database/database_schemas.dart';
+import 'package:goncook/src/shared/constants/storage.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/database/database_schemas.dart';
-import 'package:recetasperuanas/src/shared/constants/storage.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

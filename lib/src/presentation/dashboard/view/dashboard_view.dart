@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
-import 'package:recetasperuanas/src/presentation/dashboard/widget/donut_chart_painter.dart';
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart' show AppVerticalSpace;
+import 'package:goncook/src/presentation/core/config/config.dart';
+import 'package:goncook/src/presentation/dashboard/widget/donut_chart_painter.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart' show AppVerticalSpace;
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key, required this.percent, required this.listTaskModel});

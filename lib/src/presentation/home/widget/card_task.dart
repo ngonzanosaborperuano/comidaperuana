@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_colors.dart';
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/utils/util.dart';
-import 'package:recetasperuanas/src/shared/widget/app_button_icon.dart';
-import 'package:recetasperuanas/src/shared/widget/app_modal.dart';
-import 'package:recetasperuanas/src/shared/widget/app_textfield.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/app_spacer.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/app_spacing.dart';
-import 'package:recetasperuanas/src/shared/widget/text_widget.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/presentation/core/config/color/app_colors.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/utils/util.dart';
+import 'package:goncook/src/shared/widget/app_button_icon.dart';
+import 'package:goncook/src/shared/widget/app_modal.dart';
+import 'package:goncook/src/shared/widget/app_textfield.dart';
+import 'package:goncook/src/shared/widget/spacing/app_spacer.dart';
+import 'package:goncook/src/shared/widget/spacing/app_spacing.dart';
+import 'package:goncook/src/shared/widget/text_widget.dart';
 
 class CardTask extends StatelessWidget {
   const CardTask({

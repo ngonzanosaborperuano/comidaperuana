@@ -1,4 +1,4 @@
-import 'package:recetasperuanas/src/shared/core/result/app_result.dart';
+import 'package:goncook/src/shared/core/result/app_result.dart';
 
 /// Base command interface
 abstract class Command {

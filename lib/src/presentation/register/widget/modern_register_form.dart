@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class ModernRegisterForm extends StatefulWidget {
   const ModernRegisterForm({super.key, required this.formKey, required this.onRegister});

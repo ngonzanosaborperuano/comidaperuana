@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/svg_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/svg_service.dart';
 
 /// Mapeo de nombres semánticos a rutas de archivos SVG
 class SvgIcons {

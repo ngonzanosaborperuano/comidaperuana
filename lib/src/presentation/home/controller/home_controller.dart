@@ -1,12 +1,12 @@
 import 'dart:async' show Timer;
 
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/constants/storage.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/repository/task_repository.dart';
-import 'package:recetasperuanas/src/shared/storage/secure_storage/securete_storage_service.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/constants/storage.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/repository/task_repository.dart';
+import 'package:goncook/src/shared/storage/secure_storage/securete_storage_service.dart';
 
 class HomeController extends BaseController {
   HomeController({required IUserRepository userRepository, required TaskRepository taskRepository})

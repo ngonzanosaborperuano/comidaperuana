@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/theme_bloc.dart';
-import 'package:recetasperuanas/src/presentation/login/widget/logo_widget.dart';
-import 'package:recetasperuanas/src/shared/constants/routes.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
-import 'package:recetasperuanas/src/shared/storage/secure_storage/securete_storage_service.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/theme_bloc.dart';
+import 'package:goncook/src/presentation/login/widget/logo_widget.dart';
+import 'package:goncook/src/shared/constants/routes.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/src/shared/storage/secure_storage/securete_storage_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

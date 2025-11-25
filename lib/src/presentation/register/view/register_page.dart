@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/presentation/register/bloc/register_bloc.dart';
-import 'package:recetasperuanas/src/presentation/register/di/register_dependencies.dart';
-import 'package:recetasperuanas/src/presentation/register/view/register_view.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/src/application/use_cases/register_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/presentation/register/bloc/register_bloc.dart';
+import 'package:goncook/src/presentation/register/di/register_dependencies.dart';
+import 'package:goncook/src/presentation/register/view/register_view.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/app_scaffold.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/theme_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
-import 'package:recetasperuanas/src/shared/l10n/app_localizations.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/theme_bloc.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
+import 'package:goncook/src/shared/l10n/app_localizations.dart';
 
 class AppCupertino extends StatelessWidget {
   final GoRouter appRouter;

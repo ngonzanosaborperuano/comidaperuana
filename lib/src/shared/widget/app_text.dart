@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_svg.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart' show AppSpacing;
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_svg.dart';
+import 'package:goncook/src/shared/widget/widget.dart' show AppSpacing;
 
 class AppLabel extends StatelessWidget {
   final String text;

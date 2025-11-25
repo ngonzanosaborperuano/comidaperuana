@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/src/presentation/login/widget/widget.dart' show LogoWidget;
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/presentation/login/widget/widget.dart' show LogoWidget;
 // Controller eliminado tras migración a BLoC
-import 'package:recetasperuanas/src/presentation/register/widget/animated_register_button.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart' show AnimatedLogoWidget;
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/register/widget/animated_register_button.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart' show AnimatedLogoWidget;
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key, required this.formKey, required this.onRegister});

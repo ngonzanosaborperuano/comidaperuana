@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 void showCustomSnackBar({
   required BuildContext context,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/presentation/login/controller/login_controller.dart'
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/presentation/login/controller/login_controller.dart'
     show LoginController;
-import 'package:recetasperuanas/src/presentation/login/helpers/auth_modals.dart'
+import 'package:goncook/src/presentation/login/helpers/auth_modals.dart'
     show showRecoverPasswordDialog;
-import 'package:recetasperuanas/src/presentation/login/utils/auth_utils.dart' show handleLogin;
-import 'package:recetasperuanas/src/presentation/login/widget/login/login.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/login/utils/auth_utils.dart' show handleLogin;
+import 'package:goncook/src/presentation/login/widget/login/login.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class AnimatedLoginForm extends StatefulWidget {
   const AnimatedLoginForm({

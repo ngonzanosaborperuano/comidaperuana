@@ -5,16 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:recetasperuanas/app.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/audio/audio_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/clarity.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service_factory.dart';
-import 'package:recetasperuanas/src/shared/config/firebase_config.dart';
-import 'package:recetasperuanas/src/shared/core/config/flavors_config.dart';
-import 'package:recetasperuanas/src/shared/core/init/app_initializer.dart';
-import 'package:recetasperuanas/src/shared/core/logger/logger.dart';
-import 'package:recetasperuanas/src/shared/errors/error_handler.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/app.dart';
+import 'package:goncook/src/infrastructure/shared/services/audio/audio_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/clarity.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service_factory.dart';
+import 'package:goncook/src/shared/config/firebase_config.dart';
+import 'package:goncook/src/shared/core/config/flavors_config.dart';
+import 'package:goncook/src/shared/core/init/app_initializer.dart';
+import 'package:goncook/src/shared/core/logger/logger.dart';
+import 'package:goncook/src/shared/errors/error_handler.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
 
 Future<void> bootstrap() async {
   initLogger();

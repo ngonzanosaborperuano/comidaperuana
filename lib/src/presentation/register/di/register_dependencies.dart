@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/application/use_cases/register_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
 
 /// Dependencias específicas del módulo de register
 List<RepositoryProvider> registerModuleProviders(BuildContext context) {

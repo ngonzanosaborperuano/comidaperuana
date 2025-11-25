@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_shimmer.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/app_spacer.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_shimmer.dart';
+import 'package:goncook/src/shared/widget/spacing/app_spacer.dart';
 
 class AppItemRow extends StatelessWidget {
   const AppItemRow({

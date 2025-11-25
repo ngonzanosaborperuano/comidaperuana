@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/login/widget/widget.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
-import 'package:recetasperuanas/src/shared/widget/spacing/spacing.dart' show AppSpacing;
-import 'package:recetasperuanas/src/shared/widget/text_widget.dart' show AppText;
+import 'package:goncook/src/presentation/login/widget/widget.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart' show AnimatedEntryWidget;
+import 'package:goncook/src/shared/widget/spacing/spacing.dart' show AppSpacing;
+import 'package:goncook/src/shared/widget/text_widget.dart' show AppText;
 
 class HeaderAndSubTitle extends StatelessWidget {
   const HeaderAndSubTitle({super.key, required this.widget});

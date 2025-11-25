@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/pages_bloc.dart';
-import 'package:recetasperuanas/src/presentation/setting/view/setting_page.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/menu_android.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/menu_ios.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/page_home_android.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/page_home_ios.dart';
+import 'package:goncook/src/presentation/core/bloc/pages_bloc.dart';
+import 'package:goncook/src/presentation/setting/view/setting_page.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/menu_android.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/menu_ios.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/page_home_android.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/page_home_ios.dart';
 
 class AppScaffold extends StatefulWidget {
   const AppScaffold({

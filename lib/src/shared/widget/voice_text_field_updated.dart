@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/audio/audio_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_helper.dart';
+import 'package:goncook/src/infrastructure/shared/services/audio/audio_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_helper.dart';
 
 /// Widget de campo de texto con funcionalidad de voz actualizado
 /// Sigue el principio de responsabilidad única (SOLID)

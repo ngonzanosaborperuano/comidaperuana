@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/infrastructure/shared/network/network.dart';
+import 'package:goncook/src/shared/constants/option.dart';
+import 'package:goncook/src/shared/repository/base_repository.dart';
+import 'package:goncook/src/shared/storage/secure_storage/securete_storage_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/network.dart';
-import 'package:recetasperuanas/src/shared/constants/option.dart';
-import 'package:recetasperuanas/src/shared/repository/base_repository.dart';
-import 'package:recetasperuanas/src/shared/storage/secure_storage/securete_storage_service.dart';
 
 class UserRepository extends BaseRepository implements IUserRepository {
   UserRepository({

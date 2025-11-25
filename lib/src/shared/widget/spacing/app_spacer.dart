@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/app_spacing.dart';
+import 'package:goncook/src/shared/widget/spacing/app_spacing.dart';
 
 class AppVerticalSpace {
   const AppVerticalSpace._();

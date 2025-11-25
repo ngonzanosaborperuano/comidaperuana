@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
 
 /// Implementación nula del servicio de monitoreo
 /// Útil para desarrollo o cuando no se requiere monitoreo

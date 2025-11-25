@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/theme_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/theme_bloc.dart';
 
 class ThemeConfig {
   static ThemeData getLightTheme() {

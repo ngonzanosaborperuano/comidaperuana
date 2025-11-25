@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/presentation/core/config/config.dart' show AppColors, AppStyles;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart' show AppColors, AppStyles;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 final _logger = Logger('VoiceTextField');

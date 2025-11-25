@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/checkout/view/page_success_view.dart'
+import 'package:goncook/src/presentation/checkout/view/page_success_view.dart'
     show PageSuccess;
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class Body extends StatelessWidget {
   const Body({

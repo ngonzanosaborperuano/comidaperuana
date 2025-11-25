@@ -1,5 +1,5 @@
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service_factory.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service_factory.dart';
 
 /// Helper para facilitar el uso del servicio de monitoreo
 /// Sigue el principio de responsabilidad única (SOLID)

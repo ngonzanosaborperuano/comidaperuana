@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/app_spacer.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/shared/widget/spacing/app_spacer.dart';
 
 class AppDialog extends StatelessWidget {
   const AppDialog({

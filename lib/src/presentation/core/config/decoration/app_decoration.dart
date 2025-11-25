@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_colors.dart';
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/spacing.dart' show AppSpacing;
+import 'package:goncook/src/presentation/core/config/color/app_colors.dart';
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/shared/widget/spacing/spacing.dart' show AppSpacing;
 
 class AppDecorations {
   static InputDecoration textFormFieldDecoration({String? hintText, IconData? suffixIcon}) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/login/bloc/login_bloc.dart';
-import 'package:recetasperuanas/src/presentation/login/bloc/login_event.dart' show LoginRequested;
-import 'package:recetasperuanas/src/shared/constants/option.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/login/bloc/login_bloc.dart';
+import 'package:goncook/src/presentation/login/bloc/login_event.dart' show LoginRequested;
+import 'package:goncook/src/shared/constants/option.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class LoginFormBloc extends StatefulWidget {
   const LoginFormBloc({super.key, required this.formKey, required this.onLogin});

@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:dynatrace_flutter_plugin/dynatrace_flutter_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/dynatrace_config.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/dynatrace_config.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
 
 class DynatraceMonitoringService implements MonitoringService {
   bool _isInitialized = false;

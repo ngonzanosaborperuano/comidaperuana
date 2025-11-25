@@ -37,15 +37,15 @@ esac
 case $ENV in
     dev)
         MAIN_FILE="lib/main_dev.dart"
-        APP_NAME="CookingIA Dev"
+        APP_NAME="Goncook Dev"
         ;;
     staging)
         MAIN_FILE="lib/main_staging.dart"
-        APP_NAME="CookingIA Staging"
+        APP_NAME="Goncook Staging"
         ;;
     prod)
         MAIN_FILE="lib/main_prod.dart"
-        APP_NAME="CookingIA"
+        APP_NAME="Goncook"
         ;;
 esac
 

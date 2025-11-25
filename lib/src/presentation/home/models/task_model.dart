@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:goncook/src/shared/utils/converter.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:recetasperuanas/src/shared/utils/converter.dart';
 
 part 'task_model.g.dart';
 

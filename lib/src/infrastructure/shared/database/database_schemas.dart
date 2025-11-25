@@ -1,4 +1,4 @@
-import 'package:recetasperuanas/src/shared/constants/storage.dart';
+import 'package:goncook/src/shared/constants/storage.dart';
 
 final Map<String, String> tableSchemas = {
   TablaStorage.task:

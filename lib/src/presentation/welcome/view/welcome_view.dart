@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/shared/constants/routes.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/l10n/app_localizations.dart' show AppLocalizations;
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/constants/routes.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/l10n/app_localizations.dart' show AppLocalizations;
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});

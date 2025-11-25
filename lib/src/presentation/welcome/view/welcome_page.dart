@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/welcome/view/welcome_view.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/src/presentation/welcome/view/welcome_view.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/app_scaffold.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

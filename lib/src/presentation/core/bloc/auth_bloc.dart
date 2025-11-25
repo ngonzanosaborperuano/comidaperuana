@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recetasperuanas/src/domain/auth/entities/user.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/email.dart';
+import 'package:goncook/src/domain/auth/entities/user.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/domain/auth/value_objects/email.dart';
 
 // Events
 abstract class AuthEvent extends Equatable {

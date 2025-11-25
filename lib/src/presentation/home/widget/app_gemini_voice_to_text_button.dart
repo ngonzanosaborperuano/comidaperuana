@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:goncook/src/infrastructure/shared/services/gemini_ai_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/remote_config_service.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/gemini_ai_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/remote_config_service.dart';
 
 class AppGeminiVoiceToTextButton extends StatefulWidget {
   final void Function(String text)? onResult;

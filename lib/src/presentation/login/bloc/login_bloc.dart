@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recetasperuanas/src/application/use_cases/login_use_case.dart';
-import 'package:recetasperuanas/src/application/use_cases/logout_use_case.dart';
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/presentation/login/bloc/login_event.dart'
+import 'package:goncook/src/application/use_cases/login_use_case.dart';
+import 'package:goncook/src/application/use_cases/logout_use_case.dart';
+import 'package:goncook/src/application/use_cases/register_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/presentation/login/bloc/login_event.dart'
     show LoginEvent, LoginRequested, RegisterRequested, LogoutRequested;
 
 class RecoverCredentialRequested extends LoginEvent {

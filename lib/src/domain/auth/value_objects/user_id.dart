@@ -1,5 +1,5 @@
-import 'package:recetasperuanas/src/domain/core/value_objects.dart';
-import 'package:recetasperuanas/src/shared/shared.dart' show AppResult;
+import 'package:goncook/src/domain/core/value_objects.dart';
+import 'package:goncook/src/shared/shared.dart' show AppResult;
 
 class UserId extends ValueObject<String> {
   const UserId(super.value);

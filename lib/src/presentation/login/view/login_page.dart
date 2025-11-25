@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/login/di/login_dependencies.dart';
-import 'package:recetasperuanas/src/presentation/presentation.dart' show LoginView;
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/src/presentation/login/di/login_dependencies.dart';
+import 'package:goncook/src/presentation/presentation.dart' show LoginView;
+import 'package:goncook/src/shared/widget/app_scaffold/app_scaffold.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

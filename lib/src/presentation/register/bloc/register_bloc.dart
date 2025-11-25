@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/application/use_cases/register_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
 
 // Events
 abstract class RegisterEvent extends Equatable {

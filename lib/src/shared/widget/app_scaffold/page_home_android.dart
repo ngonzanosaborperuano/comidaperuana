@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/app_scaffold.dart';
 
 class PageHomeAndroid extends StatelessWidget {
   const PageHomeAndroid({super.key, required this.widget});

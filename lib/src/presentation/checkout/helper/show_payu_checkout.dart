@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/payu_service.dart'
+import 'package:goncook/src/infrastructure/shared/services/payu_service.dart'
     show PayUService;
-import 'package:recetasperuanas/src/infrastructure/shared/services/subscription_service.dart'
+import 'package:goncook/src/infrastructure/shared/services/subscription_service.dart'
     show SubscriptionPlanType, SubscriptionPricing;
-import 'package:recetasperuanas/src/shared/constants/payu_config.dart' show PayUConfig;
-import 'package:recetasperuanas/src/shared/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/constants/payu_config.dart' show PayUConfig;
+import 'package:goncook/src/shared/constants/routes.dart' show Routes;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 void showPayUCheckout(
   BuildContext context, {

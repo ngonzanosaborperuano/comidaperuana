@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
 
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({super.key});

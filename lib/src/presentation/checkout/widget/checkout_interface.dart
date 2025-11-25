@@ -9,10 +9,10 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart'
         InAppWebViewSettings,
         NavigationActionPolicy;
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/checkout/models/payu_checkout_response_model.dart';
-import 'package:recetasperuanas/src/presentation/checkout/widget/widget.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/checkout/models/payu_checkout_response_model.dart';
+import 'package:goncook/src/presentation/checkout/widget/widget.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class CheckoutInterface extends StatefulWidget {
   final String checkoutUrl;

@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/shared/core/result/app_result.dart';
+import 'package:goncook/src/shared/helpers/modal_view.dart';
+import 'package:goncook/src/shared/l10n/app_localizations.dart';
+import 'package:goncook/src/shared/widget/app_modal_alert.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/shared/core/result/app_result.dart';
-import 'package:recetasperuanas/src/shared/helpers/modal_view.dart';
-import 'package:recetasperuanas/src/shared/l10n/app_localizations.dart';
-import 'package:recetasperuanas/src/shared/widget/app_modal_alert.dart';
 
 part 'notifications.dart';
 

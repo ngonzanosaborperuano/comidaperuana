@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart'
-    show AppHorizontalSpace, AppVerticalSpace;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart' show AppHorizontalSpace, AppVerticalSpace;
 
 enum ToastType { success, error, warning, info }
 

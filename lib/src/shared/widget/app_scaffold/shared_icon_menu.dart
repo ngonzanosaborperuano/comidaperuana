@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_svg.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_svg.dart';
 
 class SharedIconMenu extends StatelessWidget {
   const SharedIconMenu({super.key, required this.isSelected, required this.path});

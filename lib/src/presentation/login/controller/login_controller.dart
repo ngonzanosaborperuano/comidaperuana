@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/application/use_cases/login_use_case.dart';
-import 'package:recetasperuanas/src/application/use_cases/logout_use_case.dart' show LogoutUseCase;
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart'
-    show RegisterUseCase;
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/application/use_cases/login_use_case.dart';
+import 'package:goncook/src/application/use_cases/logout_use_case.dart' show LogoutUseCase;
+import 'package:goncook/src/application/use_cases/register_use_case.dart' show RegisterUseCase;
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
+import 'package:goncook/src/shared/controller/base_controller.dart';
 
 /// Enhanced login controller using DDD architecture
 class LoginController extends BaseController {

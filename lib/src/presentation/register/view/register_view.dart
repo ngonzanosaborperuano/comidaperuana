@@ -3,14 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/presentation/register/bloc/register_bloc.dart';
-import 'package:recetasperuanas/src/presentation/register/widget/modern_register_form.dart';
-import 'package:recetasperuanas/src/shared/constants/routes.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart';
-import 'package:recetasperuanas/src/shared/widget/responsive_constrained_box.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/presentation/register/bloc/register_bloc.dart';
+import 'package:goncook/src/presentation/register/widget/modern_register_form.dart';
+import 'package:goncook/src/shared/constants/routes.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart';
+import 'package:goncook/src/shared/widget/responsive_constrained_box.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_button_icon.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/spacing.dart';
+import 'package:goncook/src/presentation/core/config/config.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_button_icon.dart';
+import 'package:goncook/src/shared/widget/spacing/spacing.dart';
 
 class AppModalAlert extends StatelessWidget {
   const AppModalAlert({

@@ -1,4 +1,4 @@
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
 
 abstract class IUserRepository {
   Future<(bool, String)> signInOrRegister(AuthUser user, {int? type});

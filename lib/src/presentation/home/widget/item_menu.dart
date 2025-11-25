@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_colors.dart';
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/presentation/core/config/color/app_colors.dart';
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
 
 class ItemMenu extends StatelessWidget {
   const ItemMenu({super.key, required this.title, this.onTap, this.style});

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/shared/database/database_helper.dart';
+import 'package:goncook/src/infrastructure/shared/network/api_service.dart';
+import 'package:goncook/src/presentation/core/config/config.dart' show AppStyles;
+import 'package:goncook/src/presentation/home/bloc/home_bloc.dart';
+import 'package:goncook/src/presentation/home/view/home_view.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/repository/task_repository.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/database/database_helper.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/api_service.dart';
-import 'package:recetasperuanas/src/presentation/core/config/config.dart' show AppStyles;
-import 'package:recetasperuanas/src/presentation/home/bloc/home_bloc.dart';
-import 'package:recetasperuanas/src/presentation/home/view/home_view.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/repository/task_repository.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
 
 /// Pantalla principal del inicio de la aplicación.
 ///

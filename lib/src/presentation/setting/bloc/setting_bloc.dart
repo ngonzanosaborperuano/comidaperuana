@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
-import 'package:recetasperuanas/src/application/use_cases/logout_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/shared/models/user_model.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/src/application/use_cases/logout_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/shared/models/user_model.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
 
 // Events
 abstract class SettingEvent extends Equatable {

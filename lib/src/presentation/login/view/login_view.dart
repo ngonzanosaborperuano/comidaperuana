@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/application/use_cases/login_use_case.dart';
-import 'package:recetasperuanas/src/application/use_cases/logout_use_case.dart';
-import 'package:recetasperuanas/src/application/use_cases/register_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/presentation/login/bloc/login_bloc.dart';
-import 'package:recetasperuanas/src/presentation/login/bloc/login_event.dart' show LoginRequested;
-import 'package:recetasperuanas/src/presentation/login/controller/login_controller.dart';
-import 'package:recetasperuanas/src/presentation/login/widget/widget.dart'
+import 'package:goncook/src/application/use_cases/login_use_case.dart';
+import 'package:goncook/src/application/use_cases/logout_use_case.dart';
+import 'package:goncook/src/application/use_cases/register_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/presentation/login/bloc/login_bloc.dart';
+import 'package:goncook/src/presentation/login/bloc/login_event.dart' show LoginRequested;
+import 'package:goncook/src/presentation/login/controller/login_controller.dart';
+import 'package:goncook/src/presentation/login/widget/widget.dart'
     show AnimatedLoginForm, LoginWithGoogle;
-import 'package:recetasperuanas/src/shared/constants/option.dart' show LoginWith;
-import 'package:recetasperuanas/src/shared/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/animated_widgets.dart';
-import 'package:recetasperuanas/src/shared/widget/responsive_constrained_box.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/constants/option.dart' show LoginWith;
+import 'package:goncook/src/shared/constants/routes.dart' show Routes;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/animated_widgets.dart';
+import 'package:goncook/src/shared/widget/responsive_constrained_box.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

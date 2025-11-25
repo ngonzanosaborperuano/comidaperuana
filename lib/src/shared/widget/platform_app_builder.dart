@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/shared/widget/app_cupertino.dart';
-import 'package:recetasperuanas/src/shared/widget/app_material.dart';
+import 'package:goncook/src/shared/widget/app_cupertino.dart';
+import 'package:goncook/src/shared/widget/app_material.dart';
 
 class PlatformAppBuilder extends StatelessWidget {
   final GoRouter appRouter;

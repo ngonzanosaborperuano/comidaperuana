@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/login/controller/login_controller.dart'
+import 'package:goncook/src/presentation/login/controller/login_controller.dart'
     show LoginController;
-import 'package:recetasperuanas/src/presentation/login/widget/widget.dart' show AnimatedLoginForm;
-import 'package:recetasperuanas/src/shared/constants/option.dart' show LoginWith;
-import 'package:recetasperuanas/src/shared/constants/routes.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart'
+import 'package:goncook/src/presentation/login/widget/widget.dart' show AnimatedLoginForm;
+import 'package:goncook/src/shared/constants/option.dart' show LoginWith;
+import 'package:goncook/src/shared/constants/routes.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/widget.dart'
     show LoadingDialog, AppToastExtension, AppModalAlert, AppSpacing, AppText;
 
 import 'login_with_google.dart' show LoginWithGoogle;

@@ -1,9 +1,9 @@
-import 'package:recetasperuanas/src/domain/auth/entities/user.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/email.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
-import 'package:recetasperuanas/src/shared/constants/option.dart' show LoginWith;
-import 'package:recetasperuanas/src/shared/shared.dart' show AppResult;
+import 'package:goncook/src/domain/auth/entities/user.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/domain/auth/value_objects/email.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
+import 'package:goncook/src/shared/constants/option.dart' show LoginWith;
+import 'package:goncook/src/shared/shared.dart' show AppResult;
 
 class LoginUseCase {
   const LoginUseCase(this._authRepository);

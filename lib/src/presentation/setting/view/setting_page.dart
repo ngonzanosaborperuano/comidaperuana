@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/application/use_cases/logout_use_case.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/presentation/setting/bloc/setting_bloc.dart';
-import 'package:recetasperuanas/src/presentation/setting/di/setting_dependencies.dart';
-import 'package:recetasperuanas/src/presentation/setting/view/setting_view.dart';
+import 'package:goncook/src/application/use_cases/logout_use_case.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/presentation/setting/bloc/setting_bloc.dart';
+import 'package:goncook/src/presentation/setting/di/setting_dependencies.dart';
+import 'package:goncook/src/presentation/setting/view/setting_view.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});

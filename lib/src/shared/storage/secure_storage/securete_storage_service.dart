@@ -1,8 +1,8 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
 
 final secretKey = dotenv.env['SECRET_KEY']!;
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/pages_bloc.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_scaffold/navigation_items_mixin.dart';
+import 'package:goncook/src/presentation/core/bloc/pages_bloc.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_scaffold/navigation_items_mixin.dart';
 
 class MenuAndroid extends StatefulWidget {
   const MenuAndroid({super.key});

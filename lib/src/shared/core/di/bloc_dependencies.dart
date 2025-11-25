@@ -1,18 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/src/infrastructure/auth/repositories/firebase_user_auth_repository.dart';
+import 'package:goncook/src/infrastructure/auth/repositories/user_repository.dart';
+import 'package:goncook/src/infrastructure/shared/network/api_service.dart';
+import 'package:goncook/src/presentation/core/bloc/app_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/auth_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/config_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/theme_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/user_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/repositories/firebase_user_auth_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/repositories/user_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/api_service.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/app_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/auth_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/config_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/theme_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/user_bloc.dart';
 
 /// Lista de BLoCs globales de la aplicación
 List<BlocProvider> globalBlocProviders(BuildContext context) {

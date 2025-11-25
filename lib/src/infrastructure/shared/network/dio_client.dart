@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:goncook/src/infrastructure/shared/network/app_check_interceptor.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/app_check_interceptor.dart';
 
 final _logger = Logger('DioClient');
 

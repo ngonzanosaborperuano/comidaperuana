@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart' show GoRouterState;
-import 'package:recetasperuanas/src/presentation/checkout/view/payu_checkout_view.dart'
+import 'package:goncook/src/presentation/checkout/view/payu_checkout_view.dart'
     show PayUCheckoutWebView;
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class PayUCheckoutWebPage extends StatefulWidget {
   final String checkoutUrl;

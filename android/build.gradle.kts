@@ -1,5 +1,5 @@
 plugins {
-    id("com.dynatrace.instrumentation") version "8.319.2.1011"
+    id("com.dynatrace.instrumentation") version "8.325.1.1007"
 }
 extra["dynatrace.instrumentationFlavor"] = "flutter"
 dynatrace {

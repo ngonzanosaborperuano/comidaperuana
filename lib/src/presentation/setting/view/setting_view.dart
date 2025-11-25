@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/theme_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/config/color/app_color_scheme.dart';
-import 'package:recetasperuanas/src/presentation/core/config/style/app_styles.dart';
-import 'package:recetasperuanas/src/presentation/setting/bloc/setting_bloc.dart';
-import 'package:recetasperuanas/src/shared/constants/routes.dart' show Routes;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/models/user_model.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/presentation/core/bloc/theme_bloc.dart';
+import 'package:goncook/src/presentation/core/config/color/app_color_scheme.dart';
+import 'package:goncook/src/presentation/core/config/style/app_styles.dart';
+import 'package:goncook/src/presentation/setting/bloc/setting_bloc.dart';
+import 'package:goncook/src/shared/constants/routes.dart' show Routes;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/models/user_model.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({super.key});

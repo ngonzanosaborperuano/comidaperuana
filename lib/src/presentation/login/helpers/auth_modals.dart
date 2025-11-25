@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recetasperuanas/src/presentation/login/controller/login_controller.dart'
+import 'package:goncook/src/presentation/login/controller/login_controller.dart'
     show LoginController;
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_confirm_dialog.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_confirm_dialog.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 Future<void> showRecoverPasswordDialog({
   required BuildContext context,

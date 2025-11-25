@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ngonzano.comidaperuana"
+    namespace = "com.ngonzano.goncook"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.ngonzano.comidaperuana"
+        applicationId = "com.ngonzano.goncook"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review/gradle-config.
         minSdk = 35
@@ -45,21 +45,21 @@ android {
     productFlavors {
         create("dev") {
             dimension = "app"
-            applicationIdSuffix = ".Dev"
+            applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
-            resValue("string", "app_name", "CookingIA Dev")
+            resValue("string", "app_name", "Goncook Dev")
         }
         
         create("staging") {
             dimension = "app"
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
-            resValue("string", "app_name", "CookingIA Staging")
+            resValue("string", "app_name", "Goncook Staging")
         }
         
         create("prod") {
             dimension = "app"
-            resValue("string", "app_name", "CookingIA")
+            resValue("string", "app_name", "Goncook")
         }
     }
 

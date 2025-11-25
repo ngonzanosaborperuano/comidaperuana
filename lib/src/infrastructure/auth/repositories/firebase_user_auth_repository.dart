@@ -2,12 +2,12 @@ import 'dart:developer' show log;
 
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, GoogleAuthProvider, EmailAuthProvider, FirebaseAuthException;
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
+import 'package:goncook/src/src.dart';
 import 'package:google_sign_in/google_sign_in.dart'
     show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
 import 'package:logging/logging.dart' show Logger;
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart' show AuthUser;
-import 'package:recetasperuanas/src/src.dart';
 
 class FirebaseUserAuthRepository implements IUserAuthRepository {
   FirebaseUserAuthRepository(FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn)

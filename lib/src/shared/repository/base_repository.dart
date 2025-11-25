@@ -1,6 +1,6 @@
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
 
 abstract class BaseRepository {
   @protected

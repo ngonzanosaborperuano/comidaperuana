@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:goncook/src/shared/constants/routes.dart';
+import 'package:goncook/src/shared/storage/preferences/preferences.dart';
+import 'package:goncook/src/src.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/shared/constants/routes.dart';
-import 'package:recetasperuanas/src/shared/storage/preferences/preferences.dart';
-import 'package:recetasperuanas/src/src.dart';
 
 // GoRoute(
 //   path: '/welcome',

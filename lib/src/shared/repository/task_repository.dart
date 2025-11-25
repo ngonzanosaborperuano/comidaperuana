@@ -1,10 +1,10 @@
+import 'package:goncook/src/infrastructure/shared/database/database_helper.dart';
+import 'package:goncook/src/infrastructure/shared/network/api_service.dart';
+import 'package:goncook/src/infrastructure/shared/network/connection_observer.dart';
+import 'package:goncook/src/presentation/home/models/task_model.dart';
+import 'package:goncook/src/shared/constants/storage.dart';
+import 'package:goncook/src/shared/repository/base_repository.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/database/database_helper.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/api_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/connection_observer.dart';
-import 'package:recetasperuanas/src/presentation/home/models/task_model.dart';
-import 'package:recetasperuanas/src/shared/constants/storage.dart';
-import 'package:recetasperuanas/src/shared/repository/base_repository.dart';
 
 class TaskRepository extends BaseRepository {
   TaskRepository(this.dbHelper, {required ApiService apiService}) : _apiService = apiService;

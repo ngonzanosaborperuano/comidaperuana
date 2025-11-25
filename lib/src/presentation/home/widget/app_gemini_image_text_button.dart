@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
+import 'package:goncook/src/infrastructure/shared/services/gemini_ai_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/remote_config_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/gemini_ai_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/remote_config_service.dart';
 
 class AppGeminiImageTextButton extends StatefulWidget {
   const AppGeminiImageTextButton({super.key, this.onResult, required this.isCamera});

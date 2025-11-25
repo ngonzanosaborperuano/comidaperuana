@@ -1,5 +1,5 @@
-import 'package:recetasperuanas/src/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:recetasperuanas/src/shared/shared.dart' show AppResult;
+import 'package:goncook/src/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/src/shared/shared.dart' show AppResult;
 
 class LogoutUseCase {
   const LogoutUseCase(this._authRepository);

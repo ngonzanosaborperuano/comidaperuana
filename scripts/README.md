@@ -1,4 +1,4 @@
-# Scripts de Debug para CookingIA
+# Scripts de Debug para Goncook
 
 Este directorio contiene scripts para facilitar el desarrollo y debug de la aplicación CocinandoIA en diferentes entornos.
 

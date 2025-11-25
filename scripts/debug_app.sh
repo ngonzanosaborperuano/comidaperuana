@@ -87,13 +87,13 @@ get_app_name() {
     local env=$1
     case $env in
         dev)
-            echo "CookingIA Dev"
+            echo "Goncook Dev"
             ;;
         staging)
-            echo "CookingIA Staging"
+            echo "Goncook Staging"
             ;;
         prod)
-            echo "CookingIA"
+            echo "Goncook"
             ;;
     esac
 }

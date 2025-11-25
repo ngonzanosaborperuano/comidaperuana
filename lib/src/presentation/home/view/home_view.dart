@@ -5,15 +5,15 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
-import 'package:recetasperuanas/src/presentation/home/bloc/home_bloc.dart';
-import 'package:recetasperuanas/src/presentation/home/widget/app_gemini_text_to_text_button.dart';
-import 'package:recetasperuanas/src/presentation/home/widget/app_gemini_voice_to_text_button.dart'
+import 'package:goncook/src/presentation/home/bloc/home_bloc.dart';
+import 'package:goncook/src/presentation/home/widget/app_gemini_text_to_text_button.dart';
+import 'package:goncook/src/presentation/home/widget/app_gemini_voice_to_text_button.dart'
     show AppGeminiVoiceToTextButton;
-import 'package:recetasperuanas/src/presentation/home/widget/card_task.dart' show CardTask;
-import 'package:recetasperuanas/src/presentation/home/widget/subscription_plans_page.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/app_image.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart';
+import 'package:goncook/src/presentation/home/widget/card_task.dart' show CardTask;
+import 'package:goncook/src/presentation/home/widget/subscription_plans_page.dart';
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/app_image.dart';
+import 'package:goncook/src/shared/widget/widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

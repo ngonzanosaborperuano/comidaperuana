@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/shared/controller/base_controller.dart';
-import 'package:recetasperuanas/src/shared/widget/spacing/spacing.dart';
-import 'package:recetasperuanas/src/shared/widget/widget.dart' show AppButton;
+import 'package:goncook/src/shared/controller/base_controller.dart';
+import 'package:goncook/src/shared/widget/spacing/spacing.dart';
+import 'package:goncook/src/shared/widget/widget.dart' show AppButton;
 
 class AppConfirmDialog extends StatefulWidget {
   final String title;

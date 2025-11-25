@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:recetasperuanas/src/presentation/checkout/models/payu_checkout_params_model.dart'
+import 'package:goncook/src/presentation/checkout/models/payu_checkout_params_model.dart'
     show PayuCheckoutParamsModel;
-import 'package:recetasperuanas/src/shared/constants/payu_config.dart' show PayUConfig;
-import 'package:recetasperuanas/src/shared/models/payu_response_model.dart' show PayUResponse;
+import 'package:goncook/src/shared/constants/payu_config.dart' show PayUConfig;
+import 'package:goncook/src/shared/models/payu_response_model.dart' show PayUResponse;
+import 'package:http/http.dart' as http;
 
 import 'subscription_service.dart';
 

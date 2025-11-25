@@ -1,8 +1,8 @@
 import 'package:confetti/confetti.dart' show ConfettiController;
 import 'package:flutter/material.dart';
-import 'package:recetasperuanas/src/presentation/checkout/widget/background.dart' show Background;
-import 'package:recetasperuanas/src/presentation/checkout/widget/widget.dart' show Body;
-import 'package:recetasperuanas/src/shared/widget/widget.dart' show AppConfetti;
+import 'package:goncook/src/presentation/checkout/widget/background.dart' show Background;
+import 'package:goncook/src/presentation/checkout/widget/widget.dart' show Body;
+import 'package:goncook/src/shared/widget/widget.dart' show AppConfetti;
 
 class PageSuccess extends StatefulWidget {
   final String title;

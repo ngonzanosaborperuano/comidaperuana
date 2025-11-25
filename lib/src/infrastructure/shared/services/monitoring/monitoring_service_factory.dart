@@ -1,7 +1,7 @@
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/dynatrace_monitoring_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/services/monitoring/null_monitoring_service.dart';
-import 'package:recetasperuanas/src/shared/core/config/flavors_config.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/dynatrace_monitoring_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
+import 'package:goncook/src/infrastructure/shared/services/monitoring/null_monitoring_service.dart';
+import 'package:goncook/src/shared/core/config/flavors_config.dart';
 
 /// Factory para crear instancias del servicio de monitoreo
 /// Sigue el principio de responsabilidad única (SOLID)

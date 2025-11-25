@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:goncook/src/infrastructure/shared/network/dio_client.dart';
+import 'package:goncook/src/infrastructure/shared/network/models/api_response.dart';
 import 'package:logging/logging.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/dio_client.dart';
-import 'package:recetasperuanas/src/infrastructure/shared/network/models/api_response.dart';
 
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 

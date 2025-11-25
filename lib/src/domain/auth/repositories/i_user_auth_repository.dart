@@ -1,7 +1,7 @@
-import 'package:recetasperuanas/src/domain/auth/entities/user.dart';
-import 'package:recetasperuanas/src/domain/auth/value_objects/email.dart';
-import 'package:recetasperuanas/src/infrastructure/auth/models/auth_user.dart';
-import 'package:recetasperuanas/src/shared/core/result/app_result.dart';
+import 'package:goncook/src/domain/auth/entities/user.dart';
+import 'package:goncook/src/domain/auth/value_objects/email.dart';
+import 'package:goncook/src/infrastructure/auth/models/auth_user.dart';
+import 'package:goncook/src/shared/core/result/app_result.dart';
 
 /// Interface for user authentication operations
 abstract class IUserAuthRepository {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recetasperuanas/src/presentation/core/bloc/locale_bloc.dart';
-import 'package:recetasperuanas/src/shared/l10n/app_localizations.dart';
+import 'package:goncook/src/presentation/core/bloc/locale_bloc.dart';
+import 'package:goncook/src/shared/l10n/app_localizations.dart';
 
 class LocaleConfig {
   static Widget buildWithLocale({required Widget child, required BuildContext context}) {
