@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:dynatrace_flutter_plugin/dynatrace_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:goncook/src/infrastructure/shared/services/monitoring/dynatrace_config.dart';
 import 'package:goncook/src/infrastructure/shared/services/monitoring/monitoring_service.dart';
@@ -38,11 +37,11 @@ class DynatraceMonitoringService implements MonitoringService {
       return;
     }
 
-    try {
-      Dynatrace().reportEvent(eventName);
-    } catch (e) {
-      debugPrint('Error al registrar evento en Dynatrace: $e');
-    }
+    //try {
+    //  Dynatrace().reportEvent(eventName);
+    //} catch (e) {
+    //  debugPrint('Error al registrar evento en Dynatrace: $e');
+    //}
   }
 
   @override
@@ -57,12 +56,12 @@ class DynatraceMonitoringService implements MonitoringService {
       return;
     }
 
-    try {
-      Dynatrace().reportError(error, 0);
-      debugPrint('❌ [${_config.environment.toUpperCase()}] Error enviado: $error');
-    } catch (e) {
-      debugPrint('Error al registrar error en Dynatrace: $e');
-    }
+    //try {
+    //  Dynatrace().reportError(error, 0);
+    //  debugPrint('❌ [${_config.environment.toUpperCase()}] Error enviado: $error');
+    //} catch (e) {
+    //  debugPrint('Error al registrar error en Dynatrace: $e');
+    //}
   }
 
   @override
@@ -75,11 +74,11 @@ class DynatraceMonitoringService implements MonitoringService {
       return;
     }
 
-    try {
-      Dynatrace().identifyUser(userId);
-      debugPrint('👤 [${_config.environment.toUpperCase()}] Usuario identificado: $userId');
-    } catch (e) {
-      debugPrint('Error al establecer información de usuario en Dynatrace: $e');
-    }
+    //try {
+    //  Dynatrace().identifyUser(userId);
+    //  debugPrint('👤 [${_config.environment.toUpperCase()}] Usuario identificado: $userId');
+    //} catch (e) {
+    //  debugPrint('Error al establecer información de usuario en Dynatrace: $e');
+    //}
   }
 }

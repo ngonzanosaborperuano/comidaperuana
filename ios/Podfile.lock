@@ -16,12 +16,6 @@ PODS:
   - CwlCatchExceptionSupport (2.2.1)
   - device_info_plus (0.0.1):
     - Flutter
-  - Dynatrace (8.325.1.1012):
-    - Dynatrace/xcframework (= 8.325.1.1012)
-  - Dynatrace/xcframework (8.325.1.1012)
-  - dynatrace_flutter_plugin (3.325.2):
-    - Dynatrace (~> 8.325.1.1012)
-    - Flutter
   - Firebase/Auth (11.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 11.15.0)
@@ -202,7 +196,6 @@ PODS:
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
-  - dynatrace_flutter_plugin (from `.symlinks/plugins/dynatrace_flutter_plugin/ios`)
   - firebase_app_check (from `.symlinks/plugins/firebase_app_check/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -230,7 +223,6 @@ SPEC REPOS:
     - AppCheckCore
     - CwlCatchException
     - CwlCatchExceptionSupport
-    - Dynatrace
     - Firebase
     - FirebaseABTesting
     - FirebaseAppCheck
@@ -261,8 +253,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
-  dynatrace_flutter_plugin:
-    :path: ".symlinks/plugins/dynatrace_flutter_plugin/ios"
   firebase_app_check:
     :path: ".symlinks/plugins/firebase_app_check/ios"
   firebase_auth:
@@ -311,8 +301,6 @@ SPEC CHECKSUMS:
   CwlCatchException: 7acc161b299a6de7f0a46a6ed741eae2c8b4d75a
   CwlCatchExceptionSupport: 54ccab8d8c78907b57f99717fb19d4cc3bce02dc
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
-  Dynatrace: 24d42b26474ecb5b8b32acddcc4a375082b02b7f
-  dynatrace_flutter_plugin: 86279210f7e985fc03fb9945fc9024bdfaf4b9a6
   Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
   firebase_app_check: 03d91956c2f83d4a7ca65a88a14507cd041c085f
   firebase_auth: 50af8366c87bb88c80ebeae62eb60189c7246b9b
