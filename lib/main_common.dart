@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'src/shared/core/bootstrap/bootstrap.dart';
+import 'core/bootstrap/bootstrap.dart';
 
 void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();

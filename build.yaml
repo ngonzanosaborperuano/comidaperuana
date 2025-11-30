@@ -8,10 +8,9 @@ targets:
           include_if_null: false
           field_rename: snake
         generate_for:
-          - lib/src/domain/**.dart
-          - lib/src/infrastructure/**.dart
-          - lib/src/shared/models/**.dart
-          - lib/src/presentation/*/models/**.dart
+          - lib/features/**/domain/**.dart
+          - lib/features/**/data/models/**.dart
+          - lib/features/**/presentation/models/**.dart
 
       mockito:mockBuilder:
         options:
