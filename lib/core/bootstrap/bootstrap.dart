@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:goncook/app.dart';
+import 'package:goncook/common/errors/error_handler.dart';
+import 'package:goncook/core/config/firebase_config.dart';
 import 'package:goncook/core/config/flavors_config.dart';
 import 'package:goncook/core/init/app_initializer.dart';
 import 'package:goncook/core/logger/logger.dart';
 import 'package:goncook/services/audio/audio_service.dart';
 import 'package:goncook/services/clarity.dart';
 import 'package:goncook/services/monitoring/monitoring_service_factory.dart';
-import 'package:goncook/common/config/firebase_config.dart';
-import 'package:goncook/common/errors/error_handler.dart';
-import 'package:goncook/common/storage/preferences/preferences.dart';
+import 'package:goncook/services/storage/preferences/preferences.dart';
 
 Future<void> bootstrap() async {
   initLogger();

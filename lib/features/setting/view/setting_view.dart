@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/features/core/bloc/locale_bloc.dart';
-import 'package:goncook/features/core/bloc/theme_bloc.dart';
-import 'package:goncook/features/core/config/color/app_color_scheme.dart';
-import 'package:goncook/features/core/config/style/app_styles.dart';
-import 'package:goncook/features/setting/bloc/setting_bloc.dart';
-import 'package:goncook/common/constants/routes.dart' show Routes;
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/color/app_color_scheme.dart';
+import 'package:goncook/common/config/style/app_styles.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/models/user_model.dart';
-import 'package:goncook/common/storage/preferences/preferences.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/bloc/locale_bloc.dart';
+import 'package:goncook/core/bloc/theme_bloc.dart';
+import 'package:goncook/core/router/routes.dart' show Routes;
+import 'package:goncook/features/setting/bloc/setting_bloc.dart';
+import 'package:goncook/services/storage/preferences/preferences.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({super.key});

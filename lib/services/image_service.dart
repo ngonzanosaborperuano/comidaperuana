@@ -121,11 +121,9 @@ class ImageService {
             height: height,
             child: Center(
               child: CircularProgressIndicator(
-                value:
-                    loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                    : null,
               ),
             ),
           );
@@ -158,10 +156,7 @@ class ImageService {
   }
 
   /// Precachea una imagen para uso futuro
-  Future<void> precacheImageAsset(
-    String assetPath,
-    BuildContext context,
-  ) async {
+  Future<void> precacheImageAsset(String assetPath, BuildContext context) async {
     try {
       await precacheImage(AssetImage(assetPath), context);
     } catch (e) {
@@ -177,8 +172,7 @@ class ImageService {
 
   /// Limpia una imagen específica del cache
   void clearImageFromCache(String assetPath) {
-    final keysToRemove =
-        _imageCache.keys.where((key) => key.startsWith(assetPath)).toList();
+    final keysToRemove = _imageCache.keys.where((key) => key.startsWith(assetPath)).toList();
     for (final key in keysToRemove) {
       _imageCache.remove(key);
     }
@@ -193,10 +187,7 @@ class ImageService {
     return Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(4),
-      ),
+      decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(4)),
       child: Icon(
         Icons.image_not_supported,
         color: Colors.grey[600],
@@ -204,9 +195,4 @@ class ImageService {
       ),
     );
   }
-}
-
-/// Extension para facilitar el uso del ImageService
-extension ImageServiceExtension on BuildContext {
-  ImageService get imageService => ImageService();
 }

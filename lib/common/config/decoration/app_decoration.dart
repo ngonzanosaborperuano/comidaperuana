@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/color/app_colors.dart';
-import 'package:goncook/features/core/config/style/app_styles.dart';
+import 'package:goncook/common/config/color/app_colors.dart';
+import 'package:goncook/common/config/style/app_styles.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart' show AppSpacing;
 
 class AppDecorations {

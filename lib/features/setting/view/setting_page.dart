@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/features/auth/domain/repositories/user_repository.dart';
 import 'package:goncook/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:goncook/features/setting/bloc/setting_bloc.dart';
 import 'package:goncook/features/setting/di/setting_dependencies.dart';
 import 'package:goncook/features/setting/view/setting_view.dart';
+import 'package:goncook/services/network/network.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -19,7 +20,7 @@ class SettingPage extends StatelessWidget {
       providers: settingModuleProviders(context),
       child: BlocProvider<SettingBloc>(
         create: (context) => SettingBloc(
-          userRepository: context.read<IUserRepository>(),
+          userRepository: UserRepository(apiService: context.read<ApiService>()),
           logoutUseCase: context.read<LogoutUseCase>(),
         )..add(SettingLoadRequested()),
         child: const SettingView(),

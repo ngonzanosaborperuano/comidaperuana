@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/constants/routes.dart';
-import 'package:goncook/common/controller/base_controller.dart';
-import 'package:goncook/common/storage/preferences/preferences.dart';
-import 'package:goncook/common/storage/secure_storage/securete_storage_service.dart';
+import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/bloc/locale_bloc.dart';
+import 'package:goncook/core/bloc/theme_bloc.dart';
+import 'package:goncook/core/router/routes.dart';
 import 'package:goncook/features/auth/data/models/auth_user.dart';
 import 'package:goncook/features/auth/presentation/widget/logo_widget.dart';
-import 'package:goncook/features/core/bloc/locale_bloc.dart';
-import 'package:goncook/features/core/bloc/theme_bloc.dart';
+import 'package:goncook/services/storage/preferences/preferences.dart';
+import 'package:goncook/services/storage/secure_storage/securete_storage_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

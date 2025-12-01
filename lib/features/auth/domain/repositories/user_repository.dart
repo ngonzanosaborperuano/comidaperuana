@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:goncook/common/constants/option.dart';
-import 'package:goncook/common/repository/base_repository.dart';
-import 'package:goncook/common/storage/secure_storage/securete_storage_service.dart';
 import 'package:goncook/features/auth/data/models/auth_user.dart';
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
 import 'package:goncook/services/network/network.dart';
+import 'package:goncook/services/storage/secure_storage/securete_storage_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 
-class UserRepository extends BaseRepository implements IUserRepository {
+class UserRepository implements IUserRepository {
   UserRepository({
     required ApiService apiService,
     FirebaseAuth? firebaseAuth,
@@ -24,8 +23,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
   final GoogleSignIn _googleSignIn;
   final ISecureStorageService secureStorageService;
 
-  @override
-  String get name => 'UserRepository';
   static const String path = 'v1/auth';
   static const String usuario = 'v1/users';
   final _logger = Logger('UserRepository');
@@ -79,7 +76,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
       return true;
     } catch (e, stackTrace) {
       _logger.severe('Error al iniciar sesión: $e', e, stackTrace);
-      addError(e, stackTrace);
     }
     return false;
   }
@@ -128,7 +124,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
       return userData ?? AuthUser.empty();
     } catch (e, stackTrace) {
       _logger.severe('Error: $e', e, stackTrace);
-      addError(e, stackTrace);
     }
     return AuthUser.empty();
   }
@@ -141,7 +136,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
       await secureStorageService.deleteCredentials();
     } catch (e, stackTrace) {
       _logger.severe('Error: $e', e, stackTrace);
-      addError(e, stackTrace);
     }
   }
 }

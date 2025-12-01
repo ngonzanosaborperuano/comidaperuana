@@ -1,4 +1,4 @@
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/domain/core/value_objects.dart';
 
 class Email extends ValueObject<String> {
@@ -22,12 +22,12 @@ class Email extends ValueObject<String> {
   }
 
   /// Factory constructor that validates and returns Result
-  static AppResult<Email> create(String email) {
+  static AppResultService<Email> create(String email) {
     final emailVO = Email(email);
     if (emailVO.isValid) {
-      return AppResult.success(emailVO);
+      return AppResultService.success(emailVO);
     }
-    return AppResult.failure(emailVO.errorMessage ?? 'Email inválido');
+    return AppResultService.failure(emailVO.errorMessage ?? 'Email inválido');
   }
 
   /// Get domain part of email

@@ -1,23 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class ApiResponse<T> extends Equatable {
-  const ApiResponse({
-    this.success = true,
-    String? message,
-    T? data,
-    String? error,
-  }) : _data = data,
-       _message = message;
+  const ApiResponse({this.success = true, String? message, T? data, String? error})
+    : _data = data,
+      _message = message;
 
   const ApiResponse.success({required T data, error})
     : success = true,
       _data = data,
       _message = null;
 
-  const ApiResponse.error({String? message})
-    : success = false,
-      _data = null,
-      _message = message;
+  const ApiResponse.error({String? message}) : success = false, _data = null, _message = message;
 
   final bool success;
   final T? _data;

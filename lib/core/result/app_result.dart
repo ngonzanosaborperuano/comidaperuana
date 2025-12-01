@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 /// Simple Result pattern for functional error handling
-sealed class AppResult<T> extends Equatable {
-  const AppResult();
+sealed class AppResultService<T> extends Equatable {
+  const AppResultService();
 
   /// Create a success result
-  const factory AppResult.success(T value) = Success<T>;
+  const factory AppResultService.success(T value) = Success<T>;
 
   /// Create a failure result
-  const factory AppResult.failure(String message, {String? code}) = Failure<T>;
+  const factory AppResultService.failure(String message, {String? code}) = Failure<T>;
 
   /// Check if result is success
   bool get isSuccess => this is Success<T>;
@@ -33,11 +33,11 @@ sealed class AppResult<T> extends Equatable {
   }
 
   /// Transform success value
-  AppResult<R> map<R>(R Function(T) transform) {
+  AppResultService<R> map<R>(R Function(T) transform) {
     if (this is Success<T>) {
-      return AppResult.success(transform((this as Success<T>).value));
+      return AppResultService.success(transform((this as Success<T>).value));
     }
-    return AppResult.failure((this as Failure<T>).message, code: (this as Failure<T>).code);
+    return AppResultService.failure((this as Failure<T>).message, code: (this as Failure<T>).code);
   }
 
   /// Fold to handle both cases
@@ -58,7 +58,7 @@ sealed class AppResult<T> extends Equatable {
 }
 
 /// Success result
-class Success<T> extends AppResult<T> {
+class Success<T> extends AppResultService<T> {
   final T value;
 
   const Success(this.value);
@@ -71,7 +71,7 @@ class Success<T> extends AppResult<T> {
 }
 
 /// Failure result
-class Failure<T> extends AppResult<T> {
+class Failure<T> extends AppResultService<T> {
   final String message;
   final String? code;
 
@@ -85,7 +85,7 @@ class Failure<T> extends AppResult<T> {
 }
 
 /// Extension for easier usage
-extension AppResultExtensions<T> on AppResult<T> {
+extension AppResultExtensions<T> on AppResultService<T> {
   /// Execute on success
   void onSuccess(void Function(T) callback) {
     if (isSuccess) {

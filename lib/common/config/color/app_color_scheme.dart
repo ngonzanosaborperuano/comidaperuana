@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/config.dart';
+import 'package:goncook/common/config/config.dart';
 
 class AppColorScheme extends InheritedWidget {
   final Brightness brightness;

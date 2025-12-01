@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/features/auth/data/models/auth_user.dart';
 

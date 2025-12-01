@@ -1,4 +1,3 @@
-export 'auth/controller/login_controller.dart';
 export 'auth/presentation/bloc/login_bloc.dart';
 export 'auth/presentation/screnns/login_page.dart';
 export 'auth/presentation/screnns/login_view.dart';

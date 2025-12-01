@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/config.dart';
-import 'package:goncook/features/dashboard/widget/donut_chart_painter.dart';
-import 'package:goncook/features/home/models/task_model.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/config.dart';
+import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/common/models/user_model.dart';
 import 'package:goncook/common/widget/widget.dart' show AppVerticalSpace;
+import 'package:goncook/features/dashboard/widget/donut_chart_painter.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key, required this.percent, required this.listTaskModel});
 
   final double percent;
-  final List<TaskModel> listTaskModel;
+  final List<UserModel> listTaskModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +29,18 @@ class DashboardView extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: todo.completed == 1 ? AppColors.emerald700 : AppColors.red700,
+                    backgroundColor: todo.avatar == 'active'
+                        ? AppColors.emerald700
+                        : AppColors.red700,
                     child: Icon(
-                      todo.completed == 1 ? Icons.check : Icons.close,
+                      todo.avatar == 'active' ? Icons.check : Icons.close,
                       color: AppColors.white,
                     ),
                   ),
-                  title: Text('${context.loc.title}: ${todo.title}'),
-                  subtitle: Text('${context.loc.user} ID: ${todo.userId}'),
+                  title: Text('${context.loc.title}: ${todo.firstName} ${todo.lastName}'),
+                  subtitle: Text('${context.loc.user} ID: ${todo.id}'),
                   trailing: Icon(
-                    todo.completed == 1 ? Icons.done : Icons.pending,
+                    todo.avatar == 'active' ? Icons.done : Icons.pending,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),

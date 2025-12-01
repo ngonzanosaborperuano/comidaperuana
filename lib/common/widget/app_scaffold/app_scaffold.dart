@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/core/bloc/pages_bloc.dart';
-import 'package:goncook/features/setting/view/setting_page.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_scaffold/menu_android.dart';
 import 'package:goncook/common/widget/app_scaffold/menu_ios.dart';
 import 'package:goncook/common/widget/app_scaffold/page_home_android.dart';
 import 'package:goncook/common/widget/app_scaffold/page_home_ios.dart';
+import 'package:goncook/core/bloc/pages_bloc.dart';
+import 'package:goncook/features/setting/view/setting_page.dart';
 
 class AppScaffold extends StatefulWidget {
   const AppScaffold({

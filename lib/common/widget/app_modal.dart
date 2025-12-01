@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/color/app_color_scheme.dart';
+import 'package:goncook/common/config/color/app_color_scheme.dart';
 import 'package:goncook/common/widget/spacing/app_spacer.dart';
 
 class AppDialog extends StatelessWidget {

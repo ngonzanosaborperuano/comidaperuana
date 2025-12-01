@@ -1,42 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
-import 'package:goncook/features/auth/domain/repositories/firebase_user_auth_repository.dart';
-import 'package:goncook/features/auth/domain/repositories/user_repository.dart';
-import 'package:goncook/features/core/bloc/app_bloc.dart';
-import 'package:goncook/features/core/bloc/auth_bloc.dart';
-import 'package:goncook/features/core/bloc/config_bloc.dart';
-import 'package:goncook/features/core/bloc/locale_bloc.dart';
-import 'package:goncook/features/core/bloc/theme_bloc.dart';
-import 'package:goncook/features/core/bloc/user_bloc.dart';
-import 'package:goncook/services/network/api_service.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:goncook/core/di/dependencies.dart';
 
 /// Lista de BLoCs globales de la aplicación
+/// Centraliza la inyección de dependencias de BLoCs a nivel de aplicación.
 List<BlocProvider> globalBlocProviders(BuildContext context) {
   return [
-    // App BLoC
-    BlocProvider<AppBloc>(create: (context) => AppBloc()),
-
-    // Auth BLoC
-    BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(authRepository: context.read<IUserAuthRepository>()),
-    ),
-
-    // User BLoC
-    BlocProvider<UserBloc>(
-      create: (context) => UserBloc(userRepository: context.read<IUserRepository>()),
-    ),
-
-    // Config BLoC
-    BlocProvider<ConfigBloc>(
-      create: (context) => ConfigBloc(
-        config: <String, dynamic>{'theme': 'light', 'locale': 'es', 'version': '1.0.0'},
-      ),
-    ),
-
     // Theme BLoC
     BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
 
@@ -48,6 +18,7 @@ List<BlocProvider> globalBlocProviders(BuildContext context) {
 }
 
 /// Lista de repositories para inyección de dependencias
+/// Centraliza la inyección de dependencias de repositorios a nivel de aplicación.
 List<RepositoryProvider> globalRepositoryProviders(BuildContext context) {
   return [
     // Core services

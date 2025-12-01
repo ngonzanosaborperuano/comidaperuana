@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/color/app_color_scheme.dart';
-import 'package:goncook/features/core/config/config.dart';
+import 'package:goncook/common/config/color/app_color_scheme.dart';
+import 'package:goncook/common/config/config.dart';
 
 class AppDonutChart extends StatefulWidget {
   final double completedPercent;

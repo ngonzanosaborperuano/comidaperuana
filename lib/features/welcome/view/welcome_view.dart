@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/constants/routes.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/l10n/app_localizations.dart' show AppLocalizations;
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/router/routes.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});

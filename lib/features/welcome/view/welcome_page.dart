@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/welcome/view/welcome_view.dart';
-import 'package:goncook/common/storage/preferences/preferences.dart';
 import 'package:goncook/common/widget/app_scaffold/app_scaffold.dart';
+import 'package:goncook/features/welcome/view/welcome_view.dart';
+import 'package:goncook/services/storage/preferences/preferences.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

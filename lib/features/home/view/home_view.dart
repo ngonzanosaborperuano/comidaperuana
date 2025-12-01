@@ -5,15 +5,13 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/features/home/bloc/home_bloc.dart';
 import 'package:goncook/features/home/widget/app_gemini_text_to_text_button.dart';
 import 'package:goncook/features/home/widget/app_gemini_voice_to_text_button.dart'
     show AppGeminiVoiceToTextButton;
-import 'package:goncook/features/home/widget/card_task.dart' show CardTask;
 import 'package:goncook/features/home/widget/subscription_plans_page.dart';
-import 'package:goncook/common/controller/base_controller.dart';
-import 'package:goncook/common/widget/app_image.dart';
-import 'package:goncook/common/widget/widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -53,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
         if (state is! HomeLoaded) {
           return const SizedBox.shrink();
         }
-        final listTask = state.listTask;
+        final listTask = [];
         return Center(
           child: !listTask.isNotEmpty
               ? SizedBox(
@@ -221,17 +219,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         );
                       },
-                      child: CardTask(
-                        itemTask: itemTask,
-                        onUpdateTask: (id, title, body) {
-                          context.read<HomeBloc>().add(
-                            HomeUpdateTask(id: id, title: title, body: body),
-                          );
-                        },
-                        onDeleteTask: (id) {
-                          context.read<HomeBloc>().add(HomeDeleteTask(id));
-                        },
-                      ),
+                      child: Text(itemTask.name),
                     );
                   },
                 ),

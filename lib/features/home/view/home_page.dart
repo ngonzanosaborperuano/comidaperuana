@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/controller/base_controller.dart';
-import 'package:goncook/common/repository/task_repository.dart';
+import 'package:goncook/common/config/config.dart' show AppStyles;
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
-import 'package:goncook/features/core/config/config.dart' show AppStyles;
 import 'package:goncook/features/home/bloc/home_bloc.dart';
 import 'package:goncook/features/home/view/home_view.dart';
-import 'package:goncook/services/database/database_helper.dart';
-import 'package:goncook/services/network/api_service.dart';
 import 'package:logging/logging.dart';
 
 /// Pantalla principal del inicio de la aplicación.
@@ -38,20 +35,12 @@ class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
 
   @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
       create: (BuildContext context) {
         final userRepository = context.read<IUserRepository>();
-        final apiService = context.read<ApiService>();
-        final taskRepository = TaskRepository(DatabaseHelper.instance, apiService: apiService);
 
-        return HomeBloc(userRepository: userRepository, taskRepository: taskRepository);
+        return HomeBloc(userRepository: userRepository);
       },
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {

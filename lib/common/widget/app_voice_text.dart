@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/core/bloc/locale_bloc.dart';
-import 'package:goncook/features/core/config/config.dart' show AppColors, AppStyles;
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/config.dart' show AppColors, AppStyles;
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/bloc/locale_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;

@@ -1,5 +1,5 @@
 import 'package:goncook/common/constants/option.dart' show LoginWith;
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/data/models/auth_user.dart' show AuthUser;
 import 'package:goncook/features/auth/domain/auth/entities/user.dart';
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
@@ -11,7 +11,7 @@ class LoginUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute login with email and password
-  Future<AppResult<AuthUser>> execute({
+  Future<AppResultService<AuthUser>> execute({
     required String email,
     required String password,
     required int type,
@@ -21,18 +21,18 @@ class LoginUseCase {
     } else if (type == LoginWith.withUserPassword) {
       final emailResult = Email.create(email);
       if (emailResult.isFailure) {
-        return AppResult.failure(emailResult.errorMessage!);
+        return AppResultService.failure(emailResult.errorMessage!);
       }
       if (password.isEmpty) {
-        return const AppResult.failure('La contraseña no puede estar vacía');
+        return const AppResultService.failure('La contraseña no puede estar vacía');
       }
       return await _authRepository.authenticateEmail(emailResult.valueOrNull!, password);
     }
-    return const AppResult.failure('Tipo de inicio de sesión no soportado');
+    return const AppResultService.failure('Tipo de inicio de sesión no soportado');
   }
 
   /// Execute recover credential
-  Future<AppResult<String>> executeRecoverCredential(String email) async {
+  Future<AppResultService<String>> executeRecoverCredential(String email) async {
     return await _authRepository.recoverCredential(email);
   }
 }
@@ -44,7 +44,7 @@ class GetCurrentUserUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute get current user
-  Future<AppResult<User?>> execute() async {
+  Future<AppResultService<User?>> execute() async {
     return await _authRepository.getCurrentUser();
   }
 }

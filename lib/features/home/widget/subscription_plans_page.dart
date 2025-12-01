@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/features/checkout/helper/show_payu_checkout.dart' show showPayUCheckout;
-import 'package:goncook/features/core/config/style/app_styles.dart';
-import 'package:goncook/features/home/models/subscription_plan.dart'
-    show SubscriptionPlan, SubscriptionPlans;
-import 'package:goncook/services/subscription_service.dart'
-    show SubscriptionPlanType;
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/style/app_styles.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_confirm_dialog.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/features/checkout/helper/show_payu_checkout.dart' show showPayUCheckout;
+import 'package:goncook/features/home/models/subscription_plan.dart'
+    show SubscriptionPlan, SubscriptionPlans;
+import 'package:goncook/services/subscription_service.dart' show SubscriptionPlanType;
 
 class SubscriptionPlansPage extends StatefulWidget {
   final String? userEmail;

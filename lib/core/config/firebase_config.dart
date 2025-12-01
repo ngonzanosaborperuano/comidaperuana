@@ -18,7 +18,7 @@ class FirebaseConfig {
       // En producción, usar providers reales
       await FirebaseAppCheck.instance.activate(
         androidProvider: AndroidProvider.playIntegrity,
-        appleProvider: AppleProvider.deviceCheck,
+        appleProvider: AppleProvider.appAttest,
       );
     }
   }

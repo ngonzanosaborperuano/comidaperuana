@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/controller/base_controller.dart';
-import 'package:goncook/common/widget/animated_widgets.dart' show AnimatedLogoWidget;
+import 'package:goncook/common/config/style/app_styles.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/features/auth/data/models/auth_user.dart';
 import 'package:goncook/features/auth/presentation/widget/widget.dart' show LogoWidget;
-import 'package:goncook/features/core/config/style/app_styles.dart';
 // Controller eliminado tras migración a BLoC
 import 'package:goncook/features/register/widget/animated_register_button.dart';
 
@@ -32,9 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AnimatedLogoWidget(
-            child: Hero(tag: 'logo', child: LogoWidget()),
-          ),
+          const LogoWidget(),
           AppVerticalSpace.xlg,
           AppTextField(
             hintText: context.loc.enterFullName,

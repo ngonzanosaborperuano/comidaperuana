@@ -2,11 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:goncook/common/constants/storage.dart';
-import 'package:goncook/common/repository/task_repository.dart';
-import 'package:goncook/common/storage/secure_storage/securete_storage_service.dart';
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
-import 'package:goncook/features/home/models/task_model.dart';
 
 // Events
 abstract class HomeEvent extends Equatable {
@@ -74,13 +70,13 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List<TaskModel> listTask;
-  final List<TaskModel> listTaskDashboard;
-  final bool? isPending;
-  const HomeLoaded({required this.listTask, required this.listTaskDashboard, this.isPending});
-
-  @override
-  List<Object?> get props => [listTask, listTaskDashboard, isPending];
+  //final List<TaskModel> listTask;
+  //final List<TaskModel> listTaskDashboard;
+  //final bool? isPending;
+  //const HomeLoaded({required this.listTask, required this.listTaskDashboard, this.isPending});
+  //
+  //@override
+  //List<Object?> get props => [listTask, listTaskDashboard, isPending];
 }
 
 class HomeError extends HomeState {
@@ -101,31 +97,30 @@ class HomeTaskOperationSuccess extends HomeState {
 
 // BLoC
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required IUserRepository userRepository, required TaskRepository taskRepository})
+  HomeBloc({required IUserRepository userRepository})
     : _userRepository = userRepository,
-      _taskRepository = taskRepository,
       super(HomeInitial()) {
     on<HomeInitialized>(_onHomeInitialized);
     on<HomeSearchCompleted>(_onHomeSearchCompleted);
+    /*
     on<HomeInsertTask>(_onHomeInsertTask);
     on<HomeUpdateTask>(_onHomeUpdateTask);
     on<HomeDeleteTask>(_onHomeDeleteTask);
     on<HomeSearchTask>(_onHomeSearchTask);
-
+*/
     // Inicializar automáticamente
     add(HomeInitialized());
   }
 
   final IUserRepository _userRepository;
-  final TaskRepository _taskRepository;
   Timer? _debounce;
 
   void _onHomeInitialized(HomeInitialized event, Emitter<HomeState> emit) async {
-    emit(HomeLoading());
+    // emit(HomeLoading());
     try {
-      final listTask = <TaskModel>[]; //await _taskRepository.getListTask();
-      final listTaskDashboard = listTask;
-      emit(HomeLoaded(listTask: listTask, listTaskDashboard: listTaskDashboard));
+      //final listTask = <TaskModel>[]; //await _taskRepository.getListTask();
+      //final listTaskDashboard = listTask;
+      emit(HomeLoaded());
     } catch (e) {
       emit(HomeError(e.toString()));
     }
@@ -134,36 +129,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _onHomeSearchCompleted(HomeSearchCompleted event, Emitter<HomeState> emit) async {
     if (state is HomeLoaded) {
       emit(HomeLoading());
-      try {
-        final listTask = await _taskRepository.searchCompletedStorage(
-          tabla: TablaStorage.task,
-          valor: event.isPending != true ? '1' : '0',
-        );
-        emit(
-          HomeLoaded(
-            listTask: listTask,
-            listTaskDashboard: (state as HomeLoaded).listTaskDashboard,
-            isPending: event.isPending,
-          ),
-        );
-      } catch (e) {
+      try {} catch (e) {
         emit(HomeError(e.toString()));
       }
     }
   }
 
+  /*
   void _onHomeInsertTask(HomeInsertTask event, Emitter<HomeState> emit) async {
     try {
       final secureStorageService = SecurityStorageService();
       final user = await secureStorageService.loadCredentials();
       final taskModel = TaskModel(userId: user!.id!, title: event.title, body: event.body);
-      final result = await _taskRepository.insertTask(taskModel);
-      emit(HomeTaskOperationSuccess(result));
-
-      // Recargar la lista después de insertar
-      if (result) {
-        add(HomeInitialized());
-      }
+      final result = await _userRepository.register(user);
     } catch (e) {
       emit(HomeError(e.toString()));
     }
@@ -179,7 +157,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         title: event.title,
         body: event.body,
       );
-      final result = await _taskRepository.updateTask(taskModel);
+      final result = await _userRepository.updateUser(user);
       emit(HomeTaskOperationSuccess(result));
 
       // Recargar la lista después de actualizar
@@ -193,7 +171,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _onHomeDeleteTask(HomeDeleteTask event, Emitter<HomeState> emit) async {
     try {
-      final result = await _taskRepository.deleteTask(event.id);
+      final result = await _userRepository.delete(event.id);
       emit(HomeTaskOperationSuccess(result));
 
       // Recargar la lista después de eliminar
@@ -211,7 +189,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _debounce = Timer(const Duration(milliseconds: 500), () async {
       if (state is HomeLoaded) {
         try {
-          final listTask = await _taskRepository.searchTaskListStorage(
+          final listTask = await _userRepository.searchUser(
             tabla: TablaStorage.task,
             valor: event.title,
           );
@@ -228,10 +206,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     });
   }
-
-  @override
-  Future<void> close() {
-    _debounce?.cancel();
-    return super.close();
-  }
+*/
 }

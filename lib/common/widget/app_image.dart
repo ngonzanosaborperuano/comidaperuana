@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/services/image_service.dart';
+import 'package:goncook/common/extension/extension.dart';
 
 /// Mapeo de nombres semánticos a rutas de archivos de imagen
 class AppImages {
@@ -245,9 +245,6 @@ extension AppImageExtension on BuildContext {
       colorBlendMode: colorBlendMode,
     );
   }
-
-  /// Extension semántica para imágenes usando nombres
-  ImageIconSemantic get image => ImageIconSemantic(this);
 }
 
 /// Clase para uso semántico de imágenes

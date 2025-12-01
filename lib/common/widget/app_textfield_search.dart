@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/color/app_colors.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/color/app_colors.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
 
 class AppTextFieldSearch extends StatelessWidget {

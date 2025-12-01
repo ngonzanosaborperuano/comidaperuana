@@ -1,4 +1,4 @@
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
 
 class LogoutUseCase {
@@ -7,7 +7,7 @@ class LogoutUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute user logout
-  Future<AppResult<void>> execute() async {
+  Future<AppResultService<void>> execute() async {
     return await _authRepository.signOut();
   }
 }

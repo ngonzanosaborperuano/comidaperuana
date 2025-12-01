@@ -2,7 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/extension/extension.dart';
 
 class AppSwitch extends StatelessWidget {
   final bool value;

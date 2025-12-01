@@ -58,3 +58,51 @@ class LoginErrorCleared extends LoginEvent {
 class PasswordVisibilityToggled extends LoginEvent {
   const PasswordVisibilityToggled();
 }
+
+/// Event triggered when email field value changes.
+class EmailChanged extends LoginEvent {
+  final String email;
+
+  const EmailChanged(this.email);
+
+  @override
+  List<Object?> get props => [email];
+}
+
+/// Event triggered when password field value changes.
+class PasswordChanged extends LoginEvent {
+  final String password;
+
+  const PasswordChanged(this.password);
+
+  @override
+  List<Object?> get props => [password];
+}
+
+/// Event triggered to validate the form fields.
+class FormValidated extends LoginEvent {
+  const FormValidated();
+}
+
+/// Event triggered when the login button is pressed.
+///
+/// This event triggers the login flow by validating the provided email and password
+/// and proceeding with login if validation passes.
+class LoginButtonPressed extends LoginEvent {
+  final String email;
+  final String password;
+
+  const LoginButtonPressed({required this.email, required this.password});
+
+  @override
+  List<Object?> get props => [email, password];
+}
+
+/// Event triggered when the recover password button is pressed.
+///
+/// This event checks if there's an email in the current form state.
+/// If email exists, it directly requests credential recovery.
+/// Otherwise, it emits a state indicating that a dialog should be shown.
+class RecoverPasswordButtonPressed extends LoginEvent {
+  const RecoverPasswordButtonPressed();
+}

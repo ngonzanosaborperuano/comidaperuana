@@ -3,13 +3,13 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
+import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/router/routes.dart' show Routes;
 import 'package:goncook/features/checkout/models/payu_checkout_response_model.dart';
 import 'package:goncook/features/checkout/view/page_success_view.dart' show PageSuccess;
 import 'package:goncook/features/checkout/widget/widget.dart';
 import 'package:goncook/services/payu_service.dart';
-import 'package:goncook/common/constants/routes.dart' show Routes;
-import 'package:goncook/common/controller/base_controller.dart';
-import 'package:goncook/common/widget/widget.dart';
 
 class PayUCheckoutWebView extends StatefulWidget {
   final String checkoutUrl;

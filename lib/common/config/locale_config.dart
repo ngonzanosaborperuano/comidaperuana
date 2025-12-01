@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/core/bloc/locale_bloc.dart';
 import 'package:goncook/common/l10n/app_localizations.dart';
+import 'package:goncook/core/bloc/locale_bloc.dart';
 
 class LocaleConfig {
   static Widget buildWithLocale({required Widget child, required BuildContext context}) {

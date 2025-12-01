@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/checkout/view/page_success_view.dart' show PageSuccess;
-import 'package:goncook/features/core/config/config.dart';
+import 'package:goncook/common/config/config.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/features/checkout/view/page_success_view.dart' show PageSuccess;
 
 class Body extends StatelessWidget {
   const Body({

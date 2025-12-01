@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/constants/routes.dart';
-import 'package:goncook/common/storage/preferences/preferences.dart';
+import 'package:goncook/core/router/routes.dart';
 import 'package:goncook/features/auth/presentation/screnns/login_page.dart';
 import 'package:goncook/features/checkout/view/payu_checkout_page.dart';
 import 'package:goncook/features/dashboard/view/dashboard_page.dart';
@@ -10,6 +9,7 @@ import 'package:goncook/features/register/view/register_page.dart';
 import 'package:goncook/features/setting/view/setting_page.dart';
 import 'package:goncook/features/splash/splash_view.dart';
 import 'package:goncook/features/welcome/view/welcome_page.dart';
+import 'package:goncook/services/storage/preferences/preferences.dart';
 import 'package:logging/logging.dart';
 
 // GoRoute(

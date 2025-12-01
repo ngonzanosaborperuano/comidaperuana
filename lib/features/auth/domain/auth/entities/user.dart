@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/domain/auth/value_objects/email.dart';
 import 'package:goncook/features/auth/domain/auth/value_objects/password.dart';
 import 'package:goncook/features/auth/domain/auth/value_objects/user_id.dart';
@@ -35,7 +35,7 @@ class User extends Equatable {
   final DateTime? updatedAt;
 
   /// Factory constructor with validation
-  static AppResult<User> create({
+  static AppResultService<User> create({
     String? id,
     required String email,
     String? password,
@@ -50,7 +50,7 @@ class User extends Equatable {
     if (id != null) {
       final userIdResult = UserId.create(id);
       if (userIdResult.isFailure) {
-        return AppResult.failure(userIdResult.errorMessage!);
+        return AppResultService.failure(userIdResult.errorMessage!);
       }
       userIdVO = userIdResult.valueOrNull;
     } else {
@@ -61,7 +61,7 @@ class User extends Equatable {
     // Validate email
     final emailResult = Email.create(email);
     if (emailResult.isFailure) {
-      return AppResult.failure(emailResult.errorMessage!);
+      return AppResultService.failure(emailResult.errorMessage!);
     }
 
     // Validate password if provided
@@ -69,17 +69,17 @@ class User extends Equatable {
     if (password != null) {
       final passwordResult = Password.create(password);
       if (passwordResult.isFailure) {
-        return AppResult.failure(passwordResult.errorMessage!);
+        return AppResultService.failure(passwordResult.errorMessage!);
       }
       passwordVO = passwordResult.valueOrNull;
     }
 
     // Validate name if provided
     if (name != null && name.trim().isEmpty) {
-      return const AppResult.failure('El nombre no puede estar vacío');
+      return const AppResultService.failure('El nombre no puede estar vacío');
     }
 
-    return AppResult.success(
+    return AppResultService.success(
       User(
         id: userIdVO!,
         email: emailResult.valueOrNull!,

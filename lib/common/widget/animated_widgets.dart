@@ -183,19 +183,15 @@ class _AnimatedPressButtonState extends State<AnimatedPressButton>
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this);
 
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.95,
+    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeInOut)));
 
-    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.8).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
-    );
+    _opacityAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.8,
+    ).animate(CurvedAnimation(parent: _controller, curve: const SafeCurve(Curves.easeInOut)));
   }
 
   @override
@@ -208,9 +204,7 @@ class _AnimatedPressButtonState extends State<AnimatedPressButton>
     if (widget.isLoading) return;
 
     _controller.forward();
-    await Future.delayed(
-      Duration(milliseconds: widget.duration.inMilliseconds ~/ 2),
-    );
+    await Future.delayed(Duration(milliseconds: widget.duration.inMilliseconds ~/ 2));
     _controller.reverse();
 
     widget.onPressed?.call();
@@ -231,151 +225,8 @@ class _AnimatedPressButtonState extends State<AnimatedPressButton>
   }
 }
 
-/// Widget de animación de logo con efectos combinados
-class AnimatedLogoWidget extends StatefulWidget {
-  const AnimatedLogoWidget({
-    super.key,
-    required this.child,
-    this.onTap,
-    this.enablePulse = true,
-    this.enableRotation = true,
-  });
-
-  final Widget child;
-  final VoidCallback? onTap;
-  final bool enablePulse;
-  final bool enableRotation;
-
-  @override
-  State<AnimatedLogoWidget> createState() => _AnimatedLogoWidgetState();
-}
-
-class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget>
-    with TickerProviderStateMixin {
-  late AnimationController _bounceController;
-  late AnimationController _pulseController;
-  late AnimationController _rotateController;
-
-  late Animation<double> _bounceAnimation;
-  late Animation<double> _pulseAnimation;
-  late Animation<double> _rotateAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _bounceController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
-      vsync: this,
-    );
-
-    _rotateController = AnimationController(
-      duration: const Duration(milliseconds: 3000),
-      vsync: this,
-    );
-
-    _bounceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _bounceController,
-        curve: const SafeCurve(Curves.easeOutBack),
-      ),
-    );
-
-    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(
-        parent: _pulseController,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
-    );
-
-    _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _rotateController,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
-    );
-
-    _startAnimations();
-  }
-
-  void _startAnimations() async {
-    // Animación de rebote inicial
-    await Future.delayed(const Duration(milliseconds: 300));
-    _bounceController.forward();
-
-    // Animación de pulso continua
-    if (widget.enablePulse) {
-      await Future.delayed(const Duration(milliseconds: 500));
-      _pulseController.repeat(reverse: true);
-    }
-
-    // Animación de rotación sutil
-    if (widget.enableRotation) {
-      await Future.delayed(const Duration(milliseconds: 800));
-      _rotateController.repeat();
-    }
-  }
-
-  @override
-  void dispose() {
-    _bounceController.dispose();
-    _pulseController.dispose();
-    _rotateController.dispose();
-    super.dispose();
-  }
-
-  void _handleTap() {
-    // Efecto de rebote al tocar
-    _bounceController.reset();
-    _bounceController.forward();
-
-    widget.onTap?.call();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      child: AnimatedBuilder(
-        animation: Listenable.merge([
-          _bounceAnimation,
-          if (widget.enablePulse) _pulseAnimation,
-          if (widget.enableRotation) _rotateAnimation,
-        ]),
-        builder: (context, child) {
-          // Usar curvas seguras para todos los valores
-          final bounceValue = _bounceAnimation.value;
-          final pulseValue = widget.enablePulse ? _pulseAnimation.value : 1.0;
-          final rotateValue =
-              widget.enableRotation ? _rotateAnimation.value : 0.0;
-
-          double scale = bounceValue;
-          if (widget.enablePulse) {
-            scale *= pulseValue;
-          }
-
-          return Transform.scale(
-            scale: scale,
-            child: Transform.rotate(
-              angle: widget.enableRotation ? rotateValue * 0.05 : 0.0,
-              child: child,
-            ),
-          );
-        },
-        child: widget.child,
-      ),
-    );
-  }
-}
-
 /// Mixin para manejar animaciones escalonadas
-mixin StaggeredAnimationMixin<T extends StatefulWidget>
-    on State<T>, TickerProvider {
+mixin StaggeredAnimationMixin<T extends StatefulWidget> on State<T>, TickerProvider {
   late AnimationController fadeController;
   late AnimationController slideController;
   late AnimationController scaleController;
@@ -397,36 +248,24 @@ mixin StaggeredAnimationMixin<T extends StatefulWidget>
     scaleController = AnimationController(duration: scaleDuration, vsync: this);
     formController = AnimationController(duration: formDuration, vsync: this);
 
-    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: fadeController,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
+    fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: fadeController, curve: const SafeCurve(Curves.easeInOut)));
+
+    slideAnimation = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+      CurvedAnimation(parent: slideController, curve: const SafeCurve(Curves.easeOutCubic)),
     );
 
-    slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: slideController,
-        curve: const SafeCurve(Curves.easeOutCubic),
-      ),
-    );
+    scaleAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: scaleController, curve: const SafeCurve(Curves.easeOutBack)));
 
-    scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: scaleController,
-        curve: const SafeCurve(Curves.easeOutBack),
-      ),
-    );
-
-    formAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: formController,
-        curve: const SafeCurve(Curves.easeInOut),
-      ),
-    );
+    formAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: formController, curve: const SafeCurve(Curves.easeInOut)));
   }
 
   Future<void> startStaggeredAnimations({

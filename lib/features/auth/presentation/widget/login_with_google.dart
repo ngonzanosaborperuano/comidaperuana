@@ -1,72 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goncook/common/constants/option.dart';
-import 'package:goncook/common/constants/routes.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/widget/app_image.dart';
 import 'package:goncook/common/widget/widget.dart';
-import 'package:goncook/features/auth/controller/login_controller.dart' show LoginController;
+import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 class LoginWithGoogle extends StatelessWidget {
-  const LoginWithGoogle({super.key, required this.con});
-  final LoginController con;
+  const LoginWithGoogle({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppButton.google(
-      iconAtStart: true,
-      isGoogle: true,
-      text: 'Google',
-      onPressed: () async {
-        await const LoadingDialog().show(
-          context,
-          future: () async {
-            final (isSuccess, msg) = await con.login(
-              email: con.emailController.text,
-              password: con.passwordController.text,
-              type: LoginWith.withGoogle,
-            );
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final formState = state is LoginFormState ? state : const LoginFormState();
 
-            if (isSuccess) {
-              if (!context.mounted) return;
-              context.showSuccessToast(context.loc.welcomeToCocinandoIA);
-              context.go(Routes.home.description);
-            } else {
-              var mensageUser = '';
-              if (!context.mounted) return;
-              if (msg == 'account-exists-with-different-credential') {
-                mensageUser = context.loc.accountExistsWithDifferentCredential;
-              } else if (msg == 'invalid-credential') {
-                mensageUser = context.loc.invalidCredential;
-              } else if (msg == 'operation-not-allowed') {
-                mensageUser = context.loc.operationNotAllowed;
-              } else if (msg == 'user-disabled') {
-                mensageUser = context.loc.userDisabled;
-              } else if (msg == 'user-not-found') {
-                mensageUser = context.loc.userNotFound;
-              } else if (msg == 'wrong-password') {
-                mensageUser = context.loc.wrongPassword;
-              } else {
-                mensageUser = context.loc.authError;
-              }
-              await showAdaptiveDialog(
-                context: context,
-                builder: (context) {
-                  return AppModalAlert(
-                    text: mensageUser,
-                    title: context.loc.titleAccessDenied,
-                    maxHeight: 200,
-                    icon: Icons.error,
-                    labelButton: context.loc.accept,
-                    onPressed: context.pop,
-                  );
-                },
-              );
-            }
+        return AppButton.google(
+          iconAtStart: true,
+          isGoogle: true,
+          text: 'Google',
+          onPressed: () {
+            context.read<LoginBloc>().add(
+              LoginRequested(
+                email: formState.email,
+                password: formState.password,
+                type: LoginWith.withGoogle,
+              ),
+            );
           },
+          showIcon: true,
+          iconWidget: context.imageIcon(AppImages.google, size: 20),
+          // Image.asset('assets/img/google.png', width: 20, height: 20),
         );
       },
-      showIcon: true,
-      iconWidget: Image.asset('assets/img/google.png', width: 20, height: 20),
     );
   }
 }

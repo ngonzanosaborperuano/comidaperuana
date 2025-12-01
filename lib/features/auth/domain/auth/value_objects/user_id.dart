@@ -1,4 +1,4 @@
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/domain/core/value_objects.dart';
 
 class UserId extends ValueObject<String> {
@@ -21,12 +21,12 @@ class UserId extends ValueObject<String> {
   }
 
   /// Factory constructor that validates and returns Result
-  static AppResult<UserId> create(String userId) {
+  static AppResultService<UserId> create(String userId) {
     final userIdVO = UserId(userId);
     if (userIdVO.isValid) {
-      return AppResult.success(userIdVO);
+      return AppResultService.success(userIdVO);
     }
-    return AppResult.failure(userIdVO.errorMessage ?? 'ID de usuario inválido');
+    return AppResultService.failure(userIdVO.errorMessage ?? 'ID de usuario inválido');
   }
 
   /// Create from Firebase UID

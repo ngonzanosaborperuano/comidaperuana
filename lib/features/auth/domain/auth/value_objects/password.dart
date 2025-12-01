@@ -1,4 +1,4 @@
-import 'package:goncook/common/shared.dart' show AppResult;
+import 'package:goncook/common/shared.dart' show AppResultService;
 import 'package:goncook/features/auth/domain/core/value_objects.dart';
 
 class Password extends ValueObject<String> {
@@ -31,12 +31,12 @@ class Password extends ValueObject<String> {
   }
 
   /// Factory constructor that validates and returns Result
-  static AppResult<Password> create(String password) {
+  static AppResultService<Password> create(String password) {
     final passwordVO = Password(password);
     if (passwordVO.isValid) {
-      return AppResult.success(passwordVO);
+      return AppResultService.success(passwordVO);
     }
-    return AppResult.failure(passwordVO.errorMessage ?? 'Contraseña inválida');
+    return AppResultService.failure(passwordVO.errorMessage ?? 'Contraseña inválida');
   }
 
   /// Get password strength level

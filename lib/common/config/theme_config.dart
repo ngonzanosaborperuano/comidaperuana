@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/features/core/bloc/theme_bloc.dart';
+import 'package:goncook/core/bloc/theme_bloc.dart';
 
 class ThemeConfig {
   static ThemeData getLightTheme() {

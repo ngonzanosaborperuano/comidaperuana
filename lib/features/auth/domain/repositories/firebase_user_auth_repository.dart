@@ -2,7 +2,7 @@ import 'dart:developer' show log;
 
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, GoogleAuthProvider, EmailAuthProvider, FirebaseAuthException;
-import 'package:goncook/common/shared.dart' show AppResult, Success;
+import 'package:goncook/common/shared.dart' show AppResultService, Success;
 import 'package:goncook/features/auth/data/models/auth_user.dart' show AuthUser;
 import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
 import 'package:goncook/features/auth/domain/domain.dart';
@@ -20,7 +20,7 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   final Logger _logger = Logger('FirebaseUserAuthRepository');
 
   @override
-  Future<AppResult<AuthUser>> authenticateGoogle() async {
+  Future<AppResultService<AuthUser>> authenticateGoogle() async {
     try {
       await _googleSignIn.signOut();
       await _auth.signOut();
@@ -31,7 +31,7 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
 
       if (googleUser == null) {
         log('Google Sign In fue cancelado por el usuario');
-        return const AppResult.failure('Google sign-in aborted by user');
+        return const AppResultService.failure('Google sign-in aborted by user');
       }
 
       // Obtener detalles de autenticación con manejo de errores
@@ -44,7 +44,7 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
 
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
         log('No se pudieron obtener los tokens necesarios');
-        return const AppResult.failure('Google sign-in aborted by user');
+        return const AppResultService.failure('Google sign-in aborted by user');
       }
 
       // Crear credencial
@@ -66,12 +66,12 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
       return Success(user);
     } on FirebaseAuthException catch (e, stackTrace) {
       _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
-      return AppResult.failure(e.code);
+      return AppResultService.failure(e.code);
     }
   }
 
   @override
-  Future<AppResult<AuthUser>> authenticateEmail(Email email, String password) async {
+  Future<AppResultService<AuthUser>> authenticateEmail(Email email, String password) async {
     try {
       final response = await _auth.signInWithCredential(
         EmailAuthProvider.credential(email: email.value, password: password),
@@ -84,8 +84,8 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
       );
       return Success(user);
     } on FirebaseAuthException catch (e, stackTrace) {
-      _logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
-      return AppResult.failure(e.code);
+      //_logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
+      return AppResultService.failure(e.code);
     }
   }
 
@@ -116,7 +116,7 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   //  return const Failure(ValidationException('Credenciales inválidas'));
   //}
   @override
-  Future<AppResult<AuthUser>> register(User user) async {
+  Future<AppResultService<AuthUser>> register(User user) async {
     try {
       final response = await _auth.createUserWithEmailAndPassword(
         email: user.email.value,
@@ -137,10 +137,10 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
       return Success(authUser);
     } on FirebaseAuthException catch (e, stackTrace) {
       _logger.severe('Error al registrar usuario: $e', e, stackTrace);
-      return AppResult.failure(e.code);
+      return AppResultService.failure(e.code);
     } catch (e, stackTrace) {
       _logger.severe('Error inesperado al registrar: $e', e, stackTrace);
-      return const AppResult.failure('Error inesperado al registrar usuario');
+      return const AppResultService.failure('Error inesperado al registrar usuario');
     }
   }
 
@@ -171,35 +171,35 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
   //}
 
   @override
-  Future<AppResult<String>> recoverCredential(String email) async {
+  Future<AppResultService<String>> recoverCredential(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
       return const Success('success');
     } on FirebaseAuthException catch (e, stackTrace) {
       _logger.severe('Error al recuperar credenciales: $e', e, stackTrace);
-      return AppResult.failure(e.code);
+      return AppResultService.failure(e.code);
     } catch (e, stackTrace) {
       _logger.severe('Error al recuperar credenciales: $e', e, stackTrace);
-      return const AppResult.failure('Ocurrió un error inesperado.');
+      return const AppResultService.failure('Ocurrió un error inesperado.');
     }
   }
 
   @override
-  Future<AppResult<void>> signOut() async {
+  Future<AppResultService<void>> signOut() async {
     // Mock implementation
     await Future.delayed(const Duration(milliseconds: 300));
     return const Success(null);
   }
 
   @override
-  Future<AppResult<User?>> getCurrentUser() async {
+  Future<AppResultService<User?>> getCurrentUser() async {
     // Mock implementation - returns null for now
     await Future.delayed(const Duration(milliseconds: 200));
     return const Success(null);
   }
 
   @override
-  Future<AppResult<bool>> isAuthenticated() async {
+  Future<AppResultService<bool>> isAuthenticated() async {
     await Future.delayed(const Duration(milliseconds: 100));
     return const Success(false);
   }

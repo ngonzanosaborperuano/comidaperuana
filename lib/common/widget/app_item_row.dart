@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/features/core/config/config.dart';
-import 'package:goncook/common/controller/base_controller.dart';
+import 'package:goncook/common/config/config.dart';
+import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_shimmer.dart';
 import 'package:goncook/common/widget/spacing/app_spacer.dart';
 
