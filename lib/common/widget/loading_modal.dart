@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/config.dart';
+import 'package:goncook/core/config/color/app_colors.dart';
 
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({super.key});

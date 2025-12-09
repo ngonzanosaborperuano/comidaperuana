@@ -1,5 +1,5 @@
 import 'package:goncook/common/shared.dart' show AppResultService;
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_auth_repository.dart';
 
 class LogoutUseCase {
   const LogoutUseCase(this._authRepository);

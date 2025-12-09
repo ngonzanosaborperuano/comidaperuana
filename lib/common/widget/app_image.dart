@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 /// Mapeo de nombres semánticos a rutas de archivos de imagen
 class AppImages {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_confirm_dialog.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/core/services/subscription_service.dart' show SubscriptionPlanType;
 import 'package:goncook/features/checkout/helper/show_payu_checkout.dart' show showPayUCheckout;
 import 'package:goncook/features/home/models/subscription_plan.dart'
     show SubscriptionPlan, SubscriptionPlans;
-import 'package:goncook/services/subscription_service.dart' show SubscriptionPlanType;
 
 class SubscriptionPlansPage extends StatefulWidget {
   final String? userEmail;
@@ -360,7 +359,11 @@ class HeaderPlanes extends StatelessWidget {
             Expanded(
               child: Text(
                 context.loc.premiumPlans,
-                style: AppStyles.h1.copyWith(color: context.color.text),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: context.color.text,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),

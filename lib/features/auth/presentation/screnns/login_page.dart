@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/widget/app_scaffold/app_scaffold.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_auth_repository.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:goncook/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:goncook/features/auth/domain/usecases/logout_usecase.dart';
-import 'package:goncook/features/auth/domain/usecases/register_usecase.dart';
 import 'package:goncook/features/presentation.dart' show LoginView, LoginBloc;
 
 class LoginPage extends StatelessWidget {
@@ -20,11 +18,10 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginBloc(
         loginUseCase: LoginUseCase(context.read<IUserAuthRepository>()),
-        registerUseCase: RegisterUseCase(context.read<IUserAuthRepository>()),
         logoutUseCase: LogoutUseCase(context.read<IUserAuthRepository>()),
         userRepository: context.read<IUserRepository>(),
       ),
-      child: const AppScaffold(body: LoginView(), toolbarHeight: 0),
+      child: const Scaffold(body: LoginView()),
     );
   }
 }

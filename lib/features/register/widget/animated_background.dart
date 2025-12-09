@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AnimatedBackground extends StatefulWidget {
   const AnimatedBackground({super.key});

@@ -7,52 +7,115 @@ part of 'login_bloc.dart';
 abstract class LoginState extends Equatable {
   const LoginState();
 
-  /// Returns true if the recover password dialog should be shown.
-  bool get shouldShowRecoverPasswordDialog => false;
+  @override
+  List<Object?> get props => [];
+}
 
-  /// Returns the email value from the form state, or empty string if not available.
-  String get email => '';
+/// State containing form-specific UI state for the login form.
+///
+/// Manages password visibility, form field values, and validation errors for email and password fields.
+class LoginFormState extends LoginState {
+  final bool isPasswordVisible;
+  final bool isValid;
+  final bool hasAttemptedValidation;
+  final String email;
+  final String password;
+  final String? emailError;
+  final String? passwordError;
 
-  /// Returns the password value from the form state, or empty string if not available.
-  String get password => '';
+  const LoginFormState({
+    this.email = '',
+    this.password = '',
+    this.isPasswordVisible = true,
+    this.emailError,
+    this.passwordError,
+    this.isValid = false,
+    this.hasAttemptedValidation = false,
+  });
 
-  /// Returns the email error from the form state, or null if not available.
-  String? get emailError => null;
-
-  /// Returns the password error from the form state, or null if not available.
-  String? get passwordError => null;
-
-  /// cuando la api devuelve una respuesta de error, se debe mostrar en el estado
-  String? get errorMessage => null;
+  LoginFormState copyWith({
+    String? email,
+    String? password,
+    bool? isPasswordVisible,
+    String? emailError,
+    String? passwordError,
+    bool? isValid,
+    bool? hasAttemptedValidation,
+    bool? isValidate,
+  }) {
+    return LoginFormState(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
+      emailError: emailError ?? this.emailError,
+      passwordError: passwordError ?? this.passwordError,
+      isValid: isValid ?? this.isValid,
+      hasAttemptedValidation: hasAttemptedValidation ?? this.hasAttemptedValidation,
+    );
+  }
 
   @override
-  List<Object?> get props => [emailError, passwordError, errorMessage];
+  List<Object?> get props => [
+    email,
+    password,
+    isPasswordVisible,
+    emailError,
+    passwordError,
+    isValid,
+    hasAttemptedValidation,
+  ];
 }
 
-/// Initial state when the login bloc is first created.
-class LoginInitial extends LoginState {
-  const LoginInitial();
+/// State indicating that the login process is in progress.
+class LoginProcessState extends LoginState {
+  final bool isLoading;
+
+  const LoginProcessState({required this.isLoading});
+
+  @override
+  List<Object?> get props => [isLoading];
 }
 
-/// State indicating that a login operation is in progress.
-class LoginLoading extends LoginState {
-  const LoginLoading();
-}
-
-/// State indicating successful login with authenticated user data.
+/// State indicating that the login operation was successful.
 class LoginSuccess extends LoginState {
-  final AuthUser user;
-  final String message;
-
-  const LoginSuccess({required this.user, required this.message});
+  final AuthModel? user;
+  final String? message;
+  final bool isSuccess;
+  const LoginSuccess({this.user, this.message, this.isSuccess = true});
 
   @override
-  List<Object?> get props => [user, message];
+  List<Object?> get props => [user, message, isSuccess];
+
+  LoginSuccess copyWith({AuthModel? user, String? message, bool? isSuccess}) {
+    return LoginSuccess(
+      user: user ?? this.user,
+      message: message ?? this.message,
+      isSuccess: isSuccess ?? this.isSuccess,
+    );
+  }
 }
 
+/// State indicating an error occurred during login operations.
+class LoginError extends LoginState {
+  final String message;
+  final bool hasError;
+
+  const LoginError(this.message, {this.hasError = true});
+
+  @override
+  List<Object?> get props => [message, hasError];
+
+  LoginError copyWith({String? message, bool? hasError = true}) {
+    return LoginError(message ?? this.message, hasError: hasError ?? true);
+  }
+}
+
+/***********************************************************/
+/***********************************************************/
+/***********************************************************/
 /// State indicating successful user registration.
 class RegisterSuccess extends LoginState {
-  final AuthUser user;
+  final AuthModel user;
   final String message;
 
   const RegisterSuccess({required this.user, required this.message});
@@ -88,80 +151,6 @@ class RecoverCredentialSuccess extends LoginState {
 class RecoverPasswordDialogRequested extends LoginState {
   const RecoverPasswordDialogRequested();
 
-  @override
+  /// Returns true to indicate the recover password dialog should be shown.
   bool get shouldShowRecoverPasswordDialog => true;
-}
-
-/// State indicating an error occurred during login operations.
-class LoginError extends LoginState {
-  final String message;
-
-  const LoginError(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-/// State containing form-specific UI state for the login form.
-///
-/// Manages password visibility, form field values, and validation errors for email and password fields.
-class LoginFormState extends LoginState {
-  @override
-  final String email;
-  @override
-  final String password;
-  final bool isPasswordVisible;
-  @override
-  final String? emailError;
-  @override
-  final String? passwordError;
-  final bool isValid;
-  final bool hasAttemptedValidation;
-  @override
-  final String? errorMessage;
-  const LoginFormState({
-    this.email = '',
-    this.password = '',
-    this.isPasswordVisible = true,
-    this.emailError,
-    this.passwordError,
-    this.isValid = false,
-    this.hasAttemptedValidation = false,
-    this.errorMessage,
-  });
-
-  /// Creates a copy of this state with the given fields replaced with new values.
-  LoginFormState copyWith({
-    String? email,
-    String? password,
-    bool? isPasswordVisible,
-    String? emailError,
-    String? passwordError,
-    bool? isValid,
-    bool? hasAttemptedValidation,
-    String? errorMessage,
-  }) {
-    return LoginFormState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
-      emailError: emailError ?? this.emailError,
-      passwordError: passwordError ?? this.passwordError,
-      isValid: isValid ?? this.isValid,
-      errorMessage: errorMessage ?? this.errorMessage,
-      hasAttemptedValidation: hasAttemptedValidation ?? this.hasAttemptedValidation,
-    );
-  }
-
-  @override
-  List<Object?> get props => [
-    email,
-    password,
-    isPasswordVisible,
-    emailError,
-    passwordError,
-    isValid,
-    hasAttemptedValidation,
-    errorMessage,
-  ];
 }

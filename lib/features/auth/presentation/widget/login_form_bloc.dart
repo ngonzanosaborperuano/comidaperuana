@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/constants/option.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/constants/option.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 class LoginFormBloc extends StatefulWidget {
@@ -100,13 +100,13 @@ class _LoginFormBlocState extends State<LoginFormBloc> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: state is LoginLoading ? null : _handleLogin,
+                  onPressed: state is LoginProcessState ? null : _handleLogin,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
-                  child: state is LoginLoading
+                  child: state is LoginProcessState
                       ? const CircularProgressIndicator(color: Colors.white)
                       : const AppText(
                           text: 'Iniciar Sesión',

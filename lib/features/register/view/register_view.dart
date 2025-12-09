@@ -1,58 +1,21 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/extension/extension.dart';
-import 'package:goncook/common/widget/animated_widgets.dart';
+import 'package:goncook/common/widget/app_text_form_field.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/core/router/routes.dart';
-import 'package:goncook/features/auth/data/models/auth_user.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart';
 import 'package:goncook/features/register/bloc/register_bloc.dart';
-import 'package:goncook/features/register/widget/modern_register_form.dart';
 
-class RegisterView extends StatefulWidget {
+class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView>
-    with TickerProviderStateMixin, StaggeredAnimationMixin {
-  late final GlobalKey<FormState> _formKeyRegister;
-
-  @override
-  void initState() {
-    super.initState();
-    _formKeyRegister = GlobalKey<FormState>();
-
-    // Inicializar animaciones
-    initializeAnimations();
-
-    // Iniciar animaciones escalonadas
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      startStaggeredAnimations();
-    });
-  }
-
-  Future<void> _handleRegister(BuildContext context, AuthUser user) async {
-    await const LoadingDialog().show(
-      context,
-      future: () async {
-        context.read<RegisterBloc>().add(
-          RegisterRequested(
-            email: user.email,
-            password: user.contrasena ?? '',
-            fullName: user.nombreCompleto,
-          ),
-        );
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final fullNameController = TextEditingController();
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) async {
         if (state is RegisterSuccess) {
@@ -75,54 +38,88 @@ class _RegisterViewState extends State<RegisterView>
           );
         }
       },
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              context.color.buttonPrimary.withAlpha(150),
-              context.color.error.withAlpha(50),
-              context.color.buttonPrimary.withAlpha(50),
-              context.color.error.withAlpha(150),
-            ],
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: context.color.background,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: context.color.border.withAlpha(50), width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: context.color.border.withAlpha(50),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
+      child: BlocBuilder<RegisterBloc, RegisterState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 2 * kTextTabBarHeight),
+                    const LogoWidget(),
+                    AppVerticalSpace.xmd,
                   ],
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                      child: ModernRegisterForm(
-                        formKey: _formKeyRegister,
-                        onRegister: (user) => _handleRegister(context, user),
-                      ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(
+                          context.loc.createAccount,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+
+                        AppVerticalSpace.xmd,
+                        Text(
+                          context.loc.completeInformation,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        AppVerticalSpace.xmd,
+                        AppTextFormField(
+                          controller: fullNameController,
+                          hintText: context.loc.fullName,
+                          autocorrect: false,
+                        ),
+                        AppTextFormField.email(
+                          controller: emailController,
+                          hintText: context.loc.email,
+                        ),
+                        AppTextFormField.password(
+                          maxLength: 50,
+                          showCounterAsSuffix: false,
+                          controller: passwordController,
+                          hintText: context.loc.password,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
+                AppVerticalSpace.xmd,
+                AppButton(
+                  text: context.loc.register,
+                  onPressed: () => _handleRegister(
+                    context,
+                    AuthModel(
+                      email: emailController.text,
+                      contrasena: passwordController.text,
+                      nombreCompleto: fullNameController.text,
+                    ),
+                  ),
+                ),
+                AppVerticalSpace.xmd,
+              ],
             ),
-          ),
-        ),
+          );
+        },
       ),
+    );
+  }
+
+  Future<void> _handleRegister(BuildContext context, AuthModel user) async {
+    await const LoadingDialog().show(
+      context,
+      future: () async {
+        context.read<RegisterBloc>().add(
+          RegisterRequested(
+            email: user.email,
+            password: user.contrasena ?? '',
+            fullName: user.nombreCompleto,
+          ),
+        );
+      },
     );
   }
 }

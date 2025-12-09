@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/extension/extension.dart';
-import 'package:goncook/common/widget/app_botton_sheet.dart';
 import 'package:goncook/common/widget/app_confirm_dialog.dart';
 import 'package:goncook/common/widget/app_text_form_field.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/constants/option.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:goncook/features/auth/presentation/widget/login/login.dart';
-import 'package:goncook/features/auth/presentation/widget/logo_widget.dart';
 
-/// Login form widget that manages state through BLoC.
-///
-/// This StatefulWidget uses BLoC to manage all form state.
-/// TextEditingControllers are provided by parent widget.
-/// StatefulWidget is needed to maintain FormState key for validation.
-class AnimatedLoginForm extends StatefulWidget {
+class AnimatedLoginForm extends StatelessWidget {
   const AnimatedLoginForm({
     super.key,
     required this.emailController,
@@ -26,60 +20,13 @@ class AnimatedLoginForm extends StatefulWidget {
   final TextEditingController passwordController;
 
   @override
-  State<AnimatedLoginForm> createState() => _AnimatedLoginFormState();
-}
-
-class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
-  @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
-      listenWhen: (previous, current) {
-        final emailChanged = previous.email != current.email;
-        final passwordChanged = previous.password != current.password;
-        final emailErrorChanged = previous.emailError != current.emailError;
-        final passwordErrorChanged = previous.passwordError != current.passwordError;
-        final errorMessageChanged = previous.errorMessage != current.errorMessage;
-
-        final dialogRequested =
-            !previous.shouldShowRecoverPasswordDialog && current.shouldShowRecoverPasswordDialog;
-
-        return emailChanged ||
-            passwordChanged ||
-            emailErrorChanged ||
-            passwordErrorChanged ||
-            errorMessageChanged ||
-            dialogRequested;
-      },
-      listener: (context, state) {
-        if (state.emailError?.isNotEmpty ?? false) {
-          final selection = widget.emailController.selection;
-          widget.emailController.value = TextEditingValue(
-            text: state.email,
-            selection: selection.isValid
-                ? selection
-                : TextSelection.collapsed(offset: state.email.length),
-          );
-        }
-
-        if (state.passwordError?.isNotEmpty ?? false) {
-          final selection = widget.passwordController.selection;
-          widget.passwordController.value = TextEditingValue(
-            text: state.password,
-            selection: selection.isValid
-                ? selection
-                : TextSelection.collapsed(offset: state.password.length),
-          );
-        }
-        if (state.errorMessage?.isNotEmpty ?? false) {
-          context.showBottomSheet(title: 'Error', child: Text(state.errorMessage!));
-        }
-        if (state.shouldShowRecoverPasswordDialog) {
-          _showRecoverPasswordDialog(context: context);
-        }
-      },
+      listenWhen: _shouldListenToFormChanges,
+      listener: _handleFormStateChanges,
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          final isLoading = state is LoginLoading;
+          final isLoading = state is LoginProcessState ? state.isLoading : false;
           final formState = state is LoginFormState ? state : const LoginFormState();
 
           return Column(
@@ -90,12 +37,12 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
               const HeaderAndSubTitle(),
               AppVerticalSpace.xmd,
               AppTextFormField.email(
-                controller: widget.emailController,
+                controller: emailController,
                 errorText: formState.hasAttemptedValidation ? formState.emailError : null,
               ),
               AppVerticalSpace.xs,
               AppTextFormField.password(
-                controller: widget.passwordController,
+                controller: passwordController,
                 showCounterAsSuffix: false,
                 maxLength: 50,
                 errorText: formState.hasAttemptedValidation ? formState.passwordError : null,
@@ -107,8 +54,8 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
                     ? null
                     : () => context.read<LoginBloc>().add(
                         LoginButtonPressed(
-                          email: widget.emailController.text,
-                          password: widget.passwordController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
                         ),
                       ),
                 context: context,
@@ -124,10 +71,43 @@ class _AnimatedLoginFormState extends State<AnimatedLoginForm> {
     );
   }
 
-  /// Shows the recover password dialog.
-  ///
-  /// This method is called when the BLoC emits RecoverPasswordDialogRequested state.
-  /// All business logic is handled by the BLoC.
+  bool formIsValid(LoginState previous, LoginState current) {
+    final previousIsValid = previous is LoginFormState ? previous.isValid : false;
+    final currentIsValid = current is LoginFormState ? current.isValid : false;
+    final previousEmailError = previous is LoginFormState ? previous.emailError : null;
+    final currentEmailError = current is LoginFormState ? current.emailError : null;
+    final previousPasswordError = previous is LoginFormState ? previous.passwordError : null;
+    final currentPasswordError = current is LoginFormState ? current.passwordError : null;
+
+    return previousIsValid != currentIsValid ||
+        previousEmailError != currentEmailError ||
+        previousPasswordError != currentPasswordError;
+  }
+
+  bool _shouldListenToFormChanges(LoginState previous, LoginState current) {
+    return formIsValid(previous, current);
+  }
+
+  void _handleFormStateChanges(BuildContext context, LoginState state) {
+    if (state is LoginFormState && state.isValid) {
+      _triggerLoginRequest(context, state);
+    }
+
+    if (state is RecoverCredentialSuccess) {
+      _showRecoverPasswordDialog(context: context);
+    }
+  }
+
+  void _triggerLoginRequest(BuildContext context, LoginFormState formState) {
+    context.read<LoginBloc>().add(
+      LoginRequested(
+        email: formState.email,
+        password: formState.password,
+        type: LoginWith.withUserPassword,
+      ),
+    );
+  }
+
   Future<void> _showRecoverPasswordDialog({required BuildContext context}) {
     final textEditingController = TextEditingController();
     return showDialog(

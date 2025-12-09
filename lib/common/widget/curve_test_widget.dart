@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/animated_widgets.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart' show AppHorizontalSpace;
 import 'package:goncook/common/widget/widget.dart' show AppVerticalSpace;
+import 'package:goncook/core/extension/extension.dart';
 
 /// Widget de prueba para verificar curvas seguras
 class CurveTestWidget extends StatefulWidget {

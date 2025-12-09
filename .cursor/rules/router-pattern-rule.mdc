@@ -1,0 +1,55 @@
+---
+alwaysApply: false
+description: "Patrón obligatorio para declarar nuevos GoRouter/GoRoute"
+globs:
+  - "lib/core/router/**"
+---
+
+## 📐 Regla de Ruteo (GoRouter)
+
+Sigue este patrón al crear o modificar routers/rutas:
+- Usa `routeBuilder` estático de cada pantalla como único entrypoint.
+- Agrupa rutas hijas bajo su ruta padre (p. ej. vistas internas dentro de `Routes.home`).
+- Normaliza URLs: en `redirect` elimina barras finales (`/path/` → `/path`).
+- Registra un `NavigatorObserver` de logging (usa `LoggingObserver` o derivado) para trazabilidad.
+- Declara `initialLocation` de forma declarativa leyendo flags de configuración/cache, evitando strings hardcodeados.
+- No uses strings literales para paths o names: siempre `Routes.*`.
+- Mantén los `GoRoute` planos y legibles; rutas anidadas solo cuando pertenezcan al mismo flujo.
+
+### Ejemplo mínimo
+```dart
+final appRouter = GoRouter(
+  initialLocation: SharedPreferencesHelper.instance.getBool(CacheConstants.welcome)
+      ? Routes.splash.description
+      : Routes.welcome.description,
+  observers: [LoggingObserver()],
+  routes: [
+    GoRoute(path: Routes.splash.description, builder: SplashView.routeBuilder),
+    GoRoute(
+      path: Routes.home.description,
+      builder: HomePage.routeBuilder,
+      routes: [
+        GoRoute(path: Routes.dashboard.endpoint, builder: DashboardPage.routeBuilder),
+      ],
+    ),
+  ],
+  redirect: (context, state) {
+    final uri = state.uri;
+    final path = uri.path;
+    if (path != '/' && path.endsWith('/')) {
+      final cleaned = path.substring(0, path.length - 1);
+      return uri.replace(path: cleaned).toString();
+    }
+    return null;
+  },
+);
+```
+
+### Checklist rápido
+- [ ] Usé `routeBuilder` estático en cada ruta.
+- [ ] Las rutas hijas están bajo su padre lógico.
+- [ ] `redirect` limpia barras finales.
+- [ ] Hay `NavigatorObserver` de logging registrado.
+- [ ] `initialLocation` se basa en flags/config, no en literales.
+- [ ] Paths/names provienen de `Routes`, no de strings sueltas.
+- [ ] Sin duplicar lógica de normalización o logging existente.

@@ -1,7 +1,7 @@
 import 'package:goncook/common/shared.dart' show AppResultService;
-import 'package:goncook/features/auth/data/models/auth_user.dart' show AuthUser;
-import 'package:goncook/features/auth/domain/auth/entities/user.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart' show AuthModel;
+import 'package:goncook/features/auth/data/models/user_model.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_auth_repository.dart';
 
 class RegisterUseCase {
   const RegisterUseCase(this._authRepository);
@@ -9,14 +9,14 @@ class RegisterUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute user registration
-  Future<AppResultService<AuthUser>> execute({
+  Future<AppResultService<AuthModel>> execute({
     required String email,
     required String password,
     String? name,
     String? photoUrl,
   }) async {
     // Create user entity with validation
-    final userResult = User.create(
+    final userResult = UserModel.create(
       email: email,
       password: password,
       name: name,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/services/svg_service.dart';
+import 'package:goncook/core/services/svg_service.dart';
 
 /// Mapeo de nombres semánticos a rutas de archivos SVG
 class SvgIcons {

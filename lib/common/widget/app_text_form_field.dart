@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:goncook/common/config/color/app_colors.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/config/color/app_colors.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 /// Widget de campo de texto personalizado y reutilizable
 ///

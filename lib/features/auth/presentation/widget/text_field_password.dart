@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 /// Password input field widget that manages state through BLoC.
@@ -82,7 +81,11 @@ class _TextFieldPasswordState extends State<TextFieldPassword> {
                 },
                 child: Text(
                   formState.isPasswordVisible ? context.loc.hidePassword : context.loc.showPassword,
-                  style: AppStyles.bodyTextBold.copyWith(color: context.color.secondary),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.color.secondary,
+                  ),
                 ),
               ),
             ],

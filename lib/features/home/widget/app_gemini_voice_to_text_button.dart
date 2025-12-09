@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:goncook/services/gemini_ai_service.dart';
-import 'package:goncook/services/remote_config_service.dart';
+import 'package:goncook/core/services/gemini_ai_service.dart';
+import 'package:goncook/core/services/remote_config_service.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 

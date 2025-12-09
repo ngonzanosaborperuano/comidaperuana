@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/models/user_model.dart';
 import 'package:goncook/common/widget/app_scaffold/app_scaffold.dart';
 import 'package:goncook/features/dashboard/view/dashboard_view.dart' show DashboardView;
+import 'package:goncook/features/register/data/models/user_models.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key, required this.listTaskModel});

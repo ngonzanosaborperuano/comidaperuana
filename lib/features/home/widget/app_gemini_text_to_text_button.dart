@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/services/gemini_ai_service.dart';
-import 'package:goncook/services/remote_config_service.dart';
+import 'package:goncook/core/services/gemini_ai_service.dart';
+import 'package:goncook/core/services/remote_config_service.dart';
 
 class AppGeminiTextToTextButton extends StatelessWidget {
   const AppGeminiTextToTextButton({super.key, required this.prompt, this.onResult});

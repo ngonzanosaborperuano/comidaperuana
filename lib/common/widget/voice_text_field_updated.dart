@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/services/audio/audio_service.dart';
-import 'package:goncook/services/monitoring/monitoring_helper.dart';
+import 'package:goncook/core/services/audio/audio_service.dart';
+import 'package:goncook/core/services/monitoring/monitoring_helper.dart';
 
 /// Widget de campo de texto con funcionalidad de voz actualizado
 /// Sigue el principio de responsabilidad única (SOLID)

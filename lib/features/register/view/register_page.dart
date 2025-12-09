@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/widget/app_scaffold/app_scaffold.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:goncook/features/auth/domain/usecases/register_usecase.dart';
 import 'package:goncook/features/register/bloc/register_bloc.dart';
 import 'package:goncook/features/register/di/register_dependencies.dart';
@@ -23,7 +23,10 @@ class RegisterPage extends StatelessWidget {
           registerUseCase: context.read<RegisterUseCase>(),
           userRepository: context.read<IUserRepository>(),
         ),
-        child: const AppScaffold(toolbarHeight: 0, body: RegisterView()),
+        child: Scaffold(
+          body: const RegisterView(),
+          appBar: AppBar(title: Text(context.loc.register)),
+        ),
       ),
     );
   }

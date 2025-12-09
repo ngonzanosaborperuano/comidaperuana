@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_scaffold/shared_icon_menu.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 /// Mixin que proporciona métodos compartidos para construir items de navegación
 /// tanto para Android como para iOS

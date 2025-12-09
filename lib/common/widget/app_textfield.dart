@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AppTextField<T extends Object> extends StatelessWidget {
   const AppTextField({
@@ -71,7 +70,7 @@ class AppTextField<T extends Object> extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(width: 0.5, color: context.color.error),
       ),
-      style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.color.text),
       strutStyle: const StrutStyle(height: 1.5),
       placeholder: hintText,
       validator: validator,

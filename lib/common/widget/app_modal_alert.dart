@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/config.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_button_icon.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart';
+import 'package:goncook/core/config/color/app_colors.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AppModalAlert extends StatelessWidget {
   const AppModalAlert({
@@ -58,17 +58,18 @@ class AppModalAlert extends StatelessWidget {
                     child: Text(
                       title!,
                       textAlign: TextAlign.left,
-                      style: AppStyles.h2TextBlack.copyWith(color: context.color.error),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: context.color.error,
+                      ),
                     ),
                   ),
                 ],
               ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-              child: Text(
-                text,
-                style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
-              ),
+              child: Text(text, style: TextStyle(fontSize: 16, color: context.color.text)),
             ),
             AppButton(
               text: labelButton ?? context.loc.accept,
@@ -97,7 +98,7 @@ class AppModalAlert extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: Text(
           text,
-          style: AppStyles.bodyTextNoOverflow.copyWith(color: context.color.text),
+          style: TextStyle(fontSize: 16, color: context.color.text),
           textAlign: TextAlign.center,
         ),
       ),

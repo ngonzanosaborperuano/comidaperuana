@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart';
 import 'package:goncook/common/widget/widget.dart' show AppButton;
+import 'package:goncook/core/extension/extension.dart';
 
 class AppConfirmDialog extends StatefulWidget {
   final String title;

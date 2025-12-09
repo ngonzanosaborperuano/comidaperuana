@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/config/config.dart';
-import 'package:goncook/common/extension/extension.dart';
-import 'package:goncook/common/models/user_model.dart';
 import 'package:goncook/common/widget/widget.dart' show AppVerticalSpace;
+import 'package:goncook/core/config/color/app_colors.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/dashboard/widget/donut_chart_painter.dart';
+import 'package:goncook/features/register/data/models/user_models.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key, required this.percent, required this.listTaskModel});

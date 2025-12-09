@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:goncook/common/l10n/app_localizations.dart';
+import 'package:goncook/core/l10n/app_localizations.dart';
 import 'package:mockito/mockito.dart';
 
 // Mock de AppLocalizations

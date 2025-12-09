@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/animated_widgets.dart' show AnimatedEntryWidget;
 import 'package:goncook/common/widget/widget.dart' show AppTextField;
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 /// Email input field widget that manages state through BLoC.

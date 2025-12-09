@@ -1,9 +1,9 @@
-import 'package:goncook/common/constants/option.dart' show LoginWith;
 import 'package:goncook/common/shared.dart' show AppResultService;
-import 'package:goncook/features/auth/data/models/auth_user.dart' show AuthUser;
-import 'package:goncook/features/auth/domain/auth/entities/user.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_auth_repository.dart';
-import 'package:goncook/features/auth/domain/auth/value_objects/email.dart';
+import 'package:goncook/core/constants/option.dart' show LoginWith;
+import 'package:goncook/core/generics/value_objects/email.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart' show AuthModel;
+import 'package:goncook/features/auth/data/models/user_model.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_auth_repository.dart';
 
 class LoginUseCase {
   const LoginUseCase(this._authRepository);
@@ -11,7 +11,7 @@ class LoginUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute login with email and password
-  Future<AppResultService<AuthUser>> execute({
+  Future<AppResultService<AuthModel>> execute({
     required String email,
     required String password,
     required int type,
@@ -44,7 +44,7 @@ class GetCurrentUserUseCase {
   final IUserAuthRepository _authRepository;
 
   /// Execute get current user
-  Future<AppResultService<User?>> execute() async {
+  Future<AppResultService<UserModel?>> execute() async {
     return await _authRepository.getCurrentUser();
   }
 }

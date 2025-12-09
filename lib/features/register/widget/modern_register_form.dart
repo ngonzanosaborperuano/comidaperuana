@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
-import 'package:goncook/features/auth/data/models/auth_user.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart';
 
 class ModernRegisterForm extends StatefulWidget {
-  const ModernRegisterForm({super.key, required this.formKey, required this.onRegister});
+  const ModernRegisterForm({super.key, required this.onRegister});
 
-  final GlobalKey<FormState> formKey;
-  final Future<void> Function(AuthUser user) onRegister;
+  final Future<void> Function(AuthModel user) onRegister;
 
   @override
   State<ModernRegisterForm> createState() => _ModernRegisterFormState();
@@ -18,112 +17,49 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late AnimationController _pulseController;
-  late AnimationController _successController;
-
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _pulseAnimation;
 
   bool _showPassword = false;
 
   @override
-  void initState() {
-    super.initState();
-    _setupAnimations();
-  }
-
-  void _setupAnimations() {
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    );
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-    _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
-      vsync: this,
-    );
-    _successController = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOutCubic));
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.5),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.elasticOut));
-
-    _pulseAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.08,
-    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
-
-    _fadeController.forward();
-    _slideController.forward();
-    _pulseController.repeat(reverse: true);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: SlideTransition(
-        position: _slideAnimation,
-        child: Form(
-          key: widget.formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AnimatedHeaderWidget(pulseAnimation: _pulseAnimation),
-                AppVerticalSpace.xlg,
-                InputFieldsWidget(
-                  showPassword: _showPassword,
-                  fullNameController: _fullNameController,
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                ),
-                AppVerticalSpace.xmd,
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: PasswordToggleWidget(
-                    showPassword: _showPassword,
-                    onToggle: () {
-                      setState(() {
-                        _showPassword = !_showPassword;
-                      });
-                    },
-                  ),
-                ),
-                AppVerticalSpace.xlg,
-                AppButton(text: context.loc.register, onPressed: _handleRegister),
-                AppVerticalSpace.sm,
-                AppButton(text: context.loc.login, onPressed: context.pop, isAlternative: true),
-              ],
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const AnimatedHeaderWidget(),
+          AppVerticalSpace.xlg,
+          InputFieldsWidget(
+            showPassword: _showPassword,
+            fullNameController: _fullNameController,
+            emailController: _emailController,
+            passwordController: _passwordController,
+          ),
+          AppVerticalSpace.xmd,
+          Align(
+            alignment: Alignment.centerRight,
+            child: PasswordToggleWidget(
+              showPassword: _showPassword,
+              onToggle: () {
+                setState(() {
+                  _showPassword = !_showPassword;
+                });
+              },
             ),
           ),
-        ),
+          AppVerticalSpace.xlg,
+          AppButton(text: context.loc.register, onPressed: _handleRegister),
+          AppVerticalSpace.sm,
+          AppButton(text: context.loc.login, onPressed: context.pop, isAlternative: true),
+        ],
       ),
     );
   }
 
   Future<void> _handleRegister() async {
-    if (!widget.formKey.currentState!.validate()) return;
-
     try {
-      final user = AuthUser(
+      final user = AuthModel(
         email: _emailController.text,
         contrasena: _passwordController.text,
         nombreCompleto: _fullNameController.text,
@@ -136,38 +72,19 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
       }
     }
   }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    _pulseController.dispose();
-    _successController.dispose();
-    super.dispose();
-  }
 }
 
 class AnimatedHeaderWidget extends StatelessWidget {
-  const AnimatedHeaderWidget({super.key, required this.pulseAnimation});
-
-  final Animation<double> pulseAnimation;
+  const AnimatedHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AnimatedBuilder(
-          animation: pulseAnimation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: pulseAnimation.value,
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: context.svgIconSemantic.user(color: context.color.text),
-              ),
-            );
-          },
+        SizedBox(
+          width: 50,
+          height: 50,
+          child: context.svgIconSemantic.user(color: context.color.text),
         ),
         AppVerticalSpace.sm,
         Text(

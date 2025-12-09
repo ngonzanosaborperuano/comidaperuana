@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart' show AppSpacing;
 import 'package:goncook/common/widget/text_widget.dart' show AppText;
+import 'package:goncook/core/extension/extension.dart';
 
 class HeaderAndSubTitle extends StatelessWidget {
   const HeaderAndSubTitle({super.key});

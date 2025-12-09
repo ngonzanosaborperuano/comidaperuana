@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:goncook/services/gemini_ai_service.dart';
-import 'package:goncook/services/remote_config_service.dart';
+import 'package:goncook/core/services/gemini_ai_service.dart';
+import 'package:goncook/core/services/remote_config_service.dart';
 
 class AppGeminiTextToImage extends StatelessWidget {
   const AppGeminiTextToImage({super.key, this.onResult, required this.namePlato});

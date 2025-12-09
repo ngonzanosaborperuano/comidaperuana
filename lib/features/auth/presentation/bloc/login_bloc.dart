@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:goncook/features/auth/data/models/auth_user.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:goncook/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:goncook/features/auth/domain/usecases/logout_usecase.dart';
-import 'package:goncook/features/auth/domain/usecases/register_usecase.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -19,17 +18,14 @@ part 'login_state.dart';
 /// - Form validation and password visibility toggling
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
-  final RegisterUseCase _registerUseCase;
   final LogoutUseCase _logoutUseCase;
   final IUserRepository _userRepository;
 
   LoginBloc({
     required LoginUseCase loginUseCase,
-    required RegisterUseCase registerUseCase,
     required LogoutUseCase logoutUseCase,
     required IUserRepository userRepository,
   }) : _loginUseCase = loginUseCase,
-       _registerUseCase = registerUseCase,
        _logoutUseCase = logoutUseCase,
        _userRepository = userRepository,
        super(const LoginFormState()) {
@@ -39,7 +35,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<FormValidated>(_onFormValidated);
     on<LoginButtonPressed>(_onLoginButtonPressed);
     on<LoginRequested>(_onLoginRequested);
-    on<RegisterRequested>(_onRegisterRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<RecoverPasswordButtonPressed>(_onRecoverPasswordButtonPressed);
     on<RecoverCredentialRequested>(_onRecoverCredentialRequested);
@@ -47,13 +42,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onLoginRequested(LoginRequested event, Emitter<LoginState> emit) async {
-    // Obtener el estado actual, asegurándose de que es LoginFormState
-    final currentState = state is LoginFormState ? state as LoginFormState : const LoginFormState();
-
-    // Si todo está válido, proceder con el login
-    emit(const LoginLoading());
-
     try {
+      emit(const LoginProcessState(isLoading: true));
+
+      // Firebase login
       final result = await _loginUseCase.execute(
         email: event.email,
         password: event.password,
@@ -61,59 +53,46 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       if (result.isSuccess) {
-        final (isSuccess, msg) = await _userRepository.signInOrRegister(result.valueOrNull!);
+        // API login/registration
+        final (isSuccess, errorApi) = await _userRepository.signInOrRegister(result.valueOrNull!);
         if (isSuccess) {
-          emit(LoginSuccess(user: result.valueOrNull!, message: 'Inicio de sesión exitoso'));
-        } else {
-          // En caso de error, restaurar el estado del formulario con el error
           emit(
-            currentState.copyWith(email: event.email, password: event.password, emailError: msg),
+            LoginSuccess(
+              isSuccess: true,
+              user: result.valueOrNull!,
+              message: 'Inicio de sesión exitoso',
+            ),
           );
+          // No emitir LoginProcessState después de LoginSuccess
+          // El LoginSuccess ya indica que el proceso terminó exitosamente
+          return;
+        } else {
+          emit(
+            LoginError(errorApi.isNotEmpty ? errorApi : 'Error al iniciar sesión', hasError: true),
+          );
+          // No emitir LoginProcessState después de LoginError
+          // El LoginError ya indica que el proceso terminó con error
+          return;
         }
       } else {
-        // En caso de error, restaurar el estado del formulario con el error
         emit(
-          currentState.copyWith(
-            email: event.email,
-            password: event.password,
-            errorMessage: result.errorMessage,
+          LoginError(
+            hasError: true,
+            result.errorMessage?.isNotEmpty == true
+                ? result.errorMessage!
+                : 'Error de autenticación',
           ),
         );
+        // No emitir LoginProcessState después de LoginError
+        return;
       }
     } catch (e) {
-      // En caso de excepción, restaurar el estado del formulario con el error
-      emit(
-        currentState.copyWith(
-          email: event.email,
-          password: event.password,
-          emailError: 'Error inesperado: $e',
-        ),
-      );
-    }
-  }
-
-  void _onRegisterRequested(RegisterRequested event, Emitter<LoginState> emit) async {
-    emit(const LoginLoading());
-
-    try {
-      final result = await _registerUseCase.execute(
-        email: event.email,
-        password: event.password,
-        name: event.name,
-      );
-
-      if (result.isSuccess) {
-        emit(RegisterSuccess(user: result.valueOrNull!, message: 'Registro exitoso'));
-      } else {
-        emit(LoginError(result.errorMessage!));
-      }
-    } catch (e) {
-      emit(LoginError('Error inesperado: $e'));
+      emit(LoginError('Error inesperado: $e', hasError: true));
     }
   }
 
   void _onLogoutRequested(LogoutRequested event, Emitter<LoginState> emit) async {
-    emit(const LoginLoading());
+    emit(const LoginProcessState(isLoading: true));
 
     try {
       final result = await _logoutUseCase.execute();
@@ -212,20 +191,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   /// Validates the provided email and password and proceeds with login if validation passes.
   /// Uses the provided values directly from the event.
   Future<void> _onLoginButtonPressed(LoginButtonPressed event, Emitter<LoginState> emit) async {
-    // Obtener el estado actual
-    final currentState = state is LoginFormState ? state as LoginFormState : const LoginFormState();
-
     // Validar los campos usando las variables del evento
     final emailError = validateEmail(event.email);
     final passwordError = validatePassword(event.password);
 
     // Si hay errores de validación o campos vacíos, actualizar el estado con los errores
-    if (emailError != null ||
-        passwordError != null ||
-        event.email.isEmpty ||
-        event.password.isEmpty) {
+    if (emailError != null || passwordError != null) {
       emit(
-        currentState.copyWith(
+        LoginFormState(
           emailError: emailError,
           passwordError: passwordError,
           isValid: false,
@@ -234,14 +207,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     } else {
       // Si todo está válido, proceder directamente con el login usando los valores del evento
-      await _onLoginRequested(
-        LoginRequested(
-          email: event.email,
-          password: event.password,
-          type: 1, // LoginWith.withUserPassword
-        ),
-        emit,
-      );
+      emit(LoginFormState(isValid: true, email: event.email, password: event.password));
     }
   }
 

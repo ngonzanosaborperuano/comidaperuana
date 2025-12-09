@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/config/color/app_color_scheme.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_svg.dart';
 import 'package:goncook/common/widget/widget.dart' show AppSpacing;
+import 'package:goncook/core/config/color/app_color_scheme.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AppLabel extends StatelessWidget {
   final String text;

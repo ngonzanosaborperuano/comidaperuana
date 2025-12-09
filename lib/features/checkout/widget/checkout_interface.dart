@@ -9,9 +9,9 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart'
         InAppWebViewSettings,
         NavigationActionPolicy;
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
-import 'package:goncook/features/checkout/models/payu_checkout_response_model.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/features/checkout/data/models/payu_checkout_response_model.dart';
 import 'package:goncook/features/checkout/widget/widget.dart';
 
 class CheckoutInterface extends StatefulWidget {

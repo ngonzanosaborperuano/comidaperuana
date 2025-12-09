@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/spacing/spacing.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({

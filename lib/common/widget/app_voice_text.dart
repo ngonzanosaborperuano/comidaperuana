@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/config/config.dart' show AppColors, AppStyles;
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/bloc/locale_bloc.dart';
+import 'package:goncook/core/config/color/app_colors.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -380,7 +380,7 @@ class VoiceTextFieldState extends State<VoiceTextField> {
             child: TextFormField(
               enabled: widget.enabled,
               maxLength: widget.maxLength,
-              style: AppStyles.bodyText,
+              style: TextStyle(fontSize: 16, color: context.color.text),
               controller: _controller,
               validator: widget.validator,
               onChanged: widget.onChanged,
@@ -390,7 +390,7 @@ class VoiceTextFieldState extends State<VoiceTextField> {
               maxLines: widget.maxLines,
               decoration: InputDecoration(
                 hintText: widget.hintText,
-                hintStyle: AppStyles.bodyHintText,
+                hintStyle: TextStyle(fontSize: 16, color: context.color.text),
                 alignLabelWithHint: true,
                 border: const OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.transparent),

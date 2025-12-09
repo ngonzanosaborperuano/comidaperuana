@@ -5,8 +5,8 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/home/bloc/home_bloc.dart';
 import 'package:goncook/features/home/widget/app_gemini_text_to_text_button.dart';
 import 'package:goncook/features/home/widget/app_gemini_voice_to_text_button.dart'

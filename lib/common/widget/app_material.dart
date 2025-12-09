@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/color/app_color_scheme.dart';
-import 'package:goncook/common/l10n/app_localizations.dart';
 import 'package:goncook/core/bloc/locale_bloc.dart';
 import 'package:goncook/core/bloc/theme_bloc.dart';
+import 'package:goncook/core/config/color/app_color_scheme.dart';
+import 'package:goncook/core/l10n/app_localizations.dart';
 
 class AppMaterial extends StatelessWidget {
   final GoRouter appRouter;

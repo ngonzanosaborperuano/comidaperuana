@@ -11,6 +11,7 @@ targets:
           - lib/features/**/domain/**.dart
           - lib/features/**/data/models/**.dart
           - lib/features/**/presentation/models/**.dart
+          - lib/features/**/models/**.dart
 
       mockito:mockBuilder:
         options:

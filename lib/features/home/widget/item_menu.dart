@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:goncook/common/config/color/app_colors.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
+import 'package:goncook/core/config/color/app_colors.dart';
 
 class ItemMenu extends StatelessWidget {
   const ItemMenu({super.key, required this.title, this.onTap, this.style});
@@ -19,10 +18,13 @@ class ItemMenu extends StatelessWidget {
             onPressed: onTap ?? () {},
             isDestructiveAction: true,
             isDefaultAction: false,
-            child: Text(title, style: AppStyles.bodyText.copyWith(color: AppColors.slate700)),
+            child: Text(title, style: const TextStyle(fontSize: 16, color: AppColors.slate700)),
           )
         : ListTile(
-            title: Text(title, style: style ?? AppStyles.bodyTextBoldPrimary),
+            title: Text(
+              title,
+              style: style ?? const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             onTap: onTap,
           );
   }

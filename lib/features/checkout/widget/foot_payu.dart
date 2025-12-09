@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class FootPayU extends StatelessWidget {
   const FootPayU({super.key});

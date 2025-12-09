@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goncook/common/widget/platform_app_builder.dart';
-import 'package:goncook/core/di/bloc_dependencies.dart';
+import 'package:goncook/core/dependency_inversion/bloc_dependencies.dart';
 import 'package:goncook/core/router/app_router.dart';
 
 class MyApp extends StatelessWidget {

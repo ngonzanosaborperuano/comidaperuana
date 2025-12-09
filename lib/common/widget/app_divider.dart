@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class DividerWidget extends StatelessWidget {
   const DividerWidget({super.key});

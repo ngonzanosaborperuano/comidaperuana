@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/extension/extension.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AnimatedAvatar extends StatefulWidget {
   const AnimatedAvatar({super.key, this.radius = 30, this.iconSize = 30, this.onTap});

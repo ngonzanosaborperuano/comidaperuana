@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/config/config.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/app_shimmer.dart';
 import 'package:goncook/common/widget/spacing/app_spacer.dart';
+import 'package:goncook/core/extension/extension.dart';
 
 class AppItemRow extends StatelessWidget {
   const AppItemRow({
@@ -30,10 +29,7 @@ class AppItemRow extends StatelessWidget {
               Icon(icon, size: 18, color: context.color.buttonPrimary),
               AppHorizontalSpace.sm,
             ],
-            SizedBox(
-              width: maxWidth,
-              child: Text(title, maxLines: 2, style: AppStyles.bodyTextBold),
-            ),
+            SizedBox(width: maxWidth, child: Text(title, maxLines: 2)),
             Flexible(
               child: AppShimmer.light(
                 enabled: subTitle == '' || subTitle == 'null',

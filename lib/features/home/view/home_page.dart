@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/config/config.dart' show AppStyles;
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:goncook/features/home/bloc/home_bloc.dart';
 import 'package:goncook/features/home/view/home_view.dart';
 import 'package:logging/logging.dart';
@@ -120,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Center(
                                     child: Text(
                                       context.loc.listeningSpeakNow,
-                                      style: AppStyles.bodyText,
+                                      style: TextStyle(fontSize: 16, color: context.color.text),
                                     ),
                                   ),
                                 ),

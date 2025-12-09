@@ -1,56 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:goncook/features/auth/data/models/auth_user.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:goncook/features/auth/domain/usecases/register_usecase.dart';
 
-// Events
-abstract class RegisterEvent extends Equatable {
-  const RegisterEvent();
+part 'register_event.dart';
+part 'register_state.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class RegisterRequested extends RegisterEvent {
-  final String email;
-  final String password;
-  final String? fullName;
-  const RegisterRequested({required this.email, required this.password, this.fullName});
-
-  @override
-  List<Object?> get props => [email, password, fullName];
-}
-
-// States
-abstract class RegisterState extends Equatable {
-  const RegisterState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class RegisterInitial extends RegisterState {}
-
-class RegisterLoading extends RegisterState {}
-
-class RegisterSuccess extends RegisterState {
-  final AuthUser user;
-  const RegisterSuccess(this.user);
-
-  @override
-  List<Object?> get props => [user];
-}
-
-class RegisterError extends RegisterState {
-  final String message;
-  const RegisterError(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-// Bloc
+/// BLoC responsible for managing register usuarios.
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc({required RegisterUseCase registerUseCase, required IUserRepository userRepository})
     : _registerUseCase = registerUseCase,
@@ -65,6 +22,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Future<void> _onRegisterRequested(RegisterRequested event, Emitter<RegisterState> emit) async {
     emit(RegisterLoading());
     try {
+      //firebase register
       final result = await _registerUseCase.execute(
         email: event.email,
         password: event.password,
@@ -73,10 +31,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       if (result.isSuccess) {
         final user = result.valueOrNull!;
-        await _userRepository.register(user);
-        emit(RegisterSuccess(user));
+        //api register
+        final rpt = await _userRepository.register(user);
+        if (rpt) {
+          emit(RegisterSuccess(user));
+        } else {
+          emit(const RegisterError('Error al registrar usuario en Backend'));
+        }
       } else {
-        emit(RegisterError(result.errorMessage!));
+        emit(const RegisterError('Error al registrar usuario en Firebase'));
       }
     } catch (e) {
       emit(RegisterError(e.toString()));

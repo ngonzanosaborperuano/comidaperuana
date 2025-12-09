@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:goncook/features/auth/domain/auth/repositories/i_user_repository.dart';
+import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart';
 
 // Events
 abstract class HomeEvent extends Equatable {

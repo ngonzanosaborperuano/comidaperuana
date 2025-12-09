@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/color/app_color_scheme.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
-import 'package:goncook/common/extension/extension.dart';
-import 'package:goncook/common/models/user_model.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/bloc/locale_bloc.dart';
 import 'package:goncook/core/bloc/theme_bloc.dart';
+import 'package:goncook/core/config/color/app_color_scheme.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/core/router/routes.dart' show Routes;
+import 'package:goncook/core/services/storage/preferences/preferences.dart';
+import 'package:goncook/features/register/data/models/user_models.dart';
 import 'package:goncook/features/setting/bloc/setting_bloc.dart';
-import 'package:goncook/services/storage/preferences/preferences.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({super.key});
@@ -197,7 +196,10 @@ class MiPerfil extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          Text(context.loc.setting, style: AppStyles.headingPrimary),
+          Text(
+            context.loc.setting,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           AppVerticalSpace.xmd,
           AppShimmer.light(
             enabled: loading,

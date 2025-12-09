@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/constants/option.dart';
 import 'package:goncook/common/widget/app_image.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/constants/option.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 class LoginWithGoogle extends StatelessWidget {

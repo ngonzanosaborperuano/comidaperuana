@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:goncook/common/config/style/app_styles.dart';
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/widget.dart';
-import 'package:goncook/features/auth/data/models/auth_user.dart';
+import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/features/auth/data/models/auth_model.dart';
 import 'package:goncook/features/auth/presentation/widget/widget.dart' show LogoWidget;
 // Controller eliminado tras migración a BLoC
 import 'package:goncook/features/register/widget/animated_register_button.dart';
@@ -11,7 +10,7 @@ class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key, required this.formKey, required this.onRegister});
 
   final GlobalKey<FormState> formKey;
-  final Future<void> Function(AuthUser user) onRegister;
+  final Future<void> Function(AuthModel user) onRegister;
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -77,7 +76,7 @@ class _RegisterFormState extends State<RegisterForm> {
     });
 
     try {
-      final user = AuthUser(
+      final user = AuthModel(
         email: _emailController.text,
         contrasena: _passwordController.text,
         nombreCompleto: _fullNameController.text,
@@ -123,7 +122,7 @@ class _RegisterPasswordFieldState extends State<_RegisterPasswordField> {
           onPressed: () => setState(() => _isObscure = !_isObscure),
           child: Text(
             _isObscure ? context.loc.showPassword : context.loc.hidePassword,
-            style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: context.color.text),
           ),
         ),
       ],

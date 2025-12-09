@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/config/color/app_colors.dart' show AppColors;
-import 'package:goncook/common/config/config.dart' show AppStyles;
-import 'package:goncook/common/constants/option.dart';
-import 'package:goncook/common/extension/extension.dart';
-import 'package:goncook/common/utils/util.dart';
 import 'package:goncook/common/widget/widget.dart';
+import 'package:goncook/core/constants/option.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/core/router/routes.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:goncook/features/auth/presentation/widget/text_field_password.dart';
@@ -27,12 +24,7 @@ class LoginUserPass extends StatelessWidget {
         } else if (state is LoginError) {
           _showErrorDialog(context, state.message);
         } else if (state is RecoverCredentialSuccess) {
-          showCustomSnackBar(
-            context: context,
-            message: 'Correo de recuperación enviado con éxito.',
-            backgroundColor: context.color.success,
-            foregroundColor: context.color.text,
-          );
+          print('RecoverCredentialSuccess');
         }
       },
       child: Form(
@@ -42,7 +34,11 @@ class LoginUserPass extends StatelessWidget {
             leading: Icon(Icons.person_3_rounded, color: context.color.secondary),
             title: Text(
               context.loc.userPass,
-              style: AppStyles.bodyTextBold.copyWith(color: context.color.secondary),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: context.color.secondary,
+              ),
             ),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.centerLeft,
@@ -71,9 +67,9 @@ class LoginUserPass extends StatelessWidget {
               AppVerticalSpace.xlg,
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) =>
-                    current is LoginLoading || previous is LoginLoading,
+                    current is LoginProcessState || previous is LoginProcessState,
                 builder: (context, state) {
-                  final isLoading = state is LoginLoading;
+                  final isLoading = state is LoginProcessState;
                   return AppButton(
                     text: context.loc.login,
                     onPressed: isLoading ? null : () => _handleLogin(context),
@@ -198,12 +194,7 @@ class LoginUserPass extends StatelessWidget {
             if (state is RecoverCredentialSuccess) {
               Navigator.of(context).pop();
             } else if (state is LoginError) {
-              showCustomSnackBar(
-                context: context,
-                message: state.message,
-                backgroundColor: AppColors.red700,
-                foregroundColor: AppColors.white,
-              );
+              print('LoginError: ${state.message}');
             }
           },
           child: _RecoverPasswordBottomSheet(),
@@ -326,9 +317,9 @@ class _RecoverPasswordBottomSheetState extends State<_RecoverPasswordBottomSheet
               AppVerticalSpace.xmd,
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) =>
-                    current is LoginLoading || previous is LoginLoading,
+                    current is LoginProcessState || previous is LoginProcessState,
                 builder: (context, state) {
-                  final isLoading = state is LoginLoading;
+                  final isLoading = state is LoginProcessState;
                   return AppButton(
                     text: context.loc.send,
                     onPressed: isLoading

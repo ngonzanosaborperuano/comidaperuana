@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/common/config/config.dart' show AppStyles;
-import 'package:goncook/common/extension/extension.dart';
 import 'package:goncook/common/widget/animated_widgets.dart' show AnimatedEntryWidget;
 import 'package:goncook/common/widget/widget.dart' show AppTextField;
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 
 /// Password input field widget that manages state through BLoC.
@@ -59,7 +58,11 @@ class PasswordLogin extends StatelessWidget {
                     formState.isPasswordVisible
                         ? context.loc.showPassword
                         : context.loc.hidePassword,
-                    style: AppStyles.bodyTextBold.copyWith(color: context.color.text),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: context.color.text,
+                    ),
                   ),
                 ),
               ],
