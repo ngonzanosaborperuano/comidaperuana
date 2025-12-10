@@ -19,7 +19,6 @@ export 'build_widget.dart';
 export 'curve_test_widget.dart';
 export 'loading_modal.dart';
 export 'loading_widget.dart';
-export 'logo_widget.dart';
 export 'platform_app_builder.dart';
 export 'spacing/spacing.dart';
 export 'text_widget.dart';

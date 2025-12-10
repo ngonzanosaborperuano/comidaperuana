@@ -29,7 +29,7 @@ class AppMaterial extends StatelessWidget {
                 theme: ThemeData.light(),
                 darkTheme: ThemeData.dark(),
                 themeMode: themeMode,
-                title: 'CocinandoIA',
+                title: 'GonCook',
                 locale: locale,
                 debugShowCheckedModeBanner: false,
                 routerConfig: appRouter,

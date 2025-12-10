@@ -231,7 +231,7 @@ class PayUService extends ChangeNotifier {
 /// Extension para obtener precios con formato PayU
 extension PayUPricing on SubscriptionPlanType {
   String get payuFormattedPrice => basePrice.toStringAsFixed(1);
-  String get payuDescription => 'Suscripción $displayName - CocinandoIA';
+  String get payuDescription => 'Suscripción $displayName - GonCook';
 }
 
 /// Tarjetas de prueba para Perú (Sandbox)

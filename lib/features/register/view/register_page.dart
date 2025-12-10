@@ -25,7 +25,11 @@ class RegisterPage extends StatelessWidget {
         ),
         child: Scaffold(
           body: const RegisterView(),
-          appBar: AppBar(title: Text(context.loc.register)),
+          appBar: AppBar(
+            title: Text(context.loc.register),
+            surfaceTintColor: Colors.transparent,
+            forceMaterialTransparency: true,
+          ),
         ),
       ),
     );

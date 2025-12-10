@@ -113,3 +113,17 @@ DynaTrace
 usuario: niltongr@outlook.com
 pass: ArCV2GwDFdrFRgC
 dart run dynatrace_flutter_plugin
+
+============================================
+Tus códigos de verificación alternativos - Google cuenta
+============================================
+7137 8803
+0928 7881
+7773 8139
+7840 3480
+7075 4901
+8993 1174
+8887 1549
+6194 4393
+5301 3514
+1897 7839

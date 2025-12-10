@@ -326,7 +326,7 @@ class _WelcomeViewState extends State<WelcomeView> {
         TextCocinando(context: context),
         const Spacer(flex: 2),
         Text(
-          l10n.welcomeToCocinandoIA,
+          l10n.welcomeToGonCook,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: context.color.text),
           textAlign: TextAlign.center,
         ),
@@ -576,7 +576,7 @@ class TextCocinando extends StatelessWidget {
       children: [
         AppVerticalSpace.slg,
         Text(
-          l10n.cocinandoIA,
+          l10n.gonCook,
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

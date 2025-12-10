@@ -8,6 +8,7 @@ import 'package:goncook/core/bloc/locale_bloc.dart';
 import 'package:goncook/core/bloc/theme_bloc.dart';
 import 'package:goncook/core/config/color/app_color_scheme.dart';
 import 'package:goncook/core/config/color/app_colors.dart';
+import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/core/l10n/app_localizations.dart';
 
 class AppCupertino extends StatelessWidget {
@@ -29,11 +30,11 @@ class AppCupertino extends StatelessWidget {
               brightness: isDark ? Brightness.dark : Brightness.light,
               platform: defaultTargetPlatform,
               child: CupertinoApp.router(
-                title: 'CocinandoIA',
+                title: 'GonCook',
                 locale: locale,
                 theme: CupertinoThemeData(
                   brightness: isDark ? Brightness.dark : Brightness.light,
-                  primaryColor: AppColors.primary1,
+                  primaryColor: context.color.background,
                   scaffoldBackgroundColor: isDark
                       ? CupertinoColors.black
                       : CupertinoColors.systemGroupedBackground,

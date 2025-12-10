@@ -1,11 +1,11 @@
 {
   "@@locale": "en",
-  "welcome": "Welcome to CocinandoIA",
+  "welcome": "Welcome to GonCook",
   "@welcome": {
     "description": "Welcome title on main screen"
   },
-  "welcomeToRecetasCocinandoIA": "Welcome to CocinandoIA!",
-  "@welcomeToRecetasCocinandoIA": {
+  "welcomeToRecetasGonCook": "Welcome to GonCook!",
+  "@welcomeToRecetasGonCook": {
     "description": "Welcome message after successful login"
   },
   "home": "Home",
@@ -128,7 +128,7 @@
   "@createAccount": {
     "description": "Title for creating a new account"
   },
-  "completeInformation": "Complete the information to join our community",
+  "completeInformation": "Join GonCook to discover personalized recipes, nutritional data, and much more.",
   "@completeInformation": {
     "description": "Descriptive subtitle for registration form"
   },
@@ -304,7 +304,7 @@
   "@onboardingSubtitle3": {
     "description": "Third onboarding screen subtitle"
   },
-  "onboardingTitle4": "Welcome to Cocinando!",
+  "onboardingTitle4": "Welcome to GonCook!",
   "@onboardingTitle4": {
     "description": "Fourth onboarding screen title"
   },
@@ -392,7 +392,7 @@
   "@recoverAccountMessage": {
     "description": "Instructions for account recovery using email."
   },
-  "recoverPassword": "Recover password.",
+  "recoverPassword": "Recover password",
   "@recoverPassword": {
     "description": "Title to recover password."
   },
@@ -420,16 +420,16 @@
   "@errorInvalidEmail": {
     "description": "Message shown when the email format is invalid."
   },
-  "cocinandoIA": "Cocinando IA",
-  "@cocinandoIA": {
+  "gonCook": "GonCook",
+  "@gonCook": {
     "description": "Application name"
   },
   "culinaryAssistant": "Your intelligent culinary assistant",
   "@culinaryAssistant": {
     "description": "Application slogan"
   },
-  "welcomeToCocinandoIA": "Welcome to CocinandoIA!",
-  "@welcomeToCocinandoIA": {
+  "welcomeToGonCook": "Welcome to GonCook!",
+  "@welcomeToGonCook": {
     "description": "Welcome title in onboarding"
   },
   "personalizeExperience": "Let's personalize your experience to offer you the best recipes adapted to your needs.",
@@ -604,7 +604,7 @@
   "@personalizedRecipes": {
     "description": "Title for personalized recipes on access page"
   },
-  "discoverRecipes": "Discover delicious recipes and culinary tips with Cocinando IA",
+  "discoverRecipes": "Discover delicious recipes and culinary tips with GonCook",
   "@discoverRecipes": {
     "description": "Description of the application on access page"
   },
@@ -727,7 +727,7 @@
   "@subscription": {
     "description": "Word for subscription"
   },
-  "appName": "CocinandoIA",
+  "appName": "GonCook",
   "@appName": {
     "description": "Application name"
   },
@@ -767,7 +767,7 @@
   "@subscriptionSuccessTitle": {
     "description": "Title for successful subscription confirmation"
   },
-  "subscriptionSuccessContent": "Welcome to CocinandoIA Premium! 🎉\n\nYour subscription has been successfully activated. Now you can enjoy smart recipes, personalized recommendations, and much more.\n\nThank you for trusting us to accompany you in your kitchen!",
+  "subscriptionSuccessContent": "Welcome to GonCook Premium! 🎉\n\nYour subscription has been successfully activated. Now you can enjoy smart recipes, personalized recommendations, and much more.\n\nThank you for trusting us to accompany you in your kitchen!",
   "@subscriptionSuccessContent": {
     "description": "Message for successful subscription confirmation"
   },

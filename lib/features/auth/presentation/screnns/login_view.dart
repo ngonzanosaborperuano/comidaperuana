@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:goncook/common/widget/app_botton_sheet.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/core/extension/loading.dart';
 import 'package:goncook/core/router/routes.dart' show Routes;
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:goncook/features/auth/presentation/widget/widget.dart'
@@ -31,23 +32,25 @@ class LoginView extends StatelessWidget {
   void _listener(BuildContext context, LoginState state) {
     if (state is LoginSuccess && state.isSuccess) {
       if (!context.mounted) return;
-      context.showSuccessToast('Bienvenido a CocinandoIA');
+      context.showSuccessToast(context.loc.welcomeToGonCook);
       context.go(Routes.home.description);
     } else if (state is LoginError && state.hasError) {
       if (!context.mounted) return;
-      context.showBottomSheet(
-        title: 'Iniciar sesión',
-        onClose: context.pop,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.md,
-          children: [
-            context.image.logo(),
-            AppText(text: state.message, fontSize: AppSpacing.md),
-            AppButton(text: 'Entendido', onPressed: context.pop),
-          ],
-        ),
-      );
+      context
+        ..hideLoading()
+        ..showBottomSheet(
+          title: 'Iniciar sesión',
+          onClose: context.pop,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: AppSpacing.md,
+            children: [
+              context.image.logo(),
+              AppText(text: state.message, fontSize: AppSpacing.md),
+              AppButton(text: 'Entendido', onPressed: context.pop),
+            ],
+          ),
+        );
     }
   }
 

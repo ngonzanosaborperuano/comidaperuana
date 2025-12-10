@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:goncook/common/widget/app_confirm_dialog.dart';
+import 'package:goncook/common/widget/app_botton_sheet.dart';
 import 'package:goncook/common/widget/app_text_form_field.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/constants/option.dart';
 import 'package:goncook/core/extension/extension.dart';
+import 'package:goncook/core/extension/loading.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:goncook/features/auth/presentation/widget/login/login.dart';
+import 'package:goncook/features/auth/presentation/widget/widget.dart';
 
 class AnimatedLoginForm extends StatelessWidget {
   const AnimatedLoginForm({
@@ -61,7 +63,41 @@ class AnimatedLoginForm extends StatelessWidget {
                 context: context,
               ),
               RecoverPassword(
-                onTap: () => context.read<LoginBloc>().add(const RecoverPasswordButtonPressed()),
+                onTap: () async {
+                  final textEditingController = TextEditingController();
+                  //await _showRecoverPasswordDialog(context: context);
+                  await context.showBottomSheet(
+                    sigma: 4,
+                    title: context.loc.recoverPassword,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          text: context.loc.recoverAccountMessage,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                        ),
+                        AppVerticalSpace.md,
+                        AppTextField(
+                          hintText: context.loc.email,
+                          textEditingController: textEditingController,
+                        ),
+                        AppVerticalSpace.lg,
+                        AppButton(
+                          text: context.loc.send,
+                          onPressed: () async {
+                            context
+                              ..read<LoginBloc>().add(
+                                RecoverCredentialRequested(textEditingController.text.trim()),
+                              )
+                              ..pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 context: context,
               ),
             ],
@@ -78,10 +114,13 @@ class AnimatedLoginForm extends StatelessWidget {
     final currentEmailError = current is LoginFormState ? current.emailError : null;
     final previousPasswordError = previous is LoginFormState ? previous.passwordError : null;
     final currentPasswordError = current is LoginFormState ? current.passwordError : null;
+    final previousMessage = previous is RecoverCredentialSuccess ? previous.message : null;
+    final currentMessage = current is RecoverCredentialSuccess ? current.message : null;
 
     return previousIsValid != currentIsValid ||
         previousEmailError != currentEmailError ||
-        previousPasswordError != currentPasswordError;
+        previousPasswordError != currentPasswordError ||
+        previousMessage != currentMessage;
   }
 
   bool _shouldListenToFormChanges(LoginState previous, LoginState current) {
@@ -89,12 +128,28 @@ class AnimatedLoginForm extends StatelessWidget {
   }
 
   void _handleFormStateChanges(BuildContext context, LoginState state) {
+    if (state is LoginProcessState && state.isLoading) {
+      context.showLoading();
+    }
+
     if (state is LoginFormState && state.isValid) {
       _triggerLoginRequest(context, state);
     }
 
     if (state is RecoverCredentialSuccess) {
-      _showRecoverPasswordDialog(context: context);
+      context.showBottomSheet(
+        title: context.loc.recoverPassword,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            AppText(text: state.message, fontSize: AppSpacing.md),
+            AppVerticalSpace.lg,
+            AppButton(text: context.loc.accept, onPressed: context.pop),
+          ],
+        ),
+      );
     }
   }
 
@@ -104,46 +159,6 @@ class AnimatedLoginForm extends StatelessWidget {
         email: formState.email,
         password: formState.password,
         type: LoginWith.withUserPassword,
-      ),
-    );
-  }
-
-  Future<void> _showRecoverPasswordDialog({required BuildContext context}) {
-    final textEditingController = TextEditingController();
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) => AppConfirmDialog(
-        title: context.loc.recoverPassword,
-        content: Column(
-          children: [
-            AppText(
-              text: context.loc.recoverAccountMessage,
-              fontWeight: FontWeight.w400,
-              fontSize: 15,
-              color: context.color.textSecondary,
-              textAlign: TextAlign.center,
-            ),
-            AppVerticalSpace.md,
-            AppTextField(hintText: context.loc.email, textEditingController: textEditingController),
-          ],
-        ),
-        confirmLabel: context.loc.send,
-        cancelLabel: context.loc.cancel,
-        onConfirm: () async {
-          await const LoadingDialog().show(
-            context,
-            future: () async {
-              context.read<LoginBloc>().add(RecoverCredentialRequested(textEditingController.text));
-            },
-          );
-          if (!context.mounted) return;
-          context.pop();
-        },
-        onCancel: context.pop,
-        confirmColor: context.color.buttonPrimary,
-        borderColorFrom: context.color.buttonPrimary,
-        borderColorTo: context.color.error,
       ),
     );
   }

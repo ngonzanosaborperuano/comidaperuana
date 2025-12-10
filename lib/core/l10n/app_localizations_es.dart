@@ -9,10 +9,10 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get welcome => 'Bienvenido a CocinandoIA';
+  String get welcome => 'Bienvenido a GoonCook';
 
   @override
-  String get welcomeToRecetasCocinandoIA => '¡Bienvenido a CocinandoIA!';
+  String get welcomeToRecetasGonCook => '¡Bienvenido a GonCook!';
 
   @override
   String get home => 'Inicio';
@@ -109,7 +109,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get completeInformation =>
-      'Únete a CocinandoIA para descubrir recetas personalizadas, datos nutricionales.';
+      'Únete a GonCook para descubrir recetas personalizadas, datos nutricionales y mucho más.';
 
   @override
   String get validatePasswordText =>
@@ -247,7 +247,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Accede a recetas exclusivas de chefs profesionales con información nutricional detallada, técnicas secretas y los auténticos sabores del Perú. ¡Cocina como un experto!';
 
   @override
-  String get onboardingTitle4 => '¡Bienvenido a Cocinando!';
+  String get onboardingTitle4 => '¡Bienvenido a GonCook!';
 
   @override
   String get onboardingSubtitle4 =>
@@ -350,13 +350,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get errorInvalidEmail => 'El correo no tiene un formato válido.';
 
   @override
-  String get cocinandoIA => 'Cocinando IA';
+  String get gonCook => 'GonCook';
 
   @override
   String get culinaryAssistant => 'Tu asistente culinario inteligente';
 
   @override
-  String get welcomeToCocinandoIA => '¡Bienvenido a CocinandoIA!';
+  String get welcomeToGonCook => '¡Bienvenido a GonCook!';
 
   @override
   String get personalizeExperience =>
@@ -496,7 +496,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get discoverRecipes =>
-      'Descubre deliciosas recetas y consejos culinarios con Cocinando IA';
+      'Descubre deliciosas recetas y consejos culinarios con GonCook';
 
   @override
   String get dontHaveAccount => '¿No tienes una cuenta?';
@@ -586,7 +586,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get subscription => 'Suscripción';
 
   @override
-  String get appName => 'CocinandoIA';
+  String get appName => 'GonCook';
 
   @override
   String get difficultyEasy => 'Fácil';
@@ -617,7 +617,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get subscriptionSuccessContent =>
-      '¡Bienvenido a CocinandoIA Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!';
+      '¡Bienvenido a GonCook Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!';
 
   @override
   String get goHome => 'Ir al inicio';

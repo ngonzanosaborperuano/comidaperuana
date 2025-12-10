@@ -1,11 +1,11 @@
 {
   "@@locale": "es",
-  "welcome": "Bienvenido a CocinandoIA",
+  "welcome": "Bienvenido a GoonCook",
   "@welcome": {
     "description": "Título de bienvenida en la pantalla principal"
   },
-  "welcomeToRecetasCocinandoIA": "¡Bienvenido a CocinandoIA!",
-  "@welcomeToRecetasCocinandoIA": {
+  "welcomeToRecetasGonCook": "¡Bienvenido a GonCook!",
+  "@welcomeToRecetasGonCook": {
     "description": "Mensaje de bienvenida después del login exitoso"
   },
   "home": "Inicio",
@@ -252,7 +252,7 @@
   "@listPending": {
     "description": "Título para la lista de tareas pendientes"
   },
-  "completeInformation": "Únete a CocinandoIA para descubrir recetas personalizadas, datos nutricionales.",
+  "completeInformation": "Únete a GonCook para descubrir recetas personalizadas, datos nutricionales y mucho más.",
   "@completeInformation": {
     "description": "Mensaje al registrar usuario"
   },
@@ -300,7 +300,7 @@
   "@onboardingSubtitle3": {
     "description": "Subtítulo de la tercera pantalla de onboarding"
   },
-  "onboardingTitle4": "¡Bienvenido a Cocinando!",
+  "onboardingTitle4": "¡Bienvenido a GonCook!",
   "@onboardingTitle4": {
     "description": "Título de la cuarta pantalla de onboarding"
   },
@@ -416,16 +416,16 @@
   "@errorInvalidEmail": {
     "description": "Mensaje mostrado cuando el formato del correo electrónico es inválido."
   },
-  "cocinandoIA": "Cocinando IA",
-  "@cocinandoIA": {
+  "gonCook": "GonCook",
+  "@gonCook": {
     "description": "Nombre de la aplicación"
   },
   "culinaryAssistant": "Tu asistente culinario inteligente",
   "@culinaryAssistant": {
     "description": "Eslogan de la aplicación"
   },
-  "welcomeToCocinandoIA": "¡Bienvenido a CocinandoIA!",
-  "@welcomeToCocinandoIA": {
+  "welcomeToGonCook": "¡Bienvenido a GonCook!",
+  "@welcomeToGonCook": {
     "description": "Título de bienvenida en onboarding"
   },
   "personalizeExperience": "Vamos a personalizar tu experiencia para ofrecerte las mejores recetas adaptadas a tus necesidades.",
@@ -600,7 +600,7 @@
   "@personalizedRecipes": {
     "description": "Título de recetas personalizadas en la página de acceso"
   },
-  "discoverRecipes": "Descubre deliciosas recetas y consejos culinarios con Cocinando IA",
+  "discoverRecipes": "Descubre deliciosas recetas y consejos culinarios con GonCook",
   "@discoverRecipes": {
     "description": "Descripción de la aplicación en la página de acceso"
   },
@@ -629,7 +629,13 @@
     "description": "Mensaje de error de PayU"
   },
   "premiumPlans": "Planes Premium",
+  "@premiumPlans": {
+    "description": "Título para la pantalla de planes premium"
+  },
   "confirmSubscription": "Confirmar Suscripción",
+  "@confirmSubscription": {
+    "description": "Título para el diálogo de confirmación de suscripción"
+  },
   "planLabel": "Plan: {planName}",
   "@planLabel": {
     "description": "Etiqueta para el nombre del plan",
@@ -660,6 +666,9 @@
     }
   },
   "payuSafe": "Pago seguro con PayU",
+  "@payuSafe": {
+    "description": "Etiqueta para pago seguro con PayU"
+  },
   "saveLabel": "Ahorras {percent}% (S/ {amount})",
   "@saveLabel": {
     "description": "Etiqueta para el ahorro",
@@ -669,6 +678,9 @@
     }
   },
   "payNow": "Pagar Ahora",
+  "@payNow": {
+    "description": "Etiqueta del botón para pagar ahora"
+  },
   "continueWith": "Continuar con {planName}",
   "@continueWith": {
     "description": "Botón para continuar con el plan seleccionado",
@@ -681,10 +693,25 @@
     "description": "Texto para invitar a descubrir la cocina"
   },
   "payu100Safe": "Pago 100% seguro",
+  "@payu100Safe": {
+    "description": "Etiqueta para pago 100% seguro"
+  },
   "cancelAnytime": "Cancela cuando quieras",
+  "@cancelAnytime": {
+    "description": "Etiqueta para cancelar en cualquier momento"
+  },
   "acceptTerms": "Al continuar aceptas nuestros Términos y Condiciones",
+  "@acceptTerms": {
+    "description": "Etiqueta para aceptar términos y condiciones"
+  },
   "selectPlan": "Selecciona un plan",
+  "@selectPlan": {
+    "description": "Solicitud para seleccionar un plan"
+  },
   "paymentError": "Error en el pago. Inténtalo de nuevo.",
+  "@paymentError": {
+    "description": "Mensaje de error por fallo en el pago"
+  },
   "cancel": "Cancelar",
   "@cancel": {
     "description": "Botón para cancelar"
@@ -700,7 +727,7 @@
   "@subscription": {
     "description": "Palabra para suscripción"
   },
-  "appName": "CocinandoIA",
+  "appName": "GonCook",
   "@appName": {
     "description": "Nombre de la aplicación"
   },
@@ -740,7 +767,7 @@
   "@subscriptionSuccessTitle": {
     "description": "Título de confirmación de suscripción exitosa"
   },
-  "subscriptionSuccessContent": "¡Bienvenido a CocinandoIA Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!",
+  "subscriptionSuccessContent": "¡Bienvenido a GonCook Premium! 🎉\n\nTu suscripción ha sido activada correctamente. Ahora puedes disfrutar de recetas inteligentes, recomendaciones personalizadas y mucho más.\n\n¡Gracias por confiar en nosotros para acompañarte en tu cocina!",
   "@subscriptionSuccessContent": {
     "description": "Mensaje de confirmación de suscripción exitosa"
   },

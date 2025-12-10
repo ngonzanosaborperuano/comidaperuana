@@ -10,7 +10,13 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 
-class RegisterLoading extends RegisterState {}
+class RegisterProcessState extends RegisterState {
+  final bool isLoading;
+  const RegisterProcessState(this.isLoading);
+
+  @override
+  List<Object?> get props => [isLoading];
+}
 
 class RegisterSuccess extends RegisterState {
   final AuthModel user;

@@ -101,14 +101,14 @@ abstract class AppLocalizations {
   /// Welcome title on main screen
   ///
   /// In en, this message translates to:
-  /// **'Welcome to CocinandoIA'**
+  /// **'Welcome to GonCook'**
   String get welcome;
 
   /// Welcome message after successful login
   ///
   /// In en, this message translates to:
-  /// **'Welcome to CocinandoIA!'**
-  String get welcomeToRecetasCocinandoIA;
+  /// **'Welcome to GonCook!'**
+  String get welcomeToRecetasGonCook;
 
   /// Title of the home page
   ///
@@ -293,7 +293,7 @@ abstract class AppLocalizations {
   /// Descriptive subtitle for registration form
   ///
   /// In en, this message translates to:
-  /// **'Complete the information to join our community'**
+  /// **'Join GonCook to discover personalized recipes, nutritional data, and much more.'**
   String get completeInformation;
 
   /// Validation message for mismatched passwords
@@ -557,7 +557,7 @@ abstract class AppLocalizations {
   /// Fourth onboarding screen title
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Cocinando!'**
+  /// **'Welcome to GonCook!'**
   String get onboardingTitle4;
 
   /// Fourth onboarding screen subtitle
@@ -689,7 +689,7 @@ abstract class AppLocalizations {
   /// Title to recover password.
   ///
   /// In en, this message translates to:
-  /// **'Recover password.'**
+  /// **'Recover password'**
   String get recoverPassword;
 
   /// Send infomation
@@ -731,8 +731,8 @@ abstract class AppLocalizations {
   /// Application name
   ///
   /// In en, this message translates to:
-  /// **'Cocinando IA'**
-  String get cocinandoIA;
+  /// **'GonCook'**
+  String get gonCook;
 
   /// Application slogan
   ///
@@ -743,8 +743,8 @@ abstract class AppLocalizations {
   /// Welcome title in onboarding
   ///
   /// In en, this message translates to:
-  /// **'Welcome to CocinandoIA!'**
-  String get welcomeToCocinandoIA;
+  /// **'Welcome to GonCook!'**
+  String get welcomeToGonCook;
 
   /// Personalization description in onboarding
   ///
@@ -1007,7 +1007,7 @@ abstract class AppLocalizations {
   /// Description of the application on access page
   ///
   /// In en, this message translates to:
-  /// **'Discover delicious recipes and culinary tips with Cocinando IA'**
+  /// **'Discover delicious recipes and culinary tips with GonCook'**
   String get discoverRecipes;
 
   /// Question for users who don't have an account on the login screen
@@ -1157,7 +1157,7 @@ abstract class AppLocalizations {
   /// Application name
   ///
   /// In en, this message translates to:
-  /// **'CocinandoIA'**
+  /// **'GonCook'**
   String get appName;
 
   /// Easy difficulty level
@@ -1217,7 +1217,7 @@ abstract class AppLocalizations {
   /// Message for successful subscription confirmation
   ///
   /// In en, this message translates to:
-  /// **'Welcome to CocinandoIA Premium! 🎉\n\nYour subscription has been successfully activated. Now you can enjoy smart recipes, personalized recommendations, and much more.\n\nThank you for trusting us to accompany you in your kitchen!'**
+  /// **'Welcome to GonCook Premium! 🎉\n\nYour subscription has been successfully activated. Now you can enjoy smart recipes, personalized recommendations, and much more.\n\nThank you for trusting us to accompany you in your kitchen!'**
   String get subscriptionSuccessContent;
 
   /// Button to go to home after subscribing
