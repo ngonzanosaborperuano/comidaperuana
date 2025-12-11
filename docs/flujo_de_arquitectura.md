@@ -1,6 +1,16 @@
 lib/
+├── app.dart
+├── main_common.dart
+├── main_dev.dart
+├── main_staging.dart
+├── main_prod.dart
+├── bootstrap/
+│   └── bootstrap.dart      // arranca DI + runApp
 ├── core/
 │   ├── injection.dart          ← AQUÍ va toda la Dependency Inversion
+│   ├── l10n/
+│   │   ├── app_localizations_en.arb
+│   │   └── app_localizations_es.arb
 │   ├── theme/
 │   │   ├── app_colors.dart
 │   │   ├── app_typography.dart
@@ -9,18 +19,24 @@ lib/
 │   ├── ui/
 │   │   ├── adaptive/
 │   │   │   ├── adaptive_scaffold.dart
-│   │   │   ├── adaptive_app_bar.dart
 │   │   │   ├── adaptive_button.dart
 │   │   │   ├── adaptive_card.dart
 │   │   │   ├── adaptive_dialog.dart
 │   │   │   ├── adaptive_menu.dart
-│   │   │   ├── adaptive_loading.dart
 │   │   │   └── adaptive_textfield.dart            
 │   │   ├── material/
+│   │   │   ├── material_card.dart
+│   │   │   ├── material_dialog.dart
+│   │   │   ├── material_menu.dart
 │   │   │   ├── material_button.dart
+│   │   │   ├── material_textfield.dart
 │   │   │   └── material_scaffold.dart
 │   │   └── cupertino/
-│   │       ├── cupertino_button.dart
+│   │   │   ├── cupertino_card.dart
+│   │   │   ├── cupertino_dialog.dart
+│   │   │   ├── cupertino_menu.dart
+│   │   │   ├── cupertino_button.dart
+│   │   │   ├── cupertino_textfield.dart
 │   │       └── cupertino_scaffold.dart
 │   ├── utils/
 │   │   ├── platform_utils.dart        // isIOS, isAndroid, etc.

@@ -1,0 +1,72 @@
+## Regla: fpdart_extensiones
+
+### Objetivo
+Estandarizar el uso de las extensiones de fpdart definidas en `docs/fpdart.md`
+para side effects, reporte de errores y composición funcional. Evita duplicar
+lógica y asegura que todos los errores pasen por el sistema global de reporte.
+
+### Alcance
+- `Either<L, R>`: `onLeft`, `onRight`, `getOrElse`, `isRight/isLeft`,
+  `getRightOrThrow`, `getLeftOrThrow`, `reportLeft` (solo `Failure`).
+- `Option<T>`: `onSome`, `onNone`, `isSome/isNone`, `getOrThrow`.
+- `Task<T>`: `toEither(onError)`, `toEitherFailure`.
+- `TaskEither<Failure, R>`: `reportLeft`.
+- `Unit`: `toEither<L>()`, `isSuccess`.
+- Paralelo: `runParallel()`, `runParallelAndReport()` sobre listas de
+  `TaskEither`.
+
+### Obligatorio
+1) Usa `reportLeft()` en todo `Either<Failure, R>` y `TaskEither<Failure, R>`
+   antes de manejar UI/estado.
+2) Convierte errores solo con `failureToException()` (punto único de
+   traducción a excepciones).
+3) Prefiere métodos nativos de fpdart (`map`, `flatMap`, `getOrElse`,
+   `toEither`, `toNullable`, `filter`, `Reader.map/flatMap`) salvo que se
+   requiera funcionalidad propia descrita aquí.
+4) No uses `print`; usa `logger` en `onLeft/onRight/onSome/onNone`.
+5) Para paralelismo, prioriza `runParallelAndReport()` si necesitas reporte
+   automático; usa `runParallel()` solo si manejarás el reporte manualmente.
+
+### Patrones recomendados
+- Encadenar: `result.reportLeft().onLeft(...).onRight(...).fold(...)`.
+- Valores por defecto: `result.reportLeft().getOrElse(() => fallback)`.
+- Opcionales: `option.onSome(...).onNone(...).getOrElse(...)`.
+- Tareas: `Task(...).toEitherFailure().reportLeft().fold(...)`.
+- Unit: `unit.toEither<Failure>()` para expresar éxito sin payload.
+
+### Anti-patterns (prohibido)
+- Reimplementar extensiones existentes o duplicar `reportLeft`/`onLeft`
+  manualmente.
+- Lanzar excepciones sin pasar por `failureToException`.
+- Usar valores nullable en vez de `Option` cuando la ausencia sea esperada.
+- Omisión de `reportLeft` en flujos críticos (BLoC/Cubit, use cases, repos).
+
+### Checklist rápido
+- [ ] ¿Usé `reportLeft()` antes de manejar el resultado?
+- [ ] ¿Convertí errores solo con `failureToException()`?
+- [ ] ¿Aproveché métodos nativos de fpdart cuando aplican?
+- [ ] ¿Usé `Option` en lugar de nulls y `onSome/onNone` para side effects?
+- [ ] ¿Para paralelismo, elegí entre `runParallel` o `runParallelAndReport`
+      según necesidad de reporte?
+
+### Ejemplos mínimos
+```dart
+// Either con logging y reporte
+final result = await getUserUseCase(id);
+result
+  .reportLeft()
+  .onLeft((f) => logger.e('Error: ${f.message}'))
+  .onRight((u) => logger.i('OK: ${u.id}'))
+  .fold(emitError, emitLoaded);
+
+// Option con fallback
+final name = userOption
+  .onNone(() => logger.w('Sin usuario'))
+  .getOrElse(() => 'Guest');
+
+// Paralelo con reporte automático
+final results = await tasks.runParallelAndReport();
+for (final r in results) {
+  r.fold(emitError, emitLoaded);
+}
+```

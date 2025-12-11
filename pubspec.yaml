@@ -5,7 +5,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.10.0
 
 dependencies:
   flutter:
@@ -56,6 +56,8 @@ dependencies:
   flutter_animate: ^4.5.2
   speech_to_text: ^7.2.0
   fpdart: ^1.2.0
+  cupertino_native: ^0.1.1
+
 
 dev_dependencies:
   mockito: ^5.4.5
