@@ -22,11 +22,10 @@ class _ModernRegisterFormState extends State<ModernRegisterForm> with TickerProv
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return SizedBox(
       width: double.infinity,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: .center,
         children: [
           const AnimatedHeaderWidget(),
           AppVerticalSpace.xlg,
