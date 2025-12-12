@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '86173141894',
     projectId: 'goncook-55c25',
     storageBucket: 'goncook-55c25.firebasestorage.app',
+    androidClientId: '86173141894-cr4cef7n6ldak339nr23j50h8v38qk1l.apps.googleusercontent.com',
+    iosClientId: '86173141894-mbloi0319dgj0pscqetnukgab9tvc4ru.apps.googleusercontent.com',
     iosBundleId: 'com.ngonzano.goncook',
   );
+
 }
