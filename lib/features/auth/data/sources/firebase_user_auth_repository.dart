@@ -3,9 +3,7 @@ import 'dart:developer' show log;
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, GoogleAuthProvider, EmailAuthProvider, FirebaseAuthException;
 import 'package:goncook/common/shared.dart' show AppResultService, Success;
-import 'package:goncook/features/auth/data/models/auth_model.dart' show AuthModel;
 import 'package:goncook/features/auth/domain/domain.dart';
-import 'package:goncook/features/auth/domain/repositories/i_user_auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart'
     show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
 import 'package:logging/logging.dart' show Logger;
@@ -83,7 +81,7 @@ class FirebaseUserAuthRepository implements IUserAuthRepository {
         nombreCompleto: response.user!.displayName,
       );
       return Success(user);
-    } on FirebaseAuthException catch (e, stackTrace) {
+    } on FirebaseAuthException catch (e) {
       //_logger.severe('Error al iniciar sesión con email y contraseña: $e', e, stackTrace);
       return AppResultService.failure(e.code);
     }
