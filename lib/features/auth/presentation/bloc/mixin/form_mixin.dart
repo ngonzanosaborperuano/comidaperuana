@@ -1,4 +1,4 @@
-part of 'login_bloc.dart';
+part of '../login_bloc.dart';
 
 mixin LoginFormMixin on Bloc<LoginEvent, LoginState> {
   void _onLoginErrorCleared(LoginErrorCleared event, Emitter<LoginState> emit) {

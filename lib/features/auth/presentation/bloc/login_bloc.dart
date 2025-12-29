@@ -7,7 +7,7 @@ import 'package:goncook/features/auth/domain/repositories/i_user_repository.dart
 import 'package:goncook/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:goncook/features/auth/domain/usecases/logout_usecase.dart';
 
-part 'form_mixin.dart';
+part 'mixin/form_mixin.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
