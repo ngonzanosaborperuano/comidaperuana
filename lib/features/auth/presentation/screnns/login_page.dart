@@ -9,7 +9,16 @@ import 'package:goncook/features/presentation.dart' show LoginView, LoginBloc;
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  factory LoginPage.routeBuilder(_, _) {
+  //factory LoginPage.routeBuilder(_, _) {
+  //  return const LoginPage(key: Key('login_page'));
+  //}
+  
+  //   ✔ Solo en páginas navegables
+  //   ✔ Router limpio: sin lógica de negocio pesada
+  //   ✔ Keys estándar
+  //   ✔ Nada de lógica de negocio pesada ahí
+ 
+   static Widget routeBuilder( _,  _) {
     return const LoginPage(key: Key('login_page'));
   }
 

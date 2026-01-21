@@ -6,6 +6,7 @@ import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/extension/extension.dart';
 import 'package:goncook/core/extension/loading.dart';
 import 'package:goncook/core/router/routes.dart' show Routes;
+import 'package:goncook/core/services/device/device_info_service.dart';
 import 'package:goncook/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:goncook/features/auth/presentation/widget/widget.dart'
     show AnimatedLoginForm, LoginWithGoogle;
@@ -123,6 +124,8 @@ class _LoginContent extends StatelessWidget {
               ],
             ),
             const LoginWithGoogle(),
+            // Botón para probar Pigeon - obtener info del dispositivo
+            _TestDeviceInfoButton(),
             Row(
               children: [
                 const AppText(text: '¿No tienes cuenta?', fontSize: AppSpacing.md),
@@ -136,6 +139,114 @@ class _LoginContent extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Botón para probar la funcionalidad de Pigeon
+class _TestDeviceInfoButton extends StatelessWidget {
+  const _TestDeviceInfoButton();
+
+  Future<void> _showDeviceInfo(BuildContext context) async {
+    final deviceService = DeviceInfoService();
+    
+    // Mostrar loading
+    context.showLoading();
+    
+    try {
+      final result = await deviceService.getDeviceInfo();
+      
+      if (!context.mounted) return;
+      context.hideLoading();
+      
+      result.fold(
+        (failure) {
+          // Mostrar error
+          context.showBottomSheet(
+            title: 'Error al obtener información',
+            onClose: context.pop,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: AppSpacing.md,
+              children: [
+                AppText(
+                  text: failure.message,
+                  fontSize: AppSpacing.md,
+                  color: context.color.error,
+                ),
+                AppButton(
+                  text: 'Cerrar',
+                  onPressed: context.pop,
+                ),
+              ],
+            ),
+          );
+        },
+        (deviceInfo) {
+          // Mostrar información exitosa
+          context.showBottomSheet(
+            title: 'Información del Dispositivo',
+            onClose: context.pop,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: AppSpacing.md,
+              children: [
+                AppText(
+                  text: 'Modelo: ${deviceInfo.model}',
+                  fontSize: AppSpacing.md,
+                ),
+                AppText(
+                  text: 'OS: ${deviceInfo.osVersion}',
+                  fontSize: AppSpacing.md,
+                ),
+                AppText(
+                  text: 'ID: ${deviceInfo.deviceId}',
+                  fontSize: AppSpacing.sm,
+                ),
+                if (deviceInfo.brand != null)
+                  AppText(
+                    text: 'Marca: ${deviceInfo.brand}',
+                    fontSize: AppSpacing.md,
+                  ),
+                AppButton(
+                  text: 'Cerrar',
+                  onPressed: context.pop,
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      context.hideLoading();
+      context.showBottomSheet(
+        title: 'Error',
+        onClose: context.pop,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: AppSpacing.md,
+          children: [
+            AppText(
+              text: 'Error inesperado: $e',
+              fontSize: AppSpacing.md,
+              color: context.color.error,
+            ),
+            AppButton(
+              text: 'Cerrar',
+              onPressed: context.pop,
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton(
+      text: '🔍 Info Dispositivo',
+      onPressed: () => _showDeviceInfo(context),
     );
   }
 }

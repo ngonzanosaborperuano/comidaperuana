@@ -16,6 +16,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		99AC0AA055AF59AC72F14D3E /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB385E6E1CF50F294242C55B /* Pods_RunnerTests.framework */; };
 		C26F60302EDC6C8ED59DCE93 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FD01E3762126278536611F /* Pods_Runner.framework */; };
+		D19A2B522F2159800060B91D /* PigeonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19A2B512F21597F0060B91D /* PigeonApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		BD04745393586072F573EFB3 /* Pods-Runner.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release dev.xcconfig"; sourceTree = "<group>"; };
 		C362154DA9019BA463A1AC24 /* Pods-Runner.debug prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug prod.xcconfig"; sourceTree = "<group>"; };
 		C86AAF9DE23923F77976C511 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
+		D19A2B512F21597F0060B91D /* PigeonApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PigeonApi.swift; sourceTree = "<group>"; };
 		DE47448BF66A50B40D7F976A /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		E159A250F0D2479879C6D8C9 /* Pods-RunnerTests.profile prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile prod.xcconfig"; sourceTree = "<group>"; };
 		E77C99D7D719F37442EBBBF0 /* Pods-Runner.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug dev.xcconfig"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				D19A2B512F21597F0060B91D /* PigeonApi.swift */,
 				D175A5002EECF0BA00D474FF /* Firebase */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -482,6 +485,7 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				D19A2B522F2159800060B91D /* PigeonApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
