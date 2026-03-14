@@ -110,9 +110,6 @@ unlinked_spec.ds
 *.part
 *.g.part
 
-# Firebase configuration (pero permitir firebase_options.dart si es necesario)
-**/google-services.json
-**/GoogleService-Info.plist
 # **/firebase_options.dart  # Comentado para permitir este archivo si es necesario
 
 # Environment and secrets (pero permitir .env.example)
@@ -230,9 +227,6 @@ local.config.js
 !local.example.properties
 !local.example.settings.json
 
-# FVM
-.fvm/
-
 # Analysis (pero permitir analysis_options.yaml del proyecto)
 # .analysis_options.yaml  # Comentado para permitir este archivo importante
 .analysis_options.yml
@@ -267,7 +261,6 @@ test_runner.dart.bak
 
 # Additional Flutter ignores
 .scannerwork/
-sonar-project.properties
 tests.output
 .metadata
 

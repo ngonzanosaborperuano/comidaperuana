@@ -1,0 +1,142 @@
+{
+  "project_info": {
+    "project_number": "86173141894",
+    "project_id": "goncook-55c25",
+    "storage_bucket": "goncook-55c25.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86173141894:android:eedf4594ce8972ef303a07",
+        "android_client_info": {
+          "package_name": "com.ngonzano.goncook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86173141894-s654f66kqiv7idivpq3qad4mmbkpl6do.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ngonzano.goncook",
+            "certificate_hash": "211101501651ac7dd35b53166f2bd5f84b6a7adb"
+          }
+        },
+        {
+          "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9TwKGOBTj907uyzT_FrS7AzwehOc03PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "86173141894-0rlohjc2q0d49dha0b2p9q0rbjlkd3fc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ngonzano.goncook.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86173141894:android:a502346dd00ea1a7303a07",
+        "android_client_info": {
+          "package_name": "com.ngonzano.goncook.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86173141894-gtt4imup35l368ej3qmdhv9ma2l8uvgs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ngonzano.goncook.dev",
+            "certificate_hash": "211101501651ac7dd35b53166f2bd5f84b6a7adb"
+          }
+        },
+        {
+          "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9TwKGOBTj907uyzT_FrS7AzwehOc03PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "86173141894-0rlohjc2q0d49dha0b2p9q0rbjlkd3fc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ngonzano.goncook.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86173141894:android:3bd9068ed1bd4a3b303a07",
+        "android_client_info": {
+          "package_name": "com.ngonzano.goncook.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86173141894-cranlgjt0a7kig9i6i7aon4ik44cg9o1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ngonzano.goncook.staging",
+            "certificate_hash": "211101501651ac7dd35b53166f2bd5f84b6a7adb"
+          }
+        },
+        {
+          "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9TwKGOBTj907uyzT_FrS7AzwehOc03PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86173141894-ddkt3b8qup5hsdljkfhrv1vlgnihvgrt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "86173141894-0rlohjc2q0d49dha0b2p9q0rbjlkd3fc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ngonzano.goncook.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
