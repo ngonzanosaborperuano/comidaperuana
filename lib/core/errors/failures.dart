@@ -2,6 +2,7 @@
 /// 
 /// Todas las clases Failure deben extender de esta clase base e implementar Equatable
 /// para permitir comparación de errores en tests y lógica de negocio.
+library;
 import 'package:equatable/equatable.dart';
 
 /// Clase base abstracta para todos los tipos de errores
@@ -26,9 +27,9 @@ abstract class Failure extends Equatable {
 /// Error de red/conectividad
 class NetworkFailure extends Failure {
   const NetworkFailure([
-    String message = 'Network error occurred',
+    super.message = 'Network error occurred',
     String? code,
-  ]) : super(message, code: code);
+  ]) : super(code: code);
 }
 
 /// Error del servidor
@@ -37,10 +38,10 @@ class ServerFailure extends Failure {
   final int? statusCode;
 
   const ServerFailure(
-    String message, {
+    super.message, {
     this.statusCode,
-    String? code,
-  }) : super(message, code: code);
+    super.code,
+  });
 
   @override
   List<Object?> get props => [message, code, statusCode];
@@ -52,10 +53,10 @@ class ValidationFailure extends Failure {
   final Map<String, String>? fieldErrors;
 
   const ValidationFailure(
-    String message, {
+    super.message, {
     this.fieldErrors,
-    String? code,
-  }) : super(message, code: code);
+    super.code,
+  });
 
   @override
   List<Object?> get props => [message, code, fieldErrors];
@@ -64,31 +65,31 @@ class ValidationFailure extends Failure {
 /// Error de caché
 class CacheFailure extends Failure {
   const CacheFailure([
-    String message = 'Cache error occurred',
+    super.message = 'Cache error occurred',
     String? code,
-  ]) : super(message, code: code);
+  ]) : super(code: code);
 }
 
 /// Error de autenticación
 class AuthFailure extends Failure {
   const AuthFailure([
-    String message = 'Authentication failed',
+    super.message = 'Authentication failed',
     String? code,
-  ]) : super(message, code: code);
+  ]) : super(code: code);
 }
 
 /// Error desconocido/no categorizado
 class UnknownFailure extends Failure {
   const UnknownFailure([
-    String message = 'An unknown error occurred',
+    super.message = 'An unknown error occurred',
     String? code,
-  ]) : super(message, code: code);
+  ]) : super(code: code);
 }
 
 /// Error de plataforma nativa
 class PlatformFailure extends Failure {
   const PlatformFailure(
-    String message, {
-    String? code,
-  }) : super(message, code: code);
+    super.message, {
+    super.code,
+  });
 }

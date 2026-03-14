@@ -2,6 +2,7 @@
 /// 
 /// Este servicio encapsula la comunicación con código nativo a través
 /// de la API generada por Pigeon, siguiendo Clean Architecture.
+library;
 import 'package:fpdart/fpdart.dart';
 import 'package:goncook/core/errors/failures.dart';
 import 'package:goncook/core/services/pigeon/generated_api.dart';

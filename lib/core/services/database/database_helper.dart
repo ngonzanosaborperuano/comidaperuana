@@ -36,7 +36,7 @@ class DatabaseHelper {
             await db.execute(table);
           }
         },
-        onUpgrade: (db, _, __) async {
+        onUpgrade: (db, _, _) async {
           for (final table in tableSchemas.keys) {
             await db.execute('DROP TABLE IF EXISTS $table');
           }

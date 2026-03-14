@@ -8,6 +8,7 @@
 /// ```bash
 /// dart run pigeon --input pigeon/api.dart
 /// ```
+library;
 
 import 'package:pigeon/pigeon.dart';
 

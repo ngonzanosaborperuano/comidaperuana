@@ -5,17 +5,16 @@ import android.provider.Settings
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import com.ngonzano.goncook.PigeonApi
 import com.ngonzano.goncook.DeviceInfoApi
 
 class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        
-        // Registrar implementación de la API de Pigeon
-        PigeonApi.setUp(
-            flutterEngine.dartExecutor.binaryMessenger, 
-            DeviceInfoApiImpl(this)
+
+        // Registrar implementación de la API de Pigeon (DeviceInfoApi tiene setUp en su companion)
+        DeviceInfoApi.setUp(
+            flutterEngine.dartExecutor.binaryMessenger,
+            DeviceInfoApiImpl(this),
         )
     }
 }

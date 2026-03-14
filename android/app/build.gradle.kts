@@ -16,8 +16,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
     
     // Configuración para Android 15+ (API 36)
@@ -72,17 +74,21 @@ android {
     }
     
     // Configuración para permisos de tiempo de ejecución
-    packagingOptions {
-        pickFirsts += "**/libc++_shared.so"
-        pickFirsts += "**/libjsc.so"
-        excludes += "META-INF/DEPENDENCIES"
-        excludes += "META-INF/LICENSE"
-        excludes += "META-INF/LICENSE.txt"
-        excludes += "META-INF/license.txt"
-        excludes += "META-INF/NOTICE"
-        excludes += "META-INF/NOTICE.txt"
-        excludes += "META-INF/notice.txt"
-        excludes += "META-INF/ASL2.0"
+    packaging {
+        jniLibs {
+            pickFirsts += "**/libc++_shared.so"
+            pickFirsts += "**/libjsc.so"
+        }
+        resources {
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/license.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/notice.txt"
+            excludes += "META-INF/ASL2.0"
+        }
     }
 }
 

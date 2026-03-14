@@ -125,7 +125,7 @@ class _LoginContent extends StatelessWidget {
             ),
             const LoginWithGoogle(),
             // Botón para probar Pigeon - obtener info del dispositivo
-            _TestDeviceInfoButton(),
+            const _TestDeviceInfoButton(),
             Row(
               children: [
                 const AppText(text: '¿No tienes cuenta?', fontSize: AppSpacing.md),
