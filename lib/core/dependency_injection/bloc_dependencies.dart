@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:goncook/core/dependency_inversion/dependencies.dart';
+import 'package:goncook/core/dependency_injection/dependencies.dart';
 
 /// Lista de BLoCs globales de la aplicación
 /// Centraliza la inyección de dependencias de BLoCs a nivel de aplicación.

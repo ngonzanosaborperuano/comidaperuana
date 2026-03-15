@@ -328,3 +328,6 @@ tests.output
 # - Usar 'flutter pub run build_runner build' para generar archivos
 # - Verificar que no se incluyan archivos .g.dart en commits
 # - Mantener actualizado el .gitignore según nuevas dependencias
+
+# FVM Version Cache
+.fvm/
