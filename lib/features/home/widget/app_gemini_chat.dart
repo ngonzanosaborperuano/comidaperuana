@@ -18,11 +18,12 @@ class _AppGeminiChatState extends State<AppGeminiChat> {
     super.initState();
     model = init();
   }
-
+@Deprecated('Use the new Remote Config Service')
+/// Servicio para obtener los valores de las variables de configuración desde Firebase Remote Config.
   GenerativeModel init() {
     return FirebaseAI.googleAI(
       appCheck: FirebaseAppCheck.instance,
-    ).generativeModel(model: 'gemini-2.0-flash');
+    ).generativeModel(model: 'gemini-2.5-flash');
   }
 
   @override

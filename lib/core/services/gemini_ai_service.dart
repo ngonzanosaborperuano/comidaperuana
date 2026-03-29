@@ -19,14 +19,23 @@ class GeminiAIService {
   );
   final RemoteConfigService _configService;
 
-  /// Obtiene el cliente de AI (Vertex AI o Google AI) según la configuración.
-  ///
-  /// Vertex AI requiere:
-  /// 1. Facturación habilitada en Google Cloud
-  /// 2. API de Vertex AI habilitada
-  /// 3. Configuración de location (ej: "us-central1")
-  ///
-  /// Google AI es gratuito pero tiene limitaciones.
+  // Debe identificar si es development o production para usar el modelo correcto
+  String _resolveModelName(String modelName) {
+    final useVertexAI =
+        _configService.getString("use_vertex_ai").toLowerCase() == "true";
+    if (!useVertexAI) return modelName;
+    switch (modelName) {      
+      case 'gemini-2.5-flash':
+        // Preview puede no estar disponible; usar gemini-2.5-flash estable
+        log(
+          'Hambiente de desarrollo, usando gemini-2.5-flash',
+        );
+        return 'gemini-2.5-flash';
+      default:
+        return modelName;
+    }
+  }
+
   FirebaseAI _getAIClient() {
     final useVertexAI = _configService.getString("use_vertex_ai").toLowerCase() == "true";
 
@@ -250,7 +259,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
         // maxOutputTokens: 256,
@@ -285,7 +294,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       systemInstruction: Content.system(systemInstructions),
       safetySettings: safetySettings,
       generationConfig: GenerationConfig(
@@ -317,7 +326,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       safetySettings: safetySettings,
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
@@ -352,7 +361,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       systemInstruction: Content.system(systemInstructions),
       safetySettings: safetySettings,
       generationConfig: GenerationConfig(
@@ -377,7 +386,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       systemInstruction: Content.system(systemInstructions),
       generationConfig: GenerationConfig(
         responseMimeType: 'application/json',
@@ -407,7 +416,7 @@ class GeminiAIService {
 
     final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: vertexLocation)
         .imagenModel(
-          model: modelName,
+          model: _resolveModelName(modelName),
           safetySettings: imagenSafetySettings,
           generationConfig: ImagenGenerationConfig(
             numberOfImages: 1,
@@ -439,7 +448,7 @@ class GeminiAIService {
 
     final model = FirebaseAI.vertexAI(appCheck: FirebaseAppCheck.instance, location: vertexLocation)
         .imagenModel(
-          model: modelName,
+          model: _resolveModelName(modelName),
           safetySettings: imagenSafetySettings,
           generationConfig: ImagenGenerationConfig(
             numberOfImages: 4,
@@ -474,7 +483,7 @@ class GeminiAIService {
 
     final ai = _getAIClient();
     final model = ai.generativeModel(
-      model: modelName,
+      model: _resolveModelName(modelName),
       systemInstruction: Content.system(systemInstructions),
     );
 

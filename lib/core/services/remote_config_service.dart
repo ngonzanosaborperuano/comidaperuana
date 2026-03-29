@@ -1,5 +1,7 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
+@Deprecated('Use the new Remote Config Service')
+/// Servicio para obtener los valores de las variables de configuración desde Firebase Remote Config.
 class RemoteConfigService {
   final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
 
@@ -11,8 +13,9 @@ class RemoteConfigService {
       ),
     );
 
+
     _remoteConfig.setDefaults(const {
-      "model_name": "gemini-2.0-flash",
+      "model_name": "gemini-2.5-flash",
       "system_instructions":
           "¡Eres un asistente útil que sabe todo lo que hay que saber sobre recetas de comida!",
       "prompt": "",
