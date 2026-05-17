@@ -17,7 +17,6 @@ unlinked_spec.ds
 .env
 .env.*
 !.env.example
-**/dynatrace-ids.json
 **/secrets.json
 
 # Flutter generated files and caches

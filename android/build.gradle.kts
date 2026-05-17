@@ -1,26 +1,9 @@
-plugins {
-    id("com.dynatrace.instrumentation") version "8.331.1.1004"
-}
-extra["dynatrace.instrumentationFlavor"] = "flutter"
-dynatrace {
-    configurations {
-        create("defaultConfig") {
-            autoStart{
-                applicationId("c83c5ac6-902b-4f26-94e7-4a3fc2746f5d")
-                beaconUrl("https://bf87797vgl.bf.dynatrace.com/mbeacon")
-            }
-            userOptIn(true)
-            agentBehavior.startupLoadBalancing(true)
-            agentBehavior.startupWithGrailEnabled(true)
-        }
-    }
-}
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
-    
+
     dependencies {
         classpath("com.google.gms:google-services:4.4.0")
     }

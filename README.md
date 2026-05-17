@@ -108,13 +108,6 @@ gemini
 
 
 ============================================
-DynaTrace
-============================================
-usuario: niltongr@outlook.com
-pass: ArCV2GwDFdrFRgC
-dart run dynatrace_flutter_plugin
-
-============================================
 Tus códigos de verificación alternativos - Google cuenta
 ============================================
 7137 8803

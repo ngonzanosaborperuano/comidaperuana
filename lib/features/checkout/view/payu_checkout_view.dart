@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
 import 'package:goncook/common/widget/widget.dart';
 import 'package:goncook/core/extension/extension.dart';
@@ -10,19 +7,24 @@ import 'package:goncook/core/services/payu_service.dart';
 import 'package:goncook/features/checkout/data/models/payu_checkout_response_model.dart';
 import 'package:goncook/features/checkout/view/page_success_view.dart' show PageSuccess;
 import 'package:goncook/features/checkout/widget/widget.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class PayUCheckoutWebView extends StatefulWidget {
   final String checkoutUrl;
   final Map<String, String> checkoutData;
 
-  const PayUCheckoutWebView({super.key, required this.checkoutUrl, required this.checkoutData});
+  const PayUCheckoutWebView({
+    super.key,
+    required this.checkoutUrl,
+    required this.checkoutData,
+  });
 
   @override
   State<PayUCheckoutWebView> createState() => _PayUCheckoutWebViewState();
 }
 
 class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
-  InAppWebViewController? _controller;
+  WebViewController? _webController;
   double progress = 0;
   late PayuCheckoutResponseModel responsePayU;
   bool _isSuccess = false;
@@ -33,10 +35,19 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
+  Future<void> _reloadCheckout() async {
+    final WebViewController? c = _webController;
+    if (c == null) {
+      return;
+    }
+    await c.loadRequest(
+      Uri.parse(widget.checkoutUrl),
+      method: LoadRequestMethod.post,
+      headers: const <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: encodePayuCheckoutBody(widget.checkoutData),
+    );
   }
 
   @override
@@ -47,19 +58,25 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
             content: Text(context.loc.subscriptionSuccessContent),
             confirmLabel: context.loc.goHome,
             onConfirm: () {
-              if (context.mounted) context.replace(Routes.home.description);
+              if (context.mounted) {
+                context.replace(Routes.home.description);
+              }
             },
           )
         : CheckoutInterface(
             checkoutUrl: widget.checkoutUrl,
             checkoutData: widget.checkoutData,
             progress: progress,
-            onProgressChanged: (p) {
+            onControllerReady: (WebViewController c) {
+              _webController = c;
+            },
+            onProgressChanged: (double p) {
               progress = p / 100.0;
               setState(() {});
             },
-            onPaymentSuccess: (responsePayU, params) async {
-              await Future.delayed(const Duration(milliseconds: 3000), () {
+            onPaymentSuccess:
+                (PayuCheckoutResponseModel responsePayU, Map<String, String> params) async {
+              await Future<void>.delayed(const Duration(milliseconds: 3000), () {
                 _processPaymentResult(
                   transactionState: responsePayU.transactionState!,
                   referenceCode: responsePayU.referenceCode ?? '',
@@ -82,8 +99,8 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
     Map<String, String>? additionalData,
   }) async {
     try {
-      final payuService = PayUService();
-      final success = await payuService.processPaymentResponse(
+      final PayUService payuService = PayUService();
+      final bool success = await payuService.processPaymentResponse(
         referenceCode: referenceCode,
         transactionState: transactionState,
         transactionId: transactionId,
@@ -117,21 +134,23 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
       default:
         message = 'Estado del pago: $transactionState';
     }
-    showDialog(
+    showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         icon: Icon(
           transactionState == '7' ? Icons.schedule : Icons.error,
           color: transactionState == '7' ? Colors.orange : Colors.red,
           size: 48,
         ),
-        title: Text(transactionState == '7' ? 'Pago Pendiente' : 'Pago Rechazado'),
+        title: Text(
+          transactionState == '7' ? 'Pago Pendiente' : 'Pago Rechazado',
+        ),
         content: Text(message),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () {
               context
-                ..pop
+                ..pop()
                 ..pop();
             },
             child: const Text('Entendido'),
@@ -140,24 +159,7 @@ class _PayUCheckoutWebViewState extends State<PayUCheckoutWebView> {
             ElevatedButton(
               onPressed: () {
                 context.pop();
-                setState(() {
-                  _controller?.loadUrl(
-                    urlRequest: URLRequest(
-                      url: WebUri(widget.checkoutUrl),
-                      method: 'POST',
-                      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                      body: Uint8List.fromList(
-                        widget.checkoutData.entries
-                            .map(
-                              (e) =>
-                                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
-                            )
-                            .join('&')
-                            .codeUnits,
-                      ),
-                    ),
-                  );
-                });
+                _reloadCheckout();
               },
               child: const Text('Intentar de Nuevo'),
             ),
